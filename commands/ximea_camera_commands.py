@@ -1,7 +1,7 @@
 from typing import Optional
 
 from .command import Command
-from ..ximea_camera import XimeaCamera
+from devices.ximea_camera import XimeaCamera
 
 
 class XimeaCameraParentCommand(Command):

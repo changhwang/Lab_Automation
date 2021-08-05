@@ -1,5 +1,5 @@
 from .command import Command
-from ..heating_stage import HeatingStage
+from devices.heating_stage import HeatingStage
 
 #parent class for all HeatingStage commands
 class HeatingStageParentCommand(Command):

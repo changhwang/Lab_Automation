@@ -1,5 +1,5 @@
 from .command import Command
-from ..multi_stepper import MultiStepper
+from devices.multi_stepper import MultiStepper
 
 
 #parent class for all MultiStepper commands

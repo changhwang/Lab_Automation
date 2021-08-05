@@ -1,7 +1,7 @@
 from typing import Tuple, Optional
 
 from .command import Command
-from ..stellarnet_spectrometer import StellarNetSpectrometer
+from devices.stellarnet_spectrometer import StellarNetSpectrometer
 
 class SpectrometerParentCommand(Command):
     receiver_cls = StellarNetSpectrometer

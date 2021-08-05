@@ -1,5 +1,5 @@
 from .command import Command, CompositeCommand
-from ..newport_esp301 import NewportESP301
+from devices.newport_esp301 import NewportESP301
 from typing import Optional
 
 # Parent class, subclass from Command ABC

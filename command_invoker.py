@@ -7,7 +7,7 @@ import os
 import slack
 from slack.errors import SlackApiError
 
-from devices.commands.command import Command
+from commands.command import Command
 
 
 format = '[%(asctime)s] [%(levelname)-5s]: %(message)s'

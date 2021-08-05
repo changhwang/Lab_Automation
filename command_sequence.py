@@ -3,7 +3,7 @@ import yaml
 from yaml.representer import Representer
 from abc import ABCMeta
 
-from devices.commands.command import Command
+from commands.command import Command
 
 
 Representer.add_representer(ABCMeta, Representer.represent_name)

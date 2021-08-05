@@ -78,14 +78,14 @@ class CompositeCommand(Command):
     def execute(self) -> None:
         for command in self._command_list:
             command.execute()
-            if not command._was_successful:
-                self._was_successful = command._was_successful
-                self._result_message = command._result_message
+            if not command.was_successful:
+                self._was_successful = command.was_successful
+                self._result_message = command.result_message
                 return 
             else:
                 # update success and message of the composite command
-                self._was_successful = command._was_successful
-                self._result_message = command._result_message
+                self._was_successful = command.was_successful
+                self._result_message = command.result_message
         # store the success of the last command 
         # or write a new message specific to the composite command
         # self._result_message = "Successfully executed composite command " + type(self).__name__

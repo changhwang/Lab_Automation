@@ -4,8 +4,13 @@ import logging
 import time
 import os
 
-import slack
-from slack.errors import SlackApiError
+try:
+    import slack
+    from slack.errors import SlackApiError
+except ImportError:
+    _has_slack = False
+else:
+    _has_slack = True
 
 from commands.command import Command
 
@@ -21,13 +26,14 @@ class CommandInvoker:
     def __init__(
             self, 
             command_list: Tuple[Command, ...], 
-            delay_list: Tuple[Union[float, str], ...],
             is_logging_to_file: bool = True, 
             log_filename: Optional[str] = None,
             is_alerting_slack: bool = False) -> None:
+
+        if not _has_slack and is_alerting_slack:
+            raise ImportError("slackclient module is required to alert slack.")
             
         self._command_list = command_list
-        self._delay_list = delay_list
         self._is_logging_to_file = is_logging_to_file
         self._is_alerting_slack = is_alerting_slack
         self._log_filename = log_filename
@@ -93,12 +99,12 @@ class CommandInvoker:
         self.log_command_names()
         self.log.info("="*10 + "BEGINNING OF COMMAND SEQUENCE EXECUTION" + "="*10)
         for ndx, command in enumerate(self._command_list):
-            delay = self._delay_list[ndx]
+            delay = command.delay
             if type(delay) is float or type(delay) is int:
                 if delay > 0.0:
                     self.log.info("DELAY -> " + str(delay))
                     time.sleep(delay)
-            elif delay == "PAUSE":
+            elif delay == "PAUSE" or delay == "P":
                 self.log.info("DELAY -> Waiting for user to press enter")
                 print('')
                 print("Press ENTER to continue, type 'quit' to terminate execution immediately:")

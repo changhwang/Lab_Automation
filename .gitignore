@@ -1,7 +1,10 @@
 questionary_test.py
 testing/
 yamltest/
+
 recipes/
+examples/
+command_list_1.py
 
 # Below from https://github.com/github/gitignore/blob/master/Python.gitignore
 # Byte-compiled / optimized / DLL files

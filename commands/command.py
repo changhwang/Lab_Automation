@@ -11,10 +11,11 @@ from typing import Optional
 
 class Command(ABC):
     @abstractmethod
-    def __init__(self):
+    def __init__(self, delay: float = 0.0):
         # no receiver here because each subclass will type hint the specific receiver class in its contructor 
         self._was_successful = None
         self._result_message = None
+        self.delay = delay
 
     # definitely enforce return None for execute()
     @abstractmethod
@@ -43,8 +44,8 @@ class Command(ABC):
 
 
 class CompositeCommand(Command):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self._name = "CompositeCommand"
         self._receiver_name = "N/A temp"
         self._command_list = []

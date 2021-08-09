@@ -6,8 +6,8 @@ from typing import Optional
 class NewportESP301ParentCommand(Command):
     receiver_cls = NewportESP301
 
-    def __init__(self, receiver: NewportESP301):
-        super().__init__()
+    def __init__(self, receiver: NewportESP301, **kwargs):
+        super().__init__(**kwargs)
         self._receiver = receiver
         self._receiver_name = receiver.name
 
@@ -15,8 +15,8 @@ class NewportESP301ParentCommand(Command):
 class NewportESP301Connect(NewportESP301ParentCommand):
     cls_description = "Open the serial port to the ESP301 controller."
 
-    def __init__(self, receiver: NewportESP301):
-        super().__init__(receiver)
+    def __init__(self, receiver: NewportESP301, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._name = type(self).__name__ + " " + self._receiver_name
         self._description = type(self).cls_description + " Name: " + self._receiver_name
 
@@ -26,8 +26,8 @@ class NewportESP301Connect(NewportESP301ParentCommand):
 class NewportESP301Initialize(NewportESP301ParentCommand):
     cls_description = "Initialize the axes by homing them."
     
-    def __init__(self, receiver: NewportESP301):
-        super().__init__(receiver)
+    def __init__(self, receiver: NewportESP301, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._name = type(self).__name__ + " " + self._receiver_name
         self._description = type(self).cls_description + " Name: " + self._receiver_name
 
@@ -37,8 +37,8 @@ class NewportESP301Initialize(NewportESP301ParentCommand):
 class NewportESP301Deinitialize(NewportESP301ParentCommand):
     cls_description = "Deinitialize the axes by moving them to position zero."
     
-    def __init__(self, receiver: NewportESP301, reset_init_flag: bool = True):
-        super().__init__(receiver)
+    def __init__(self, receiver: NewportESP301, reset_init_flag: bool = True, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._reset_init_flag = reset_init_flag
         self._name = type(self).__name__ + " " + self._receiver_name
         self._description = type(self).cls_description + " Name: " + self._receiver_name
@@ -50,8 +50,8 @@ class NewportESP301Deinitialize(NewportESP301ParentCommand):
 class NewportESP301MoveSpeedAbsolute(NewportESP301ParentCommand):
     cls_description = "Move axis to absolute position at specific speed (No speed uses default speed)."
     
-    def __init__(self, receiver: NewportESP301, position: float, speed: Optional[float] = None, axis_number: int = 1):
-        super().__init__(receiver)
+    def __init__(self, receiver: NewportESP301, position: float, speed: Optional[float] = None, axis_number: int = 1, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._position = position
         self._speed = speed
         self._axis_number = axis_number
@@ -64,8 +64,8 @@ class NewportESP301MoveSpeedAbsolute(NewportESP301ParentCommand):
 class NewportESP301MoveSpeedRelative(NewportESP301ParentCommand):
     cls_description = "Move axis by relative distance at specific speed (No speed uses default speed)."
     
-    def __init__(self, receiver: NewportESP301, distance: float, speed: Optional[float] = None, axis_number: int = 1):
-        super().__init__(receiver)
+    def __init__(self, receiver: NewportESP301, distance: float, speed: Optional[float] = None, axis_number: int = 1, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._distance = distance
         self._speed = speed
         self._axis_number = axis_number
@@ -79,8 +79,8 @@ class NewportESP301MoveSpeedRelative(NewportESP301ParentCommand):
 class NewportESP301SetDefaultSpeed(NewportESP301ParentCommand):
     cls_description = "Set the default speed of the axes."
     
-    def __init__(self, receiver: NewportESP301, speed: float):
-        super().__init__(receiver)
+    def __init__(self, receiver: NewportESP301, speed: float, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._speed = speed
         self._name = type(self).__name__ + " " + self._receiver_name + " " + str(self._speed)
         self._description = type(self).cls_description + " Name: " + self._receiver_name + " Speed: " + str(self._speed)
@@ -96,7 +96,7 @@ class NewportESP301SetDefaultSpeed(NewportESP301ParentCommand):
 
 # Just for testing composite commands
 class NewportESP301Dance(CompositeCommand):
-    def __init__(self, receiver, speed, distance):
-        super().__init__()
+    def __init__(self, receiver, speed, distance, **kwargs):
+        super().__init__(**kwargs)
         self.add_command(NewportESP301MoveSpeedRelative(receiver, -distance, speed))
         self.add_command(NewportESP301MoveSpeedRelative(receiver, distance, speed))

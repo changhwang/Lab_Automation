@@ -6,15 +6,16 @@ from devices.stellarnet_spectrometer import StellarNetSpectrometer
 class SpectrometerParentCommand(Command):
     receiver_cls = StellarNetSpectrometer
 
-    def __init__(self, receiver: StellarNetSpectrometer):
+    def __init__(self, receiver: StellarNetSpectrometer, **kwargs):
+        super().__init__(**kwargs)
         self._receiver = receiver
         self._receiver_name = receiver.name
 
 class SpectrometerInitialize(SpectrometerParentCommand):
     cls_description = "Initialize spectrometer by verifying connection and getting each spectrometer object and wavelength array. "
 
-    def __init__(self, receiver: StellarNetSpectrometer):
-        super().__init__(receiver)
+    def __init__(self, receiver: StellarNetSpectrometer, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._name = type(self).__name__ + " " + self._receiver_name
         self._description = type(self).cls_description + " Name: " + self._receiver_name
 
@@ -24,8 +25,8 @@ class SpectrometerInitialize(SpectrometerParentCommand):
 class SpectrometerDeinitialize(SpectrometerParentCommand):
     cls_description = "Deinitialize the spectrometer, currently does nothing. "
 
-    def __init__(self, receiver: StellarNetSpectrometer, reset_init_flag: bool = True):
-        super().__init__(receiver)
+    def __init__(self, receiver: StellarNetSpectrometer, reset_init_flag: bool = True, **kwargs):
+        super().__init__(receiver, **kwargs)
         self._reset_init_flag = reset_init_flag
         self._name = type(self).__name__ + " " + self._receiver_name
         self._description = type(self).cls_description + " Name: " + self._receiver_name
@@ -41,8 +42,9 @@ class SpectrometerUpdateDark(SpectrometerParentCommand):
             receiver: StellarNetSpectrometer, 
             integration_times: Tuple[int, ...] = (100, 100), 
             scans_to_avg: Tuple[int, ...] = (3, 3), 
-            smoothings: Tuple[int, ...] = (0, 0)):
-        super().__init__(receiver)
+            smoothings: Tuple[int, ...] = (0, 0), 
+            **kwargs):
+        super().__init__(receiver, **kwargs)
         self._integration_times = integration_times
         self._scans_to_avg = scans_to_avg
         self._smoothings = smoothings
@@ -60,8 +62,9 @@ class SpectrometerUpdateBlank(SpectrometerParentCommand):
             receiver: StellarNetSpectrometer, 
             integration_times: Tuple[int, ...] = (100, 100), 
             scans_to_avg: Tuple[int, ...] = (3, 3), 
-            smoothings: Tuple[int, ...] = (0, 0)):
-        super().__init__(receiver)
+            smoothings: Tuple[int, ...] = (0, 0), 
+            **kwargs):
+        super().__init__(receiver, **kwargs)
         self._integration_times = integration_times
         self._scans_to_avg = scans_to_avg
         self._smoothings = smoothings
@@ -81,8 +84,9 @@ class SpectrometerGetAbsorbance(SpectrometerParentCommand):
             filename: Optional[str] = None,
             integration_times: Tuple[int, ...] = (100, 100), 
             scans_to_avg: Tuple[int, ...] = (3, 3), 
-            smoothings: Tuple[int, ...] = (0, 0)):
-        super().__init__(receiver)
+            smoothings: Tuple[int, ...] = (0, 0), 
+            **kwargs):
+        super().__init__(receiver, **kwargs)
         self._save_to_file = save_to_file
         self._filename = filename
         self._integration_times = integration_times

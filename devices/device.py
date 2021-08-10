@@ -9,6 +9,7 @@ import time
 
 class Device(ABC):
     """The Device abstract base class that contains attributes that all devices/receivers should have."""
+
     def __init__(self, name: str):
         self._name = name
         self._is_initialized = False
@@ -57,6 +58,7 @@ class Device(ABC):
 
 class SerialDevice(Device):
     """A Device that uses serial communication."""
+
     def __init__(self, name: str, port: str, baudrate: int, timeout: Optional[float] = 1.0):
         super().__init__(name)
         self._port = port
@@ -117,6 +119,7 @@ class SerialDevice(Device):
 
 class ArduinoSerialDevice(SerialDevice):
     """An arduino serial device that implements the custom ACK/NACK/SUCC/FAIL communication protocol."""
+
     char_ACK = "ACK"
     char_SUCC = "SUCC"
     char_delimiter = ":"

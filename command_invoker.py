@@ -158,12 +158,12 @@ class CommandInvoker:
             print("")
 
     def alert_slack(self, command: Command):
-        """Attempt to send a, error message to a designated slack channel.
+        """Attempt to send an error message to a designated slack channel.
 
         Parameters
         ----------
         command : Command
-            The command that failed its execution which the invoker passes to this function.
+            The command that failed its execution.
         """
         try:
             response = self._slack_client.chat_postMessage(
@@ -174,18 +174,16 @@ class CommandInvoker:
                     "See log file \"" + str(self._log_filename) + "\" for more details.")
                     )  
         except SlackApiError as inst:
-            # You will get a SlackApiError if "ok" is False
             self.log.error("Could not send message to slack: " + inst.response['error'])
-            # assert inst.response["error"]  # str like 'invalid_auth', 'channel_not_found'
 
 
 # experiment name, id
-#is logging, log file, delay between commands, or delay list
+# is logging, log file, delay between commands, or delay list
 # delay list can have a value like -1 or a str to indicate that 
 # we wait for user input before proceeding or type quit to terminate early 
 # this could also be implemented as a Command that waits for input and returns
 #  consider also ctrl c exception termination, safely terminate and log
-#invoker observer/inspecter for more complex bookkeeping?
+# invoker observer/inspecter for more complex bookkeeping?
 
 # for params such as experiment name, id, logfile, should these be passed to the invoker constructor OR to the invoke_command method
 

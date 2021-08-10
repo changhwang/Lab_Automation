@@ -2,7 +2,6 @@ from .command import Command
 from devices.multi_stepper import MultiStepper
 
 
-#parent class for all MultiStepper commands
 class MultiStepperParentCommand(Command):
     receiver_cls = MultiStepper
 
@@ -16,7 +15,6 @@ class MultiStepperConnect(MultiStepperParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        # the serial port parameters should already be set in the StepperLinear instance
         self._was_successful, self._result_message = self._receiver.start_serial()
         
 class MultiStepperInitialize(MultiStepperParentCommand):

@@ -9,6 +9,8 @@ from devices.device import Device
 # incorporate the delay param here and subsequent child classes can alter it in their constructor by using **kwargs to pass it up, see kwargtest.py
 # Could do 2 dictionaries, 1 for the command and 1 for the args needed within command's execute, the second one could be simply passed to receiver methods through unpacking **dict
 class Command(ABC):
+    """The Command abstract base class which acts as an interface for other objects that use commands."""
+
     @abstractmethod
     def __init__(self, receiver: Device, delay: float = 0.0):
         # Child classes will still have 'receiver' in their signature (separate from **kwargs) because I want the IDE to hint at the specific receiver class
@@ -23,10 +25,18 @@ class Command(ABC):
     # definitely enforce return None for execute()
     @abstractmethod
     def execute(self) -> None:
+        """Execute abstract method from which all commands implement; accepts no arguments and returns None."""
         pass
 
     @property
     def name(self) -> str:
+        """The command's name getter.
+
+        Returns
+        -------
+        str
+            Returns the command's class name followed by its parameters.
+        """
         self._name = type(self).__name__
         for key, value in self._params.items():
             if not key == 'delay':
@@ -36,23 +46,42 @@ class Command(ABC):
         return self._name
 
     @property
-    def receiver_name(self) -> str:
-        return self._receiver_name
-
-    @property
     def description(self) -> str:
+        """The command's description getter.
+
+        Returns
+        -------
+        str
+            Returns the command's docstring
+        """
         return self.__doc__
 
     @property
     def was_successful(self) -> Optional[bool]:
+        """Whether the command's execution was successful or not.
+
+        Returns
+        -------
+        Optional[bool]
+            Returns True if the command's execution was successful, otherwise False. Initialized with None.
+        """
         return self._was_successful
 
     @property
     def result_message(self) -> Optional[str]:
+        """A message describing the result of the command's execution
+
+        Returns
+        -------
+        Optional[str]
+            Returns a string describing the result of the command's execution and details if it failed.
+        """
         return self._result_message
 
 
 class CompositeCommand(Command):
+    """A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially."""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self._name = "CompositeCommand"
@@ -61,31 +90,59 @@ class CompositeCommand(Command):
 
     @property
     def name(self) -> str:
+        """The composite command's name getter.
+
+        Returns
+        -------
+        str
+            Indicates it is a composite command followed by the names and params of each command it contains.
+        """
         self._name = "CompositeCommand:"
         for command in self._command_list:
             self._name += " " + command.name + ";"
         return self._name
 
     @property
-    def receiver_name(self) -> str:
-        return self._receiver_name
-
-    @property
     def description(self) -> str:
-        return self.name
+        """The composite command's description getter.
+
+        Returns
+        -------
+        str
+            Returns the composite command's docstring
+        """
+        return self.__doc__
 
     def add_command(self, command: Command, index: int = None):
+        """Add a command to the command list.
+
+        Parameters
+        ----------
+        command : Command
+            Any command that subclasses from Command
+        index : int, optional
+            The index to insert the command, if None then the command is appended, by default None
+        """
         if index is None:
             self._command_list.append(command)
         else: 
             self._command_list.insert(index, command)
 
     def remove_command(self, index: int = None):
+        """Remove a command from the command list.
+
+        Parameters
+        ----------
+        index : int, optional
+            The index of the command to remove, if None then removes the last command, by default None
+        """
         if index is None:
             index = -1
         del self._command_list[index]
 
     def execute(self) -> None:
+        """Executes each command in the command list sequentially and returns early if a command's execution was not successful."""
+        
         for command in self._command_list:
             command.execute()
             if not command.was_successful:

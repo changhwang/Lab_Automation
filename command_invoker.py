@@ -19,7 +19,7 @@ format = '[%(asctime)s] [%(levelname)-5s]: %(message)s'
 log_formatter = logging.Formatter(format)
 logging.basicConfig(level=logging.INFO, format=format)
 
-
+# renamed? log_to_file, alert_slack
 class CommandInvoker:
     log_directory = "logs/"
 
@@ -58,30 +58,40 @@ class CommandInvoker:
             self._slack_client = slack.WebClient(token=self._slack_token)
 
     def list_command_names(self):
+        """Print out the names and parameters of each command in the command list.
+        """
         print('='*10 + "List of Command Names" + "="*10)
         for command in self._command_list:
             print(command.name)
         print('='*10 + "End of Command Names" + "="*10)
     
     def log_command_names(self):
+        """Log the names and parameters of each command in the command list.
+        """
         self.log.info('='*10 + "List of Command Names" + "="*10)
         for command in self._command_list:
             self.log.info(command.name)
         self.log.info('='*10 + "End of Command Names" + "="*10)
 
     def list_command_descriptions(self):
+        """Print out the descriptions (docstrings) of each command in the command list.
+        """
         print('='*10 + "List of Command Descriptions" + "="*10)
         for command in self._command_list:
             print(command.description)
         print('='*10 + "End of Command Descriptions" + "="*10)
 
     def log_command_descriptions(self):
+        """Log the descriptions (docstrings) of each command in the command list.
+        """
         self.log.info('='*10 + "List of Command Descriptions" + "="*10)
         for command in self._command_list:
             self.log.info(command.description)
         self.log.info('='*10 + "End of Command Descriptions" + "="*10)
 
     def list_command_names_descriptions(self):
+        """Print out the names, parameters, and descriptions of each command in the command list.
+        """
         print('='*10 + "List of Command Names/Descriptions" + "="*10)
         for command in self._command_list:
             print("Name: " + command.name)
@@ -89,6 +99,8 @@ class CommandInvoker:
         print('='*10 + "End of Command Names/Descriptions" + "="*10)
 
     def log_command_names_descriptions(self):
+        """Log the names, parameters, and descriptions of each command in the command list.
+        """
         self.log.info('='*10 + "List of Command Names/Descriptions" + "="*10)
         for command in self._command_list:
             self.log.info("Name: " + command.name)
@@ -96,6 +108,8 @@ class CommandInvoker:
         self.log.info('='*10 + "End of Command Names/Descriptions" + "="*10)
 
     def invoke_commands(self):
+        """Iterate through the command list and execute each command.
+        """
         self.log_command_names()
         self.log.info("="*10 + "BEGINNING OF COMMAND SEQUENCE EXECUTION" + "="*10)
         # Start command list execution
@@ -144,6 +158,13 @@ class CommandInvoker:
             print("")
 
     def alert_slack(self, command: Command):
+        """Attempt to send a, error message to a designated slack channel.
+
+        Parameters
+        ----------
+        command : Command
+            The command that failed its execution which the invoker passes to this function.
+        """
         try:
             response = self._slack_client.chat_postMessage(
                 channel="printer-bot-test",

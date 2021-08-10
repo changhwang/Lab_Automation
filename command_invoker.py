@@ -98,8 +98,10 @@ class CommandInvoker:
     def invoke_commands(self):
         self.log_command_names()
         self.log.info("="*10 + "BEGINNING OF COMMAND SEQUENCE EXECUTION" + "="*10)
+        # Start command list execution
         for ndx, command in enumerate(self._command_list):
-            delay = command.delay
+            # Process the command's delay
+            delay = command._params['delay']
             if type(delay) is float or type(delay) is int:
                 if delay > 0.0:
                     self.log.info("DELAY -> " + str(delay))
@@ -115,8 +117,11 @@ class CommandInvoker:
                 else:
                     self.log.info("DELAY -> User continued command execution")
 
+            # Execute the command
             self.log.info("COMMAND -> " + command.name)
             command.execute()
+
+            # Check result
             if command.was_successful:
                 self.log.info("RESULT  -> " + str(command.was_successful) + ", " + command.result_message)
             else:
@@ -126,6 +131,7 @@ class CommandInvoker:
                     self.log.info("Sending command details to slack.")
                     self.alert_slack(command)
                 break
+        # Finished command list execution
         self.log.info("="*10 + "END OF COMMAND SEQUENCE EXECUTION" + "="*16)
         self.log.info("")
         if self._is_logging_to_file:

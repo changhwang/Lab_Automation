@@ -5,6 +5,7 @@ yamltest/
 recipes/
 examples/
 command_list_1.py
+test.yaml
 
 # Below from https://github.com/github/gitignore/blob/master/Python.gitignore
 # Byte-compiled / optimized / DLL files

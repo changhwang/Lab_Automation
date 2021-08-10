@@ -1,21 +1,24 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-
-
+from devices.device import Device
 
 
 # TODO
 # for the name and description that is unique to each command, it is easier to just use a dictionary and use that instead of rewriting for each command
 # then each init will just add each arg to the dictionary (except for name? parent can add name to dict) then name and desc can be set by calling super() after filling the arg dict
 # incorporate the delay param here and subsequent child classes can alter it in their constructor by using **kwargs to pass it up, see kwargtest.py
-
+# Could do 2 dictionaries, 1 for the command and 1 for the args needed within command's execute, the second one could be simply passed to receiver methods through unpacking **dict
 class Command(ABC):
     @abstractmethod
-    def __init__(self, delay: float = 0.0):
-        # no receiver here because each subclass will type hint the specific receiver class in its contructor 
+    def __init__(self, receiver: Device, delay: float = 0.0):
+        # Child classes will still have 'receiver' in their signature (separate from **kwargs) because I want the IDE to hint at the specific receiver class
+        # delay will be passed up through **kwargs as it is an secondary parameter for all commands 
+        self._receiver = receiver
+        self._params = {}
+        self._params['receiver_name'] = receiver.name
+        self._params['delay'] = delay
         self._was_successful = None
-        self._result_message = None
-        self.delay = delay
+        self._result_message = None        
 
     # definitely enforce return None for execute()
     @abstractmethod
@@ -24,6 +27,12 @@ class Command(ABC):
 
     @property
     def name(self) -> str:
+        self._name = type(self).__name__
+        for key, value in self._params.items():
+            if not key == 'delay':
+                self._name += " " + key + "=" + str(value)
+        # I just want delay to be always be last when displayed
+        self._name += " " + 'delay=' + str(self._params['delay'])
         return self._name
 
     @property
@@ -32,7 +41,7 @@ class Command(ABC):
 
     @property
     def description(self) -> str:
-        return self._description
+        return self.__doc__
 
     @property
     def was_successful(self) -> Optional[bool]:

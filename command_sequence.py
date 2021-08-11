@@ -1,4 +1,4 @@
-from typing import Type, Optional, List, Union
+from typing import Type, Optional, List, Union, Generator
 import yaml
 from yaml.representer import Representer
 from abc import ABCMeta
@@ -6,6 +6,7 @@ from abc import ABCMeta
 from commands.command import Command
 from devices.device import Device
 from commands.utility_commands import LoopStartCommand, LoopEndCommand
+
 
 # Representer.add_representer(ABCMeta, Representer.represent_name)
 
@@ -113,7 +114,20 @@ class CommandSequence:
             self.device_by_name[device.name] = device
 
     def get_unlooped_command_list(self) -> List[Command]:
-        unlooped_list = []
+        unlooped_list= []
+        command_generator = self.yield_next_command()
+        for command in command_generator:
+            unlooped_list.append(command)
+        return unlooped_list      
+
+    def yield_next_command(self) -> Generator[Command, None, None]:
+        # originally used this function to pre-process the whole unlooped list
+        # changed to generator that yields next command
+        # if the whole unlooped list is wanted then get_unlooped_command_list use this function to populate a list
+        # generator is likely unnecessary but have both methods here for flexibility
+
+        #perform verify here !!!!!!!
+        # unlooped_list = []
         index = 0
         iteration = 0
         loop_start_index = None
@@ -144,13 +158,13 @@ class CommandSequence:
                     iteration = 0
                     index += 1
                     continue
-            
-            # note that even though we unlooped the list, each element is still a list containing a single command
-            unlooped_list.append([command])
-            index += 1
-        return unlooped_list
 
-    def get_max_iteration(self):
+            # unlooped_list.append([command])
+            yield command
+            index += 1
+        # return unlooped_list
+
+    def get_max_iteration(self) -> int:
         max_iter = 1
         for command in self.command_list:
             if len(command) > max_iter:
@@ -172,7 +186,52 @@ class CommandSequence:
             self.command_list = imported_list[1]
             self.num_iterations = imported_list[2]
 
+    def get_command_names(self, unloop: bool = False) -> List[str]:
+        name_list = []
+        if unloop:
+            for command in self.yield_next_command():
+                name_list.append(command.name)
+        else:
+            for command in self.command_list:
+                for iter_ndx, iter_command in enumerate(command):
+                    if iter_ndx == 0:
+                        name_list.append(iter_command.name)
+                    else:
+                        name_list.append("    Iter#" + str(iter_ndx + 1) + ": " + iter_command.name)
+        return name_list
 
+    def get_command_names_descriptions(self, unloop: bool = False) -> List[List[str]]:
+        name_desc_list = []
+        if unloop:
+            for command in self.yield_next_command():
+                name_desc_list.append(["Name: " + command.name, "Description: " + command.description])
+        else:
+            for command in self.command_list:
+                for iter_ndx, iter_command in enumerate(command):
+                    if iter_ndx == 0:
+                        name_desc_list.append(["Name: " + iter_command.name, "Description: " + iter_command.description])
+                    else:
+                        name_desc_list.append(["    Iter#" + str(iter_ndx + 1) + ": " + "Name: " + iter_command.name,
+                                                 "    Iter#" + str(iter_ndx + 1) + ": " + "Description: " + iter_command.description])
+        return name_desc_list
+
+    def print_command_names(self):
+        for name in self.get_command_names(unloop=False):
+            print(name)
+    
+    def print_unlooped_command_names(self):
+        for name in self.get_command_names(unloop=True):
+            print(name)
+
+    def print_command_names_descriptions(self):
+        for name_desc in self.get_command_names_descriptions(unloop=False):
+            print(name_desc[0])
+            print(name_desc[1])
+
+    def print_unlooped_command_names_descriptions(self):
+        for name_desc in self.get_command_names_descriptions(unloop=True):
+            print(name_desc[0])
+            print(name_desc[1])
 # Considered making loop start/end as "special" Command objects that can be added to the command list. Then the invoker will jump, etc. if it encounters one of these special commands
 # At the moment, I decided against this as it requires coding in specific dependencies for these special commands in the invoker
 # Instead the way it works right now is that the CommandSequence can have string marker elements for loop start/end in its command list and when the actual command object list is generated

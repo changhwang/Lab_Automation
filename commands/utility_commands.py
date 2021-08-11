@@ -14,6 +14,8 @@ class UtilityCommand(Command):
         self._result_message = None  
 
 class LoopStartCommand(UtilityCommand):
+    """Marks the start of a loop."""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -21,6 +23,8 @@ class LoopStartCommand(UtilityCommand):
         self._was_successful, self._result_message = (True, "Currently at loop start.")
 
 class LoopEndCommand(UtilityCommand):
+    """Marks the end of a loop."""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 

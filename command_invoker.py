@@ -13,6 +13,7 @@ else:
     _has_slack = True
 
 from commands.command import Command
+from command_sequence import CommandSequence
 
 
 format = '[%(asctime)s] [%(levelname)-5s]: %(message)s'
@@ -20,14 +21,14 @@ log_formatter = logging.Formatter(format)
 logging.basicConfig(level=logging.INFO, format=format)
 
 # renamed? log_to_file, alert_slack
-# multiple constructors to accept a command_list, a sequence, or from a yaml file
+# multiple constructors to accept a command_list, a sequence, or from a yaml file?
 
 class CommandInvoker:
     log_directory = "logs/"
 
     def __init__(
             self, 
-            command_list: Tuple[Command, ...], 
+            command_seq: CommandSequence,
             is_logging_to_file: bool = True, 
             log_filename: Optional[str] = None,
             is_alerting_slack: bool = False) -> None:
@@ -35,7 +36,7 @@ class CommandInvoker:
         if not _has_slack and is_alerting_slack:
             raise ImportError("slackclient module is required to alert slack.")
             
-        self._command_list = command_list
+        self._command_seq = command_seq
         self._is_logging_to_file = is_logging_to_file
         self._is_alerting_slack = is_alerting_slack
         self._log_filename = log_filename
@@ -59,79 +60,31 @@ class CommandInvoker:
             self._slack_token = os.environ.get('SLACK_BOT_TOKEN')
             self._slack_client = slack.WebClient(token=self._slack_token)
 
-    def list_command_names(self):
-        """Print out the names and parameters of each command in the command list.
-        """
-        print('='*10 + "List of Command Names" + "="*10)
-        for command in self._command_list:
-            print(command[0].name)
-        print('='*10 + "End of Command Names" + "="*10)
-    
-    def log_command_names(self):
-        """Log the names and parameters of each command in the command list.
-        """
-        self.log.info('='*10 + "List of Command Names" + "="*10)
-        for command in self._command_list:
-            self.log.info(command.name)
-        self.log.info('='*10 + "End of Command Names" + "="*10)
-
-    def list_command_descriptions(self):
-        """Print out the descriptions (docstrings) of each command in the command list.
-        """
-        print('='*10 + "List of Command Descriptions" + "="*10)
-        for command in self._command_list:
-            print(command.description)
-        print('='*10 + "End of Command Descriptions" + "="*10)
-
-    def log_command_descriptions(self):
-        """Log the descriptions (docstrings) of each command in the command list.
-        """
-        self.log.info('='*10 + "List of Command Descriptions" + "="*10)
-        for command in self._command_list:
-            self.log.info(command.description)
-        self.log.info('='*10 + "End of Command Descriptions" + "="*10)
-
-    def list_command_names_descriptions(self):
-        """Print out the names, parameters, and descriptions of each command in the command list.
-        """
-        print('='*10 + "List of Command Names/Descriptions" + "="*10)
-        for command in self._command_list:
-            print("Name: " + command.name)
-            print("Description: " + command.description)
-        print('='*10 + "End of Command Names/Descriptions" + "="*10)
-
-    def log_command_names_descriptions(self):
-        """Log the names, parameters, and descriptions of each command in the command list.
-        """
-        self.log.info('='*10 + "List of Command Names/Descriptions" + "="*10)
-        for command in self._command_list:
-            self.log.info("Name: " + command.name)
-            self.log.info("Description: " + command.description)
-        self.log.info('='*10 + "End of Command Names/Descriptions" + "="*10)
-
     def invoke_commands(self):
-        """Iterate through the command list and execute each command.
+        """Iterate through the command sequence and execute each command.
         """
-        self.log_command_names()
-        self.log.info("="*10 + "BEGINNING OF COMMAND SEQUENCE EXECUTION" + "="*10)
-        # Start command list execution
-        for ndx, command in enumerate(self._command_list):
-            # Process the command's delay
+        self.log_command_names(unloop=False)
+        self.log.info("="*20 + "BEGINNING OF COMMAND SEQUENCE EXECUTION" + "="*20)
+
+        command_generator = self._command_seq.yield_next_command()
+
+        for command in command_generator:
+            # Process the command's start delay
             delay = command._params['delay']
-            if type(delay) is float or type(delay) is int:
+            if isinstance(delay, float) or isinstance(delay, int):
                 if delay > 0.0:
-                    self.log.info("DELAY -> " + str(delay))
+                    self.log.info("DELAY   -> " + str(delay))
                     time.sleep(delay)
             elif delay == "PAUSE" or delay == "P":
-                self.log.info("DELAY -> Waiting for user to press enter")
+                self.log.info("PAUSE   -> Waiting for user to press enter")
                 print('')
                 print("Press ENTER to continue, type 'quit' to terminate execution immediately:")
                 userinput = input()
                 if userinput == "quit":
-                    self.log.info("User terminated execution early by entering 'quit' at pause step")
+                    self.log.info("PAUSE   -> User terminated execution early by entering 'quit'")
                     break
                 else:
-                    self.log.info("DELAY -> User continued command execution")
+                    self.log.info("PAUSE   -> User continued command execution")
 
             # Execute the command
             self.log.info("COMMAND -> " + command.name)
@@ -147,8 +100,9 @@ class CommandInvoker:
                     self.log.info("Sending command details to slack.")
                     self.alert_slack(command)
                 break
+            # Go to next command
         # Finished command list execution
-        self.log.info("="*10 + "END OF COMMAND SEQUENCE EXECUTION" + "="*16)
+        self.log.info("="*20 + "END OF COMMAND SEQUENCE EXECUTION" + "="*20)
         self.log.info("")
         if self._is_logging_to_file:
             print("")
@@ -177,6 +131,24 @@ class CommandInvoker:
                     )  
         except SlackApiError as inst:
             self.log.error("Could not send message to slack: " + inst.response['error'])
+
+    def log_command_names(self, unloop: bool = False):
+        self.log.info("="*20 + "LIST OF COMMAND NAMES" + "="*20)
+        for name in self._command_seq.get_command_names(unloop):
+            self.log.info(name)
+        self.log.info("="*20 + "END OF COMMAND NAMES" + "="*20)
+
+    def log_command_names_descriptions(self, unloop: bool = False):
+        self.log.info("="*20 + "LIST OF COMMAND NAMES/DESCRIPTIONS" + "="*20)
+        for name_desc in self._command_seq.get_command_names_descriptions(unloop):
+            self.log.info(name_desc[0])
+            self.log.info(name_desc[1])
+        self.log.info("="*20 + "END OF COMMAND NAMES/DESCRIPTIONS" + "="*20)
+
+
+
+
+
 
 
 # experiment name, id

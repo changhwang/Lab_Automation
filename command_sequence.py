@@ -19,7 +19,7 @@ class CommandSequence:
     def __init__(self):
         self.device_list = []
         self.command_list = []
-        self.num_iterations = 1
+        self.num_iterations = 'ALL'
         # self.processed_devices = []
         # self.processed_commands = []
         # self.processed_delays = []
@@ -65,16 +65,10 @@ class CommandSequence:
             print("Invalid indices")
 
     def add_loop_start(self, index: Optional[int] = None):
-        if index is None:
-            self.command_list.append("LOOP START")
-        else:
-            self.command_list.insert(index, "LOOP START")
+        self.add_command(LoopStartCommand(), index)
 
     def add_loop_end(self, index: Optional[int] = None):
-        if index is None:
-            self.command_list.append("LOOP END")
-        else:
-            self.command_list.insert(index, "LOOP END")
+        self.add_command(LoopEndCommand(), index)
 
     def add_command_iteration(self, command: Union[Command, List[Command]], index: Optional[int] = None, iteration: Optional[int] = None):
         if not isinstance(command, list):
@@ -123,6 +117,10 @@ class CommandSequence:
         index = 0
         iteration = 0
         loop_start_index = None
+        if self.num_iterations == 'ALL':
+            max_iterations = self.get_max_iteration()
+        else:
+            max_iterations = self.num_iterations
 
         while index < len(self.command_list):
             # Get the command at the current index and iteration
@@ -139,17 +137,25 @@ class CommandSequence:
 
             if isinstance(command, LoopEndCommand):
                 iteration += 1
-                if iteration < self.num_iterations:
+                if iteration < max_iterations:
                     index = loop_start_index + 1
                     continue
                 else:
                     iteration = 0
                     index += 1
                     continue
-
+            
+            # note that even though we unlooped the list, each element is still a list containing a single command
             unlooped_list.append([command])
             index += 1
         return unlooped_list
+
+    def get_max_iteration(self):
+        max_iter = 1
+        for command in self.command_list:
+            if len(command) > max_iter:
+                max_iter = len(command)
+        return max_iter
 
     def save_to_yaml(self, filename: str):
         filename = self.recipe_directory + filename

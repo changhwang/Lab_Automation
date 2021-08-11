@@ -99,6 +99,7 @@ class CommandInvoker:
                 if self._is_alerting_slack:
                     self.log.info("Sending command details to slack.")
                     self.alert_slack(command)
+                    self.upload_log_slack()
                 break
             # Go to next command
         # Finished command list execution
@@ -131,6 +132,17 @@ class CommandInvoker:
                     )  
         except SlackApiError as inst:
             self.log.error("Could not send message to slack: " + inst.response['error'])
+    
+    def upload_log_slack(self):
+        try:
+            response = self._slack_client.files_upload(    
+                file=self._log_filename,
+                initial_comment='Uploading log file with error: ' + self._log_filename,
+                channels='printer-bot-test'
+            )
+        except SlackApiError as inst:
+            self.log.error("Could not upload log file: " + inst.response['error'])
+
 
     def log_command_names(self, unloop: bool = False):
         self.log.info("="*20 + "LIST OF COMMAND NAMES" + "="*20)

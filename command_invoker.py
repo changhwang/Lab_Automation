@@ -20,6 +20,8 @@ log_formatter = logging.Formatter(format)
 logging.basicConfig(level=logging.INFO, format=format)
 
 # renamed? log_to_file, alert_slack
+# multiple constructors to accept a command_list, a sequence, or from a yaml file
+
 class CommandInvoker:
     log_directory = "logs/"
 
@@ -62,7 +64,7 @@ class CommandInvoker:
         """
         print('='*10 + "List of Command Names" + "="*10)
         for command in self._command_list:
-            print(command.name)
+            print(command[0].name)
         print('='*10 + "End of Command Names" + "="*10)
     
     def log_command_names(self):

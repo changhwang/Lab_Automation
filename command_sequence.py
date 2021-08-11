@@ -1,73 +1,68 @@
-from typing import Type, Optional
+from typing import Type, Optional, List, Union
 import yaml
 from yaml.representer import Representer
 from abc import ABCMeta
 
 from commands.command import Command
+from devices.device import Device
+from commands.utility_commands import LoopStartCommand, LoopEndCommand
 
+# Representer.add_representer(ABCMeta, Representer.represent_name)
 
-Representer.add_representer(ABCMeta, Representer.represent_name)
-
+# Should move loop interpretation to invoker?
+# Make functional with yaml safe_load
 
 class CommandSequence:
+
+    recipe_directory = 'recipes/'
+
     def __init__(self):
         self.device_list = []
         self.command_list = []
         self.num_iterations = 1
-        self.processed_devices = []
-        self.processed_commands = []
-        self.processed_delays = []
-        self.device_dict = {}
+        # self.processed_devices = []
+        # self.processed_commands = []
+        # self.processed_delays = []
+        self.device_by_name = {}
 
-    def add_command(
-            self, 
-            command_cls:  Type[Command],
-            receiver_name: str,
-            delay: float = 0.0, 
-            index: Optional[int] = None,
-            **kwargs):
+    def add_device(self, receiver: Device):
+        self.device_list.append(receiver)
+        self.update_device_by_name()
 
+    def remove_device(self, receiver_name: str):
+        if receiver_name in self.device_by_name:
+            for ndx, device in enumerate(self.device_list):
+                if device.name == receiver_name:
+                    del self.device_list[ndx]
+                    self.update_device_by_name()
+                    break # Each device should have a unique name, always
 
-        dict_to_add = {
-            'class': command_cls,
-            'receiver_name': receiver_name,
-            'args': [{}],
-            'delay': delay
-        }
-        for key, value in kwargs.items():
-            dict_to_add['args'][0][key] = value
-
-        if index is None:
-            self.command_list.append(dict_to_add)
-        else:
-            self.command_list.insert(index, dict_to_add)
     
-    def remove_command_by_index(self, index: int):
+    def remove_device_by_index(self, index: Optional[int] = None):
+        if index is None:
+            index = -1
+        del self.device_list[index]
+        self.update_device_by_name()
+
+    def add_command(self, command: Union[Command, List[Command]], index: Optional[int] = None):
+        if not isinstance(command, list):
+            command = [command]
+        if index is None:
+            self.command_list.append(command)
+        else:
+            self.command_list.insert(index, command)
+    
+    def remove_command(self, index: Optional[int] = None):
+        if index is None:
+            index = -1
         del self.command_list[index]
 
-    def move_command_by_index(self, old_index:int, new_index: int):
+    def move_command_by_index(self, old_index: int, new_index: int):
         if old_index >= 0 and old_index <= len(self.command_list) - 1 and new_index >= 0 and new_index <= len(self.command_list) - 1:
             if old_index != new_index:
                 self.command_list.insert(new_index, self.command_list.pop(old_index))
         else:
             print("Invalid indices")
-
-    def add_device(self, receiver_cls, index: Optional[int] = None, **kwargs):
-        dict_to_add = {
-            'class': receiver_cls,
-            'args': {}
-        }
-
-        for key,value in kwargs.items():
-            dict_to_add['args'][key] = value
-
-        if index is None:
-            self.device_list.append(dict_to_add)
-        else:
-            self.device_list.insert(index, dict_to_add)
-    
-    def remove_device_by_index(self, index: int):
-        del self.device_list[index]
 
     def add_loop_start(self, index: Optional[int] = None):
         if index is None:
@@ -81,100 +76,95 @@ class CommandSequence:
         else:
             self.command_list.insert(index, "LOOP END")
 
-    def add_command_args(self, command_index: int, arg_index: Optional[int] = None, **kwargs):
-        arg_dict = {}
-        for key, value in kwargs.items():
-            arg_dict[key] = value
-
-        if arg_index is None:
-            self.command_list[command_index]['args'].append(arg_dict)
+    def add_command_iteration(self, command: Union[Command, List[Command]], index: Optional[int] = None, iteration: Optional[int] = None):
+        if not isinstance(command, list):
+            command = [command]
+        if index is None:
+            index = -1
+        if iteration is None:
+            # add to end of iteration list
+            self.command_list[index].extend(command)
         else:
-            self.command_list[command_index]['args'].insert(arg_index, arg_dict)
-              
-    def remove_command_args_by_index(self, command_index: int, arg_index: int = None):
-            del self.command_list[command_index]['args'][arg_index]
+            # insert at specific iteration index
+            for ndx in range(len(command)):
+                self.command_list[index].insert(iteration, command.pop(-1))
+
+    def remove_command_iteration(self, index: Optional[int] = None, iteration: Optional[int] = None):
+        if index is None:
+            index = -1
+        if iteration is None:
+            iteration = -1
+        del self.command_list[index][iteration]
+
+    def move_command_iteration_by_index(self, index: int, old_iter: int, new_iter: int):
+        if old_iter >= 0 and old_iter <= len(self.command_list[index]) - 1 and new_iter >= 0 and new_iter <= len(self.command_list[index]) - 1:
+            if old_iter != new_iter:
+                self.command_list[index].insert(new_iter, self.command_list[index].pop(old_iter))
+        else:
+            print("Invalid indices")
 
     def verify_device_list(self):
-        # each device must be unique
+        # each device must be unique (by name attribute)
         pass
 
     def verify_command_list(self):
         # loop end must be after loop start
         # either they are both included or both not included
-
+        # iteration list has commands of same class
         pass
     
-    def process_devices(self):
-        self.processed_devices = []
-        self.device_dict = {}
+    def update_device_by_name(self):
+        self.device_by_name = {}
         for device in self.device_list:
-            device_cls = device['class']
-            device_argdict = device['args']
-            self.processed_devices.append(device_cls(**device_argdict))
-            key = device_argdict['name']
-            value = self.processed_devices[-1]
-            self.device_dict[key] = value
+            self.device_by_name[device.name] = device
 
-    def process_commands(self):
-        self.processed_commands = []
-        self.processed_delays = []
-        current_step_args = [dict() for x in range(len(self.command_list))]
+    def get_unlooped_command_list(self) -> List[Command]:
+        unlooped_list = []
+        index = 0
         iteration = 0
-        ndx = 0
+        loop_start_index = None
 
-        while ndx < len(self.command_list):
-            element = self.command_list[ndx]
-            if type(element) is str:
-                # currently doesnt resolve recursively if loop start and loop end are next to each other
-                if element == "LOOP START":
-                    ndx += 1
-                    element = self.command_list[ndx]
-                if element == "LOOP END":
-                    if iteration < self.num_iterations - 1:
-                        # if still looping, then go to step after LOOP START marker
-                        ndx = self.command_list.index("LOOP START")
-                        ndx += 1
-                        element = self.command_list[ndx]
-                        iteration += 1
-                    else:
-                        # if reached max iterations, the skip and set iteration index to 0
-                        ndx += 1
-                        element = self.command_list[ndx]
-                        iteration = 0 #exiting loop section
-
-            # element should be a dictionary
-            # get the command's class and receiver name
-            command_cls = self.command_list[ndx]['class']
-            receiver_name = self.command_list[ndx]['receiver_name']
-
-            # get the arg dict for the current command (ndx) and current iteration
-            if iteration > len(self.command_list[ndx]['args']) - 1:
-                current_args = self.command_list[ndx]['args'][-1]
+        while index < len(self.command_list):
+            # Get the command at the current index and iteration
+            # if current iteration is larger than the number of the current command's iterations then use the last one
+            if iteration > len(self.command_list[index]) - 1:
+                command = self.command_list[index][-1]
             else:
-                current_args = self.command_list[ndx]['args'][iteration]
+                command = self.command_list[index][iteration]
+            
+            if isinstance(command, LoopStartCommand):
+                loop_start_index = index
+                index += 1
+                continue
 
-            # update the live arg dict with changes from the list
-            for key, value in current_args.items():
-                current_step_args[ndx][key] = value
+            if isinstance(command, LoopEndCommand):
+                iteration += 1
+                if iteration < self.num_iterations:
+                    index = loop_start_index + 1
+                    continue
+                else:
+                    iteration = 0
+                    index += 1
+                    continue
 
-            # get command's delay and add to list
-            self.processed_delays.append(self.command_list[ndx]['delay'])
-
-            # add the actual receiver object to the arg dict
-            current_step_args[ndx]['receiver'] = self.device_dict[receiver_name]
-            self.processed_commands.append(command_cls(**current_step_args[ndx]))
-            ndx += 1
+            unlooped_list.append([command])
+            index += 1
+        return unlooped_list
 
     def save_to_yaml(self, filename: str):
-        data_list = [self.device_list, self.command_list]
+        filename = self.recipe_directory + filename
+        data_list = [self.device_list, self.command_list, self.num_iterations]
         with open(filename, 'w') as file:
             yaml.dump(data_list, file, default_flow_style=False, sort_keys=False)
 
     def load_from_yaml(self, filename: str):
+        filename = self.recipe_directory + filename
         with open(filename) as file:
-            imported_list = yaml.load(file, Loader=yaml.FullLoader)
+            # not safe loader
+            imported_list = yaml.load(file, Loader=yaml.Loader)
             self.device_list = imported_list[0]
             self.command_list = imported_list[1]
+            self.num_iterations = imported_list[2]
 
 
 # Considered making loop start/end as "special" Command objects that can be added to the command list. Then the invoker will jump, etc. if it encounters one of these special commands

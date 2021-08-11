@@ -4,10 +4,8 @@ from devices.device import Device
 
 
 # TODO
-# for the name and description that is unique to each command, it is easier to just use a dictionary and use that instead of rewriting for each command
-# then each init will just add each arg to the dictionary (except for name? parent can add name to dict) then name and desc can be set by calling super() after filling the arg dict
-# incorporate the delay param here and subsequent child classes can alter it in their constructor by using **kwargs to pass it up, see kwargtest.py
-# Could do 2 dictionaries, 1 for the command and 1 for the args needed within command's execute, the second one could be simply passed to receiver methods through unpacking **dict
+# logging from within the composite command execution?
+
 class Command(ABC):
     """The Command abstract base class which acts as an interface for other objects that use commands."""
 
@@ -82,11 +80,19 @@ class Command(ABC):
 class CompositeCommand(Command):
     """A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially."""
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self._name = "CompositeCommand"
-        self._receiver_name = "N/A temp"
-        self._command_list = []
+    receiver_cls = None
+    
+    def __init__(self, delay: float = 0.0):
+        # super().__init__(**kwargs)
+        # self._name = "CompositeCommand"
+        # self._receiver_name = "N/A temp"
+        # self._command_list = []
+        # self._receiver = None
+        self._params = {}
+        # self._params['receiver_name'] = 'None'
+        self._params['delay'] = delay
+        self._was_successful = None
+        self._result_message = None  
 
     @property
     def name(self) -> str:
@@ -113,7 +119,7 @@ class CompositeCommand(Command):
         """
         return self.__doc__
 
-    def add_command(self, command: Command, index: int = None):
+    def add_command(self, command: Command, index: Optional[int] = None):
         """Add a command to the command list.
 
         Parameters
@@ -128,7 +134,7 @@ class CompositeCommand(Command):
         else: 
             self._command_list.insert(index, command)
 
-    def remove_command(self, index: int = None):
+    def remove_command(self, index: Optional[int] = None):
         """Remove a command from the command list.
 
         Parameters
@@ -142,7 +148,7 @@ class CompositeCommand(Command):
 
     def execute(self) -> None:
         """Executes each command in the command list sequentially and returns early if a command's execution was not successful."""
-        
+        # LOGGING? 
         for command in self._command_list:
             command.execute()
             if not command.was_successful:

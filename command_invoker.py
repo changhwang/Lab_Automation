@@ -14,6 +14,7 @@ else:
 
 from commands.command import Command
 from command_sequence import CommandSequence
+from commands.utility_commands import DelayPauseCommand
 
 
 format = '[%(asctime)s] [%(levelname)-5s]: %(message)s'
@@ -86,6 +87,10 @@ class CommandInvoker:
                     break
                 else:
                     self.log.info("PAUSE   -> User continued command execution")
+
+            # If it is a delay or pause command skip to next loop to suppress its COMMAND ->, RESULT -> logging
+            if isinstance(command, DelayPauseCommand):
+                continue
 
             # Execute the command
             self.log.info("COMMAND -> " + command.name)

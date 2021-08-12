@@ -1,4 +1,6 @@
-from typing import Type, Optional, List, Union, Generator
+from typing import Type, Optional, List, Union, Generator, Tuple
+from collections import Counter
+
 import yaml
 from yaml.representer import Representer
 from abc import ABCMeta
@@ -26,16 +28,26 @@ class CommandSequence:
         # self.processed_delays = []
         self.device_by_name = {}
 
-    def add_device(self, receiver: Device):
+    def add_device(self, receiver: Device) -> bool:
         """Add a device to the device list then update the device dict.
 
         Parameters
         ----------
         receiver : Device
             The device to add.
+
+        Returns
+        -------
+        bool
+            Whether the device was successfully added
         """
-        self.device_list.append(receiver)
-        self.update_device_by_name()
+
+        if receiver.name in self.device_by_name:
+            return False
+        else:
+            self.device_list.append(receiver)
+            self.update_device_by_name()
+            return True
 
     def remove_device(self, receiver_name: str):
         """Remove a device from the device list then update the device dict.
@@ -188,16 +200,98 @@ class CommandSequence:
         else:
             print("Invalid indices")
 
-    def verify_device_list(self):
-        # each device must be unique (by name attribute)
-        pass
+    def verify_device_list(self) -> Tuple[bool, str]:
+        """Checks that the device list does not have duplicate named devices.
 
-    def verify_command_list(self):
-        # loop end must be after loop start
-        # either they are both included or both not included
-        # iteration list has commands of same class
-        pass
-    
+        Returns
+        -------
+        Tuple[bool, str]
+            Whether the device list is valid, Duplicate device names
+        """
+        # each device must be unique (by name attribute)
+        # Duplicates are prevented by the add_device method, but still possible if a .yaml file is manually edited
+        device_names = []
+        dupes = []
+        for device in self.device_list:
+            device_names.append(device.name)
+        for name, count in Counter(device_names).items():
+            if count > 1:
+                dupes.append(name)
+        if len(dupes) > 0:
+            return False, "Duplicates: " + str(dupes)
+        else:
+            return True, ""
+
+    def verify_command_list(self) -> Tuple[bool, str]:
+        """Checks that any looping in the command list is valid.
+
+        Returns
+        -------
+        Tuple[bool, str]
+            Whether the command list is valid, Message describing problem if not valid
+        """
+        # iteration lists must have commands of same class? Not necessarily. Currently not enforced
+        loop_start_location = []
+        loop_end_location = []
+        for index, command_iters in enumerate(self.command_list):
+            for iter_index, command in enumerate(command_iters):
+                if isinstance(command, LoopStartCommand):
+                    loop_start_location.append([index, iter_index])
+                elif isinstance(command, LoopEndCommand):
+                    loop_end_location.append([index, iter_index])
+
+        if len(loop_start_location) > 1:
+            return False, "There can only be one loop start"
+        if len(loop_end_location) > 1:
+            return False, "There can only be one loop end"
+  
+        if len(loop_start_location) != len(loop_end_location):
+            return False, "There must either be no loop start/end or exactly one of each"
+
+        if len(self.command_list[loop_start_location[0][0]]) > 1:
+            return False, "Loop start command can not have additional iterations"
+        if len(self.command_list[loop_end_location[0][0]]) > 1:
+            return False, "Loop end command can not have additional iterations"
+
+        if loop_start_location[0] > loop_end_location[0]:
+            return False, "Loop end must be after loop start"
+
+        return True, ""
+
+    def verify_num_iterations(self) -> Tuple[bool, str]:
+        # Could also raise Value and Type Errors here
+        if isinstance(self.num_iterations, str):
+            if self.num_iterations == "ALL":
+                return True, ""
+            else:
+                return False, "num_iterations invalid value"
+        elif isinstance(self.num_iterations, int):
+            if self.num_iterations >= 1:
+                return True, ""
+            else:
+                return False, "num_iterations invalid value"
+        else:
+            return False, "num_iterations invalid type"
+
+    def verify(self) -> Tuple[bool, str]:
+        """Verify devices, commands, and num_iterations
+
+        Returns
+        -------
+        Tuple[bool, str]
+            [description]
+        """
+        is_valid, message = self.verify_device_list()
+        if not is_valid:
+            return (is_valid, message)
+        is_valid, message = self.verify_command_list()
+        if not is_valid:
+            return (is_valid, message)
+        is_valid, message = self.verify_num_iterations()
+        if not is_valid:
+            return (is_valid, message)
+        return True, "All checks passed"  
+
     def update_device_by_name(self):
         """Update the device dict that stores each device/receiver by it's name."""
 
@@ -216,10 +310,12 @@ class CommandSequence:
         unlooped_list= []
         command_generator = self.yield_next_command()
         for command in command_generator:
+            if not isinstance(command, Command):
+                break
             unlooped_list.append(command)
         return unlooped_list      
 
-    def yield_next_command(self) -> Generator[Command, None, None]:
+    def yield_next_command(self) -> Generator[Union[Command, Tuple[bool, str]], None, None]:
         """A generator that yields each command sequentially, accounting for loops.
 
         Yields
@@ -229,11 +325,17 @@ class CommandSequence:
         """
         # originally used this function to pre-process the whole unlooped list
         # changed to generator that yields next command
-        # if the whole unlooped list is wanted then get_unlooped_command_list use this function to populate a list
+        # if the whole unlooped list is wanted then get_unlooped_command_list uses this function to populate a list
         # generator is likely unnecessary but have both methods here for flexibility
 
-        #perform verify here !!!!!!!
-        # unlooped_list = []
+        # Verify the command list before proceeding
+        # Could consider returning/yield a utility Fail command that 'returns' false on execute and accepts a string error message to put into its result
+        # This would stop the invoker but not necessarily other uses of this method
+        is_valid, message = self.verify()
+        if not is_valid:
+            yield (is_valid, message)
+            return
+
         index = 0
         iteration = 0
         loop_start_index = None
@@ -264,11 +366,8 @@ class CommandSequence:
                     iteration = 0
                     index += 1
                     continue
-
-            # unlooped_list.append([command])
             yield command
             index += 1
-        # return unlooped_list
 
     def get_max_iteration(self) -> int:
         """Gets the length of the largest command iteration list.

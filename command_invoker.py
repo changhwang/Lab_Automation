@@ -21,8 +21,6 @@ format = '[%(asctime)s] [%(levelname)-5s]: %(message)s'
 log_formatter = logging.Formatter(format)
 logging.basicConfig(level=logging.INFO, format=format)
 
-# renamed? log_to_file, alert_slack
-# multiple constructors to accept a command_list, a sequence, or from a yaml file?
 
 class CommandInvoker:
     """Handles the execution and logging of a command sequence"""
@@ -31,20 +29,20 @@ class CommandInvoker:
     def __init__(
             self, 
             command_seq: CommandSequence,
-            is_logging_to_file: bool = True, 
+            log_to_file: bool = True, 
             log_filename: Optional[str] = None,
-            is_alerting_slack: bool = False) -> None:
+            alert_slack: bool = False) -> None:
 
-        if not _has_slack and is_alerting_slack:
+        if not _has_slack and alert_slack:
             raise ImportError("slackclient module is required to alert slack.")
             
         self._command_seq = command_seq
-        self._is_logging_to_file = is_logging_to_file
-        self._is_alerting_slack = is_alerting_slack
+        self._log_to_file = log_to_file
+        self._alert_slack = alert_slack
         self._log_filename = log_filename
         self.log = logging.getLogger(__name__)
 
-        if self._is_logging_to_file:
+        if self._log_to_file:
             if self._log_filename is None:
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                 self._log_filename = timestamp
@@ -58,19 +56,38 @@ class CommandInvoker:
             self._file_handler.setFormatter(log_formatter)
             self.log.addHandler(self._file_handler)
 
-        if self._is_alerting_slack:
+        if self._alert_slack:
             self._slack_token = os.environ.get('SLACK_BOT_TOKEN')
             self._slack_client = slack.WebClient(token=self._slack_token)
 
-    def invoke_commands(self):
+    def invoke_commands(self) -> bool:
         """Iterate through the command sequence and execute each command.
+
+        Returns
+        -------
+        bool
+            Whether all the commands executed successfully or not
         """
+        has_error = False
+
+        self.log.info("")
         self.log_command_names(unloop=False)
         self.log.info("="*20 + "BEGINNING OF COMMAND SEQUENCE EXECUTION" + "="*20)
 
         command_generator = self._command_seq.yield_next_command()
 
         for command in command_generator:
+            # Check the command is a Command otherwise the generator yielded a (False, error message)
+            if not isinstance(command, Command):
+                error_message = command[1]
+                self.log.error("Command sequence error: " + error_message)
+                if self._alert_slack:
+                    self.log.info("Sending command details to slack.")
+                    self.alert_slack_message("Command sequence error: " + error_message)
+                    self.upload_log_slack()
+                has_error = True
+                break
+
             # Process the command's start delay
             delay = command._params['delay']
             if isinstance(delay, float) or isinstance(delay, int):
@@ -84,6 +101,7 @@ class CommandInvoker:
                 userinput = input()
                 if userinput == "quit":
                     self.log.info("PAUSE   -> User terminated execution early by entering 'quit'")
+                    has_error = True # Not really an error but returning False since an early termination (even if intentional) may disrupt a higher workflow
                     break
                 else:
                     self.log.info("PAUSE   -> User continued command execution")
@@ -102,16 +120,17 @@ class CommandInvoker:
             else:
                 self.log.error("RESULT  -> " + str(command.was_successful) + ", " + command.result_message)
                 self.log.error("Received False result. Terminating command execution early!")
-                if self._is_alerting_slack:
+                if self._alert_slack:
                     self.log.info("Sending command details to slack.")
-                    self.alert_slack(command)
+                    self.alert_slack_command(command)
                     self.upload_log_slack()
+                has_error = True
                 break
             # Go to next command
         # Finished command list execution
         self.log.info("="*20 + "END OF COMMAND SEQUENCE EXECUTION" + "="*20)
         self.log.info("")
-        if self._is_logging_to_file:
+        if self._log_to_file:
             print("")
             print("Log messages saved to: " + str(self._log_filename))
             print("")
@@ -120,8 +139,13 @@ class CommandInvoker:
             print("Log messages were not saved")
             print("")
 
-    def alert_slack(self, command: Command):
-        """Attempt to send an error message to a designated slack channel.
+        if has_error:
+            return False
+        else:
+            return True
+
+    def alert_slack_command(self, command: Command):
+        """Attempt to send an error message regarding a command's failure to a designated slack channel.
 
         Parameters
         ----------
@@ -136,6 +160,21 @@ class CommandInvoker:
                     "RESULT  -> " + str(command.was_successful) + ", " + command.result_message + "\n" 
                     "See log file \"" + str(self._log_filename) + "\" for more details.")
                     )  
+        except SlackApiError as inst:
+            self.log.error("Could not send message to slack: " + inst.response['error'])
+
+    def alert_slack_message(self, message: str):
+        """Attempt to send a message to a designated slack channel.
+
+        Parameters
+        ----------
+        message : str
+            The message to send
+        """
+        try:
+            response = self._slack_client.chat_postMessage(
+                channel="printer-bot-test",
+                text=message)  
         except SlackApiError as inst:
             self.log.error("Could not send message to slack: " + inst.response['error'])
     
@@ -161,6 +200,8 @@ class CommandInvoker:
         self.log.info("="*20 + "LIST OF COMMAND NAMES" + "="*20)
         for name in self._command_seq.get_command_names(unloop):
             self.log.info(name)
+        self.log.info("")
+        self.log.info("(Number of iterations: " + str(self._command_seq.num_iterations) + ")")
         self.log.info("="*20 + "END OF COMMAND NAMES" + "="*20)
 
     def log_command_names_descriptions(self, unloop: bool = False):
@@ -175,6 +216,8 @@ class CommandInvoker:
         for name_desc in self._command_seq.get_command_names_descriptions(unloop):
             self.log.info(name_desc[0])
             self.log.info(name_desc[1])
+        self.log.info("")
+        self.log.info("(Number of iterations: " + str(self._command_seq.num_iterations) + ")")
         self.log.info("="*20 + "END OF COMMAND NAMES/DESCRIPTIONS" + "="*20)
 
 

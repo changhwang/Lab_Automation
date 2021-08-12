@@ -39,8 +39,12 @@ class Command(ABC):
         for key, value in self._params.items():
             if not key == 'delay':
                 self._name += " " + key + "=" + str(value)
-        # I just want delay to be always be last when displayed
-        self._name += " " + 'delay=' + str(self._params['delay'])
+        # I want delay to always be last when displayed and only if its not zero
+        if isinstance(self._params['delay'], str):
+            self._name += " " + 'delay=' + str(self._params['delay'])
+        else:
+            if self._params['delay'] > 0.0:
+                self._name += " " + 'delay=' + str(self._params['delay'])
         return self._name
 
     @property

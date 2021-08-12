@@ -320,8 +320,8 @@ class CommandSequence:
 
         Yields
         -------
-        Generator[Command, None, None]
-            Generator that yields the next command
+        Generator[Union[Command, Tuple[bool, str]], None, None]
+            Generator that yields the next command, or a tuple of (False, error message) if there is a problem with the command sequence
         """
         # originally used this function to pre-process the whole unlooped list
         # changed to generator that yields next command

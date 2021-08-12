@@ -72,4 +72,14 @@ class NotifySlackCommand(UtilityCommand):
         except SlackApiError as inst:
             self._was_successful, self._result_message = (False, "Could not send message: " + inst.response['error'])  
 
+class LogUserMessageCommand(UtilityCommand):
+    """Store a message in the command's result_message so it can be logged during invocation."""
+
+    def __init__(self, message: str, **kwargs):
+        super().__init__(**kwargs)
+        self._result_message = message
+    
+    def execute(self):
+        self._was_successful = True
+
 

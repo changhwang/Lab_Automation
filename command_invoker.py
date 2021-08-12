@@ -24,6 +24,7 @@ logging.basicConfig(level=logging.INFO, format=format)
 # multiple constructors to accept a command_list, a sequence, or from a yaml file?
 
 class CommandInvoker:
+    """Handles the execution and logging of a command sequence"""
     log_directory = "logs/"
 
     def __init__(
@@ -134,6 +135,7 @@ class CommandInvoker:
             self.log.error("Could not send message to slack: " + inst.response['error'])
     
     def upload_log_slack(self):
+        """Attempt to upload the invoker's log file to a designated slack channel."""
         try:
             response = self._slack_client.files_upload(    
                 file=self._log_filename,
@@ -143,14 +145,27 @@ class CommandInvoker:
         except SlackApiError as inst:
             self.log.error("Could not upload log file: " + inst.response['error'])
 
-
     def log_command_names(self, unloop: bool = False):
+        """Log the names of each command in the sequence
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to unloop the commands sequence or not, by default False
+        """
         self.log.info("="*20 + "LIST OF COMMAND NAMES" + "="*20)
         for name in self._command_seq.get_command_names(unloop):
             self.log.info(name)
         self.log.info("="*20 + "END OF COMMAND NAMES" + "="*20)
 
     def log_command_names_descriptions(self, unloop: bool = False):
+        """Log the names and descriptions of each command in the sequence
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to unloop the commands sequence or not, by default False
+        """
         self.log.info("="*20 + "LIST OF COMMAND NAMES/DESCRIPTIONS" + "="*20)
         for name_desc in self._command_seq.get_command_names_descriptions(unloop):
             self.log.info(name_desc[0])

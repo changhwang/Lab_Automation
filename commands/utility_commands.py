@@ -1,7 +1,7 @@
 from .command import Command
 
 class UtilityCommand(Command):
-    """A command that performs some utility function for its execute method but does not actually have a receiver."""
+    """Parent class for utility commands that performs some function for its execute method but does not actually have a receiver."""
 
     receiver_cls = None
 

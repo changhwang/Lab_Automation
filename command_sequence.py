@@ -14,7 +14,7 @@ from commands.utility_commands import LoopStartCommand, LoopEndCommand
 # Make functional with yaml safe_load
 
 class CommandSequence:
-
+    """Maintains a command list with optional iterations and looping. Supports saving/loading."""
     recipe_directory = 'recipes/'
 
     def __init__(self):
@@ -27,10 +27,24 @@ class CommandSequence:
         self.device_by_name = {}
 
     def add_device(self, receiver: Device):
+        """Add a device to the device list then update the device dict.
+
+        Parameters
+        ----------
+        receiver : Device
+            The device to add.
+        """
         self.device_list.append(receiver)
         self.update_device_by_name()
 
     def remove_device(self, receiver_name: str):
+        """Remove a device from the device list then update the device dict.
+
+        Parameters
+        ----------
+        receiver_name : str
+            The name attribute of the device/receiver to remove.
+        """
         if receiver_name in self.device_by_name:
             for ndx, device in enumerate(self.device_list):
                 if device.name == receiver_name:
@@ -38,14 +52,29 @@ class CommandSequence:
                     self.update_device_by_name()
                     break # Each device should have a unique name, always
 
-    
     def remove_device_by_index(self, index: Optional[int] = None):
+        """Remove a device from the device list by index then update the device dict.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the device to remove, If index is None remove the last device, by default None
+        """
         if index is None:
             index = -1
         del self.device_list[index]
         self.update_device_by_name()
 
     def add_command(self, command: Union[Command, List[Command]], index: Optional[int] = None):
+        """Add a command to the command list.
+
+        Parameters
+        ----------
+        command : Union[Command, List[Command]]
+            A command or a list of commands to add at the index, If a list is passed then the list corresponds to multiple iterations of the command at the index.
+        index : Optional[int], optional
+            The index to insert the command, If None then appends the command, by default None
+        """
         if not isinstance(command, list):
             command = [command]
         if index is None:
@@ -54,11 +83,27 @@ class CommandSequence:
             self.command_list.insert(index, command)
     
     def remove_command(self, index: Optional[int] = None):
+        """Remove a command from the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the command to remove, If None the remove the last command, by default None
+        """
         if index is None:
             index = -1
         del self.command_list[index]
 
     def move_command_by_index(self, old_index: int, new_index: int):
+        """Move the command or command iterations to a different index in the command list.
+
+        Parameters
+        ----------
+        old_index : int
+            The index of the command(s) to move
+        new_index : int
+            The index to move the command(s) to
+        """
         if old_index >= 0 and old_index <= len(self.command_list) - 1 and new_index >= 0 and new_index <= len(self.command_list) - 1:
             if old_index != new_index:
                 self.command_list.insert(new_index, self.command_list.pop(old_index))
@@ -66,12 +111,37 @@ class CommandSequence:
             print("Invalid indices")
 
     def add_loop_start(self, index: Optional[int] = None):
+        """Add a LoopStartCommand to the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index to insert the command, If None then append the command, by default None
+        """
         self.add_command(LoopStartCommand(), index)
 
     def add_loop_end(self, index: Optional[int] = None):
+        """Add a LoopEndCommand to the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index to insert the command, If None then append the command, by default None
+        """
         self.add_command(LoopEndCommand(), index)
 
     def add_command_iteration(self, command: Union[Command, List[Command]], index: Optional[int] = None, iteration: Optional[int] = None):
+        """Add command(s) as iterations to a pre-existing command in the command list.
+
+        Parameters
+        ----------
+        command : Union[Command, List[Command]]
+            The command or list of commands to add as iterations
+        index : Optional[int], optional
+            The index of the pre-existing command to add iterations to, If None then adds to the last command, by default None
+        iteration : Optional[int], optional
+            The iteration index to add the command(s) at, by default None
+        """
         if not isinstance(command, list):
             command = [command]
         if index is None:
@@ -85,6 +155,15 @@ class CommandSequence:
                 self.command_list[index].insert(iteration, command.pop(-1))
 
     def remove_command_iteration(self, index: Optional[int] = None, iteration: Optional[int] = None):
+        """Remove a command iteration from a command's iteration list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the command to remove an iteration from, if None then removes from the last command, by default None
+        iteration : Optional[int], optional
+            The iteration index of the command iteration to remove, if None then removes the last iteration, by default None
+        """
         if index is None:
             index = -1
         if iteration is None:
@@ -92,6 +171,17 @@ class CommandSequence:
         del self.command_list[index][iteration]
 
     def move_command_iteration_by_index(self, index: int, old_iter: int, new_iter: int):
+        """Move a command iteration to a different index in the command's iteration list.
+
+        Parameters
+        ----------
+        index : int
+            The index of the command to move around one if it's iterations
+        old_iter : int
+            The iteration index of the iteration to move
+        new_iter : int
+            The new iteration index to move the iteration to
+        """
         if old_iter >= 0 and old_iter <= len(self.command_list[index]) - 1 and new_iter >= 0 and new_iter <= len(self.command_list[index]) - 1:
             if old_iter != new_iter:
                 self.command_list[index].insert(new_iter, self.command_list[index].pop(old_iter))
@@ -109,11 +199,20 @@ class CommandSequence:
         pass
     
     def update_device_by_name(self):
+        """Update the device dict that stores each device/receiver by it's name."""
+
         self.device_by_name = {}
         for device in self.device_list:
             self.device_by_name[device.name] = device
 
     def get_unlooped_command_list(self) -> List[Command]:
+        """Get the full unlooped command list by pre-evaluating any loops.
+
+        Returns
+        -------
+        List[Command]
+            The unlooped command list
+        """
         unlooped_list= []
         command_generator = self.yield_next_command()
         for command in command_generator:
@@ -121,6 +220,13 @@ class CommandSequence:
         return unlooped_list      
 
     def yield_next_command(self) -> Generator[Command, None, None]:
+        """A generator that yields each command sequentially, accounting for loops.
+
+        Yields
+        -------
+        Generator[Command, None, None]
+            Generator that yields the next command
+        """
         # originally used this function to pre-process the whole unlooped list
         # changed to generator that yields next command
         # if the whole unlooped list is wanted then get_unlooped_command_list use this function to populate a list
@@ -165,6 +271,13 @@ class CommandSequence:
         # return unlooped_list
 
     def get_max_iteration(self) -> int:
+        """Gets the length of the largest command iteration list.
+
+        Returns
+        -------
+        int
+            The largest iteration length
+        """
         max_iter = 1
         for command in self.command_list:
             if len(command) > max_iter:
@@ -172,12 +285,26 @@ class CommandSequence:
         return max_iter
 
     def save_to_yaml(self, filename: str):
+        """Save the device_list, command_list, and num_iterations to a .yaml file.
+
+        Parameters
+        ----------
+        filename : str
+            The filename of the .yaml to save to
+        """
         filename = self.recipe_directory + filename
         data_list = [self.device_list, self.command_list, self.num_iterations]
         with open(filename, 'w') as file:
             yaml.dump(data_list, file, default_flow_style=False, sort_keys=False)
 
     def load_from_yaml(self, filename: str):
+        """Load the device_list, command_list, and num_iterations from a .yaml file.
+
+        Parameters
+        ----------
+        filename : str
+            The filename of the .yaml to load from
+        """
         filename = self.recipe_directory + filename
         with open(filename) as file:
             # not safe loader
@@ -187,6 +314,18 @@ class CommandSequence:
             self.num_iterations = imported_list[2]
 
     def get_command_names(self, unloop: bool = False) -> List[str]:
+        """Get a list of command names, either with a loop or unlooped.
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to have the list unlooped or not, by default False
+
+        Returns
+        -------
+        List[str]
+            The list of command names 
+        """
         name_list = []
         if unloop:
             for command in self.yield_next_command():
@@ -201,6 +340,18 @@ class CommandSequence:
         return name_list
 
     def get_command_names_descriptions(self, unloop: bool = False) -> List[List[str]]:
+        """Get a list of [command names, command descriptions] either with a loop or unlooped.
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to have the list unlooped or not, by default False
+
+        Returns
+        -------
+        List[List[str]]
+            The list of [command names, command descriptions] 
+        """
         name_desc_list = []
         if unloop:
             for command in self.yield_next_command():
@@ -216,57 +367,23 @@ class CommandSequence:
         return name_desc_list
 
     def print_command_names(self):
+        """Print the command names with any loop."""
         for name in self.get_command_names(unloop=False):
             print(name)
     
     def print_unlooped_command_names(self):
+        """Print the command names unlooped."""
         for name in self.get_command_names(unloop=True):
             print(name)
 
     def print_command_names_descriptions(self):
+        """Print the command names and descriptions with any loop."""
         for name_desc in self.get_command_names_descriptions(unloop=False):
             print(name_desc[0])
             print(name_desc[1])
 
     def print_unlooped_command_names_descriptions(self):
+        """Print the command names and descriptions unlooped."""
         for name_desc in self.get_command_names_descriptions(unloop=True):
             print(name_desc[0])
             print(name_desc[1])
-# Considered making loop start/end as "special" Command objects that can be added to the command list. Then the invoker will jump, etc. if it encounters one of these special commands
-# At the moment, I decided against this as it requires coding in specific dependencies for these special commands in the invoker
-# Instead the way it works right now is that the CommandSequence can have string marker elements for loop start/end in its command list and when the actual command object list is generated
-# from the information in the command sequence the CommandSequence will "unwrap" the looping by interpreting the markers. The full "unwrapped" command list is then sent to the invoker
-#
-# The data that a CommandSequence maintains and can save/load to/from a yaml file is as follows:
-# There are two lists, the device_list and command_list.
-# When saving and loading from a yaml file these two are combined as elements of an overall list, e.g. [device_list, command_list].
-# Each list has the information to dynamically instantiate device (receiver) objects and command objects.
-#
-# The device list:
-# Each element of the device list corresponds to a device. 
-# Each element is a dict with 2 entries:
-# - the first, 'class', being the class of the device, 'class': ReceiverClass.
-# - the second, 'args', being an arg dict containing the arguments to be unpacked when instantiating with the contructor, e.g. ReceiverClass(**arg_dict).
-# When it is time to actually create the device and command objects the device_list is used to create the device objects 
-# and add them to a device_dict with the key being the device's name attribute and the value being the device object.
-# The purpose of the device dict is to provide a way for the commands to find the exact device (receiver) object that it needs during construction
-#
-# The command list:
-# Each element of the command list corresponds to a command or a loop marker
-# In the case of the loop marker, the element is just a single string, either "LOOP START" or "LOOP END"
-# In the case of a command, the element is a dict with several entries:
-# - the first, 'class', being the class of the command, 'class': CommandClass.
-# - the second, 'receiver_name', being the name attribute of the device (receiver) that the command needs during construction (the device name is used to get the actual device object needed)
-# - the third, 'args', corresponds to a list of dicts. Each dict in the list corresponds to the args to be unpacked during construction for a particular iteration
-#       e.g. ...['args'][0] is the first arg_dict to unpack on the first iteration, ...['args'][1] is the second arg_dict to unpack on the second iteration.
-#       This allows the parameters of the command to change on each iteration. If there will be more iterations than arg_dicts then the last one is used once the current iteration exceeds amount of arg_dicts
-#       Therefore if you don't want a command to change within a loop, the list will contain only 1 arg_dict
-# - the fourth, 'delay', is a float for the time in seconds to wait BEFORE the command starts. 
-#       The value can also be the string "PAUSE" which indicates the program will pause and wait for the user to press Enter to continue. Or type quit to exit early
-#       In the future the delay parameter will be incorporated as a command arg instead of a separate list
-# When it is time to actually create the command object list to send to the invoker, the command_list is used to create the command objects using the current iteration's arg_dict.
-# During this step, an entry is added to the dict for the 'receiver': receiver_object by looking up the device (receiver) object in the aforemention device_dict using its name
-# The command is then appended to the processed_commands list. Likewise, the delays are appended to a list but this will be changed in the future to be part of the command's args
-#
-# It can be seen that the device name attribute needs to be standardized and a standard string should be used to correspond to the physical device in the lab
-# In the future it might be worth looking into dumping the actual objects to the yaml file as opposed to the class and its constructor args. Although command objects needs receiver objects first.

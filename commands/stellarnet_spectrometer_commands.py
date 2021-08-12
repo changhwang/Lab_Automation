@@ -4,6 +4,7 @@ from .command import Command
 from devices.stellarnet_spectrometer import StellarNetSpectrometer
 
 class SpectrometerParentCommand(Command):
+    """Parent class for all StellarNet Spectrometer commands."""
     receiver_cls = StellarNetSpectrometer
 
     def __init__(self, receiver: StellarNetSpectrometer, **kwargs):

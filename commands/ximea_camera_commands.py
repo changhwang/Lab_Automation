@@ -5,6 +5,7 @@ from devices.ximea_camera import XimeaCamera
 
 
 class XimeaCameraParentCommand(Command):
+    """Parent class for all XimeaCamera commands."""
     receiver_cls = XimeaCamera
 
     def __init__(self, receiver: XimeaCamera, **kwargs):

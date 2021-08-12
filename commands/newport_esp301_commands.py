@@ -4,6 +4,7 @@ from typing import Optional
 
 # Parent class, subclass from Command ABC
 class NewportESP301ParentCommand(Command):
+    """Parent class for all NewportESP301 commands."""
     receiver_cls = NewportESP301
 
     def __init__(self, receiver: NewportESP301, **kwargs):

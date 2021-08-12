@@ -3,6 +3,7 @@ from devices.multi_stepper import MultiStepper
 
 
 class MultiStepperParentCommand(Command):
+    """Parent class for all MultiStepper commands."""
     receiver_cls = MultiStepper
 
     def __init__(self, receiver: MultiStepper, **kwargs):

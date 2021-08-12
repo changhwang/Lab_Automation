@@ -3,6 +3,7 @@ from devices.heating_stage import HeatingStage
 
 #parent class for all HeatingStage commands
 class HeatingStageParentCommand(Command):
+    """Parent class for all HeatingStage commands."""
     receiver_cls = HeatingStage
 
     def __init__(self, receiver: HeatingStage, **kwargs):

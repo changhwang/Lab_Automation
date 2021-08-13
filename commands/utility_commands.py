@@ -13,7 +13,7 @@ else:
     
 from .command import Command
 
-class UtilityCommand(Command):
+class UtilityParentCommand(Command):
     """Parent class for utility commands that performs some function for its execute method but does not actually have a receiver."""
 
     receiver_cls = None
@@ -26,7 +26,7 @@ class UtilityCommand(Command):
         self._was_successful = None
         self._result_message = None  
 
-class LoopStartCommand(UtilityCommand):
+class LoopStartCommand(UtilityParentCommand):
     """Marks the start of a loop."""
 
     def __init__(self, **kwargs):
@@ -35,7 +35,7 @@ class LoopStartCommand(UtilityCommand):
     def execute(self) -> None:
         self._was_successful, self._result_message = (True, "Currently at loop start.")
 
-class LoopEndCommand(UtilityCommand):
+class LoopEndCommand(UtilityParentCommand):
     """Marks the end of a loop."""
 
     def __init__(self, **kwargs):
@@ -44,7 +44,7 @@ class LoopEndCommand(UtilityCommand):
     def execute(self) -> None:
         self._was_successful, self._result_message = (True, "Currently at loop end.")
 
-class DelayPauseCommand(UtilityCommand):
+class DelayPauseCommand(UtilityParentCommand):
     """Has a delay or pause but does nothing."""
 
     def __init__(self, delay: Union[str, float]):
@@ -53,12 +53,12 @@ class DelayPauseCommand(UtilityCommand):
     def execute(self) -> None:
         self._was_successful, self._result_message = (True, "Does nothing.")
 
-class NotifySlackCommand(UtilityCommand):
+class NotifySlackCommand(UtilityParentCommand):
     """Send a message to a designated slack channel"""
 
     def __init__(self, message: str, **kwargs):
         super().__init__(**kwargs)
-        self._params['message'] = message
+        self._params['message'] = message.replace(" ", "_") # just for parsing name with spaces
         self._slack_token = os.environ.get('SLACK_BOT_TOKEN')
         self._slack_client = slack.WebClient(token=self._slack_token)
 
@@ -66,17 +66,18 @@ class NotifySlackCommand(UtilityCommand):
         try:
             response = self._slack_client.chat_postMessage(
                 channel="printer-bot-test",
-                text=("from NotifySlackCommand: " + self._params['message'])
+                text=("from NotifySlackCommand: " + self._params['message'].replace("_", " "))
                 )
             self._was_successful, self._result_message = (True, "Successfully sent message.")  
         except SlackApiError as inst:
             self._was_successful, self._result_message = (False, "Could not send message: " + inst.response['error'])  
 
-class LogUserMessageCommand(UtilityCommand):
+class LogUserMessageCommand(UtilityParentCommand):
     """Store a message in the command's result_message so it can be logged during invocation."""
 
     def __init__(self, message: str, **kwargs):
         super().__init__(**kwargs)
+        self._params['message'] = message.replace(" ", "_") # just for parsing name with spaces
         self._result_message = message
     
     def execute(self):

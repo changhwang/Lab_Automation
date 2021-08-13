@@ -17,7 +17,7 @@ from commands.utility_commands import LoopStartCommand, LoopEndCommand
 
 class CommandSequence:
     """Maintains a command list with optional iterations and looping. Supports saving/loading."""
-    recipe_directory = 'recipes/'
+    recipe_directory = ''
 
     def __init__(self):
         self.device_list = []
@@ -247,14 +247,17 @@ class CommandSequence:
   
         if len(loop_start_location) != len(loop_end_location):
             return False, "There must either be no loop start/end or exactly one of each"
+        
+        if len(loop_start_location) > 0:
+            if len(self.command_list[loop_start_location[0][0]]) > 1:
+                return False, "Loop start command can not have additional iterations"
+        if len(loop_end_location) > 0:
+            if len(self.command_list[loop_end_location[0][0]]) > 1:
+                return False, "Loop end command can not have additional iterations"
 
-        if len(self.command_list[loop_start_location[0][0]]) > 1:
-            return False, "Loop start command can not have additional iterations"
-        if len(self.command_list[loop_end_location[0][0]]) > 1:
-            return False, "Loop end command can not have additional iterations"
-
-        if loop_start_location[0] > loop_end_location[0]:
-            return False, "Loop end must be after loop start"
+        if len(loop_start_location) > 0 and len(loop_end_location) > 0:
+            if loop_start_location[0] > loop_end_location[0]:
+                return False, "Loop end must be after loop start"
 
         return True, ""
 
@@ -411,7 +414,9 @@ class CommandSequence:
             self.device_list = imported_list[0]
             self.command_list = imported_list[1]
             self.num_iterations = imported_list[2]
+            self.update_device_by_name()
 
+    # Functions for getting and printing info about the sequence
     def get_command_names(self, unloop: bool = False) -> List[str]:
         """Get a list of command names, either with a loop or unlooped.
 
@@ -435,7 +440,7 @@ class CommandSequence:
                     if iter_ndx == 0:
                         name_list.append(iter_command.name)
                     else:
-                        name_list.append("    Iter#" + str(iter_ndx + 1) + ": " + iter_command.name)
+                        name_list.append("    IterIndex" + str(iter_ndx) + ": " + iter_command.name)
         return name_list
 
     def get_command_names_descriptions(self, unloop: bool = False) -> List[List[str]]:
@@ -461,8 +466,8 @@ class CommandSequence:
                     if iter_ndx == 0:
                         name_desc_list.append(["Name: " + iter_command.name, "Description: " + iter_command.description])
                     else:
-                        name_desc_list.append(["    Iter#" + str(iter_ndx + 1) + ": " + "Name: " + iter_command.name,
-                                                 "    Iter#" + str(iter_ndx + 1) + ": " + "Description: " + iter_command.description])
+                        name_desc_list.append(["    IterIndex" + str(iter_ndx) + ": " + "Name: " + iter_command.name,
+                                                 "    IterIndex" + str(iter_ndx) + ": " + "Description: " + iter_command.description])
         return name_desc_list
 
     def print_command_names(self):
@@ -486,3 +491,38 @@ class CommandSequence:
         for name_desc in self.get_command_names_descriptions(unloop=True):
             print(name_desc[0])
             print(name_desc[1])
+    
+    def get_device_names_classes(self) -> List[List[str]]:
+        name_cls_list = []
+        for device in self.device_list:
+            name_cls_list.append([device.name, device.__class__.__name__])
+        return name_cls_list
+
+    def count_loop_commands(self) -> int:
+        loop_marker_count = 0
+        for index, command_iters in enumerate(self.command_list):
+            for iter_index, command in enumerate(command_iters):
+                if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                    loop_marker_count += 1
+        return loop_marker_count
+
+    def remove_all_loop_commands(self):
+        # iterates through 2 dimensions, if it finds a loop command it deletes it and starts over until there are no more
+        # starting over is slower but don't have to deal with index shifting in 2 dimensions
+        # if 1 dimension then can use reverse sort method
+        while self.count_loop_commands() != 0:
+            for index, command_iters in enumerate(self.command_list):
+                for iter_index, command in enumerate(command_iters):
+                    if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                        # delete the command
+                        del self.command_list[index][iter_index]
+                        if len(self.command_list[index]) == 0:
+                            del self.command_list[index]
+                        # break inner loop
+                        break
+                else:
+                    # if not loop found then continue
+                    continue
+                # if inner broke, then break outer loop to start over
+                # https://stackoverflow.com/questions/189645/how-to-break-out-of-multiple-loops
+                break

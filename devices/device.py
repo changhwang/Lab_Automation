@@ -103,15 +103,20 @@ class SerialDevice(Device):
         Tuple[bool, str]
             Was the serial port opened?, Result message
         """
-        self.ser.port = self._port
-        self.ser.baudrate = self._baudrate
-        self.ser.timeout = self._timeout
+        # self.ser.port = self._port
+        # self.ser.baudrate = self._baudrate
+        # self.ser.timeout = self._timeout
         try:
             if not self.ser.is_open:
+                self.ser.port = self._port
+                self.ser.baudrate = self._baudrate
+                self.ser.timeout = self._timeout
                 self.ser.open()   
                 # delay at least 5s for arduino
                 time.sleep(delay)  
                 return (True, "Serial port " + self._port + " successfully opened.") 
+            # If setting self.ser... before try, then it will restart an arduino and maybe other devices
+            # time.sleep(delay)  
             return (True, "Serial port " + self._port + " already opened.")
         except serial.serialutil.SerialException as inst:
             return (False, "Serial port " + self._port + " failed to open. " + str(inst))     

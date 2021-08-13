@@ -24,7 +24,7 @@ logging.basicConfig(level=logging.INFO, format=format)
 
 class CommandInvoker:
     """Handles the execution and logging of a command sequence"""
-    log_directory = "logs/"
+    log_directory = ""
 
     def __init__(
             self, 
@@ -68,6 +68,16 @@ class CommandInvoker:
         bool
             Whether all the commands executed successfully or not
         """
+        # go through each device and make sure uninitialized?
+        if self._log_to_file:
+            print("")
+            print("Log messages will be saved to: " + str(self._log_filename))
+            print("")
+        else:
+            print("")
+            print("Log messages will not be saved")
+            print("")
+
         has_error = False
 
         self.log.info("")

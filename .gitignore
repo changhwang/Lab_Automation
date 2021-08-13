@@ -1,11 +1,11 @@
 questionary_test.py
 testing/
-yamltest/
 
-recipes/
+stellarnet.hex
+stellarnet_driver3.cp38-win_amd64.pyd
+
 examples/
 command_list_1.py
-test.yaml
 
 # Below from https://github.com/github/gitignore/blob/master/Python.gitignore
 # Byte-compiled / optimized / DLL files

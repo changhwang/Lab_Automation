@@ -59,6 +59,7 @@ class NotifySlackCommand(UtilityParentCommand):
     def __init__(self, message: str, **kwargs):
         super().__init__(**kwargs)
         self._params['message'] = message.replace(" ", "_") # just for parsing name with spaces
+        self._slack_message = message
         self._slack_token = os.environ.get('SLACK_BOT_TOKEN')
         self._slack_client = slack.WebClient(token=self._slack_token)
 
@@ -66,7 +67,7 @@ class NotifySlackCommand(UtilityParentCommand):
         try:
             response = self._slack_client.chat_postMessage(
                 channel="printer-bot-test",
-                text=("from NotifySlackCommand: " + self._params['message'].replace("_", " "))
+                text=("from NotifySlackCommand: " + self._slack_message)
                 )
             self._was_successful, self._result_message = (True, "Successfully sent message.")  
         except SlackApiError as inst:

@@ -21,6 +21,12 @@ from devices.newport_esp301 import NewportESP301
 from devices.stellarnet_spectrometer import StellarNetSpectrometer
 from devices.ximea_camera import XimeaCamera
 
+# TODO
+# Clean up comments
+# some refactoring of duplicate code
+# type hinting
+# add compatibility with composite and utility commands (try to avoid coding speciific class dependencies)
+
 #================ Constants =============================
 named_devices = {
     "PrintingStage": HeatingStage,

@@ -81,6 +81,12 @@ class Command(ABC):
         return self._result_message
 
 
+# A composite command contains a command list but it behaves like a regular command to any other object using it.
+# This means a composite command can contain a composite command and it can have many levels arbitrarily deep
+# This also means it can potentially be recursive causing an infinite loop
+# This also means that the contents of a composite command (and all potential levels of composite commands it has) should ideally be checked
+# To make sure it does not cause problems for the overall recipe
+# For now, CompositeCommands do not implement checks against adding other composite commands to itself as it can be useful to have at least 1-2 levels 
 class CompositeCommand(Command):
     """A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially."""
 

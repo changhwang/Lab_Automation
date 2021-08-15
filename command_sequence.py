@@ -230,6 +230,10 @@ class CommandSequence:
         Tuple[bool, str]
             Whether the command list is valid, Message describing problem if not valid
         """
+        # Important Note!: So far, this doesn't consider composite commands since they can hide away other commands which may break the entire recipe
+        # One way is to unwrap the composite command, but keep in mind since composite commands behave like commands, this means a composite command
+        # can have composite commands. Therefore, composite commands can be arbitrarily deep and can potentially be recursive, causing an infinite loop
+        
         # iteration lists must have commands of same class? Not necessarily. Currently not enforced
         loop_start_location = []
         loop_end_location = []

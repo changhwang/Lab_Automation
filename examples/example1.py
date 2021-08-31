@@ -60,12 +60,11 @@ seq.add_command(DummyMotorInitialize(seq.device_by_name['motor2']))
 # If you want to use an explicit command for a delay or pause, 
 #   then you can use DelayPauseCommand imported from commands.utility_commands
 
-
 seq.add_command(DummyHeaterSetTemp(heater1, 60.0))
 seq.add_command(DummyMotorSetSpeed(motor1, 10.0, delay=3.0))
 seq.add_command(DummyMotorMoveAbsolute(motor1, 30.0))
 seq.add_command(DummyMotorMoveRelative(motor1, -20.0))
-# seq.add_command(DummyHeaterRampHoldRamp(heater1, 90.0, 10.0, 4.0, 60.0, 20.0))
+
 seq.add_command(DummyHeaterDeinitialize(heater1))
 seq.add_command(DummyMotorDeinitialize(motor1))
 seq.add_command(DummyMotorDeinitialize(seq.device_by_name['motor2']))

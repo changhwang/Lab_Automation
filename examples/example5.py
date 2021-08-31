@@ -38,13 +38,13 @@ seq.add_command(DummyMotorInitialize(motor2))
 # Since logging is handled by the invoker, you will either see the success of the composite's last command or you will see the failure of a command
 
 # You can create composite commands in two ways:
-# 1) If this is a one-off, then you can simply create it the script
-# 2) If it is a useful composite command then create it in the command module
+# 1) If this is a one-off, then you can simply create it in the script
+# 2) If it is a useful composite command that may be used again then create it in the command module
 #       - a) If the composite only uses devices of a single type, add it to that device's command module
 #       - b) If the composite uses devices of multiple types, then create a new command module with a relevant name
-# We will do all of the above here
+# We will demonstrate all of the above here
 
-# Option 1)
+# Option 1) (create a one-off composite command)
 # Create a two-step movement motor command
 DummyMotorDoubleMove = CompositeCommand()
 DummyMotorDoubleMove.add_command(DummyMotorSetSpeed(motor1, 10.0))
@@ -54,7 +54,7 @@ DummyMotorDoubleMove.add_command(DummyMotorMoveRelative(motor1, 30.0))
 # add it to the sequence
 seq.add_command(DummyMotorDoubleMove)
 
-# Option 2a)
+# Option 2a) (create a composite command that works with devices of a single type)
 # Example #1: Define a composite command for a DummyMotor that temporarily changes its speed, then performs a move, then reverts the speed to its original value
 # See DummyMotorMoveSpeedAbsolute in commands/dummy_motor_commands.py 
 seq.add_command(DummyMotorMoveSpeedAbsolute(motor1, 50.0, 0.0))
@@ -66,8 +66,8 @@ seq.add_command(DummyMotorMultiMoveAbsolute([motor1, motor2], [5.0, 5.0], 20.0))
 # See DummyHeaterRampHoldRamp in commands/dummy_heater_commands.py 
 seq.add_command(DummyHeaterRampHoldRamp(heater1, 30.0, 20.0, 5.0, 60.0, 10.0))
 
-# Option 2b) (composite commands that use devices of multiple types)
-# Create a composite command that 
+# Option 2b) (create a composite command that works with devices of multiple types)
+# Define a composite command that:
 # 1) sets a DummyHeater to specified temperature at specified rate
 # 2) moves a DummyMotor by a relative distance forward and then backward, 
 # 3) sets the DummyHeater to 25 

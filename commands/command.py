@@ -76,7 +76,7 @@ class Command(ABC):
         Returns
         -------
         Optional[str]
-            Returns a string describing the result of the command's execution and details if it failed.
+            Returns a string describing the result of the command's execution with details if it failed.
         """
         return self._result_message
 
@@ -96,7 +96,7 @@ class CompositeCommand(Command):
         # super().__init__(**kwargs)
         # self._name = "CompositeCommand"
         # self._receiver_name = "N/A temp"
-        # self._command_list = []
+        self._command_list = []
         # self._receiver = None
         self._params = {}
         # self._params['receiver_name'] = 'None'

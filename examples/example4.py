@@ -29,7 +29,7 @@ seq.add_loop_start()
 # This can be done in two ways:
 # 1) When we first add a command to the command sequence, we can add a list instead of a single command
 #      - The list is then treated as an iteration list
-# Let's add a DummyHeaterSetTemp command where the temperature changes on each iterations for 3 iterations
+# Let's add a DummyHeaterSetTemp command where the temperature changes on each iterations for 4 iterations
 initial_temp_commands = [
     DummyHeaterSetTemp(heater1, 40.0),
     DummyHeaterSetTemp(heater1, 50.0),

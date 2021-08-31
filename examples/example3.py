@@ -40,7 +40,7 @@ seq.add_command(DummyHeaterDeinitialize(heater1))
 seq.add_command(DummyMotorDeinitialize(motor1))
 
 # We can specify how many times the looped section should iterate
-# It must be an integer, at least 1 or greater (
+# It must be an integer, at least 1 or greater
 #   - a value of 1 means it executes only once as if the loop marker commands did not exist
 # It can also be the string 'ALL' (This is the default value. More on this in later examples)
 seq.num_iterations = 3 

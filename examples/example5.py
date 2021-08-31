@@ -75,6 +75,10 @@ seq.add_command(DummyHeaterRampHoldRamp(heater1, 30.0, 20.0, 5.0, 60.0, 10.0))
 # See DummyPrinterHeatMove in commands/dummy_composite_commands.py
 seq.add_command(DummyPrinterHeatMove(heater1, motor2, 85.0, 20.0, 35.0, 10.0))
 
+# Note: Because a composite command contains commands and it itself is a command,
+#   - It is possible to add composite commands into composite commands
+#   - It it possible for a composite command to contain itself, resulting in an infinite loop
+
 # Rest of the recipe
 seq.add_command(DummyHeaterDeinitialize(heater1))
 seq.add_command(DummyMotorDeinitialize(motor1))

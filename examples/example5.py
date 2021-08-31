@@ -89,7 +89,7 @@ seq.save_to_yaml(recipe_file)
 log_file = 'logs/example5.log'
 invoker = CommandInvoker(seq, log_to_file=True, log_filename=log_file, alert_slack=False) 
 
-# Display the recipe with the loop markers
+# Display the recipe
 seq.print_command_names()
 
 userinput = input("\ntype 'y' to continue, type anything else to quit: ")

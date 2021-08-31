@@ -1,2 +1,7 @@
 *
 !.gitignore
+!example1.log
+!example2.log
+!example3.log
+!example4.log
+!example5.log

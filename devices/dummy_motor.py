@@ -15,6 +15,10 @@ class DummyMotor(Device):
     @property
     def position(self) -> float:
         return self.motor.position
+    
+    @property
+    def speed(self) -> float:
+        return self.motor.speed
 
     def initialize(self) -> Tuple[bool, str]:
         self.motor.home_motor()

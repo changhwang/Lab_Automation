@@ -1,0 +1,50 @@
+[2021-08-31 15:10:50,400] [INFO ]: 
+[2021-08-31 15:10:50,400] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-08-31 15:10:50,400] [INFO ]: DummyHeaterInitialize receiver_name=heater1
+[2021-08-31 15:10:50,400] [INFO ]: DummyMotorInitialize receiver_name=motor1
+[2021-08-31 15:10:50,401] [INFO ]: LoopStartCommand
+[2021-08-31 15:10:50,401] [INFO ]: DummyHeaterSetTemp receiver_name=heater1 temperature=60.0
+[2021-08-31 15:10:50,401] [INFO ]: DummyMotorMoveRelative receiver_name=motor1 distance=20.0
+[2021-08-31 15:10:50,402] [INFO ]: DummyHeaterSetTemp receiver_name=heater1 temperature=25.0
+[2021-08-31 15:10:50,402] [INFO ]: DummyMotorMoveRelative receiver_name=motor1 distance=-20.0
+[2021-08-31 15:10:50,402] [INFO ]: LoopEndCommand
+[2021-08-31 15:10:50,403] [INFO ]: DummyHeaterDeinitialize receiver_name=heater1 reset_init_flag=True
+[2021-08-31 15:10:50,403] [INFO ]: DummyMotorDeinitialize receiver_name=motor1 reset_init_flag=True
+[2021-08-31 15:10:50,403] [INFO ]: 
+[2021-08-31 15:10:50,403] [INFO ]: (Number of iterations: 3)
+[2021-08-31 15:10:50,404] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-08-31 15:10:50,405] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-08-31 15:10:50,405] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater1
+[2021-08-31 15:10:53,007] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-08-31 15:10:53,007] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor1
+[2021-08-31 15:10:57,509] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-08-31 15:10:57,509] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater1 temperature=60.0
+[2021-08-31 15:10:59,710] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 60.0
+[2021-08-31 15:10:59,710] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor1 distance=20.0
+[2021-08-31 15:11:00,911] [INFO ]: RESULT  -> True, DummyMotor has moved by 20.0 and reached position 20.0
+[2021-08-31 15:11:00,911] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater1 temperature=25.0
+[2021-08-31 15:11:03,111] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 25.0
+[2021-08-31 15:11:03,111] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor1 distance=-20.0
+[2021-08-31 15:11:04,311] [INFO ]: RESULT  -> True, DummyMotor has moved by -20.0 and reached position 0.0
+[2021-08-31 15:11:04,311] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater1 temperature=60.0
+[2021-08-31 15:11:06,513] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 60.0
+[2021-08-31 15:11:06,513] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor1 distance=20.0
+[2021-08-31 15:11:07,715] [INFO ]: RESULT  -> True, DummyMotor has moved by 20.0 and reached position 20.0
+[2021-08-31 15:11:07,715] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater1 temperature=25.0
+[2021-08-31 15:11:09,917] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 25.0
+[2021-08-31 15:11:09,917] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor1 distance=-20.0
+[2021-08-31 15:11:11,118] [INFO ]: RESULT  -> True, DummyMotor has moved by -20.0 and reached position 0.0
+[2021-08-31 15:11:11,118] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater1 temperature=60.0
+[2021-08-31 15:11:13,320] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 60.0
+[2021-08-31 15:11:13,320] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor1 distance=20.0
+[2021-08-31 15:11:14,521] [INFO ]: RESULT  -> True, DummyMotor has moved by 20.0 and reached position 20.0
+[2021-08-31 15:11:14,521] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater1 temperature=25.0
+[2021-08-31 15:11:16,723] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 25.0
+[2021-08-31 15:11:16,723] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor1 distance=-20.0
+[2021-08-31 15:11:17,925] [INFO ]: RESULT  -> True, DummyMotor has moved by -20.0 and reached position 0.0
+[2021-08-31 15:11:17,925] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater1 reset_init_flag=True
+[2021-08-31 15:11:17,926] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-08-31 15:11:17,927] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor1 reset_init_flag=True
+[2021-08-31 15:11:17,927] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-08-31 15:11:17,927] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-08-31 15:11:17,928] [INFO ]: 

@@ -71,6 +71,15 @@ class DummyMotorMoveSpeedAbsolute(CompositeCommand):
         self.add_command(DummyMotorMoveAbsolute(receiver, position))
         self.add_command(DummyMotorSetSpeed(receiver, original_speed))
 
+class DummyMotorMultiMoveAbsolute(CompositeCommand):
+    """Move a list of motors to a list of position at a particular speed"""
+
+    def __init__(self, receiver_list: List[DummyMotor], position_list: List[float], speed: float, **kwargs):
+        super().__init__(**kwargs)
+        for ndx, receiver in enumerate(receiver_list):
+            self.add_command(DummyMotorSetSpeed(receiver, speed))
+            self.add_command(DummyMotorMoveAbsolute(receiver, position_list[ndx]))
+
 class DummyMotorMultiInitialize(CompositeCommand):
     """Initialize a list of motors"""
 
@@ -78,3 +87,5 @@ class DummyMotorMultiInitialize(CompositeCommand):
         super().__init__(**kwargs)
         for receiver in receiver_list:
             self.add_command(DummyMotorInitialize(receiver))
+
+

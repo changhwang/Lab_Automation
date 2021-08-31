@@ -1,3 +1,8 @@
 *
 !user_recipes/
 !.gitignore
+!example1.yaml
+!example2.yaml
+!example3.yaml
+!example4.yaml
+!example5.yaml

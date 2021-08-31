@@ -116,9 +116,9 @@ class CompositeCommand(Command):
         str
             Indicates it is a composite command followed by the names and params of each command it contains.
         """
-        self._name = "CompositeCommand:"
+        self._name = type(self).__name__ + " (CompositeCommand):"
         for command in self._command_list:
-            self._name += " " + command.name + ";"
+            self._name += " \n\t" + command.name + ";"
         return self._name
 
     @property
@@ -172,14 +172,11 @@ class CompositeCommand(Command):
                 userinput = input()
 
             command.execute()
+            self._was_successful = command.was_successful
+            self._result_message = command.result_message
             if not command.was_successful:
-                self._was_successful = command.was_successful
-                self._result_message = command.result_message
                 return 
-            else:
-                # update success and message of the composite command
-                self._was_successful = command.was_successful
-                self._result_message = command.result_message
+
         # store the success of the last command 
         # or write a new message specific to the composite command
         # self._result_message = "Successfully executed composite command " + type(self).__name__

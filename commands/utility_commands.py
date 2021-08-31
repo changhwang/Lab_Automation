@@ -48,7 +48,9 @@ class DelayPauseCommand(UtilityParentCommand):
     """Has a delay or pause but does nothing."""
 
     def __init__(self, delay: Union[str, float]):
-        super().__init__(delay)
+        arg_dict={}
+        arg_dict['delay'] = delay
+        super().__init__(**arg_dict)
 
     def execute(self) -> None:
         self._was_successful, self._result_message = (True, "Does nothing.")

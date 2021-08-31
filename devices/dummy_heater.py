@@ -58,7 +58,7 @@ class DummyHeater(Device):
         while self._temperature != temperature:
             print("DummyHeater " + self.name + " temperature: " + str(self._temperature), end='\r')
             time.sleep(.1)
-            
+        print("DummyHeater " + self.name + " temperature: " + str(self._temperature), end='\r')
 
         return (True, "DummyHeater temperature has stabilized at " + str(temperature))
 

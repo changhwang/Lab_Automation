@@ -21,6 +21,7 @@ class DummyMotor(Device):
         while self.motor._position != 0.0:
             print("DummyMotor " + self.name + " position: " + str(self.motor._position), end='\r')
             time.sleep(0.1)
+        print("DummyMotor " + self.name + " position: " + str(self.motor._position), end='\r')
         self._is_initialized = True
         return (True, "Initialized DummyMotor by homing and setting position to zero")
 
@@ -49,6 +50,7 @@ class DummyMotor(Device):
         while self.motor.position != position:
             print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
             time.sleep(.1)
+        print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
 
         return (True, "DummyMotor has reached position " + str(position))
 
@@ -65,6 +67,7 @@ class DummyMotor(Device):
         while self.motor.position != position:
             print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
             time.sleep(.1)
+        print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
 
         return (True, "DummyMotor has moved by " + str(distance) + " and reached position " + str(position))
 

@@ -45,13 +45,13 @@ class CommandInvoker:
         if self._log_to_file:
             if self._log_filename is None:
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                self._log_filename = timestamp
+                self._log_filename = "logs/" +timestamp
 
             if not self._log_filename[-4:] == '.log':
                 self._log_filename += '.log'
             
-            self._log_filename = self.log_directory + self._log_filename
-
+            # self._log_filename = self.log_directory + self._log_filename
+            
             self._file_handler = logging.FileHandler(self._log_filename)
             self._file_handler.setFormatter(log_formatter)
             self.log.addHandler(self._file_handler)

@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Optional
+import time
+
 from devices.device import Device
+
 
 
 # TODO
@@ -160,6 +163,14 @@ class CompositeCommand(Command):
         """Executes each command in the command list sequentially and returns early if a command's execution was not successful."""
         # LOGGING? 
         for command in self._command_list:
+            
+            delay = command._params['delay']
+            if isinstance(delay, float) or isinstance(delay, int):
+                if delay > 0.0:
+                    time.sleep(delay)
+            elif delay == "PAUSE" or delay == "P":
+                userinput = input()
+
             command.execute()
             if not command.was_successful:
                 self._was_successful = command.was_successful

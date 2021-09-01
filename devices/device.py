@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import Optional, Tuple
-import serial
 import time
+try:
+    import serial
+except ImportError:
+    pass
 
 
 # *args, **kwargs https://stackoverflow.com/questions/6034662/python-method-overriding-does-signature-matter

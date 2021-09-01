@@ -5,7 +5,12 @@ from os.path import isfile, join
 import importlib
 import copy
 
-import serial.tools.list_ports
+try:
+    import serial.tools.list_ports
+except ImportError:
+    _has_serial = False
+else:
+    _has_serial = True
 import questionary
 from colorama import init
 from colorama import Fore, Back, Style
@@ -364,11 +369,14 @@ def remove_device():
         print(Fore.RED + name + " was NOT removed from the device list")
 
 def print_com_port_info():
-    ports = serial.tools.list_ports.comports()
-    print('')
-    for port, desc, hwid in sorted(ports):
-        print("{}: {} [{}]".format(port, desc, hwid))
-    print('')
+    if _has_serial:
+        ports = serial.tools.list_ports.comports()
+        print('')
+        for port, desc, hwid in sorted(ports):
+            print("{}: {} [{}]".format(port, desc, hwid))
+        print('')
+    else:
+        print(Fore.RED + "PySerial is not installed")
 
 ##################################################
 # Edit Command Menu

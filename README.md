@@ -44,7 +44,7 @@ The required packages are listed below. The versions used during developement ar
     - pyusb (1.0.0b1 required)
     - [stellarnet_driver file from vendor](https://www.stellarnet.us/software/spectrometer-python-application-driver/)
 - Ximea cameras:
-    - [xiAPI] (https://www.ximea.com/support/wiki/apis/Python)
+    - [xiAPI](https://www.ximea.com/support/wiki/apis/Python)
     - Pillow (8.3.1)
 
 ### Installation
@@ -55,9 +55,9 @@ The general workflow is as follows:
 - If not created, create the receiver and command modules for your device
 - Create a command sequence
 - Add devices you plan to use to the command sequence
-- Add device commands to the command sequence
+- Add commands to the command sequence
 - Create a command invoker and pass it the sequence during construction
-- Ivoke the commands to execute them
+- Invoke the commands to execute them
 
 There are three ways to create and modify the command sequence:
 1. Use a .py script to create the command sequence (recommended)

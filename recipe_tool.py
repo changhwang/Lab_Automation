@@ -20,6 +20,9 @@ from devices.multi_stepper import MultiStepper
 from devices.newport_esp301 import NewportESP301
 from devices.stellarnet_spectrometer import StellarNetSpectrometer
 from devices.ximea_camera import XimeaCamera
+from devices.dummy_heater import DummyHeater
+from devices.dummy_motor import DummyMotor
+
 
 # TODO
 # Clean up comments
@@ -35,6 +38,10 @@ named_devices = {
     "PrinterMotorX": NewportESP301,
     "Spectrometer": StellarNetSpectrometer,
     "SampleCamera": XimeaCamera,
+    "DummyHeater1": DummyHeater,
+    "DummyHeater2": DummyHeater,
+    "DummyMotor1": DummyMotor,
+    "DummyMotor2": DummyMotor,
     }
 command_directory = "commands/"
 load_directory = "recipes/user_recipes/"

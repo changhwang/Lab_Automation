@@ -1,0 +1,213 @@
+- - &id001 !!python/object:devices.dummy_heater.DummyHeater
+    _name: DummyHeater1
+    _is_initialized: false
+    _heat_rate: 20.0
+    min_heat_rate: 1.0
+    max_heat_rate: 50.0
+    min_temperature: 25.0
+    max_temperature: 100.0
+    _temperature: 52.832470873462256
+    _hardware_interval: 0.05
+  - &id002 !!python/object:devices.dummy_motor.DummyMotor
+    _name: DummyMotor1
+    _is_initialized: false
+    motor: !!python/object:devices.dummy_motor_source.DummyMotorSource
+      _speed: 20.0
+      min_speed: 1.0
+      max_speed: 50.0
+      min_position: 0.0
+      max_position: 100.0
+      _position: 16.177693105542346
+      _hardware_interval: 0.05
+  - &id003 !!python/object:devices.dummy_motor.DummyMotor
+    _name: DummyMotor2
+    _is_initialized: false
+    motor: !!python/object:devices.dummy_motor_source.DummyMotorSource
+      _speed: 20.0
+      min_speed: 1.0
+      max_speed: 50.0
+      min_position: 0.0
+      max_position: 100.0
+      _position: 32.32494753232211
+      _hardware_interval: 0.05
+- - - !!python/object:commands.dummy_heater_commands.DummyHeaterInitialize
+      _receiver: *id001
+      _params:
+        receiver_name: DummyHeater1
+        delay: 0.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyHeaterInitialize receiver_name=DummyHeater1
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorInitialize
+      _receiver: *id002
+      _params:
+        receiver_name: DummyMotor1
+        delay: 0.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorInitialize receiver_name=DummyMotor1
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorInitialize
+      _receiver: *id003
+      _params:
+        receiver_name: DummyMotor2
+        delay: 0.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorInitialize receiver_name=DummyMotor2
+  - - !!python/object:commands.utility_commands.LoopStartCommand
+      _params:
+        delay: 0.0
+      _was_successful: null
+      _result_message: null
+      _name: LoopStartCommand
+  - - !!python/object:commands.dummy_heater_commands.DummyHeaterSetTemp
+      _receiver: *id001
+      _params:
+        receiver_name: DummyHeater1
+        delay: 0.0
+        temperature: 60.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyHeaterSetTemp receiver_name=DummyHeater1 temperature=60.0
+    - !!python/object:commands.dummy_heater_commands.DummyHeaterSetTemp
+      _receiver: *id001
+      _params:
+        receiver_name: DummyHeater1
+        delay: 0.0
+        temperature: 70.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyHeaterSetTemp receiver_name=DummyHeater1 temperature=70.0
+    - !!python/object:commands.dummy_heater_commands.DummyHeaterSetTemp
+      _receiver: *id001
+      _params:
+        receiver_name: DummyHeater1
+        delay: 0.0
+        temperature: 80.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyHeaterSetTemp receiver_name=DummyHeater1 temperature=80.0
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveRelative
+      _receiver: *id002
+      _params:
+        receiver_name: DummyMotor1
+        delay: 0.0
+        distance: 10.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorMoveRelative receiver_name=DummyMotor1 distance=10.0
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveRelative
+      _receiver: *id003
+      _params:
+        receiver_name: DummyMotor2
+        delay: 0.0
+        distance: 20.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorMoveRelative receiver_name=DummyMotor2 distance=20.0
+  - - !!python/object:commands.dummy_heater_commands.DummyHeaterSetHeatRate
+      _receiver: *id001
+      _params:
+        receiver_name: DummyHeater1
+        delay: 0.0
+        heat_rate: 40.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyHeaterSetHeatRate receiver_name=DummyHeater1 heat_rate=40.0
+  - - !!python/object:commands.dummy_heater_commands.DummyHeaterSetTemp
+      _receiver: *id001
+      _params:
+        receiver_name: DummyHeater1
+        delay: 0.0
+        temperature: 25.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyHeaterSetTemp receiver_name=DummyHeater1 temperature=25.0
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
+      _receiver: *id002
+      _params:
+        receiver_name: DummyMotor1
+        delay: 0.0
+        speed: 10.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorSetSpeed receiver_name=DummyMotor1 speed=10.0
+    - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
+      _receiver: *id002
+      _params:
+        receiver_name: DummyMotor1
+        delay: 0.0
+        speed: 20.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorSetSpeed receiver_name=DummyMotor1 speed=20.0
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
+      _receiver: *id003
+      _params:
+        receiver_name: DummyMotor2
+        delay: 0.0
+        speed: 5.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorSetSpeed receiver_name=DummyMotor2 speed=5.0
+    - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
+      _receiver: *id003
+      _params:
+        receiver_name: DummyMotor2
+        delay: 0.0
+        speed: 10.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorSetSpeed receiver_name=DummyMotor2 speed=10.0
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveAbsolute
+      _receiver: *id002
+      _params:
+        receiver_name: DummyMotor1
+        delay: 0.0
+        position: 0.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorMoveAbsolute receiver_name=DummyMotor1 position=0.0
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveAbsolute
+      _receiver: *id003
+      _params:
+        receiver_name: DummyMotor2
+        delay: 0.0
+        position: 0.0
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorMoveAbsolute receiver_name=DummyMotor2 position=0.0
+  - - !!python/object:commands.utility_commands.LoopEndCommand
+      _params:
+        delay: 0.0
+      _was_successful: null
+      _result_message: null
+      _name: LoopEndCommand
+  - - !!python/object:commands.dummy_heater_commands.DummyHeaterDeinitialize
+      _receiver: *id001
+      _params:
+        receiver_name: DummyHeater1
+        delay: 0.0
+        reset_init_flag: true
+      _was_successful: null
+      _result_message: null
+      _name: DummyHeaterDeinitialize receiver_name=DummyHeater1 reset_init_flag=True
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorDeinitialize
+      _receiver: *id002
+      _params:
+        receiver_name: DummyMotor1
+        delay: 0.0
+        reset_init_flag: true
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorDeinitialize receiver_name=DummyMotor1 reset_init_flag=True
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorDeinitialize
+      _receiver: *id003
+      _params:
+        receiver_name: DummyMotor2
+        delay: 0.0
+        reset_init_flag: true
+      _was_successful: null
+      _result_message: null
+      _name: DummyMotorDeinitialize receiver_name=DummyMotor2 reset_init_flag=True
+- ALL

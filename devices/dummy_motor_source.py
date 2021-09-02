@@ -5,7 +5,7 @@ class DummyMotorSource():
 
     def __init__(self, speed: float = 20.0):
         self._speed = speed
-        self.min_speed = 1.0
+        self.min_speed = 5.0
         self.max_speed = 50.0
         self.min_position = 0.0
         self.max_position = 100.0

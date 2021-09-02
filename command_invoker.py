@@ -54,7 +54,8 @@ class CommandInvoker:
             
             self._file_handler = logging.FileHandler(self._log_filename)
             self._file_handler.setFormatter(log_formatter)
-            self.log.addHandler(self._file_handler)
+            if not len(self.log.handlers):
+                self.log.addHandler(self._file_handler)
 
         if self._alert_slack:
             self._slack_token = os.environ.get('SLACK_BOT_TOKEN')

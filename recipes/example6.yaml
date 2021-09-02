@@ -1,0 +1,245 @@
+- - &id001 !!python/object:devices.dummy_heater.DummyHeater
+    _name: heater
+    _is_initialized: false
+    _heat_rate: 40.0
+    min_heat_rate: 1.0
+    max_heat_rate: 50.0
+    min_temperature: 25.0
+    max_temperature: 100.0
+    _temperature: 25.0
+    _hardware_interval: 0.05
+  - &id002 !!python/object:devices.dummy_motor.DummyMotor
+    _name: motor
+    _is_initialized: false
+    motor: !!python/object:devices.dummy_motor_source.DummyMotorSource
+      _speed: 27.5
+      min_speed: 5.0
+      max_speed: 50.0
+      min_position: 0.0
+      max_position: 100.0
+      _position: 0.0
+      _hardware_interval: 0.05
+  - &id005 !!python/object:devices.dummy_meter.DummyMeter
+    _name: meter
+    _is_initialized: false
+    heater: *id001
+    motor: *id002
+    x1_range: !!python/tuple
+    - 25.0
+    - 100.0
+    x2_range: !!python/tuple
+    - 5.0
+    - 50.0
+    a1: !!python/object/apply:numpy.core.multiarray._reconstruct
+      args:
+      - &id003 !!python/name:numpy.ndarray ''
+      - !!python/tuple
+        - 0
+      - !!binary |
+        Yg==
+      state: !!python/tuple
+      - 1
+      - !!python/tuple
+        - 3
+        - 1
+      - &id004 !!python/object/apply:numpy.dtype
+        args:
+        - f8
+        - false
+        - true
+        state: !!python/tuple
+        - 3
+        - <
+        - null
+        - null
+        - null
+        - -1
+        - -1
+        - 0
+      - false
+      - !!binary |
+        SL25/L46xr/4CBCaIibqv1iOZvO8CN0/
+    b1: !!python/object/apply:numpy.core.multiarray._reconstruct
+      args:
+      - *id003
+      - !!python/tuple
+        - 0
+      - !!binary |
+        Yg==
+      state: !!python/tuple
+      - 1
+      - !!python/tuple
+        - 3
+        - 1
+      - *id004
+      - false
+      - !!binary |
+        cD8OjHaQuT88woxbuhPjP46PaHDRKOQ/
+    a2: !!python/object/apply:numpy.core.multiarray._reconstruct
+      args:
+      - *id003
+      - !!python/tuple
+        - 0
+      - !!binary |
+        Yg==
+      state: !!python/tuple
+      - 1
+      - !!python/tuple
+        - 3
+        - 1
+      - *id004
+      - false
+      - !!binary |
+        /lpUj7tK7r/gArL3uYm2P8pSquPBMeI/
+    b2: !!python/object/apply:numpy.core.multiarray._reconstruct
+      args:
+      - *id003
+      - !!python/tuple
+        - 0
+      - !!binary |
+        Yg==
+      state: !!python/tuple
+      - 1
+      - !!python/tuple
+        - 3
+        - 1
+      - *id004
+      - false
+      - !!binary |
+        TLOK+9Rb1z9Ay4Jy6h6wP6CY26vgFds/
+    noise_width: 0.1
+- - - !!python/object:commands.dummy_heater_commands.DummyHeaterInitialize
+      _receiver: *id001
+      _params:
+        receiver_name: heater
+        delay: 0.0
+      _was_successful: true
+      _result_message: Initialized DummyHeater by setting to room temperature (25
+        C)
+      _name: DummyHeaterInitialize receiver_name=heater
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorInitialize
+      _receiver: *id002
+      _params:
+        receiver_name: motor
+        delay: 0.0
+      _was_successful: true
+      _result_message: Initialized DummyMotor by homing and setting position to zero
+      _name: DummyMotorInitialize receiver_name=motor
+  - - !!python/object:commands.dummy_meter_commands.DummyMeterInitialize
+      _receiver: *id005
+      _params:
+        receiver_name: meter
+        delay: 0.0
+      _was_successful: true
+      _result_message: Initialized DummyMeter
+      _name: DummyMeterInitialize receiver_name=meter
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveSpeedAbsolute
+      _command_list:
+      - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
+        _receiver: *id002
+        _params:
+          receiver_name: motor
+          delay: 0.0
+          speed: 50.0
+        _was_successful: true
+        _result_message: DummyMotor speed was successfully set to 50.0
+        _name: DummyMotorSetSpeed receiver_name=motor speed=50.0
+      - !!python/object:commands.dummy_motor_commands.DummyMotorMoveAbsolute
+        _receiver: *id002
+        _params:
+          receiver_name: motor
+          delay: 0.0
+          position: 5.0
+        _was_successful: true
+        _result_message: DummyMotor has reached position 5.0
+        _name: DummyMotorMoveAbsolute receiver_name=motor position=5.0
+      - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
+        _receiver: *id002
+        _params:
+          receiver_name: motor
+          delay: 0.0
+          speed: 20.0
+        _was_successful: true
+        _result_message: DummyMotor speed was successfully set to 20.0
+        _name: DummyMotorSetSpeed receiver_name=motor speed=20.0
+      _params:
+        delay: 0.0
+      _was_successful: true
+      _result_message: DummyMotor speed was successfully set to 20.0
+      _name: "DummyMotorMoveSpeedAbsolute (CompositeCommand): \n\tDummyMotorSetSpeed\
+        \ receiver_name=motor speed=50.0; \n\tDummyMotorMoveAbsolute receiver_name=motor\
+        \ position=5.0; \n\tDummyMotorSetSpeed receiver_name=motor speed=20.0;"
+  - - !!python/object:commands.dummy_heater_commands.DummyHeaterSetTemp
+      _receiver: *id001
+      _params:
+        receiver_name: heater
+        delay: 0.0
+        temperature: 81.25
+      _was_successful: true
+      _result_message: DummyHeater temperature has stabilized at 81.25
+      _name: DummyHeaterSetTemp receiver_name=heater temperature=81.25
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
+      _receiver: *id002
+      _params:
+        receiver_name: motor
+        delay: 0.0
+        speed: 27.5
+      _was_successful: true
+      _result_message: DummyMotor speed was successfully set to 27.5
+      _name: DummyMotorSetSpeed receiver_name=motor speed=27.5
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveRelative
+      _receiver: *id002
+      _params:
+        receiver_name: motor
+        delay: 0.0
+        distance: 5.0
+      _was_successful: true
+      _result_message: DummyMotor has moved by 5.0 and reached position 10.0
+      _name: DummyMotorMoveRelative receiver_name=motor distance=5.0
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveRelative
+      _receiver: *id002
+      _params:
+        receiver_name: motor
+        delay: 0.0
+        distance: -5.0
+      _was_successful: true
+      _result_message: DummyMotor has moved by -5.0 and reached position 5.0
+      _name: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+  - - !!python/object:commands.dummy_meter_commands.DummyMeterMeasure
+      _receiver: *id005
+      _params:
+        receiver_name: meter
+        delay: 0.0
+        filename: myexp_run4
+      _was_successful: true
+      _result_message: Measured data and saved to file at data/dummy_meter/myexp_run4.csv
+      _name: DummyMeterMeasure receiver_name=meter filename=myexp_run4
+  - - !!python/object:commands.dummy_heater_commands.DummyHeaterDeinitialize
+      _receiver: *id001
+      _params:
+        receiver_name: heater
+        delay: 0.0
+        reset_init_flag: true
+      _was_successful: true
+      _result_message: Deinitialized DummyHeater by setting to room temperature (25
+        C)
+      _name: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+  - - !!python/object:commands.dummy_motor_commands.DummyMotorDeinitialize
+      _receiver: *id002
+      _params:
+        receiver_name: motor
+        delay: 0.0
+        reset_init_flag: true
+      _was_successful: true
+      _result_message: Deinitialized DummyMotor by moving to position zero
+      _name: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+  - - !!python/object:commands.dummy_meter_commands.DummyMeterDeinitialize
+      _receiver: *id005
+      _params:
+        receiver_name: meter
+        delay: 0.0
+        reset_init_flag: true
+      _was_successful: true
+      _result_message: Deinitialized DummyMeter
+      _name: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+- 1

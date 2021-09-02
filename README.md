@@ -62,7 +62,7 @@ The general workflow is as follows:
 - If not created, create the receiver and command modules for your device
 - Create a command sequence
 - Add devices you plan to use to the command sequence
-- Add device commands to the command sequence
+- Add commands to the command sequence
 - Create a command invoker and pass it the sequence during construction
 - Invoke the commands to execute them
 

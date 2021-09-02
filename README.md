@@ -1,8 +1,8 @@
 # LabAutomation
-LabAutomation is a modular framework for automating multiple devices or instruments capable of being controlled through Python. 
+LabAutomation is a modular framework for automating multiple devices or instruments capable of being controlled through Python. It can be combined with optimization algorithms for autonomous process optimization.
 
 ## Description
-LabAutomation was developed for the purpose of automating laboratory experiments to enable high-throughput data collection and process optimization. It can automate experimental procedures that involve instruments from different vendors, with different communication protocols, and also home-built equipment. The automated procedures can then be tied into sequential model-based optimization algorithms (e.g. Bayesian optimization) to enable self-driving, autonomous lab experiments.
+LabAutomation was developed for the purpose of automating laboratory experiments to enable high-throughput data collection and process optimization. It can be used to automate experimental procedures that involve instruments from different vendors, with different communication protocols, and also home-built equipment. The automated procedures can then be tied into sequential model-based optimization algorithms (e.g. Bayesian optimization) to enable self-driving, autonomous lab experiments.
 
 LabAutomation implements the command pattern in order to execute a command sequence, or 'recipe'. Generally, each command interacts with a device, or 'receiver',  by calling its methods to control the actual physical device. Several devices and commands have already been implemented (see below). However, as long as you can write commands for your device in Python it can easily be used in conjunction with other devices due to the modular nature of the command pattern. Further details on the program structure and how to create new devices, commands, and recipes are shown below. 
 

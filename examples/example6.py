@@ -1,10 +1,11 @@
-import sys
+# Example 6: Bayesian optimization of an experiment
+# run from root using 'python -m examples.example6'
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from skopt import Optimizer
-from skopt.plots import plot_convergence, plot_gaussian_process
+from skopt.plots import plot_convergence
 import pandas as pd
 
 from command_sequence import CommandSequence
@@ -154,10 +155,11 @@ def run_experiment(params, meter_file):
     invoker = CommandInvoker(seq, log_to_file=True, log_filename='logs/example6.log', alert_slack=False)
     invoker.invoke_commands()
 
-    # If you wish to save the state of your device objects then overwrite your save file
+    # If you wish to save the state of your device objects from run to run then overwrite your save file
     seq.save_to_yaml(recipe_file)
 
 def process_data(data_file):
+    # Load data
     dataframe = pd.read_csv(data_file)
     raw_data = dataframe.iloc[0]['Data']
     # Process your data here

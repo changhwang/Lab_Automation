@@ -94,13 +94,45 @@ Example 6 emulates optimization of a material processing experiment. It uses a f
 You will need some more packages to run example 6 (listed above). Run example 6 as stated above.
 
 ## Further Details
-To do
+### Adding Devices
+Please see the devices folder for examples of implementing device modules
 
-As a general overview, the physical devices need to be controlled by Python at some level through a 'receiver' module. Commands are then written for each device, or 'receiver'. Commands for different receivers are then put together into a sequence. The sequence is then passed to the invoker which iterates through the sequence and executes each command.
+To create a device (receiver) module, you must either 
+- 1) write a Python module yourself that communicates with and controls the physical device
+- 2) if it is a commercial product, get any python package from the vendor 
+- 3) find a python package already developed by someone else
+
+When writing your own receiver class/module it is recommended to inherit from one of the base classes in devices/device.py. If none of those base classes are appropriate for your device then either inherit from Device or consider writing a new base class in device.py (that inherits from Device) for reusability in the future. Create your module in the devices folder
+
+If you are using a third-party module from a vendor or someone else then consider writing a class that is composed of the third-party object while still inheriting from one of the device.py base classes. This is so your receiver module will still implement the standard properties and methods of the base class and can also extend the functionality of the third-party modules or make them easier to use. An example of this is demonstrated in ximea_camera.py which stores a xiapi.Camera object in its self.cam property and also in dummy_motor.py which stores a DummyMotorSource object in its self.motor property.
+
+One thing to keep in mind is that the standard Command "interface" has a was_successful boolean property and a result_message string property. These properties are updated during a command's execute method and it stores whether the command execution was successful or not and a message describing the success or failure. This is so your automated process can safely stop when something goes wrong and you can debug what happened. With this in mind, you can write your receiver class methods with error checking and error messages in mind so that the command can simply grab the result. You can of course put this logic in the command's execute method instead if you wish. 
+
+### Adding Commands
+Please see the commands folder for examples of implementing command classes for devices
+
+To create commands for your devices (receivers), create a module in the commands folder. This module will essentially contain several classes that call a receiver's methods to perform an action. First, create a parent class that inherits from Command in command.py. In this parent class create the class variable 'receiver_cls' which contains the receiver class that all commands in this module will use (this is for UI filtering during runtime through inspection). The parent class also gives you a chance to make changes to all your subsequence child commands at once. Afterwards you can create the individual child commands for your receiver
+
+All commands should have a docstring describing what it does. Each command's constructor should also accept a receiver object argument (with the exception of composite commands and utility commands, see below) and also any parameters that are needed to execute the receiver's methods. Some commands won't need addition parameters aside from the receiver (e.g. Turn on/off, Initialize) while others will (e.g. Move to X position and Y speed). Any additional parameters should be stored in the self._params dict. The purpose of the docstring and the _params dict is so the exact details of each command can be logged during execution and so that they can be viewed by the UI tool.
+
+You may want to create commands that perform some utility function but don't necessarily connect to an actual device/receiver. You can put these in commands/utility_commands.py. An example of this is a NotifySlackCommand which sends a message to a slack channel when executed. This is useful for getting notifications on the progress of your experiment or can be combined with a pause (delay='P') so that it notifies the user and waits for them to continue with experiment.
+
+(For creating and using composite commands see example5)
+Finally, you may want to combine commands into a single command so that your recipes don't become excessively large. Depending on how you look at it this allows you to perform higher level functions from lower level commands or allows you to create sub-recipes/routines. A CompositeCommand inherits from Command so to any other object that uses it, it behaves just as a regular command does. A composite command essentially maintains a list of Command subclasses and its execute method goes through that list and executes each internal command sequentially. After each internal command executes the composite updates its own success bool and result message with that of the internal command and if the bool was False then the composite returns out of its execute method and does not move onto the next internal command.
+
+You can either create one-off composite commands in your scripts, or create useful ones in your device's command module for reusability. Furthermore, a composite command has no restriction on what receiver it has. For example, a composite command can have:
+- just one receiver like a standard command (e.g. Create a multistep heating schedule for a hot plate)
+- multiple receivers of the same type (e.g. Control three X, Y, Z motors to move to a point in space)
+- multiple receivers of different types (e.g. Have a motor place a sample on a heater, then set the heater's temperature, then take an image of the sample)
+- no receivers at all (e.g. Pause the recipe then send slack messages to 3 different slack channels)
+
+One thing to keep in mind is that since composite commands behave like regular commands, a composite command can contain composite commands which contain composite commands and so forth. This means if you really want to you can create deep heirarchies of routines, but it also means that you can create an infinite loop if a composite command contains itself.
 
 ### Scheme
-### Adding Devices
-### Adding Commands
+[Program scheme](docs/Scheme.png)
+
+LabAutomation implements the command pattern to control multiple devices. Each physical device has its own firmware which can be controlled according to some communication protocol. The Python module that is able to communicate with the device firmware is the classical 'receiver'. This can be a Python module that you write yourself, a module from the equipment vendor, or a module you found online developed by someone else. In the latter two cases you may consider writing your own class that wraps those receiver module(s) to extend their functionality or make it easier to use. Command classes are then written for each command that calls a receiver's methods to perform an action. Each command inherits from the Command base class, thereby implementing standard methods and properties (in particular the 'execute()' method). This allows you to treat commands as objects and also means you can simply tell a command to execute without knowing anything about how they work. Commands for different receivers are then put together into a command sequence which contains useful methods to managing a recipe. The sequence is then passed to the invoker which iterates through the sequence and executes each command while performing some bookkeeping such as logging. If used for process optimization, then the raw data is processed and is used to update the beliefs of an optimization algorithm which then chooses the next recipe conditions in order to optimize the process in some way.
+
 
 ## License
 To do

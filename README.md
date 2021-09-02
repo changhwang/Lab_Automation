@@ -103,11 +103,11 @@ You can start creating and executing recipes with the DummyHeater and DummyMotor
 For the third method you can inspect any of the recipe .yaml files and make changes to them (except for example1.yaml as it is loaded in example2)
 
 ### Autonomous Process Optimization
-[Example 6](examples/) demonstrates a method of combining automated recipes with Bayesian optimization using scikit's optimize package. Please see their Optimizer or gp_minimize examples to get familiar with the workflow. 
+Example 6 demonstrates a method of combining automated recipes with Bayesian optimization using scikit's optimize package. Please see their Optimizer or gp_minimize examples to get familiar with the workflow. 
 
-Example 6 emulates optimization of a material processing experiment. It uses a fake measurement device (DummyMeter) that 'measures' some property from a random noisy objective function surface that depends on a DummyHeater's temperature and a DummyMotor's speed. You can think of it as corresponding to some process like 3d printing or ink coating (i.e. What printing temperature and speed gives me the best material property?). 
+Example 6 emulates optimization of a material processing experiment. It uses a fake measurement device (DummyMeter) that 'measures' some property from a random noisy objective function surface that depends on a DummyHeater's temperature and a DummyMotor's speed. You can think of it as corresponding to some process like 3d printing or ink coating (i.e. What printing temperature and speed gives me the best material property?). [Click here to see example results.](examples/README.md#example-6:-autonomous-process-optimization)
 
-You will need some more packages to run example 6 (listed above). Run example 6 as stated above.
+You will need some more packages to run example 6 (listed above). Run example 6 as stated above from root.
 
 ## Further Details
 ### Creating Device Modules

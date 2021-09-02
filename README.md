@@ -35,6 +35,7 @@ This package was developed using Python 3.8.
 The required packages are listed below. The versions used during developement are indicated in parenthesis. If a specific version is required it will be indicated.
 - The core framework only requires PyYaml (5.4.1)
 - Slack notifications are optional and require slackclient (2.9.3)
+    - Store your bot token as an environmental variable
 - The recipe_tool.py text-based UI requires questionary (1.10.0) and colorama (0.4.4)
 - Any device that communicates via serial requires PySerial (3.5)
 - StellarNet spectrometers:
@@ -59,7 +60,7 @@ Download the repository and create a recipe using a script or the recipe_tool.py
 ## Usage
 ### Automation
 The general workflow is as follows:
-- If not created, create the receiver and command modules for your device
+- If not created, create the receiver and command modules for your device (see below for more info)
 - Create a command sequence
 - Add devices you plan to use to the command sequence
 - Add commands to the command sequence
@@ -94,7 +95,12 @@ You will need some more packages to run example 6 (listed above). Run example 6 
 
 ## Further Details
 To do
+
 As a general overview, the physical devices need to be controlled by Python at some level through a 'receiver' module. Commands are then written for each device, or 'receiver'. Commands for different receivers are then put together into a sequence. The sequence is then passed to the invoker which iterates through the sequence and executes each command.
+
+### Scheme
+### Adding Devices
+### Adding Commands
 
 ## License
 To do

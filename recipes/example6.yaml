@@ -12,7 +12,7 @@
     _name: motor
     _is_initialized: false
     motor: !!python/object:devices.dummy_motor_source.DummyMotorSource
-      _speed: 27.5
+      _speed: 35.525398247758694
       min_speed: 5.0
       max_speed: 50.0
       min_position: 0.0
@@ -58,7 +58,7 @@
         - 0
       - false
       - !!binary |
-        SL25/L46xr/4CBCaIibqv1iOZvO8CN0/
+        7ILSShax2j/0BU7SJwDrPzAQ+NuyQc2/
     b1: !!python/object/apply:numpy.core.multiarray._reconstruct
       args:
       - *id003
@@ -74,7 +74,7 @@
       - *id004
       - false
       - !!binary |
-        cD8OjHaQuT88woxbuhPjP46PaHDRKOQ/
+        aK3RKv1I0D8YQ9BMcz3MP3oOXhLIbOC/
     a2: !!python/object/apply:numpy.core.multiarray._reconstruct
       args:
       - *id003
@@ -90,7 +90,7 @@
       - *id004
       - false
       - !!binary |
-        /lpUj7tK7r/gArL3uYm2P8pSquPBMeI/
+        ELSjs1/zsT8ikEWHszPiP2Cwqz3Vr9e/
     b2: !!python/object/apply:numpy.core.multiarray._reconstruct
       args:
       - *id003
@@ -106,7 +106,7 @@
       - *id004
       - false
       - !!binary |
-        TLOK+9Rb1z9Ay4Jy6h6wP6CY26vgFds/
+        wEqvUNhVlb9IyDjp2+fev+KxT78Oceo/
     noise_width: 0.1
 - - - !!python/object:commands.dummy_heater_commands.DummyHeaterInitialize
       _receiver: *id001
@@ -174,19 +174,19 @@
       _params:
         receiver_name: heater
         delay: 0.0
-        temperature: 81.25
+        temperature: 100.0
       _was_successful: true
-      _result_message: DummyHeater temperature has stabilized at 81.25
-      _name: DummyHeaterSetTemp receiver_name=heater temperature=81.25
+      _result_message: DummyHeater temperature has stabilized at 100.0
+      _name: DummyHeaterSetTemp receiver_name=heater temperature=100.0
   - - !!python/object:commands.dummy_motor_commands.DummyMotorSetSpeed
       _receiver: *id002
       _params:
         receiver_name: motor
         delay: 0.0
-        speed: 27.5
+        speed: 35.525398247758694
       _was_successful: true
-      _result_message: DummyMotor speed was successfully set to 27.5
-      _name: DummyMotorSetSpeed receiver_name=motor speed=27.5
+      _result_message: DummyMotor speed was successfully set to 35.525398247758694
+      _name: DummyMotorSetSpeed receiver_name=motor speed=35.525398247758694
   - - !!python/object:commands.dummy_motor_commands.DummyMotorMoveRelative
       _receiver: *id002
       _params:
@@ -210,10 +210,10 @@
       _params:
         receiver_name: meter
         delay: 0.0
-        filename: myexp_run4
+        filename: myexp_run29
       _was_successful: true
-      _result_message: Measured data and saved to file at data/dummy_meter/myexp_run4.csv
-      _name: DummyMeterMeasure receiver_name=meter filename=myexp_run4
+      _result_message: Measured data and saved to file at data/dummy_meter/myexp_run29.csv
+      _name: DummyMeterMeasure receiver_name=meter filename=myexp_run29
   - - !!python/object:commands.dummy_heater_commands.DummyHeaterDeinitialize
       _receiver: *id001
       _params:

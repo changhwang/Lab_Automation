@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from skopt import Optimizer
-from skopt.plots import plot_convergence
+from skopt.plots import plot_convergence, plot_objective
 import pandas as pd
 
 from command_sequence import CommandSequence
@@ -50,7 +50,10 @@ def main():
     print("Lowest minimum of " + str(result.fun) + " at " + str(result.x))
     fig2 = plt.figure()
     plot_convergence(result)
-    plt.show()
+    # plt.show()
+    # fig3 = plt.figure()
+    plot_objective(result)
+    # plt.show()
     input("\nPress Enter to quit")
 
 def create_recipe():
@@ -99,7 +102,7 @@ def create_recipe():
     seq.num_iterations = 1
 
     # Save recipe to .yaml file
-    seq.print_command_names()
+    # seq.print_command_names()
     recipe_file = 'recipes/example6.yaml'
     seq.save_to_yaml(recipe_file)
     ##### End of recipe creation
@@ -122,6 +125,7 @@ def create_recipe():
     ax.set_xlabel('Temperature')
     ax.set_ylabel('Speed')
     ax.set_zlabel('Data')
+    plt.title('True Objective Function')
     fig1.colorbar(surf, shrink=0.5, aspect=5)
     plt.ion()
     plt.show() 

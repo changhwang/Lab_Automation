@@ -1,8 +1,12 @@
 *
 !.gitignore
+!README.md
 !example1.py
 !example2.py
 !example3.py
 !example4.py
 !example5.py
 !example6.py
+!Figure_1.png
+!Figure_2.png
+!Figure_3.png

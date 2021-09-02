@@ -1,250 +1,1500 @@
-[2021-09-01 21:10:15,725] [INFO ]: 
-[2021-09-01 21:10:15,725] [INFO ]: ====================LIST OF COMMAND NAMES====================
-[2021-09-01 21:10:15,725] [INFO ]: DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:15,725] [INFO ]: DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:15,726] [INFO ]: DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:15,726] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:41:49,892] [INFO ]: 
+[2021-09-01 22:41:49,892] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:41:49,892] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:41:49,893] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:41:49,893] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:41:49,893] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:15,726] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=81.25
-[2021-09-01 21:10:15,726] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=38.75
-[2021-09-01 21:10:15,726] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:15,726] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:15,726] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run0
-[2021-09-01 21:10:15,726] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:15,726] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:15,727] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:15,727] [INFO ]: 
-[2021-09-01 21:10:15,727] [INFO ]: (Number of iterations: 1)
-[2021-09-01 21:10:15,727] [INFO ]: ====================END OF COMMAND NAMES====================
-[2021-09-01 21:10:15,727] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:15,727] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:16,728] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:16,728] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:20,629] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
-[2021-09-01 21:10:20,629] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:20,629] [INFO ]: RESULT  -> True, Initialized DummyMeter
-[2021-09-01 21:10:20,629] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:41:49,893] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=81.25
+[2021-09-01 22:41:49,893] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=38.75
+[2021-09-01 22:41:49,893] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:41:49,893] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:41:49,893] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run0
+[2021-09-01 22:41:49,893] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:41:49,893] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:41:49,893] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:41:49,893] [INFO ]: 
+[2021-09-01 22:41:49,894] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:41:49,894] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:41:49,894] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:41:49,894] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:41:50,595] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:41:50,595] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:41:56,797] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:41:56,797] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:41:56,798] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:41:56,798] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:20,730] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
-[2021-09-01 21:10:20,730] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=81.25
-[2021-09-01 21:10:22,531] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 81.25
-[2021-09-01 21:10:22,531] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=38.75
-[2021-09-01 21:10:22,531] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 38.75
-[2021-09-01 21:10:22,531] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:22,732] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
-[2021-09-01 21:10:22,732] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:22,932] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
-[2021-09-01 21:10:22,932] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run0
-[2021-09-01 21:10:22,936] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run0.csv
-[2021-09-01 21:10:22,936] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:24,738] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:24,738] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:24,939] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
-[2021-09-01 21:10:24,939] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:24,939] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
-[2021-09-01 21:10:24,939] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:24,939] [INFO ]: 
-[2021-09-01 21:10:24,987] [INFO ]: 
-[2021-09-01 21:10:24,987] [INFO ]: ====================LIST OF COMMAND NAMES====================
-[2021-09-01 21:10:24,988] [INFO ]: DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:24,988] [INFO ]: DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:24,988] [INFO ]: DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:24,988] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:41:56,898] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:41:56,898] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=81.25
+[2021-09-01 22:41:58,700] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 81.25
+[2021-09-01 22:41:58,700] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=38.75
+[2021-09-01 22:41:58,701] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 38.75
+[2021-09-01 22:41:58,701] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:41:58,901] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:41:58,901] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:41:59,102] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:41:59,102] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run0
+[2021-09-01 22:41:59,106] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run0.csv
+[2021-09-01 22:41:59,106] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:00,908] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:00,908] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:01,109] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:01,109] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:01,110] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:01,110] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:01,110] [INFO ]: 
+[2021-09-01 22:42:01,157] [INFO ]: 
+[2021-09-01 22:42:01,157] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:01,157] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:01,157] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:01,157] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:01,157] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:24,988] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=43.75
-[2021-09-01 21:10:24,988] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=16.25
-[2021-09-01 21:10:24,988] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:24,988] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:24,988] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run1
-[2021-09-01 21:10:24,988] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:24,988] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:24,988] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:24,989] [INFO ]: 
-[2021-09-01 21:10:24,989] [INFO ]: (Number of iterations: 1)
-[2021-09-01 21:10:24,989] [INFO ]: ====================END OF COMMAND NAMES====================
-[2021-09-01 21:10:24,989] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:24,989] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:24,989] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:24,989] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:24,989] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
-[2021-09-01 21:10:24,989] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:24,989] [INFO ]: RESULT  -> True, Initialized DummyMeter
-[2021-09-01 21:10:24,989] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:42:01,158] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=81.25
+[2021-09-01 22:42:01,158] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=27.5
+[2021-09-01 22:42:01,158] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:01,158] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:01,158] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run1
+[2021-09-01 22:42:01,158] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:01,158] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:01,158] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:01,158] [INFO ]: 
+[2021-09-01 22:42:01,158] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:01,158] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:01,158] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:01,159] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:01,159] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:01,159] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:01,159] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:01,159] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:01,159] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:01,159] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:25,090] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
-[2021-09-01 21:10:25,091] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=43.75
-[2021-09-01 21:10:25,691] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 43.75
-[2021-09-01 21:10:25,691] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=16.25
-[2021-09-01 21:10:25,691] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 16.25
-[2021-09-01 21:10:25,691] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:26,092] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
-[2021-09-01 21:10:26,092] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:26,493] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
-[2021-09-01 21:10:26,493] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run1
-[2021-09-01 21:10:26,496] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run1.csv
-[2021-09-01 21:10:26,496] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:27,096] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:27,096] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:27,497] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
-[2021-09-01 21:10:27,497] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:27,497] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
-[2021-09-01 21:10:27,497] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:27,497] [INFO ]: 
-[2021-09-01 21:10:27,544] [INFO ]: 
-[2021-09-01 21:10:27,544] [INFO ]: ====================LIST OF COMMAND NAMES====================
-[2021-09-01 21:10:27,544] [INFO ]: DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:27,544] [INFO ]: DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:27,544] [INFO ]: DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:27,544] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:42:01,260] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:01,260] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=81.25
+[2021-09-01 22:42:03,062] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 81.25
+[2021-09-01 22:42:03,063] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=27.5
+[2021-09-01 22:42:03,063] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 27.5
+[2021-09-01 22:42:03,063] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:03,263] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:03,263] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:03,464] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:03,464] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run1
+[2021-09-01 22:42:03,467] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run1.csv
+[2021-09-01 22:42:03,467] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:05,268] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:05,268] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:05,469] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:05,469] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:05,470] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:05,470] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:05,470] [INFO ]: 
+[2021-09-01 22:42:05,517] [INFO ]: 
+[2021-09-01 22:42:05,517] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:05,517] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:05,517] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:05,517] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:05,517] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:27,545] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=25.0
-[2021-09-01 21:10:27,545] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=5.0
-[2021-09-01 21:10:27,546] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:27,546] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:27,546] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run2
-[2021-09-01 21:10:27,546] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:27,546] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:27,546] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:27,546] [INFO ]: 
-[2021-09-01 21:10:27,546] [INFO ]: (Number of iterations: 1)
-[2021-09-01 21:10:27,546] [INFO ]: ====================END OF COMMAND NAMES====================
-[2021-09-01 21:10:27,546] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:27,547] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:27,547] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:27,547] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:27,547] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
-[2021-09-01 21:10:27,547] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:27,547] [INFO ]: RESULT  -> True, Initialized DummyMeter
-[2021-09-01 21:10:27,547] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:42:05,517] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=43.75
+[2021-09-01 22:42:05,517] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=38.75
+[2021-09-01 22:42:05,518] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:05,518] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:05,518] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run2
+[2021-09-01 22:42:05,518] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:05,518] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:05,518] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:05,518] [INFO ]: 
+[2021-09-01 22:42:05,518] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:05,518] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:05,518] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:05,518] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:05,519] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:05,519] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:05,519] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:05,519] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:05,519] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:05,519] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:27,648] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
-[2021-09-01 21:10:27,648] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=25.0
-[2021-09-01 21:10:27,648] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 25.0
-[2021-09-01 21:10:27,648] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=5.0
-[2021-09-01 21:10:27,648] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 5.0
-[2021-09-01 21:10:27,648] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:28,850] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
-[2021-09-01 21:10:28,850] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:30,050] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
-[2021-09-01 21:10:30,050] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run2
-[2021-09-01 21:10:30,053] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run2.csv
-[2021-09-01 21:10:30,053] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:30,053] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:30,054] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:31,254] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
-[2021-09-01 21:10:31,254] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:31,254] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
-[2021-09-01 21:10:31,254] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:31,254] [INFO ]: 
-[2021-09-01 21:10:31,300] [INFO ]: 
-[2021-09-01 21:10:31,300] [INFO ]: ====================LIST OF COMMAND NAMES====================
-[2021-09-01 21:10:31,300] [INFO ]: DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:31,301] [INFO ]: DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:31,301] [INFO ]: DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:31,301] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:42:05,620] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:05,621] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=43.75
+[2021-09-01 22:42:06,222] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 43.75
+[2021-09-01 22:42:06,222] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=38.75
+[2021-09-01 22:42:06,222] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 38.75
+[2021-09-01 22:42:06,223] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:06,423] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:06,423] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:06,624] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:06,624] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run2
+[2021-09-01 22:42:06,627] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run2.csv
+[2021-09-01 22:42:06,627] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:07,228] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:07,228] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:07,429] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:07,429] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:07,430] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:07,430] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:07,430] [INFO ]: 
+[2021-09-01 22:42:07,476] [INFO ]: 
+[2021-09-01 22:42:07,476] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:07,476] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:07,476] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:07,476] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:07,476] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:31,301] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=62.5
-[2021-09-01 21:10:31,301] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=16.25
-[2021-09-01 21:10:31,301] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:31,301] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:31,301] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run3
-[2021-09-01 21:10:31,301] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:31,301] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:31,301] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:31,301] [INFO ]: 
-[2021-09-01 21:10:31,302] [INFO ]: (Number of iterations: 1)
-[2021-09-01 21:10:31,302] [INFO ]: ====================END OF COMMAND NAMES====================
-[2021-09-01 21:10:31,302] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:31,302] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:31,302] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:31,302] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:31,302] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
-[2021-09-01 21:10:31,302] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:31,302] [INFO ]: RESULT  -> True, Initialized DummyMeter
-[2021-09-01 21:10:31,303] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:42:07,476] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=25.0
+[2021-09-01 22:42:07,477] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=5.0
+[2021-09-01 22:42:07,477] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:07,477] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:07,477] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run3
+[2021-09-01 22:42:07,477] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:07,477] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:07,477] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:07,477] [INFO ]: 
+[2021-09-01 22:42:07,477] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:07,477] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:07,477] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:07,477] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:07,478] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:07,478] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:07,478] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:07,478] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:07,478] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:07,478] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:31,403] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
-[2021-09-01 21:10:31,403] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=62.5
-[2021-09-01 21:10:32,604] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 62.5
-[2021-09-01 21:10:32,604] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=16.25
-[2021-09-01 21:10:32,604] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 16.25
-[2021-09-01 21:10:32,604] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:33,005] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
-[2021-09-01 21:10:33,005] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:33,406] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
-[2021-09-01 21:10:33,406] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run3
-[2021-09-01 21:10:33,408] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run3.csv
-[2021-09-01 21:10:33,409] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:34,610] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:34,610] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:35,011] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
-[2021-09-01 21:10:35,011] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:35,012] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
-[2021-09-01 21:10:35,012] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:35,012] [INFO ]: 
-[2021-09-01 21:10:35,058] [INFO ]: 
-[2021-09-01 21:10:35,058] [INFO ]: ====================LIST OF COMMAND NAMES====================
-[2021-09-01 21:10:35,058] [INFO ]: DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:35,058] [INFO ]: DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:35,058] [INFO ]: DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:35,058] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:42:07,579] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:07,579] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=25.0
+[2021-09-01 22:42:07,580] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 25.0
+[2021-09-01 22:42:07,580] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=5.0
+[2021-09-01 22:42:07,580] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 5.0
+[2021-09-01 22:42:07,580] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:08,782] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:08,782] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:09,983] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:09,983] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run3
+[2021-09-01 22:42:09,986] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run3.csv
+[2021-09-01 22:42:09,986] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:09,986] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:09,986] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:11,188] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:11,188] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:11,188] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:11,188] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:11,188] [INFO ]: 
+[2021-09-01 22:42:11,235] [INFO ]: 
+[2021-09-01 22:42:11,235] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:11,235] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:11,235] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:11,235] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:11,235] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:35,059] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=81.25
-[2021-09-01 21:10:35,059] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=27.5
-[2021-09-01 21:10:35,059] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:35,059] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:35,059] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run4
-[2021-09-01 21:10:35,059] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:35,059] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:35,059] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:35,059] [INFO ]: 
-[2021-09-01 21:10:35,059] [INFO ]: (Number of iterations: 1)
-[2021-09-01 21:10:35,059] [INFO ]: ====================END OF COMMAND NAMES====================
-[2021-09-01 21:10:35,059] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:35,060] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
-[2021-09-01 21:10:35,060] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:35,060] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
-[2021-09-01 21:10:35,060] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
-[2021-09-01 21:10:35,060] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
-[2021-09-01 21:10:35,060] [INFO ]: RESULT  -> True, Initialized DummyMeter
-[2021-09-01 21:10:35,060] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+[2021-09-01 22:42:11,235] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=62.5
+[2021-09-01 22:42:11,236] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=38.75
+[2021-09-01 22:42:11,236] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:11,236] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:11,236] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run4
+[2021-09-01 22:42:11,236] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:11,236] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:11,236] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:11,236] [INFO ]: 
+[2021-09-01 22:42:11,236] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:11,236] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:11,236] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:11,236] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:11,237] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:11,237] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:11,237] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:11,237] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:11,237] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:11,237] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
 	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
 	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
 	DummyMotorSetSpeed receiver_name=motor speed=20.0;
-[2021-09-01 21:10:35,161] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
-[2021-09-01 21:10:35,161] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=81.25
-[2021-09-01 21:10:36,963] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 81.25
-[2021-09-01 21:10:36,963] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=27.5
-[2021-09-01 21:10:36,963] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 27.5
-[2021-09-01 21:10:36,964] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
-[2021-09-01 21:10:37,164] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
-[2021-09-01 21:10:37,164] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
-[2021-09-01 21:10:37,364] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
-[2021-09-01 21:10:37,364] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run4
-[2021-09-01 21:10:37,367] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run4.csv
-[2021-09-01 21:10:37,367] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
-[2021-09-01 21:10:39,169] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
-[2021-09-01 21:10:39,169] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
-[2021-09-01 21:10:39,369] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
-[2021-09-01 21:10:39,369] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
-[2021-09-01 21:10:39,369] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
-[2021-09-01 21:10:39,369] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
-[2021-09-01 21:10:39,369] [INFO ]: 
+[2021-09-01 22:42:11,338] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:11,338] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=62.5
+[2021-09-01 22:42:12,539] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 62.5
+[2021-09-01 22:42:12,539] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=38.75
+[2021-09-01 22:42:12,540] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 38.75
+[2021-09-01 22:42:12,540] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:12,740] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:12,740] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:12,941] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:12,941] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run4
+[2021-09-01 22:42:12,944] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run4.csv
+[2021-09-01 22:42:12,944] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:14,145] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:14,145] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:14,347] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:14,347] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:14,348] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:14,348] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:14,348] [INFO ]: 
+[2021-09-01 22:42:14,394] [INFO ]: 
+[2021-09-01 22:42:14,394] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:14,394] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:14,394] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:14,394] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:14,394] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:14,395] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=62.5
+[2021-09-01 22:42:14,395] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=16.25
+[2021-09-01 22:42:14,395] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:14,395] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:14,395] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run5
+[2021-09-01 22:42:14,395] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:14,395] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:14,395] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:14,395] [INFO ]: 
+[2021-09-01 22:42:14,395] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:14,395] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:14,396] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:14,396] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:14,396] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:14,396] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:14,396] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:14,396] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:14,396] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:14,396] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:14,497] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:14,498] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=62.5
+[2021-09-01 22:42:15,698] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 62.5
+[2021-09-01 22:42:15,699] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=16.25
+[2021-09-01 22:42:15,699] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 16.25
+[2021-09-01 22:42:15,699] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:16,099] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:16,099] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:16,500] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:16,500] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run5
+[2021-09-01 22:42:16,503] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run5.csv
+[2021-09-01 22:42:16,503] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:17,704] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:17,704] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:18,105] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:18,105] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:18,106] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:18,106] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:18,106] [INFO ]: 
+[2021-09-01 22:42:18,153] [INFO ]: 
+[2021-09-01 22:42:18,154] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:18,154] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:18,154] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:18,154] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:18,154] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:18,154] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=43.75
+[2021-09-01 22:42:18,154] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=27.5
+[2021-09-01 22:42:18,154] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:18,154] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:18,154] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run6
+[2021-09-01 22:42:18,155] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:18,155] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:18,155] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:18,155] [INFO ]: 
+[2021-09-01 22:42:18,155] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:18,155] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:18,155] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:18,155] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:18,155] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:18,155] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:18,156] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:18,156] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:18,156] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:18,156] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:18,256] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:18,257] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=43.75
+[2021-09-01 22:42:18,858] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 43.75
+[2021-09-01 22:42:18,859] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=27.5
+[2021-09-01 22:42:18,859] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 27.5
+[2021-09-01 22:42:18,859] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:19,059] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:19,060] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:19,261] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:19,261] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run6
+[2021-09-01 22:42:19,264] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run6.csv
+[2021-09-01 22:42:19,264] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:19,867] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:19,867] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:20,069] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:20,069] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:20,070] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:20,070] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:20,070] [INFO ]: 
+[2021-09-01 22:42:20,116] [INFO ]: 
+[2021-09-01 22:42:20,116] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:20,117] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:20,117] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:20,117] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:20,117] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:20,117] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=43.75
+[2021-09-01 22:42:20,117] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=16.25
+[2021-09-01 22:42:20,117] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:20,117] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:20,117] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run7
+[2021-09-01 22:42:20,117] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:20,117] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:20,117] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:20,118] [INFO ]: 
+[2021-09-01 22:42:20,118] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:20,118] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:20,118] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:20,118] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:20,118] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:20,118] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:20,118] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:20,118] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:20,118] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:20,119] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:20,219] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:20,219] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=43.75
+[2021-09-01 22:42:20,821] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 43.75
+[2021-09-01 22:42:20,821] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=16.25
+[2021-09-01 22:42:20,822] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 16.25
+[2021-09-01 22:42:20,822] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:21,222] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:21,222] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:21,623] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:21,623] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run7
+[2021-09-01 22:42:21,626] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run7.csv
+[2021-09-01 22:42:21,626] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:22,227] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:22,227] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:22,628] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:22,628] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:22,628] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:22,629] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:22,629] [INFO ]: 
+[2021-09-01 22:42:22,677] [INFO ]: 
+[2021-09-01 22:42:22,677] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:22,677] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:22,677] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:22,677] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:22,677] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:22,677] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=81.25
+[2021-09-01 22:42:22,677] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=16.25
+[2021-09-01 22:42:22,678] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:22,678] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:22,678] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run8
+[2021-09-01 22:42:22,678] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:22,678] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:22,678] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:22,678] [INFO ]: 
+[2021-09-01 22:42:22,678] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:22,678] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:22,678] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:22,678] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:22,679] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:22,679] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:22,679] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:22,679] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:22,679] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:22,679] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:22,780] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:22,781] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=81.25
+[2021-09-01 22:42:24,591] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 81.25
+[2021-09-01 22:42:24,591] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=16.25
+[2021-09-01 22:42:24,592] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 16.25
+[2021-09-01 22:42:24,592] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:24,992] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:24,992] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:25,393] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:25,393] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run8
+[2021-09-01 22:42:25,396] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run8.csv
+[2021-09-01 22:42:25,396] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:27,198] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:27,198] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:27,599] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:27,599] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:27,599] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:27,600] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:27,600] [INFO ]: 
+[2021-09-01 22:42:27,645] [INFO ]: 
+[2021-09-01 22:42:27,646] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:27,646] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:27,646] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:27,646] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:27,646] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:27,646] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=62.5
+[2021-09-01 22:42:27,646] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=27.5
+[2021-09-01 22:42:27,646] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:27,646] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:27,647] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run9
+[2021-09-01 22:42:27,647] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:27,647] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:27,647] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:27,647] [INFO ]: 
+[2021-09-01 22:42:27,647] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:27,647] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:27,647] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:27,647] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:27,647] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:27,647] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:27,648] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:27,648] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:27,648] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:27,648] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:27,748] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:27,749] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=62.5
+[2021-09-01 22:42:28,949] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 62.5
+[2021-09-01 22:42:28,949] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=27.5
+[2021-09-01 22:42:28,949] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 27.5
+[2021-09-01 22:42:28,949] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:29,150] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:29,150] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:29,351] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:29,351] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run9
+[2021-09-01 22:42:29,354] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run9.csv
+[2021-09-01 22:42:29,354] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:30,556] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:30,557] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:30,758] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:30,758] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:30,759] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:30,759] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:30,759] [INFO ]: 
+[2021-09-01 22:42:31,055] [INFO ]: 
+[2021-09-01 22:42:31,055] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:31,055] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:31,055] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:31,055] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:31,056] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:31,056] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=62.50000008283458
+[2021-09-01 22:42:31,056] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=28.056889057354052
+[2021-09-01 22:42:31,056] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:31,056] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:31,056] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run10
+[2021-09-01 22:42:31,056] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:31,056] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:31,056] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:31,056] [INFO ]: 
+[2021-09-01 22:42:31,057] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:31,057] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:31,057] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:31,057] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:31,057] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:31,057] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:31,057] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:31,057] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:31,057] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:31,058] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:31,158] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:31,158] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=62.50000008283458
+[2021-09-01 22:42:32,359] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 62.50000008283458
+[2021-09-01 22:42:32,359] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=28.056889057354052
+[2021-09-01 22:42:32,360] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 28.056889057354052
+[2021-09-01 22:42:32,360] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:32,560] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:32,560] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:32,761] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:32,761] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run10
+[2021-09-01 22:42:32,764] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run10.csv
+[2021-09-01 22:42:32,764] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:33,965] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:33,965] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:34,166] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:34,167] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:34,167] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:34,167] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:34,167] [INFO ]: 
+[2021-09-01 22:42:34,484] [INFO ]: 
+[2021-09-01 22:42:34,484] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:34,484] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:34,484] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:34,485] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:34,485] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:34,485] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=62.5000001078253
+[2021-09-01 22:42:34,485] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=28.475195936097176
+[2021-09-01 22:42:34,485] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:34,485] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:34,485] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run11
+[2021-09-01 22:42:34,485] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:34,485] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:34,485] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:34,485] [INFO ]: 
+[2021-09-01 22:42:34,485] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:34,486] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:34,486] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:34,486] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:34,486] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:34,486] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:34,486] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:34,486] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:34,486] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:34,486] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:34,587] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:34,587] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=62.5000001078253
+[2021-09-01 22:42:35,788] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 62.5000001078253
+[2021-09-01 22:42:35,788] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=28.475195936097176
+[2021-09-01 22:42:35,789] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 28.475195936097176
+[2021-09-01 22:42:35,789] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:35,989] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:35,989] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:36,190] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:36,190] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run11
+[2021-09-01 22:42:36,193] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run11.csv
+[2021-09-01 22:42:36,193] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:37,393] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:37,393] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:37,594] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:37,594] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:37,595] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:37,595] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:37,595] [INFO ]: 
+[2021-09-01 22:42:37,930] [INFO ]: 
+[2021-09-01 22:42:37,930] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:37,930] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:37,930] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:37,930] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:37,930] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:37,930] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=62.19792286358548
+[2021-09-01 22:42:37,930] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=30.938991826220043
+[2021-09-01 22:42:37,931] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:37,931] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:37,931] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run12
+[2021-09-01 22:42:37,931] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:37,931] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:37,931] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:37,931] [INFO ]: 
+[2021-09-01 22:42:37,931] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:37,931] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:37,931] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:37,931] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:37,932] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:37,932] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:37,932] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:37,932] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:37,932] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:37,932] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:38,033] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:38,033] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=62.19792286358548
+[2021-09-01 22:42:39,235] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 62.19792286358548
+[2021-09-01 22:42:39,235] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=30.938991826220043
+[2021-09-01 22:42:39,236] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 30.938991826220043
+[2021-09-01 22:42:39,236] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:39,436] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:39,437] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:39,637] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:39,637] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run12
+[2021-09-01 22:42:39,640] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run12.csv
+[2021-09-01 22:42:39,640] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:40,840] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:40,840] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:41,041] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:41,041] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:41,042] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:41,042] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:41,042] [INFO ]: 
+[2021-09-01 22:42:41,274] [INFO ]: 
+[2021-09-01 22:42:41,275] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:41,275] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:41,275] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:41,275] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:41,275] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:41,275] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=68.13006180437446
+[2021-09-01 22:42:41,275] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=30.797918573754032
+[2021-09-01 22:42:41,275] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:41,276] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:41,276] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run13
+[2021-09-01 22:42:41,276] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:41,276] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:41,276] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:41,276] [INFO ]: 
+[2021-09-01 22:42:41,276] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:41,276] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:41,276] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:41,276] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:41,276] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:41,277] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:41,277] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:41,277] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:41,277] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:41,277] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:41,378] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:41,379] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=68.13006180437446
+[2021-09-01 22:42:42,780] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 68.13006180437446
+[2021-09-01 22:42:42,780] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=30.797918573754032
+[2021-09-01 22:42:42,780] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 30.797918573754032
+[2021-09-01 22:42:42,781] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:42,981] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:42,981] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:43,182] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:43,182] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run13
+[2021-09-01 22:42:43,185] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run13.csv
+[2021-09-01 22:42:43,185] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:44,585] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:44,585] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:44,786] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:44,786] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:44,787] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:44,787] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:44,787] [INFO ]: 
+[2021-09-01 22:42:45,022] [INFO ]: 
+[2021-09-01 22:42:45,023] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:45,023] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:45,023] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:45,023] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:45,023] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:45,023] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=67.33765431512049
+[2021-09-01 22:42:45,023] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=30.361638003328366
+[2021-09-01 22:42:45,023] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:45,023] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:45,024] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run14
+[2021-09-01 22:42:45,024] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:45,024] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:45,024] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:45,024] [INFO ]: 
+[2021-09-01 22:42:45,024] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:45,024] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:45,024] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:45,024] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:45,024] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:45,024] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:45,025] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:45,025] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:45,025] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:45,025] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:45,125] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:45,125] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=67.33765431512049
+[2021-09-01 22:42:46,527] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 67.33765431512049
+[2021-09-01 22:42:46,527] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=30.361638003328366
+[2021-09-01 22:42:46,527] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 30.361638003328366
+[2021-09-01 22:42:46,528] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:46,728] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:46,728] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:46,929] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:46,929] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run14
+[2021-09-01 22:42:46,932] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run14.csv
+[2021-09-01 22:42:46,932] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:48,233] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:48,233] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:48,434] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:48,434] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:48,435] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:48,435] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:48,435] [INFO ]: 
+[2021-09-01 22:42:48,634] [INFO ]: 
+[2021-09-01 22:42:48,634] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:48,634] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:48,634] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:48,634] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:48,634] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:48,635] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:42:48,635] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=50.0
+[2021-09-01 22:42:48,635] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:48,635] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:48,635] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run15
+[2021-09-01 22:42:48,635] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:48,635] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:48,635] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:48,635] [INFO ]: 
+[2021-09-01 22:42:48,635] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:48,635] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:48,636] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:48,636] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:48,636] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:48,636] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:48,636] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:48,636] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:48,636] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:48,636] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:48,737] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:48,738] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:42:51,139] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 100.0
+[2021-09-01 22:42:51,139] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=50.0
+[2021-09-01 22:42:51,140] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 50.0
+[2021-09-01 22:42:51,140] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:51,240] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:51,240] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:51,341] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:51,341] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run15
+[2021-09-01 22:42:51,344] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run15.csv
+[2021-09-01 22:42:51,344] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:53,748] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:53,748] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:53,849] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:53,849] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:53,850] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:53,850] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:53,850] [INFO ]: 
+[2021-09-01 22:42:54,070] [INFO ]: 
+[2021-09-01 22:42:54,070] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:54,071] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:54,071] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:54,071] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:54,071] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:54,071] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=66.97738512145662
+[2021-09-01 22:42:54,071] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=29.787521191877715
+[2021-09-01 22:42:54,071] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:54,071] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:54,071] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run16
+[2021-09-01 22:42:54,072] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:54,072] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:54,072] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:54,072] [INFO ]: 
+[2021-09-01 22:42:54,072] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:54,072] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:54,072] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:54,072] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:54,072] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:54,072] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:54,073] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:54,073] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:54,073] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:54,073] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:54,173] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:54,173] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=66.97738512145662
+[2021-09-01 22:42:55,475] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 66.97738512145662
+[2021-09-01 22:42:55,475] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=29.787521191877715
+[2021-09-01 22:42:55,475] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 29.787521191877715
+[2021-09-01 22:42:55,476] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:55,676] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:55,676] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:55,877] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:55,877] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run16
+[2021-09-01 22:42:55,880] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run16.csv
+[2021-09-01 22:42:55,880] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:57,181] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:57,181] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:57,382] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:42:57,383] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:57,383] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:42:57,383] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:57,383] [INFO ]: 
+[2021-09-01 22:42:57,583] [INFO ]: 
+[2021-09-01 22:42:57,583] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:42:57,583] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:57,583] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:57,583] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:57,583] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:57,584] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=67.46000533424058
+[2021-09-01 22:42:57,584] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=31.67093899368832
+[2021-09-01 22:42:57,584] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:57,584] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:57,584] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run17
+[2021-09-01 22:42:57,584] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:42:57,584] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:42:57,584] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:42:57,584] [INFO ]: 
+[2021-09-01 22:42:57,584] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:42:57,584] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:42:57,585] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:42:57,585] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:42:57,585] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:42:57,585] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:42:57,585] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:42:57,585] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:42:57,585] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:42:57,585] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:42:57,686] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:42:57,686] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=67.46000533424058
+[2021-09-01 22:42:59,090] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 67.46000533424058
+[2021-09-01 22:42:59,090] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=31.67093899368832
+[2021-09-01 22:42:59,090] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 31.67093899368832
+[2021-09-01 22:42:59,091] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:42:59,291] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:42:59,291] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:42:59,493] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:42:59,493] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run17
+[2021-09-01 22:42:59,496] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run17.csv
+[2021-09-01 22:42:59,496] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:00,901] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:00,901] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:01,102] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:01,102] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:01,103] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:01,103] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:01,103] [INFO ]: 
+[2021-09-01 22:43:01,312] [INFO ]: 
+[2021-09-01 22:43:01,312] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:01,312] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:01,312] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:01,312] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:01,312] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:01,312] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=69.58420627414897
+[2021-09-01 22:43:01,312] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=31.53932410304626
+[2021-09-01 22:43:01,313] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:01,313] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:01,313] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run18
+[2021-09-01 22:43:01,313] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:01,313] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:01,313] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:01,313] [INFO ]: 
+[2021-09-01 22:43:01,313] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:01,313] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:01,313] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:01,313] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:01,314] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:01,314] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:01,314] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:01,314] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:01,314] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:01,314] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:01,415] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:01,415] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=69.58420627414897
+[2021-09-01 22:43:02,818] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 69.58420627414897
+[2021-09-01 22:43:02,818] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=31.53932410304626
+[2021-09-01 22:43:02,818] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 31.53932410304626
+[2021-09-01 22:43:02,819] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:03,019] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:03,020] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:03,221] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:03,221] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run18
+[2021-09-01 22:43:03,224] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run18.csv
+[2021-09-01 22:43:03,224] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:04,628] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:04,628] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:04,829] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:04,829] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:04,830] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:04,830] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:04,830] [INFO ]: 
+[2021-09-01 22:43:05,053] [INFO ]: 
+[2021-09-01 22:43:05,053] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:05,053] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:05,053] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:05,053] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:05,053] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:05,054] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=66.60682480764149
+[2021-09-01 22:43:05,054] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=31.134616779120055
+[2021-09-01 22:43:05,054] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:05,054] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:05,054] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run19
+[2021-09-01 22:43:05,054] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:05,054] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:05,054] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:05,055] [INFO ]: 
+[2021-09-01 22:43:05,055] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:05,055] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:05,055] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:05,055] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:05,055] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:05,055] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:05,055] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:05,055] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:05,055] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:05,056] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:05,156] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:05,156] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=66.60682480764149
+[2021-09-01 22:43:06,458] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 66.60682480764149
+[2021-09-01 22:43:06,458] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=31.134616779120055
+[2021-09-01 22:43:06,458] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 31.134616779120055
+[2021-09-01 22:43:06,459] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:06,659] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:06,659] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:06,860] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:06,860] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run19
+[2021-09-01 22:43:06,863] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run19.csv
+[2021-09-01 22:43:06,863] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:08,164] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:08,164] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:08,365] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:08,365] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:08,366] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:08,366] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:08,366] [INFO ]: 
+[2021-09-01 22:43:08,598] [INFO ]: 
+[2021-09-01 22:43:08,598] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:08,599] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:08,599] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:08,599] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:08,599] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:08,599] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:43:08,599] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=5.0
+[2021-09-01 22:43:08,599] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:08,599] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:08,600] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run20
+[2021-09-01 22:43:08,600] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:08,600] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:08,600] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:08,600] [INFO ]: 
+[2021-09-01 22:43:08,600] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:08,600] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:08,600] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:08,600] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:08,600] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:08,600] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:08,601] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:08,601] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:08,601] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:08,601] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:08,701] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:08,701] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:43:11,103] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 100.0
+[2021-09-01 22:43:11,103] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=5.0
+[2021-09-01 22:43:11,103] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 5.0
+[2021-09-01 22:43:11,104] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:12,304] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:12,305] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:13,505] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:13,505] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run20
+[2021-09-01 22:43:13,508] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run20.csv
+[2021-09-01 22:43:13,508] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:15,910] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:15,910] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:17,111] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:17,111] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:17,112] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:17,112] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:17,112] [INFO ]: 
+[2021-09-01 22:43:17,325] [INFO ]: 
+[2021-09-01 22:43:17,325] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:17,325] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:17,325] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:17,326] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:17,326] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:17,326] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=66.0333437831089
+[2021-09-01 22:43:17,326] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=30.568394753106418
+[2021-09-01 22:43:17,326] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:17,326] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:17,326] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run21
+[2021-09-01 22:43:17,326] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:17,326] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:17,326] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:17,326] [INFO ]: 
+[2021-09-01 22:43:17,327] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:17,327] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:17,327] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:17,327] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:17,327] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:17,327] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:17,327] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:17,327] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:17,327] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:17,327] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:17,428] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:17,429] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=66.0333437831089
+[2021-09-01 22:43:18,746] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 66.0333437831089
+[2021-09-01 22:43:18,746] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=30.568394753106418
+[2021-09-01 22:43:18,747] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 30.568394753106418
+[2021-09-01 22:43:18,747] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:18,947] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:18,947] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:19,148] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:19,148] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run21
+[2021-09-01 22:43:19,151] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run21.csv
+[2021-09-01 22:43:19,151] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:20,452] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:20,452] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:20,653] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:20,653] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:20,653] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:20,653] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:20,654] [INFO ]: 
+[2021-09-01 22:43:20,857] [INFO ]: 
+[2021-09-01 22:43:20,857] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:20,858] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:20,858] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:20,858] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:20,858] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:20,858] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=68.96823635567866
+[2021-09-01 22:43:20,858] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=28.72005721962901
+[2021-09-01 22:43:20,858] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:20,858] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:20,858] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run22
+[2021-09-01 22:43:20,858] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:20,859] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:20,859] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:20,859] [INFO ]: 
+[2021-09-01 22:43:20,859] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:20,859] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:20,859] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:20,859] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:20,859] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:20,859] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:20,859] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:20,860] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:20,860] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:20,860] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:20,960] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:20,960] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=68.96823635567866
+[2021-09-01 22:43:22,361] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 68.96823635567866
+[2021-09-01 22:43:22,361] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=28.72005721962901
+[2021-09-01 22:43:22,362] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 28.72005721962901
+[2021-09-01 22:43:22,362] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:22,562] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:22,562] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:22,763] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:22,763] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run22
+[2021-09-01 22:43:22,766] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run22.csv
+[2021-09-01 22:43:22,766] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:24,168] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:24,168] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:24,369] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:24,369] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:24,370] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:24,370] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:24,370] [INFO ]: 
+[2021-09-01 22:43:24,557] [INFO ]: 
+[2021-09-01 22:43:24,557] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:24,557] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:24,557] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:24,558] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:24,558] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:24,558] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=25.0
+[2021-09-01 22:43:24,558] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=50.0
+[2021-09-01 22:43:24,558] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:24,558] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:24,558] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run23
+[2021-09-01 22:43:24,558] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:24,558] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:24,558] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:24,559] [INFO ]: 
+[2021-09-01 22:43:24,559] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:24,559] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:24,559] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:24,559] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:24,559] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:24,559] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:24,559] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:24,559] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:24,559] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:24,560] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:24,660] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:24,660] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=25.0
+[2021-09-01 22:43:24,661] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 25.0
+[2021-09-01 22:43:24,661] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=50.0
+[2021-09-01 22:43:24,661] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 50.0
+[2021-09-01 22:43:24,661] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:24,761] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:24,761] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:24,862] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:24,863] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run23
+[2021-09-01 22:43:24,865] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run23.csv
+[2021-09-01 22:43:24,865] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:24,865] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:24,866] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:24,966] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:24,966] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:24,966] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:24,967] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:24,967] [INFO ]: 
+[2021-09-01 22:43:25,190] [INFO ]: 
+[2021-09-01 22:43:25,190] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:25,190] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:25,190] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:25,190] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:25,190] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:25,190] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:43:25,191] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=27.577684309772028
+[2021-09-01 22:43:25,191] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:25,191] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:25,191] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run24
+[2021-09-01 22:43:25,191] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:25,191] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:25,191] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:25,191] [INFO ]: 
+[2021-09-01 22:43:25,191] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:25,191] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:25,191] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:25,191] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:25,192] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:25,192] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:25,192] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:25,192] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:25,192] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:25,192] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:25,293] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:25,293] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:43:27,695] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 100.0
+[2021-09-01 22:43:27,695] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=27.577684309772028
+[2021-09-01 22:43:27,696] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 27.577684309772028
+[2021-09-01 22:43:27,696] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:27,896] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:27,896] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:28,097] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:28,097] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run24
+[2021-09-01 22:43:28,100] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run24.csv
+[2021-09-01 22:43:28,100] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:30,500] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:30,500] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:30,701] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:30,701] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:30,702] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:30,702] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:30,702] [INFO ]: 
+[2021-09-01 22:43:30,939] [INFO ]: 
+[2021-09-01 22:43:30,939] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:30,939] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:30,939] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:30,939] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:30,939] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:30,939] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=63.26161623737182
+[2021-09-01 22:43:30,940] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=50.0
+[2021-09-01 22:43:30,940] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:30,940] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:30,940] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run25
+[2021-09-01 22:43:30,940] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:30,940] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:30,940] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:30,940] [INFO ]: 
+[2021-09-01 22:43:30,940] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:30,940] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:30,940] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:30,941] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:30,941] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:30,941] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:30,941] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:30,941] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:30,941] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:30,941] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:31,042] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:31,042] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=63.26161623737182
+[2021-09-01 22:43:32,243] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 63.26161623737182
+[2021-09-01 22:43:32,243] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=50.0
+[2021-09-01 22:43:32,243] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 50.0
+[2021-09-01 22:43:32,243] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:32,344] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:32,344] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:32,445] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:32,445] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run25
+[2021-09-01 22:43:32,448] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run25.csv
+[2021-09-01 22:43:32,448] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:33,650] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:33,650] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:33,752] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:33,752] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:33,753] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:33,753] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:33,753] [INFO ]: 
+[2021-09-01 22:43:33,985] [INFO ]: 
+[2021-09-01 22:43:33,985] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:33,985] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:33,985] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:33,985] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:33,985] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:33,985] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=50.35639962374615
+[2021-09-01 22:43:33,986] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=5.0
+[2021-09-01 22:43:33,986] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:33,986] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:33,986] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run26
+[2021-09-01 22:43:33,986] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:33,986] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:33,986] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:33,986] [INFO ]: 
+[2021-09-01 22:43:33,986] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:33,986] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:33,987] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:33,987] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:33,987] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:33,987] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:33,987] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:33,987] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:33,987] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:33,987] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:34,088] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:34,088] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=50.35639962374615
+[2021-09-01 22:43:34,889] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 50.35639962374615
+[2021-09-01 22:43:34,889] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=5.0
+[2021-09-01 22:43:34,890] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 5.0
+[2021-09-01 22:43:34,890] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:36,090] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:36,090] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:37,292] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:37,292] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run26
+[2021-09-01 22:43:37,295] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run26.csv
+[2021-09-01 22:43:37,295] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:38,096] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:38,096] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:39,298] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:39,298] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:39,299] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:39,299] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:39,299] [INFO ]: 
+[2021-09-01 22:43:39,613] [INFO ]: 
+[2021-09-01 22:43:39,613] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:39,613] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:39,613] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:39,613] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:39,613] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:39,613] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=67.46295749930053
+[2021-09-01 22:43:39,613] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=30.760581127829536
+[2021-09-01 22:43:39,613] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:39,614] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:39,614] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run27
+[2021-09-01 22:43:39,614] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:39,614] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:39,614] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:39,614] [INFO ]: 
+[2021-09-01 22:43:39,614] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:39,614] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:39,614] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:39,614] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:39,614] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:39,614] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:39,615] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:39,615] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:39,615] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:39,615] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:39,716] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:39,716] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=67.46295749930053
+[2021-09-01 22:43:41,117] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 67.46295749930053
+[2021-09-01 22:43:41,117] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=30.760581127829536
+[2021-09-01 22:43:41,118] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 30.760581127829536
+[2021-09-01 22:43:41,118] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:41,318] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:41,318] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:41,519] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:41,519] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run27
+[2021-09-01 22:43:41,522] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run27.csv
+[2021-09-01 22:43:41,522] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:42,924] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:42,925] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:43,125] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:43,125] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:43,126] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:43,126] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:43,126] [INFO ]: 
+[2021-09-01 22:43:43,374] [INFO ]: 
+[2021-09-01 22:43:43,374] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:43,374] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:43,374] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:43,374] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:43,375] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:43,375] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=67.1077566089364
+[2021-09-01 22:43:43,375] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=32.71782375381166
+[2021-09-01 22:43:43,375] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:43,375] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:43,375] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run28
+[2021-09-01 22:43:43,375] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:43,375] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:43,375] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:43,375] [INFO ]: 
+[2021-09-01 22:43:43,375] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:43,375] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:43,376] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:43,376] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:43,376] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:43,376] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:43,376] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:43,376] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:43,376] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:43,376] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:43,477] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:43,477] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=67.1077566089364
+[2021-09-01 22:43:44,878] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 67.1077566089364
+[2021-09-01 22:43:44,878] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=32.71782375381166
+[2021-09-01 22:43:44,879] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 32.71782375381166
+[2021-09-01 22:43:44,879] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:45,079] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:45,079] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:45,280] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:45,280] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run28
+[2021-09-01 22:43:45,283] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run28.csv
+[2021-09-01 22:43:45,283] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:46,685] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:46,685] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:46,886] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:46,886] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:46,887] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:46,887] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:46,887] [INFO ]: 
+[2021-09-01 22:43:47,132] [INFO ]: 
+[2021-09-01 22:43:47,132] [INFO ]: ====================LIST OF COMMAND NAMES====================
+[2021-09-01 22:43:47,133] [INFO ]: DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:47,133] [INFO ]: DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:47,133] [INFO ]: DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:47,133] [INFO ]: DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:47,133] [INFO ]: DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:43:47,133] [INFO ]: DummyMotorSetSpeed receiver_name=motor speed=35.525398247758694
+[2021-09-01 22:43:47,133] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:47,133] [INFO ]: DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:47,134] [INFO ]: DummyMeterMeasure receiver_name=meter filename=myexp_run29
+[2021-09-01 22:43:47,134] [INFO ]: DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:47,134] [INFO ]: DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:47,134] [INFO ]: DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:47,134] [INFO ]: 
+[2021-09-01 22:43:47,134] [INFO ]: (Number of iterations: 1)
+[2021-09-01 22:43:47,134] [INFO ]: ====================END OF COMMAND NAMES====================
+[2021-09-01 22:43:47,134] [INFO ]: ====================BEGINNING OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:47,134] [INFO ]: COMMAND -> DummyHeaterInitialize receiver_name=heater
+[2021-09-01 22:43:47,134] [INFO ]: RESULT  -> True, Initialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:47,134] [INFO ]: COMMAND -> DummyMotorInitialize receiver_name=motor
+[2021-09-01 22:43:47,135] [INFO ]: RESULT  -> True, Initialized DummyMotor by homing and setting position to zero
+[2021-09-01 22:43:47,135] [INFO ]: COMMAND -> DummyMeterInitialize receiver_name=meter
+[2021-09-01 22:43:47,135] [INFO ]: RESULT  -> True, Initialized DummyMeter
+[2021-09-01 22:43:47,135] [INFO ]: COMMAND -> DummyMotorMoveSpeedAbsolute (CompositeCommand): 
+	DummyMotorSetSpeed receiver_name=motor speed=50.0; 
+	DummyMotorMoveAbsolute receiver_name=motor position=5.0; 
+	DummyMotorSetSpeed receiver_name=motor speed=20.0;
+[2021-09-01 22:43:47,235] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 20.0
+[2021-09-01 22:43:47,235] [INFO ]: COMMAND -> DummyHeaterSetTemp receiver_name=heater temperature=100.0
+[2021-09-01 22:43:49,636] [INFO ]: RESULT  -> True, DummyHeater temperature has stabilized at 100.0
+[2021-09-01 22:43:49,636] [INFO ]: COMMAND -> DummyMotorSetSpeed receiver_name=motor speed=35.525398247758694
+[2021-09-01 22:43:49,637] [INFO ]: RESULT  -> True, DummyMotor speed was successfully set to 35.525398247758694
+[2021-09-01 22:43:49,637] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=5.0
+[2021-09-01 22:43:49,837] [INFO ]: RESULT  -> True, DummyMotor has moved by 5.0 and reached position 10.0
+[2021-09-01 22:43:49,837] [INFO ]: COMMAND -> DummyMotorMoveRelative receiver_name=motor distance=-5.0
+[2021-09-01 22:43:50,038] [INFO ]: RESULT  -> True, DummyMotor has moved by -5.0 and reached position 5.0
+[2021-09-01 22:43:50,038] [INFO ]: COMMAND -> DummyMeterMeasure receiver_name=meter filename=myexp_run29
+[2021-09-01 22:43:50,041] [INFO ]: RESULT  -> True, Measured data and saved to file at data/dummy_meter/myexp_run29.csv
+[2021-09-01 22:43:50,041] [INFO ]: COMMAND -> DummyHeaterDeinitialize receiver_name=heater reset_init_flag=True
+[2021-09-01 22:43:52,443] [INFO ]: RESULT  -> True, Deinitialized DummyHeater by setting to room temperature (25 C)
+[2021-09-01 22:43:52,443] [INFO ]: COMMAND -> DummyMotorDeinitialize receiver_name=motor reset_init_flag=True
+[2021-09-01 22:43:52,644] [INFO ]: RESULT  -> True, Deinitialized DummyMotor by moving to position zero
+[2021-09-01 22:43:52,644] [INFO ]: COMMAND -> DummyMeterDeinitialize receiver_name=meter reset_init_flag=True
+[2021-09-01 22:43:52,644] [INFO ]: RESULT  -> True, Deinitialized DummyMeter
+[2021-09-01 22:43:52,644] [INFO ]: ====================END OF COMMAND SEQUENCE EXECUTION====================
+[2021-09-01 22:43:52,644] [INFO ]: 

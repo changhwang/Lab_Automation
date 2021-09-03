@@ -7,10 +7,10 @@ Example 6 generates a random objective function each time. Below is an example o
 ### True objective function without noise
 ![True objective function](Figure_1.png)
 
+### Estimated objective function and evaluations
+![Estimated objective function](Figure_3.png)
 
 ### Convergence plot
 ![Convergence plot](Figure_2.png)
 
 
-### Estimated objective function and evaluations
-![Estimated objective function](Figure_3.png)

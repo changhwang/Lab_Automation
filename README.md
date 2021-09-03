@@ -35,8 +35,8 @@ The following devices have tested receiver and command modules:
 - Newport stages controlled by ESP-301/ESP-302 motion controllers
 - StellarNet Spectrometers (multiple spectrometers and spectra merging supported)
 - Ximea cameras
-- Arduino-based stepper motor(s) (click here for materials, schematic, and code)
-- Arduino-based PID controlled resistive heater (click here for materials, schematic, and code)
+- Arduino-based stepper motor(s) ([click here for materials, schematic, and code](https://github.com/JustinJKwok/Arduino-PID-heater))
+- Arduino-based PID controlled resistive heater ([click here for materials, schematic, and code](https://github.com/JustinJKwok/Arduino-multi-stepper))
 
 The following devices are planned to be added:
 - Kinova gen7 robot arm

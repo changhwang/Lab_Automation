@@ -1,5 +1,5 @@
-# LabAutomation
-LabAutomation is a modular framework for automating multiple devices or instruments capable of being controlled through Python. It can be combined with optimization algorithms for autonomous process optimization.
+# Lab Automation
+Lab Automation is a modular framework for automating multiple devices or instruments capable of being controlled through Python. It can be combined with optimization algorithms for autonomous process optimization.
 
 ### Table of Contents
 1. [Description](#description)
@@ -18,9 +18,9 @@ LabAutomation is a modular framework for automating multiple devices or instrume
 6. [License](#license)
 
 ## Description
-LabAutomation was developed for the purpose of automating laboratory experiments to enable high-throughput data collection and process optimization. It can be used to automate experimental procedures that involve instruments from different vendors, with different communication protocols, and also home-built equipment. The automated procedures can then be tied into sequential model-based optimization algorithms (e.g. Bayesian optimization) to enable self-driving, autonomous lab experiments.
+Lab Automation was developed for the purpose of automating laboratory experiments to enable high-throughput data collection and process optimization. It can be used to automate experimental procedures that involve instruments from different vendors, with different communication protocols, and also home-built equipment. The automated procedures can then be tied into sequential model-based optimization algorithms (e.g. Bayesian optimization) to enable self-driving, autonomous lab experiments.
 
-LabAutomation implements the command pattern in order to execute a command sequence, or 'recipe'. Several devices and commands have already been implemented (see below). As long as you can create commands for your device in Python it can easily be used in conjunction with other devices due to the modular nature of the command pattern. Further details on the program structure and how to create new devices, commands, and recipes are shown below. 
+Lab Automation implements the command pattern in order to execute a command sequence, or 'recipe'. Several devices and commands have already been implemented (see below). As long as you can create commands for your device in Python it can easily be used in conjunction with other devices due to the modular nature of the command pattern. Further details on the program structure and how to create new devices, commands, and recipes are shown below. 
 
 Here are some features of the program:
 - Saving and loading of recipes to .yaml files
@@ -150,7 +150,7 @@ One thing to keep in mind is that since composite commands behave like regular c
 ### Program Scheme
 ![Program scheme](docs/Scheme.png)
 
-LabAutomation implements the command pattern to control multiple devices. Each physical device has its own firmware which can be controlled according to some communication protocol. The Python module that is able to communicate with the device firmware is the classical 'receiver'. This can be a Python module that you write yourself, a module from the equipment vendor, or a module you found online developed by someone else. In the latter two cases you may consider writing your own class that wraps those receiver module(s) to extend their functionality or make it easier to use. 
+Lab Automation implements the command pattern to control multiple devices. Each physical device has its own firmware which can be controlled according to some communication protocol. The Python module that is able to communicate with the device firmware is the classical 'receiver'. This can be a Python module that you write yourself, a module from the equipment vendor, or a module you found online developed by someone else. In the latter two cases you may consider writing your own class that wraps those receiver module(s) to extend their functionality or make it easier to use. 
 
 Command classes are then written for each command that calls a receiver's methods to perform an action. Each command inherits from the Command base class, thereby implementing standard methods and properties (in particular the 'execute()' method). This allows you to treat commands as objects and also means you can simply tell a command to execute without knowing anything about how they work. Commands for different receivers are then put together into a command sequence which contains useful methods to managing a recipe. The sequence is then passed to the invoker which iterates through the sequence and executes each command while performing some bookkeeping such as logging. 
 

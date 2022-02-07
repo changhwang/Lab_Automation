@@ -20,8 +20,9 @@ class Command(ABC):
         self._params = {}
         self._params['receiver_name'] = receiver.name
         self._params['delay'] = delay
-        self._was_successful = None
-        self._result_message = None        
+        # self._was_successful = None
+        # self._result_message = None  
+        self._result = CommandResult()      
 
     # definitely enforce return None for execute()
     @abstractmethod
@@ -61,6 +62,43 @@ class Command(ABC):
         """
         return self.__doc__
 
+    # type hint return CustomResult?
+    @property
+    def result(self):
+        return self._result
+
+    # @property
+    # def was_successful(self) -> Optional[bool]:
+    #     """Whether the command's execution was successful or not.
+
+    #     Returns
+    #     -------
+    #     Optional[bool]
+    #         Returns True if the command's execution was successful, otherwise False. Initialized with None.
+    #     """
+    #     return self._was_successful
+
+    # @property
+    # def result_message(self) -> Optional[str]:
+    #     """A message describing the result of the command's execution
+
+    #     Returns
+    #     -------
+    #     Optional[str]
+    #         Returns a string describing the result of the command's execution with details if it failed.
+    #     """
+    #     return self._result_message
+
+# store info like name and description in here too? or leave separate? Leave separate, semantically i think it makes sense 
+# to retrive non-result info from the command instead of the commandresult object, potentially avoid conflicting info too
+# Mainly adding to future proof in case more info needs to be retrieved after execution
+class CommandResult():
+    """Object which stores whether a command's execution was successful and other relevant information"""
+
+    def __init__(self):
+        self._was_successful = None
+        self._message = None
+    
     @property
     def was_successful(self) -> Optional[bool]:
         """Whether the command's execution was successful or not.
@@ -73,7 +111,7 @@ class Command(ABC):
         return self._was_successful
 
     @property
-    def result_message(self) -> Optional[str]:
+    def message(self) -> Optional[str]:
         """A message describing the result of the command's execution
 
         Returns
@@ -81,8 +119,8 @@ class Command(ABC):
         Optional[str]
             Returns a string describing the result of the command's execution with details if it failed.
         """
-        return self._result_message
-
+        return self._message
+    
 
 # A composite command contains a command list but it behaves like a regular command to any other object using it.
 # This means a composite command can contain a composite command and it can have many levels arbitrarily deep
@@ -104,8 +142,9 @@ class CompositeCommand(Command):
         self._params = {}
         # self._params['receiver_name'] = 'None'
         self._params['delay'] = delay
-        self._was_successful = None
-        self._result_message = None  
+        # self._was_successful = None
+        # self._result_message = None  
+        self._result = CommandResult()
 
     @property
     def name(self) -> str:

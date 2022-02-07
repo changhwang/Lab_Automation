@@ -126,10 +126,10 @@ class CommandInvoker:
             command.execute()
 
             # Check result
-            if command.was_successful:
-                self.log.info("RESULT  -> " + str(command.was_successful) + ", " + command.result_message)
+            if command.result.was_successful:
+                self.log.info("RESULT  -> " + str(command.result.was_successful) + ", " + command.result.message)
             else:
-                self.log.error("RESULT  -> " + str(command.was_successful) + ", " + command.result_message)
+                self.log.error("RESULT  -> " + str(command.result.was_successful) + ", " + command.result.message)
                 self.log.error("Received False result. Terminating command execution early!")
                 if self._alert_slack:
                     self.log.info("Sending command details to slack.")

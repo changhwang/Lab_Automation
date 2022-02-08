@@ -1,6 +1,6 @@
 from typing import Optional
 
-from .command import Command
+from .command import Command, CommandResult
 from devices.ximea_camera import XimeaCamera
 
 
@@ -18,7 +18,7 @@ class XimeaCameraInitialize(XimeaCameraParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.initialize()
+        self._result = CommandResult(*self._receiver.initialize())
 
 class XimeaCameraDeinitialize(XimeaCameraParentCommand):
     """Deinitialize camera by stopping any acquisition and closing communication with camera."""
@@ -28,7 +28,7 @@ class XimeaCameraDeinitialize(XimeaCameraParentCommand):
         self._params['reset_init_flag'] = reset_init_flag
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.deinitialize(self._params['reset_init_flag'])
+        self._result = CommandResult(*self._receiver.deinitialize(self._params['reset_init_flag']))
 
 class XimeaCameraGetImage(XimeaCameraParentCommand):
     """Get image and save to file, display image, or both. No filename = timestamped filename. No exposure or gain = use defaults."""
@@ -50,7 +50,7 @@ class XimeaCameraGetImage(XimeaCameraParentCommand):
         self._params['show_pop_up'] = show_pop_up
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.get_image(self._params['save_to_file'], self._params['filename'], self._params['exposure_time'], self._params['gain'], self._params['show_pop_up'])
+        self._result = CommandResult(*self._receiver.get_image(self._params['save_to_file'], self._params['filename'], self._params['exposure_time'], self._params['gain'], self._params['show_pop_up']))
 
 class XimeaCameraSetDefaultExposure(XimeaCameraParentCommand):
     """Set the default exposure time to use if no exposure time is passed when getting image."""
@@ -62,9 +62,9 @@ class XimeaCameraSetDefaultExposure(XimeaCameraParentCommand):
     def execute(self) -> None:
         self._receiver.default_exposure_time = self._params['exposure_time']
         if self._receiver.default_exposure_time == self._params['exposure_time']:
-            self._was_successful, self._result_message = (True, "Default exposure time successfully set to " + str(self._params['exposure_time']))
+            self._result = CommandResult(True, "Default exposure time successfully set to " + str(self._params['exposure_time']))
         else:
-            self._was_successful, self._result_message = (False, "Failed to set the default exposure time to " + str(self._params['exposure_time']) + ". The default exposure time must be > 0.")
+            self._result = CommandResult(False, "Failed to set the default exposure time to " + str(self._params['exposure_time']) + ". The default exposure time must be > 0.")
 
 class XimeaCameraSetDefaultGain(XimeaCameraParentCommand):
     """Set the default gain to use if no gain is passed when getting image."""
@@ -76,10 +76,10 @@ class XimeaCameraSetDefaultGain(XimeaCameraParentCommand):
     def execute(self) -> None:
         self._receiver.default_gain = self._params['gain']
         if self._receiver.default_gain == self._params['gain']:
-            self._was_successful, self._result_message = (True, "Default gain successfully set to " + str(self._params['gain']))
+            self._result = CommandResult(True, "Default gain successfully set to " + str(self._params['gain']))
         else:
             # unsure what the upper limit is at the moment
-            self._was_successful, self._result_message = (False, "Failed to set the default gain to " + str(self._params['gain']) + ". The default gain must be >= 0 and has an upper limit.")
+            self._result = CommandResult(False, "Failed to set the default gain to " + str(self._params['gain']) + ". The default gain must be >= 0 and has an upper limit.")
 
 class XimeaCameraUpdateWhiteBal(XimeaCameraParentCommand):
     """Update the white balance coefficients using the current camera feed."""
@@ -90,7 +90,7 @@ class XimeaCameraUpdateWhiteBal(XimeaCameraParentCommand):
         self._params['gain'] = gain
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.update_white_balance(self._params['exposure_time'], self._params['gain'])
+        self._result = CommandResult(*self._receiver.update_white_balance(self._params['exposure_time'], self._params['gain']))
 
 class XimeaCameraSetManualWhiteBal(XimeaCameraParentCommand):
     """Set any of the red, green, and blue white balance coefficients manually."""
@@ -102,7 +102,7 @@ class XimeaCameraSetManualWhiteBal(XimeaCameraParentCommand):
         self._params['wb_kb'] = wb_kb
     
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.set_white_balance_manually(self._params['wb_kr'], self._params['wb_kg'], self._params['wb_kb'])
+        self._result = CommandResult(self._receiver.set_white_balance_manually(self._params['wb_kr'], self._params['wb_kg'], self._params['wb_kb']))
 
 class XimeaCameraResetWhiteBal(XimeaCameraParentCommand):
     """Reset the red, green, and blue white balance coefficients to defaults."""
@@ -111,5 +111,5 @@ class XimeaCameraResetWhiteBal(XimeaCameraParentCommand):
         super().__init__(receiver, **kwargs)
     
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.reset_white_balance_rgb_coeffs()
+        self._result = CommandResult(*self._receiver.reset_white_balance_rgb_coeffs())
 

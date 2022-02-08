@@ -1,6 +1,6 @@
 from typing import List
 
-from .command import Command, CompositeCommand
+from .command import Command, CommandResult, CompositeCommand
 from devices.dummy_motor import DummyMotor
 
 class DummyMotorParentCommand(Command):
@@ -17,7 +17,11 @@ class DummyMotorInitialize(DummyMotorParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._result._was_successful, self._result._message = self._receiver.initialize()
+        # original method, tuple unpack into pre-existing attributes
+        # self._result._was_successful, self._result._message = self._receiver.initialize()
+
+        # alternate method, tuple unpack positionally into constructor
+        self._result = CommandResult(*self._receiver.initialize())
 
 class DummyMotorDeinitialize(DummyMotorParentCommand):
     """Deinitialize the motor by moving to position zero."""
@@ -27,7 +31,7 @@ class DummyMotorDeinitialize(DummyMotorParentCommand):
         self._params['reset_init_flag'] = reset_init_flag
 
     def execute(self) -> None:
-        self._result._was_successful, self._result._message = self._receiver.deinitialize(self._params['reset_init_flag'])
+        self._result = CommandResult(*self._receiver.deinitialize(self._params['reset_init_flag']))
 
 class DummyMotorSetSpeed(DummyMotorParentCommand):
     """Set the speed of the motor."""
@@ -37,7 +41,7 @@ class DummyMotorSetSpeed(DummyMotorParentCommand):
         self._params['speed'] = speed
 
     def execute(self) -> None:
-        self._result._was_successful, self._result._message = self._receiver.set_speed(self._params['speed'])
+        self._result = CommandResult(*self._receiver.set_speed(self._params['speed']))
 
 class DummyMotorMoveAbsolute(DummyMotorParentCommand):
     """Move motor to absolute position."""
@@ -47,7 +51,7 @@ class DummyMotorMoveAbsolute(DummyMotorParentCommand):
         self._params['position'] = position
 
     def execute(self) -> None:
-        self._result._was_successful, self._result._message = self._receiver.move_absolute(self._params['position'])
+        self._result = CommandResult(*self._receiver.move_absolute(self._params['position']))
 
 class DummyMotorMoveRelative(DummyMotorParentCommand):
     """Move motor by relative distance."""
@@ -57,7 +61,7 @@ class DummyMotorMoveRelative(DummyMotorParentCommand):
         self._params['distance'] = distance
 
     def execute(self) -> None:
-        self._result._was_successful, self._result._message = self._receiver.move_relative(self._params['distance'])
+        self._result = CommandResult(*self._receiver.move_relative(self._params['distance']))
 
 
 # Composite command that may have one receiver, more than one receiver of the same or different type, or no receiver at all

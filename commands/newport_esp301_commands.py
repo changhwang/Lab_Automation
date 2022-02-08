@@ -1,4 +1,4 @@
-from .command import Command, CompositeCommand
+from .command import Command, CommandResult, CompositeCommand
 from devices.newport_esp301 import NewportESP301
 from typing import Optional
 
@@ -18,7 +18,7 @@ class NewportESP301Connect(NewportESP301ParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.start_serial()
+        self._result = CommandResult(*self._receiver.start_serial())
 
 class NewportESP301Initialize(NewportESP301ParentCommand):
     """Initialize the axes by homing them."""
@@ -27,7 +27,7 @@ class NewportESP301Initialize(NewportESP301ParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.initialize()
+        self._result = CommandResult(*self._receiver.initialize())
 
 class NewportESP301Deinitialize(NewportESP301ParentCommand):
     """Deinitialize the axes by moving them to position zero."""
@@ -37,7 +37,7 @@ class NewportESP301Deinitialize(NewportESP301ParentCommand):
         self._params['reset_init_flag'] = reset_init_flag
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.deinitialize(self._params['reset_init_flag'])
+        self._result = CommandResult(*self._receiver.deinitialize(self._params['reset_init_flag']))
 
 # Device-related commands classes
 class NewportESP301MoveSpeedAbsolute(NewportESP301ParentCommand):
@@ -50,7 +50,7 @@ class NewportESP301MoveSpeedAbsolute(NewportESP301ParentCommand):
         self._params['axis_number'] = axis_number
     
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.move_speed_absolute(self._params['position'], self._params['speed'], self._params['axis_number'])
+        self._result = CommandResult(*self._receiver.move_speed_absolute(self._params['position'], self._params['speed'], self._params['axis_number']))
 
 class NewportESP301MoveSpeedRelative(NewportESP301ParentCommand):
     """Move axis by relative distance at specific speed (No speed uses default speed)."""
@@ -62,7 +62,7 @@ class NewportESP301MoveSpeedRelative(NewportESP301ParentCommand):
         self._params['axis_number'] = axis_number
     
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.move_speed_relative(self._params['distance'], self._params['speed'], self._params['axis_number'])
+        self._result = CommandResult(*self._receiver.move_speed_relative(self._params['distance'], self._params['speed'], self._params['axis_number']))
 
 # Example of command with additional logic to determine the returned tuple of (success/fail: bool, success/fail message: str)
 class NewportESP301SetDefaultSpeed(NewportESP301ParentCommand):
@@ -77,9 +77,9 @@ class NewportESP301SetDefaultSpeed(NewportESP301ParentCommand):
         # receiver's default_speed has a setter than checks the value is > 0 and < max_speed before setting
         # therefore, we can check if we actually changed the receiver's default speed, if not, it means the speed was out of range
         if self._receiver.default_speed == self._params['speed']:
-            return (True, "Default speed successfully set to " + str(self._params['speed']))
+            self._result = CommandResult(True, "Default speed successfully set to " + str(self._params['speed']))
         else:
-            return (False, "Failed to set the default speed to " + str(self._params['speed']) + ". The default speed must be > 0 and < " + str(self._receiver._max_speed))
+            self._result = CommandResult(False, "Failed to set the default speed to " + str(self._params['speed']) + ". The default speed must be > 0 and < " + str(self._receiver._max_speed))
 
 # Just for testing composite commands
 class NewportESP301Dance(CompositeCommand):

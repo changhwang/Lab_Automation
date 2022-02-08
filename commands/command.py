@@ -22,7 +22,14 @@ class Command(ABC):
         self._params['delay'] = delay
         # self._was_successful = None
         # self._result_message = None  
-        self._result = CommandResult()      
+
+        # this could also just be None, instead of a CommandResult with None attributes  
+        # is there ever a time where the result would be accessed before the command is executed?
+        # it might be better to just have it as a CommandResult with None's since whatever accessing it
+        # is expecting _result to be a CommandResult object anyways
+        # but its possible even after successful execution that some attributes are still None
+        # Therefore there is a difference between whether an accessed attribute is None or if the entire result object is None
+        self._result = CommandResult()
 
     # definitely enforce return None for execute()
     @abstractmethod
@@ -62,6 +69,8 @@ class Command(ABC):
         """
         return self.__doc__
 
+    # params and receiver getter?
+
     # type hint return CustomResult?
     @property
     def result(self):
@@ -95,9 +104,15 @@ class Command(ABC):
 class CommandResult():
     """Object which stores whether a command's execution was successful and other relevant information"""
 
-    def __init__(self):
-        self._was_successful = None
-        self._message = None
+    def __init__(self, was_successful: Optional[bool] = None, message: Optional[str] = None):
+        # I considered whether to have a reset/update function instead and have init call it, this function could be used outside to reset/update the result attributes
+        # The alternative is to just use the contructor to create a new reset object. I decided just using the constructor is better.
+        # Although it creates a new object in memory, it ensures that whenever a command executes if it uses the constructor then the results 
+        # will be fully reset and not hold any old info if it is executed multiples times. In other cases, it may hold old info like for 
+        # 1) explicitly tuple unpacking in the result attributes (old version) or 2) using an update function (which may not update all attrs)
+        
+        self._was_successful = was_successful
+        self._message = message
     
     @property
     def was_successful(self) -> Optional[bool]:
@@ -119,7 +134,7 @@ class CommandResult():
         Optional[str]
             Returns a string describing the result of the command's execution with details if it failed.
         """
-        return self._message
+        return self._message        
     
 
 # A composite command contains a command list but it behaves like a regular command to any other object using it.
@@ -211,8 +226,9 @@ class CompositeCommand(Command):
                 userinput = input()
 
             command.execute()
-            self._was_successful = command.was_successful
-            self._result_message = command.result_message
+            # self._result.was_successful = command.was_successful
+            # self._result._message = command.result_message
+            self._result = command.result
             if not command.was_successful:
                 return 
 

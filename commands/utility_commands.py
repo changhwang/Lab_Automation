@@ -11,7 +11,7 @@ else:
     _has_slack = True
 
     
-from .command import Command
+from .command import Command, CommandResult
 
 class UtilityParentCommand(Command):
     """Parent class for utility commands that performs some function for its execute method but does not actually have a receiver."""
@@ -23,8 +23,9 @@ class UtilityParentCommand(Command):
         self._params = {}
         # self._params['receiver_name'] = 'None'
         self._params['delay'] = delay
-        self._was_successful = None
-        self._result_message = None  
+        # self._was_successful = None
+        # self._result_message = None  
+        self._result = CommandResult()
 
 class LoopStartCommand(UtilityParentCommand):
     """Marks the start of a loop."""
@@ -33,7 +34,7 @@ class LoopStartCommand(UtilityParentCommand):
         super().__init__(**kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = (True, "Currently at loop start.")
+        self._result = CommandResult(True, "Currently at loop start.")
 
 class LoopEndCommand(UtilityParentCommand):
     """Marks the end of a loop."""
@@ -42,7 +43,7 @@ class LoopEndCommand(UtilityParentCommand):
         super().__init__(**kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = (True, "Currently at loop end.")
+        self._result = CommandResult(True, "Currently at loop end.")
 
 class DelayPauseCommand(UtilityParentCommand):
     """Has a delay or pause but does nothing."""
@@ -53,7 +54,7 @@ class DelayPauseCommand(UtilityParentCommand):
         super().__init__(**arg_dict)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = (True, "Does nothing.")
+        self._result = CommandResult(True, "Does nothing.")
 
 class NotifySlackCommand(UtilityParentCommand):
     """Send a message to a designated slack channel"""
@@ -71,19 +72,19 @@ class NotifySlackCommand(UtilityParentCommand):
                 channel="printer-bot-test",
                 text=("from NotifySlackCommand: " + self._slack_message)
                 )
-            self._was_successful, self._result_message = (True, "Successfully sent message.")  
+            self._result = CommandResult(True, "Successfully sent message.")  
         except SlackApiError as inst:
-            self._was_successful, self._result_message = (False, "Could not send message: " + inst.response['error'])  
+            self._result = CommandResult(False, "Could not send message: " + inst.response['error'])  
 
 class LogUserMessageCommand(UtilityParentCommand):
-    """Store a message in the command's result_message so it can be logged during invocation."""
+    """Store a message in the command's result.message so it can be logged during invocation."""
 
     def __init__(self, message: str, **kwargs):
         super().__init__(**kwargs)
         self._params['message'] = message.replace(" ", "_") # just for parsing name with spaces
-        self._result_message = message
+        # self._result_message = message
     
     def execute(self):
-        self._was_successful = True
+        self._result = CommandResult(True, self._params['message'])
 
 

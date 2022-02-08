@@ -168,7 +168,7 @@ class CommandInvoker:
                 channel="printer-bot-test",
                 text=("Error in the following command execution:\n" 
                     "COMMAND -> " + command.name + "\n" 
-                    "RESULT  -> " + str(command.was_successful) + ", " + command.result_message + "\n" 
+                    "RESULT  -> " + str(command.result.was_successful) + ", " + command.result.message + "\n" 
                     "See log file \"" + str(self._log_filename) + "\" for more details.")
                     )  
         except SlackApiError as inst:

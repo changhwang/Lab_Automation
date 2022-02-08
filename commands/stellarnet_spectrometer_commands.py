@@ -1,6 +1,6 @@
 from typing import Tuple, Optional
 
-from .command import Command
+from .command import Command, CommandResult
 from devices.stellarnet_spectrometer import StellarNetSpectrometer
 
 class SpectrometerParentCommand(Command):
@@ -17,7 +17,7 @@ class SpectrometerInitialize(SpectrometerParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.initialize()
+        self._result = CommandResult(*self._receiver.initialize())
 
 class SpectrometerDeinitialize(SpectrometerParentCommand):
     """Deinitialize the spectrometer, currently does nothing except optionally change init flag."""
@@ -27,7 +27,7 @@ class SpectrometerDeinitialize(SpectrometerParentCommand):
         self._params['reset_init_flag'] = reset_init_flag
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.deinitialize(self._params['reset_init_flag'])
+        self._result = CommandResult(*self._receiver.deinitialize(self._params['reset_init_flag']))
 
 class SpectrometerUpdateDark(SpectrometerParentCommand):
     """Update the stored dark spectra for all spectrometers."""
@@ -45,7 +45,7 @@ class SpectrometerUpdateDark(SpectrometerParentCommand):
         self._params['smoothings'] = smoothings
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.update_all_dark_spectra(self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings'])
+        self._result = CommandResult(*self._receiver.update_all_dark_spectra(self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings']))
 
 class SpectrometerUpdateBlank(SpectrometerParentCommand):
     """Update the stored blank spectra for all spectrometers."""
@@ -63,7 +63,7 @@ class SpectrometerUpdateBlank(SpectrometerParentCommand):
         self._params['smoothings'] = smoothings
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.update_all_blank_spectra(self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings'])
+        self._result = CommandResult(*self._receiver.update_all_blank_spectra(self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings']))
 
 class SpectrometerGetAbsorbance(SpectrometerParentCommand):
     """Calculate and update the stored absorbance spectra, merge spectra, and optionally save to file. No filename = timestamped filename."""
@@ -85,7 +85,7 @@ class SpectrometerGetAbsorbance(SpectrometerParentCommand):
         self._params['smoothings'] = smoothings
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.get_all_absorbance(self._params['save_to_file'], self._params['filename'], self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings'])
+        self._result = CommandResult(*elf._receiver.get_all_absorbance(self._params['save_to_file'], self._params['filename'], self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings']))
 
 class SpectrometerShutterIn(SpectrometerParentCommand):
     pass

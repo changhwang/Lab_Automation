@@ -1,4 +1,4 @@
-from .command import Command
+from .command import Command, CommandResult
 from devices.dummy_meter import DummyMeter
 
 class DummyMeterParentCommand(Command):
@@ -15,7 +15,7 @@ class DummyMeterInitialize(DummyMeterParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.initialize()
+        self._result = CommandResult(*self._receiver.initialize())
 
 class DummyMeterDeinitialize(DummyMeterParentCommand):
     """Deinitialize the meter."""
@@ -25,7 +25,7 @@ class DummyMeterDeinitialize(DummyMeterParentCommand):
         self._params['reset_init_flag'] = reset_init_flag
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.deinitialize(self._params['reset_init_flag'])
+        self._result = CommandResult(*self._receiver.deinitialize(self._params['reset_init_flag']))
 
 class DummyMeterMeasure(DummyMeterParentCommand):
     """Measure data and save to file."""
@@ -35,4 +35,4 @@ class DummyMeterMeasure(DummyMeterParentCommand):
         self._params['filename'] = filename
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.measure(self._params['filename'])
+        self._result = CommandResult(*self._receiver.measure(self._params['filename']))

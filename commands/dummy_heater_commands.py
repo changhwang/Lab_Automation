@@ -1,4 +1,4 @@
-from .command import Command, CompositeCommand
+from .command import Command, CommandResult, CompositeCommand
 from devices.dummy_heater import DummyHeater
 
 class DummyHeaterParentCommand(Command):
@@ -15,7 +15,7 @@ class DummyHeaterInitialize(DummyHeaterParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.initialize()
+        self._result = CommandResult(*self._receiver.initialize())
 
 class DummyHeaterDeinitialize(DummyHeaterParentCommand):
     """Deinitialize the heater by setting to room temp (25 C)."""
@@ -25,7 +25,7 @@ class DummyHeaterDeinitialize(DummyHeaterParentCommand):
         self._params['reset_init_flag'] = reset_init_flag
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.deinitialize(self._params['reset_init_flag'])
+        self._result = CommandResult(*self._receiver.deinitialize(self._params['reset_init_flag']))
 
 class DummyHeaterSetHeatRate(DummyHeaterParentCommand):
     """Set the heating rate of the heater."""
@@ -39,9 +39,9 @@ class DummyHeaterSetHeatRate(DummyHeaterParentCommand):
 
         # logic implemented here because heat_rate setter does not return Tuple[bool, str]
         if self._receiver.heat_rate == self._params['heat_rate']:
-            self._was_successful, self._result_message = (True, "Successfully set DummyHeater heat rate to " + str(self._receiver.heat_rate))
+            self._result = CommandResult(True, "Successfully set DummyHeater heat rate to " + str(self._receiver.heat_rate))
         else:
-            self._was_successful, self._result_message = (False, "Failed to set DummyHeater heat rate. Heat rate is currently " + str(self._receiver.heat_rate))
+            self._result = CommandResult(False, "Failed to set DummyHeater heat rate. Heat rate is currently " + str(self._receiver.heat_rate))
 
 class DummyHeaterSetTemp(DummyHeaterParentCommand):
     """Set the temperature of the heater and wait for it to stabilize."""
@@ -51,7 +51,7 @@ class DummyHeaterSetTemp(DummyHeaterParentCommand):
         self._params['temperature'] = temperature
 
     def execute(self) -> None:
-        self._was_successful, self._result_message = self._receiver.set_temp(self._params['temperature'])
+        self._result = CommandResult(*self._receiver.set_temp(self._params['temperature']))
 
 # Composite command example
 class DummyHeaterRampHoldRamp(CompositeCommand):

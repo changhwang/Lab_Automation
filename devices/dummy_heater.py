@@ -3,7 +3,7 @@ import time
 from typing import Tuple
 import random
 
-from .device import Device
+from .device import Device, check_initialized
 
 class DummyHeater(Device):
 
@@ -43,9 +43,10 @@ class DummyHeater(Device):
         return (True, "Deinitialized DummyHeater by setting to room temperature (25 C)")
 
     # set_temp waits for "hardware" to reach temperature set point before returning
+    @check_initialized
     def set_temp(self, temperature: float) -> Tuple[bool, str]:
-        if not self._is_initialized:
-            return (False, "DummyHeater is not initialized")
+        # if not self._is_initialized:
+        #     return (False, "DummyHeater is not initialized")
         if not self.is_valid_temp(temperature):
             return (False, "Temperature setpoint is invalid")
 

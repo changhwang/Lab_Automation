@@ -7,7 +7,7 @@ from scipy.interpolate import interp1d
 from scipy.optimize import minimize
 import stellarnet_driver3 as sn
 
-from .device import Device
+from .device import Device, check_initialized
 
 # TODO
 # convert to serial device parent when arduino added
@@ -84,6 +84,7 @@ class StellarNetSpectrometer(Device):
 
         return (True, "Pass, nothing to deinitialize for now.")
 
+    @check_initialized
     def get_spectrum_counts(
             self, 
             spec_key: str, 
@@ -92,8 +93,8 @@ class StellarNetSpectrometer(Device):
             smoothing: int = 0, 
             xtiming: int = 1) -> Tuple[bool, str]:
 
-        if not self._is_initialized:
-            return (False, "Spectrometer system not initialized")
+        # if not self._is_initialized:
+        #     return (False, "Spectrometer system not initialized")
 
         if spec_key in self.spectrometer_dict.keys():
             self.spectrometer_dict[spec_key]['device'].set_config(

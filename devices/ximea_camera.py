@@ -4,7 +4,7 @@ from typing import Optional, Tuple, List
 from PIL import Image
 from ximea import xiapi
 
-from .device import Device
+from .device import Device, check_initialized
 
 # Unsure how cooperative xiapi.Camera is so did not use multiple inheritance
 # will need to figure out the method resolution order if using multiple inheritance
@@ -100,6 +100,7 @@ class XimeaCamera(Device):
 
         return (True, "Successfully deinitialized camera, communication closed.")
 
+    @check_initialized
     def get_image(
             self, 
             save_to_file: bool = True, 
@@ -107,8 +108,8 @@ class XimeaCamera(Device):
             exposure_time: Optional[int] = None, 
             gain: Optional[float] = None, 
             show_pop_up: bool = False) -> Tuple[bool, str]:
-        if not self._is_initialized:
-            return (False, "Camera is not initialized")
+        # if not self._is_initialized:
+        #     return (False, "Camera is not initialized")
 
         if exposure_time is None:
             exposure_time = self._default_exposure_time
@@ -154,9 +155,10 @@ class XimeaCamera(Device):
 
         return (True, "Successfully took image but did not save.")       
 
+    @check_initialized
     def update_white_balance(self, exposure_time: int = None, gain: Optional[float] = None) -> Tuple[bool, str]:
-        if not self._is_initialized:
-            return (False, "Camera is not initialized")
+        # if not self._is_initialized:
+        #     return (False, "Camera is not initialized")
         
         try:
             self.cam.set_manual_wb(1)
@@ -170,9 +172,10 @@ class XimeaCamera(Device):
 
         return (True, "Successfully updated white balance coefficients with image: wb_kr, wb_kg, wb_kb = " + str(self.get_white_balance_rgb_coeffs()))
  
+    @check_initialized # is this necessary
     def set_white_balance_manually(self, wb_kr: Optional[float] = None, wb_kg: Optional[float] = None, wb_kb: Optional[float] = None) -> Tuple[bool, str]:
-        if not self._is_initialized:
-            return (False, "Camera is not initialized")
+        # if not self._is_initialized:
+        #     return (False, "Camera is not initialized")
         
         if wb_kr is None and wb_kg is None and wb_kb is None:
             return (True, "No white balance coefficients were changed. Coefficients are currently: wb_kr, wb_kg, wb_kb = " + str(self.get_white_balance_rgb_coeffs()))
@@ -188,12 +191,14 @@ class XimeaCamera(Device):
         
         return (True, "Successfully set white balance coefficients manually: wb_kr, wb_kg, wb_kb = " + str(self.get_white_balance_rgb_coeffs()))
     
+    @check_initialized # is this necessary
     def reset_white_balance_rgb_coeffs(self) -> Tuple[bool, str]:
         self.cam.set_wb_kr(self._default_wb_kr)
         self.cam.set_wb_kg(self._default_wb_kg)
         self.cam.set_wb_kb(self._default_wb_kb)
         return (True, "Successfully reset white balance coefficients to defaults. Coefficients are currently: wb_kr, wb_kg, wb_kb = " + str(self.get_white_balance_rgb_coeffs()))
 
+    @check_initialized # is this necessary
     def get_white_balance_rgb_coeffs(self) -> List[float]:
         wb = []
         wb.append(self.cam.get_wb_kr())

@@ -1,6 +1,6 @@
 from typing import List
 
-from .device import Device
+from .device import Device, check_initialized
 
 # Importing Dummy devices only for emulation purposes
 import numpy as np
@@ -53,9 +53,10 @@ class DummyMeter(Device):
             self._is_initialized = False
         return (True, "Deinitialized DummyMeter")
 
+    @check_initialized
     def measure(self, filename: str = None):
-        if not self._is_initialized:
-            return (False, "DummyMeter is not initialized")
+        # if not self._is_initialized:
+        #     return (False, "DummyMeter is not initialized")
 
         # Emulating dependency on temperature and speed
         x1 = self.heater.temperature

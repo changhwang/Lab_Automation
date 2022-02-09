@@ -1,7 +1,7 @@
 import time
 from typing import Tuple
 
-from .device import Device
+from .device import Device, check_initialized
 from .dummy_motor_source import DummyMotorSource
 
 
@@ -43,9 +43,10 @@ class DummyMotor(Device):
         else:
             return (False, "DummyMotor speed was not set. Speed is currently " + str(self.motor.speed))
 
+    @check_initialized
     def move_absolute(self, position: float) -> Tuple[bool, str]:
-        if not self._is_initialized:
-            return (False, "DummyMotor is not initialized")
+        # if not self._is_initialized:
+        #     return (False, "DummyMotor is not initialized")
         if not self.is_valid_position(position):
             return (False, "Position is not valid")
 
@@ -58,9 +59,10 @@ class DummyMotor(Device):
 
         return (True, "DummyMotor has reached position " + str(position))
 
+    @check_initialized
     def move_relative(self, distance: float) -> Tuple[bool, str]:
-        if not self._is_initialized:
-            return (False, "DummyMotor is not initialized")
+        # if not self._is_initialized:
+        #     return (False, "DummyMotor is not initialized")
 
         position = self.motor.position + distance
         if not self.is_valid_position(position):

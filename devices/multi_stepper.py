@@ -1,7 +1,23 @@
 from typing import Optional, Tuple, Union
 import serial
+import functools
 
-from .device import ArduinoSerialDevice
+from .device import ArduinoSerialDevice, check_initialized, check_serial
+
+# this decorator needs to be tested, if it works, make for esp301 as well
+def check_stepper_num(func):
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        # could be a kwarg or arg
+        if 'stepper_number' in kwargs:
+            stepper_number = kwargs['stepper_number']
+        else:
+            stepper_number = args[0]
+
+        if not self.is_stepper_num_valid(stepper_number):
+            return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        return func(self, *args, **kwargs)
+    return wrapper
 
 
 class MultiStepper(ArduinoSerialDevice):
@@ -39,9 +55,10 @@ class MultiStepper(ArduinoSerialDevice):
 
         return (True, "All stepper motors " + str(self._stepper_list) + " successfully deinitialized by moving to position zero.")
     
+    @check_serial
     def home(self, stepper_number: int) -> Tuple[bool, str]:
-        if not self.ser.is_open:    
-            return (False, "Serial port " + self._port + " is not open. ")
+        # if not self.ser.is_open:    
+        #     return (False, "Serial port " + self._port + " is not open. ")
         if not self.is_stepper_num_valid(stepper_number):
             return (False, "Stepper number is not valid or not part of passed tuple during construction.")
 
@@ -49,52 +66,66 @@ class MultiStepper(ArduinoSerialDevice):
         self.ser.write(command.encode('ascii'))
         return self.check_ack_succ(ack_timeout=1, succ_timeout=self._move_timeout)
 
-    # Consider a decorator for these repeated pre-checks
+    @check_serial
+    @check_initialized
     def move_absolute(self, stepper_number: int, position: float) -> Tuple[bool, str]:
-        if not self.ser.is_open:    
-            return (False, "Serial port " + self._port + " is not open. ")
-        elif not self.is_stepper_num_valid(stepper_number):
+        # if not self.ser.is_open:    
+        #     return (False, "Serial port " + self._port + " is not open. ")
+        # elif not self.is_stepper_num_valid(stepper_number):
+        #     return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        # elif not self._is_initialized:
+        #     return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
+        # else:
+        if not self.is_stepper_num_valid(stepper_number):
             return (False, "Stepper number is not valid or not part of passed tuple during construction.")
-        elif not self._is_initialized:
-            return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
-        else:
-            command = ">mv " + str(stepper_number) + " " + str(position) + "\n"
-            self.ser.write(command.encode('ascii'))
-            return self.check_ack_succ(ack_timeout=1, succ_timeout=self._move_timeout)
 
+        command = ">mv " + str(stepper_number) + " " + str(position) + "\n"
+        self.ser.write(command.encode('ascii'))
+        return self.check_ack_succ(ack_timeout=1, succ_timeout=self._move_timeout)
+
+    @check_serial
+    @check_initialized
     def move_relative(self, stepper_number: int, distance: float) -> Tuple[bool, str]:
-        if not self.ser.is_open:    
-            return (False, "Serial port " + self._port + " is not open. ")
-        elif not self.is_stepper_num_valid(stepper_number):
+        # if not self.ser.is_open:    
+        #     return (False, "Serial port " + self._port + " is not open. ")
+        # elif not self.is_stepper_num_valid(stepper_number):
+        #     return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        # elif not self._is_initialized:
+        #     return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
+        # else:
+        if not self.is_stepper_num_valid(stepper_number):
             return (False, "Stepper number is not valid or not part of passed tuple during construction.")
-        elif not self._is_initialized:
-            return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
-        else:
-            command = ">mvr " + str(stepper_number) + " " + str(distance) + "\n"
-            self.ser.write(command.encode('ascii'))
-            return self.check_ack_succ(ack_timeout=1.0, succ_timeout=self._move_timeout)
 
+        command = ">mvr " + str(stepper_number) + " " + str(distance) + "\n"
+        self.ser.write(command.encode('ascii'))
+        return self.check_ack_succ(ack_timeout=1.0, succ_timeout=self._move_timeout)
+
+    @check_serial
+    @check_initialized
     def position(self, stepper_number: int) -> Tuple[bool, Union[float, str]]:
-        if not self.ser.is_open:    
-            return (False, "Serial port " + self._port + " is not open. ")
-        elif not self.is_stepper_num_valid(stepper_number):
+        # if not self.ser.is_open:    
+        #     return (False, "Serial port " + self._port + " is not open. ")
+        # elif not self.is_stepper_num_valid(stepper_number):
+        #     return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        # elif not self._is_initialized:
+        #     return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
+        # else:
+        if not self.is_stepper_num_valid(stepper_number):
             return (False, "Stepper number is not valid or not part of passed tuple during construction.")
-        elif not self._is_initialized:
-            return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
-        else:
-            command = ">wm " + str(stepper_number) + "\n"
-            self.ser.write(command.encode('ascii'))
-            was_successful, comment = self.check_ack_succ()
 
-            if not was_successful:
-                return (was_successful, comment)
+        command = ">wm " + str(stepper_number) + "\n"
+        self.ser.write(command.encode('ascii'))
+        was_successful, comment = self.check_ack_succ()
 
-            has_position, position_str = super().parse_equal_sign(comment)
+        if not was_successful:
+            return (was_successful, comment)
 
-            if not has_position:
-                return (has_position, "Message from device did not contain motor position.")
-            
-            return (True, float(position_str))
+        has_position, position_str = super().parse_equal_sign(comment)
+
+        if not has_position:
+            return (has_position, "Message from device did not contain motor position.")
+        
+        return (True, float(position_str))
  
     def is_stepper_num_valid(self, stepper_number: int) -> bool:
         if stepper_number in self._stepper_list:

@@ -1,10 +1,42 @@
 from abc import ABC, abstractmethod
 from typing import Optional, Tuple
 import time
+import functools
 try:
     import serial
 except ImportError:
     pass
+
+
+# Decorator to check if is initialized, optional custom message on fail
+# Originally in Device class as a method, but moved to module scope
+def check_initialized(func=None, *, message=None):
+    if func is None:
+        return functools.partial(check_initialized, message=message)
+
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        if not self._is_initialized:
+            if message is None:
+                return (False, type(self).__name__ + " object is not initialized.")
+            else:
+                return (False, message)
+        return func(self, *args, **kwargs)
+    return wrapper
+
+def check_serial(func=None, *, message=None):
+    if func is None:
+        return functools.partial(check_initialized, message=message)
+
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        if not self.ser.is_open:
+            if message is None:
+                return (False, "Serial port " + self._port + " is not open.")
+            else:
+                return (False, message)
+        return func(self, *args, **kwargs)
+    return wrapper
 
 
 # *args, **kwargs https://stackoverflow.com/questions/6034662/python-method-overriding-does-signature-matter
@@ -20,7 +52,7 @@ class Device(ABC):
     @property
     def name(self) -> str:
         return self._name
-    
+
     @name.setter
     def name(self, name: str):
         self._name = name
@@ -123,7 +155,7 @@ class SerialDevice(Device):
             return (True, "Serial port " + self._port + " already opened.")
         except serial.serialutil.SerialException as inst:
             return (False, "Serial port " + self._port + " failed to open. " + str(inst))     
-    
+  
 
 class ArduinoSerialDevice(SerialDevice):
     """An arduino serial device that implements the custom ACK/NACK/SUCC/FAIL communication protocol."""

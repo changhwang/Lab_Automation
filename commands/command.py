@@ -12,6 +12,8 @@ from devices.device import Device
 class Command(ABC):
     """The Command abstract base class which acts as an interface for other objects that use commands."""
 
+    receiver_cls = None # or Device?
+
     @abstractmethod
     def __init__(self, receiver: Device, delay: float = 0.0):
         # Child classes will still have 'receiver' in their signature (separate from **kwargs) because I want the IDE to hint at the specific receiver class
@@ -146,7 +148,7 @@ class CommandResult():
 class CompositeCommand(Command):
     """A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially."""
 
-    receiver_cls = None
+    # receiver_cls = None
     
     def __init__(self, delay: float = 0.0):
         # super().__init__(**kwargs)

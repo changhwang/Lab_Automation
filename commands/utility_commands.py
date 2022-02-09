@@ -16,7 +16,7 @@ from .command import Command, CommandResult
 class UtilityParentCommand(Command):
     """Parent class for utility commands that performs some function for its execute method but does not actually have a receiver."""
 
-    receiver_cls = None
+    # receiver_cls = None
 
     def __init__(self, delay: float = 0.0):
         # self._receiver = None

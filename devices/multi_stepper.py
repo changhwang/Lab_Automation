@@ -4,7 +4,7 @@ import functools
 
 from .device import ArduinoSerialDevice, check_initialized, check_serial
 
-# this decorator needs to be tested, if it works, make for esp301 as well
+
 def check_stepper_num(func):
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
@@ -56,11 +56,12 @@ class MultiStepper(ArduinoSerialDevice):
         return (True, "All stepper motors " + str(self._stepper_list) + " successfully deinitialized by moving to position zero.")
     
     @check_serial
+    @check_stepper_num
     def home(self, stepper_number: int) -> Tuple[bool, str]:
         # if not self.ser.is_open:    
         #     return (False, "Serial port " + self._port + " is not open. ")
-        if not self.is_stepper_num_valid(stepper_number):
-            return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        # if not self.is_stepper_num_valid(stepper_number):
+        #     return (False, "Stepper number is not valid or not part of passed tuple during construction.")
 
         command = ">hm " + str(stepper_number) + "\n"
         self.ser.write(command.encode('ascii'))
@@ -68,6 +69,7 @@ class MultiStepper(ArduinoSerialDevice):
 
     @check_serial
     @check_initialized
+    @check_stepper_num
     def move_absolute(self, stepper_number: int, position: float) -> Tuple[bool, str]:
         # if not self.ser.is_open:    
         #     return (False, "Serial port " + self._port + " is not open. ")
@@ -76,8 +78,8 @@ class MultiStepper(ArduinoSerialDevice):
         # elif not self._is_initialized:
         #     return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
         # else:
-        if not self.is_stepper_num_valid(stepper_number):
-            return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        # if not self.is_stepper_num_valid(stepper_number):
+        #     return (False, "Stepper number is not valid or not part of passed tuple during construction.")
 
         command = ">mv " + str(stepper_number) + " " + str(position) + "\n"
         self.ser.write(command.encode('ascii'))
@@ -85,6 +87,7 @@ class MultiStepper(ArduinoSerialDevice):
 
     @check_serial
     @check_initialized
+    @check_stepper_num
     def move_relative(self, stepper_number: int, distance: float) -> Tuple[bool, str]:
         # if not self.ser.is_open:    
         #     return (False, "Serial port " + self._port + " is not open. ")
@@ -93,8 +96,8 @@ class MultiStepper(ArduinoSerialDevice):
         # elif not self._is_initialized:
         #     return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
         # else:
-        if not self.is_stepper_num_valid(stepper_number):
-            return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        # if not self.is_stepper_num_valid(stepper_number):
+        #     return (False, "Stepper number is not valid or not part of passed tuple during construction.")
 
         command = ">mvr " + str(stepper_number) + " " + str(distance) + "\n"
         self.ser.write(command.encode('ascii'))
@@ -102,6 +105,7 @@ class MultiStepper(ArduinoSerialDevice):
 
     @check_serial
     @check_initialized
+    @check_stepper_num
     def position(self, stepper_number: int) -> Tuple[bool, Union[float, str]]:
         # if not self.ser.is_open:    
         #     return (False, "Serial port " + self._port + " is not open. ")
@@ -110,8 +114,8 @@ class MultiStepper(ArduinoSerialDevice):
         # elif not self._is_initialized:
         #     return (False, "Stepper motor " + str(stepper_number) + " is not initialized.")
         # else:
-        if not self.is_stepper_num_valid(stepper_number):
-            return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+        # if not self.is_stepper_num_valid(stepper_number):
+        #     return (False, "Stepper number is not valid or not part of passed tuple during construction.")
 
         command = ">wm " + str(stepper_number) + "\n"
         self.ser.write(command.encode('ascii'))

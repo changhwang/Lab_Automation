@@ -1,8 +1,23 @@
 import time
 from typing import Optional, Tuple, Union
+import functools
 
 from .device import SerialDevice, check_initialized, check_serial
 
+
+# def check_axis_num(func):
+#     @functools.wraps(func)
+#     def wrapper(self, *args, **kwargs):
+#         # could be a kwarg or arg
+#         if 'stepper_number' in kwargs:
+#             stepper_number = kwargs['stepper_number']
+#         else:
+#             stepper_number = args[0]
+
+#         if not self.is_stepper_num_valid(stepper_number):
+#             return (False, "Stepper number is not valid or not part of passed tuple during construction.")
+#         return func(self, *args, **kwargs)
+#     return wrapper
 
 class NewportESP301(SerialDevice):
     def __init__(
@@ -81,6 +96,7 @@ class NewportESP301(SerialDevice):
 
         return (True, "Successfully deinitialized axes by moving to position zero.")
 
+    # make a home_all function
     @check_serial
     def home(self, axis_number: int) -> Tuple[bool, str]:
         # if not self.ser.is_open:
@@ -187,6 +203,7 @@ class NewportESP301(SerialDevice):
         else:
             return False
     
+    # check axis num
     def is_moving(self, axis_number: int = 1) -> bool:
         if not self.ser.is_open:
             return False

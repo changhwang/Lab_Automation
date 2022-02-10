@@ -43,26 +43,26 @@ class NewportESP301Deinitialize(NewportESP301ParentCommand):
 class NewportESP301MoveSpeedAbsolute(NewportESP301ParentCommand):
     """Move axis to absolute position at specific speed (No speed uses default speed)."""
     
-    def __init__(self, receiver: NewportESP301, position: float, speed: Optional[float] = None, axis_number: int = 1, **kwargs):
+    def __init__(self, receiver: NewportESP301, axis_number: int = 1, position: Optional[float] = None, speed: Optional[float] = None, **kwargs):
         super().__init__(receiver, **kwargs)
         self._params['position'] = position
         self._params['speed'] = speed
         self._params['axis_number'] = axis_number
     
     def execute(self) -> None:
-        self._result = CommandResult(*self._receiver.move_speed_absolute(self._params['position'], self._params['speed'], self._params['axis_number']))
+        self._result = CommandResult(*self._receiver.move_speed_absolute(self._params['axis_number'], self._params['position'], self._params['speed']))
 
 class NewportESP301MoveSpeedRelative(NewportESP301ParentCommand):
     """Move axis by relative distance at specific speed (No speed uses default speed)."""
     
-    def __init__(self, receiver: NewportESP301, distance: float, speed: Optional[float] = None, axis_number: int = 1, **kwargs):
+    def __init__(self, receiver: NewportESP301, axis_number: int = 1, distance: Optional[float] = None, speed: Optional[float] = None, **kwargs):
         super().__init__(receiver, **kwargs)
         self._params['distance'] = distance
         self._params['speed'] = speed
         self._params['axis_number'] = axis_number
     
     def execute(self) -> None:
-        self._result = CommandResult(*self._receiver.move_speed_relative(self._params['distance'], self._params['speed'], self._params['axis_number']))
+        self._result = CommandResult(*self._receiver.move_speed_relative(self._params['axis_number'], self._params['distance'], self._params['speed']))
 
 # Example of command with additional logic to determine the returned tuple of (success/fail: bool, success/fail message: str)
 class NewportESP301SetDefaultSpeed(NewportESP301ParentCommand):
@@ -80,6 +80,14 @@ class NewportESP301SetDefaultSpeed(NewportESP301ParentCommand):
             self._result = CommandResult(True, "Default speed successfully set to " + str(self._params['speed']))
         else:
             self._result = CommandResult(False, "Failed to set the default speed to " + str(self._params['speed']) + ". The default speed must be > 0 and < " + str(self._receiver._max_speed))
+
+# Derived commands
+class NewportESP301HorzMoveSpeedAbsolute(NewportESP301MoveSpeedAbsolute):
+    """desc"""
+    
+    # position no longer can be None here because we dont need axis num in sig
+    def __init__(self, receiver: NewportESP301, position: float, speed: Optional[float] = None, **kwargs):
+        super().__init__(receiver, 1, position, speed, **kwargs)
 
 # Just for testing composite commands
 class NewportESP301Dance(CompositeCommand):

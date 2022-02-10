@@ -5,19 +5,19 @@ import functools
 from .device import SerialDevice, check_initialized, check_serial
 
 
-# def check_axis_num(func):
-#     @functools.wraps(func)
-#     def wrapper(self, *args, **kwargs):
-#         # could be a kwarg or arg
-#         if 'stepper_number' in kwargs:
-#             stepper_number = kwargs['stepper_number']
-#         else:
-#             stepper_number = args[0]
-
-#         if not self.is_stepper_num_valid(stepper_number):
-#             return (False, "Stepper number is not valid or not part of passed tuple during construction.")
-#         return func(self, *args, **kwargs)
-#     return wrapper
+def check_axis_num(func):
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        # could be a kwarg or arg
+        if 'axis_number' in kwargs:
+            axis_number = kwargs['axis_number']
+        else:
+            axis_number = args[0]
+            
+        if not self.is_axis_num_valid(axis_number):
+            return (False, "Axis number is not valid or not part of passed tuple during construction.")
+        return func(self, *args, **kwargs)
+    return wrapper
 
 class NewportESP301(SerialDevice):
     def __init__(
@@ -32,9 +32,9 @@ class NewportESP301(SerialDevice):
 
         super().__init__(name, port, baudrate, timeout)
         self._axis_list = axis_list
-        self._default_speed = default_speed
+        self._default_speed = default_speed #make list
         self._poll_interval = poll_interval
-        self._max_speed = 200.0
+        self._max_speed = 200.0 # make list
 
     @property
     def default_speed(self) -> float:
@@ -119,13 +119,19 @@ class NewportESP301(SerialDevice):
     # Consider a decorator for checks?
     @check_serial
     @check_initialized
-    def move_speed_absolute(self, position: float, speed: Optional[float] = None, axis_number: int = 1) -> Tuple[bool, str]:
+    @check_axis_num
+    def move_speed_absolute(self, axis_number: int = 1, position: Optional[float] = None, speed: Optional[float] = None) -> Tuple[bool, str]:
         # if not self.ser.is_open:
-        #     return (False, "Serial port " + self._port + " is not open. ")
-        if not self.is_axis_num_valid(axis_number):
-            return (False, "Axis number is not valid or not part of passed tuple during construction.")
+        # #     return (False, "Serial port " + self._port + " is not open. ")
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, "Axis number is not valid or not part of passed tuple during construction.")
         # if not self._is_initialized:
         #     return (False, "ESP301 axes are not initialized.")
+        
+        # I want axis number to be the first arg so the decorator can pick it up as arg[0]
+        # but I also want axis_number to have a default value of 1, so position needs a default value now
+        if position is None:
+            return (False, "Position was not specified")
 
         if speed is None:
             speed = self._default_speed
@@ -158,14 +164,17 @@ class NewportESP301(SerialDevice):
 
     @check_serial
     @check_initialized
-    def move_speed_relative(self, distance: float, speed: Optional[float] = None, axis_number: int = 1) -> Tuple[bool, str]:
+    @check_axis_num
+    def move_speed_relative(self, axis_number: int = 1, distance: Optional[float] = None, speed: Optional[float] = None) -> Tuple[bool, str]:
         # if not self.ser.is_open:
-        #     return (False, "Serial port " + self._port + " is not open. ")
-        if not self.is_axis_num_valid(axis_number):
-            return (False, "Axis number is not valid or not part of passed tuple during construction.")
+        # #     return (False, "Serial port " + self._port + " is not open. ")
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, "Axis number is not valid or not part of passed tuple during construction.")
         # if not self._is_initialized:
         #     return (False, "ESP301 axes are not initialized.")
-
+        if distance is None:
+            return (False, "Distance was not specified")
+        
         if speed is None:
             speed = self._default_speed
 
@@ -204,20 +213,22 @@ class NewportESP301(SerialDevice):
             return False
     
     # check axis num
+    @check_serial
+    @check_axis_num
     def is_moving(self, axis_number: int = 1) -> bool:
-        if not self.ser.is_open:
-            return False
-        else:
-            command = str(axis_number) + "MD?\r"
-            self.ser.write(command.encode('ascii'))
-            response = self.ser.readline()
+        # if not self.ser.is_open:
+        #     return False
+        # else:
+        command = str(axis_number) + "MD?\r"
+        self.ser.write(command.encode('ascii'))
+        response = self.ser.readline()
 
-            if response.strip().decode('ascii') == '0':
-                # motion is not done = is moving
-                return True
-            else:
-                # includes timeout case
-                return False
+        if response.strip().decode('ascii') == '0':
+            # motion is not done = is moving
+            return True
+        else:
+            # includes timeout case
+            return False
 
     def is_any_moving(self) -> bool:
         is_moving_list = []
@@ -265,11 +276,12 @@ class NewportESP301(SerialDevice):
             return (False, response)
     
     @check_serial
+    @check_axis_num
     def position(self, axis_number: int = 1) -> Tuple[bool, Union[str, float]]:
         # if not self.ser.is_open:
         #     return (False, "Serial port " + self._port + " is not open. ")
-        if not self.is_axis_num_valid(axis_number):
-            return (False, "Axis number is not valid or not part of passed tuple during construction.")
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, "Axis number is not valid or not part of passed tuple during construction.")
 
         command = str(axis_number) + "TP\r"
         self.ser.write(command.encode('ascii'))
@@ -280,11 +292,12 @@ class NewportESP301(SerialDevice):
             return (True, float(position_str.strip().decode('ascii')))
 
     @check_serial
+    @check_axis_num
     def axis_on(self, axis_number: int = 1) -> Tuple[bool, str]:
         # if not self.ser.is_open:
         #     return (False, "Serial port " + self._port + " is not open. ")
-        if not self.is_axis_num_valid(axis_number):
-            return (False, "Axis number is not valid or not part of passed tuple during construction.")
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, "Axis number is not valid or not part of passed tuple during construction.")
 
         command = str(axis_number) + "MO\r"
         self.ser.write(command.encode('ascii'))
@@ -304,11 +317,12 @@ class NewportESP301(SerialDevice):
             return (False, "Axis " + str(axis_number) + " motor failed to turned ON.")
 
     @check_serial
+    @check_axis_num
     def axis_off(self, axis_number: int = 1) -> Tuple[bool, str]:
         # if not self.ser.is_open:
         #     return (False, "Serial port " + self._port + " is not open. ")
-        if not self.is_axis_num_valid(axis_number):
-            return (False, "Axis number is not valid or not part of passed tuple during construction.")
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, "Axis number is not valid or not part of passed tuple during construction.")
 
         command = str(axis_number) + "MF\r"
         self.ser.write(command.encode('ascii'))

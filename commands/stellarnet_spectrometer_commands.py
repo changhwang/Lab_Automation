@@ -85,7 +85,7 @@ class SpectrometerGetAbsorbance(SpectrometerParentCommand):
         self._params['smoothings'] = smoothings
 
     def execute(self) -> None:
-        self._result = CommandResult(*elf._receiver.get_all_absorbance(self._params['save_to_file'], self._params['filename'], self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings']))
+        self._result = CommandResult(*self._receiver.get_all_absorbance(self._params['save_to_file'], self._params['filename'], self._params['integration_times'], self._params['scans_to_avg'], self._params['smoothings']))
 
 class SpectrometerShutterIn(SpectrometerParentCommand):
     pass

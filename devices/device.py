@@ -24,6 +24,10 @@ def check_initialized(func=None, *, message=None):
         return func(self, *args, **kwargs)
     return wrapper
 
+# consider optional flag to set is_initialized to False on fail
+# this is so if this decorator is applied to the initialize function
+# the function will have a chance to set is_initialized to False before the wrapper returns
+# Note that in some cases the initialize function starts by calling another function that already checks serial
 def check_serial(func=None, *, message=None):
     if func is None:
         return functools.partial(check_initialized, message=message)

@@ -24,7 +24,7 @@ class NewportESP301(SerialDevice):
             self, 
             name: str,
             port: str,
-            baudrate: int,
+            baudrate: int = 921600,
             timeout: Optional[float] = 1.0,
             axis_list: Tuple[int, ...] = (1,),
             default_speed: float = 20.0,
@@ -33,8 +33,10 @@ class NewportESP301(SerialDevice):
         super().__init__(name, port, baudrate, timeout)
         self._axis_list = axis_list
         self._default_speed = default_speed #make list
+        # self._default_speed_list = defaults_speed_list
         self._poll_interval = poll_interval
         self._max_speed = 200.0 # make list
+        # self._max_speed_list = max_speed_list
 
     @property
     def default_speed(self) -> float:
@@ -46,6 +48,8 @@ class NewportESP301(SerialDevice):
             self._default_speed = speed
 
     # check_error already has serial check
+    # easier to just set is_intialized False at the very beginning
+    # do for all receivers
     def initialize(self) -> Tuple[bool, str]:
         # if not self.ser.is_open:
         #     return (False, "Serial port " + self._port + " is not open. ")

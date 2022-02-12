@@ -34,7 +34,7 @@ class KinovaArm(Device):
             password: str = 'admin',
             action_timeout: float = 20.0):
         
-        super().init(name)
+        super().__init__(name)
         self._ip = ip
         self._port = TCP_PORT
         self._username = username
@@ -51,7 +51,7 @@ class KinovaArm(Device):
         self._router = RouterClient(self._transport, RouterClient.basicErrorCallback)
         
     def connect(self) -> Tuple[bool, str]:
-        self.transport.connect(self.ipAddress, self.port)
+        self._transport.connect(self._ip, self._port)
 
         self._session_info = Session_pb2.CreateSessionInfo()
         self._session_info.username = self._username
@@ -195,7 +195,7 @@ class KinovaArm(Device):
     #     else:
     #         print("Timeout on action notification wait")
     #     return finished
-
+    @staticmethod
     def check_for_end_or_abort(e):
         """Return a closure checking for END or ABORT notifications
         Arguments:
@@ -203,8 +203,8 @@ class KinovaArm(Device):
             (will be set when an END or ABORT occurs)
         """
         def check(notification, e = e):
-            print("EVENT : " + \
-                Base_pb2.ActionEvent.Name(notification.action_event))
+            # print("EVENT : " + \
+            #     Base_pb2.ActionEvent.Name(notification.action_event))
             if notification.action_event == Base_pb2.ACTION_END \
             or notification.action_event == Base_pb2.ACTION_ABORT:
                 e.set()

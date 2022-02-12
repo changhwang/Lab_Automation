@@ -6,6 +6,7 @@ from .device import SerialDevice, check_initialized, check_serial
 
 # terminology, valve_num or position; steps_per_sec or step_rate, valve or port
 # dead volume flags
+# double check flowrates are accurate
 
 class PSD6SyringePump(SerialDevice):
     status_dict = {
@@ -81,15 +82,15 @@ class PSD6SyringePump(SerialDevice):
             
     
     # for init and deinit, it needs to set the waste valve!, not just left most or right most!!
-    # we need to check, does it move valve first? or syringe first?
-    # either way, initialize valve, move to waste, then either run Y/Z or init syringe only
+    # we need to check, does it move valve first? or syringe first? IT MOVES VALVE FIRST
+    # either way, enable hfactor, initialize valve, move to waste, then either run Y/Z or init syringe only
     @check_serial
     def initialize(self) -> Tuple[bool, str]:
         self._is_initialized = False
         
         # sets syringe to 0 (max dispense)
         # sets valve to position 1 (Use command Z to set valve to 6 instead)
-        command = '/1YR\r' # sets output to right side
+        command = '/1ZR\r' # sets output to right side
         self.ser.write(command.encode('ascii'))
         is_ready, message = self.check_error_ready()
         if not is_ready:
@@ -127,7 +128,7 @@ class PSD6SyringePump(SerialDevice):
             step_rate = None
         else:
             step_rate = self.volume_to_step(flowrate)
-        return self.move_syringe_absolute_step(step, valve_num, step_rate)
+        return self.infuse_syringe_steps(step, valve_num, step_rate)
     
     def withdraw_syringe_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
         step = self.volume_to_step(volume)
@@ -135,9 +136,10 @@ class PSD6SyringePump(SerialDevice):
             step_rate = None
         else:
             step_rate = self.volume_to_step(flowrate)
-        return self.move_syringe_absolute_step(step, valve_num, step_rate)
+        return self.withdraw_syringe_steps(step, valve_num, step_rate)
     
     
+    # switch order of step and volume display in message, volume first steps in ()
     @check_serial
     @check_initialized
     def move_syringe_absolute_step(self, step: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
@@ -215,7 +217,11 @@ class PSD6SyringePump(SerialDevice):
         pass
     
     def valve_position(self):
-        pass
+        command = '/1?24000R\r'
+        self.ser.write(command.encode('ascii'))
+        response = self.ser.readline()
+        position = response.decode('ascii')[3]
+        return position
 
     def port_dead_volume(self, port_num: int):
         # no real need to check port, any command sent regarding a wrong port will be caught by the pump
@@ -229,7 +235,7 @@ class PSD6SyringePump(SerialDevice):
         if read_first:
             response = self.ser.readline()
             status_byte = response.decode('ascii')[2]
-            if status_byte in '@`':
+            if status_byte not in '@`':
                 # there was a problem with the initial response
                 return (False, self.status_dict[status_byte])
         

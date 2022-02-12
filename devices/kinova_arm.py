@@ -1,6 +1,6 @@
 # import sys
 # import os
-# import time
+import time
 import threading
 from typing import Tuple
 import yaml
@@ -32,7 +32,8 @@ class KinovaArm(Device):
             ip: str = '192.168.1.10',
             username: str = 'admin',
             password: str = 'admin',
-            action_timeout: float = 20.0):
+            action_timeout: float = 20.0,
+            proportional_gain: float = 2.0):
         
         super().__init__(name)
         self._ip = ip
@@ -40,6 +41,7 @@ class KinovaArm(Device):
         self._username = username
         self._password = password
         self._action_timeout = action_timeout
+        self._proportional_gain = proportional_gain
         
         with open(self.pose_dict_file) as file:
             # not safe loader
@@ -81,12 +83,15 @@ class KinovaArm(Device):
     
     def initialize(self) -> Tuple[bool, str]:
         was_homed, message = self.home()
-        
         if not was_homed:
             return (False, message)
-        else:
-            self._is_initialized = True
-            return (was_homed, message)
+        
+        was_opened, message = self.open_gripper()
+        if not was_opened:
+            return (False, message)
+
+        self._is_initialized = True
+        return (was_homed, "Successfully initialized Kinova arm and gripper.")
     
     def deinitialize(self) -> Tuple[bool, str]:
         pass
@@ -127,7 +132,8 @@ class KinovaArm(Device):
         else:
             return (False, "Timeout on action notification wait")
 
-    def angular_action_movement(self, pose_name: str):
+    @check_initialized
+    def move_arm_angular(self, pose_name: str):
         action = Base_pb2.Action()
         action.name = "Angular action movement"
         action.application_data = ""
@@ -195,6 +201,112 @@ class KinovaArm(Device):
     #     else:
     #         print("Timeout on action notification wait")
     #     return finished
+
+    # go to position at speed (requires you to know current pos because of speed sign)
+    # close until stop at speed (have default)
+    def open_gripper(self, grip_speed: float = 0.2):
+        grip_speed = abs(grip_speed)
+
+        gripper_command = Base_pb2.GripperCommand()
+        finger = gripper_command.gripper.finger.add()
+        finger.finger_identifier = 1
+
+        gripper_command.mode = Base_pb2.GRIPPER_SPEED
+        finger.value = grip_speed
+        self._base.SendGripperCommand(gripper_command)
+        gripper_request = Base_pb2.GripperRequest()
+
+        # Wait for reported position to be opened
+        gripper_request.mode = Base_pb2.GRIPPER_POSITION
+        while True:
+            gripper_measure = self._base.GetMeasuredGripperMovement(gripper_request)
+            if len (gripper_measure.finger):
+                # print("Current position is : {0}".format(gripper_measure.finger[0].value))
+                if gripper_measure.finger[0].value < 0.05:
+                    break
+            else: # Else, no finger present in answer, end loop
+                break
+        time.sleep(1)
+        return (True, "Successfully opened gripper")
+
+    def close_gripper(self, grip_speed: float = -0.2):
+        grip_speed = -1.0 * abs(grip_speed)
+
+        gripper_command = Base_pb2.GripperCommand()
+        finger = gripper_command.gripper.finger.add()
+        finger.finger_identifier = 1
+
+        gripper_command.mode = Base_pb2.GRIPPER_SPEED
+        finger.value = grip_speed
+        self._base.SendGripperCommand(gripper_command)
+        gripper_request = Base_pb2.GripperRequest()
+
+        # Wait for reported speed to be 0
+        gripper_request.mode = Base_pb2.GRIPPER_SPEED
+        while True:
+            gripper_measure = self._base.GetMeasuredGripperMovement(gripper_request)
+            if len (gripper_measure.finger):
+                # print("Current speed is : {0}".format(gripper_measure.finger[0].value))
+                if gripper_measure.finger[0].value == 0.0:
+                    break
+            else: # Else, no finger present in answer, end loop
+                break
+        time.sleep(1) # without this, a close then open in fast succession causes the close to end early
+        return (True, "Successfully closed gripper")
+
+    # def move_gripper(self, position: float, speed: float):
+    #     # Create the GripperCommand we will send
+    #     gripper_command = Base_pb2.GripperCommand()
+    #     finger = gripper_command.gripper.finger.add()
+
+    #     # Close the gripper with position increments
+    #     # print("Performing gripper test in position...")
+    #     gripper_command.mode = Base_pb2.GRIPPER_POSITION
+    #     position = 0.00
+    #     finger.finger_identifier = 1
+    #     while position < 1.0:
+    #         finger.value = position
+    #         print("Going to position {:0.2f}...".format(finger.value))
+    #         self.base.SendGripperCommand(gripper_command)
+    #         position += 0.1
+    #         time.sleep(1)
+
+    #     # Set speed to open gripper
+    #     print ("Opening gripper using speed command...")
+    #     gripper_command.mode = Base_pb2.GRIPPER_SPEED
+    #     finger.value = 0.1
+    #     self.base.SendGripperCommand(gripper_command)
+    #     gripper_request = Base_pb2.GripperRequest()
+
+    #     # Wait for reported position to be opened
+    #     gripper_request.mode = Base_pb2.GRIPPER_POSITION
+    #     while True:
+    #         gripper_measure = self.base.GetMeasuredGripperMovement(gripper_request)
+    #         if len (gripper_measure.finger):
+    #             print("Current position is : {0}".format(gripper_measure.finger[0].value))
+    #             if gripper_measure.finger[0].value < 0.01:
+    #                 break
+    #         else: # Else, no finger present in answer, end loop
+    #             break
+
+    #     # Set speed to close gripper
+    #     print ("Closing gripper using speed command...")
+    #     gripper_command.mode = Base_pb2.GRIPPER_SPEED
+    #     finger.value = -0.1
+    #     self.base.SendGripperCommand(gripper_command)
+
+    #     # Wait for reported speed to be 0
+    #     gripper_request.mode = Base_pb2.GRIPPER_SPEED
+    #     while True:
+    #         gripper_measure = self.base.GetMeasuredGripperMovement(gripper_request)
+    #         if len (gripper_measure.finger):
+    #             print("Current speed is : {0}".format(gripper_measure.finger[0].value))
+    #             if gripper_measure.finger[0].value == 0.0:
+    #                 break
+    #         else: # Else, no finger present in answer, end loop
+    #             break
+
+
     @staticmethod
     def check_for_end_or_abort(e):
         """Return a closure checking for END or ABORT notifications

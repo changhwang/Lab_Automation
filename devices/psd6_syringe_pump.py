@@ -1,8 +1,6 @@
 import time
 from typing import Optional, Tuple, List
 
-from testing.syringe_test import is_ready
-
 from .device import SerialDevice, check_initialized, check_serial
 
 

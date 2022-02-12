@@ -1,0 +1,24 @@
+# Position1:
+#   x: 0
+#   y: 0
+#   z: 0
+#   theta_x: 0
+#   theta_y: 0
+#   theta_z: 0
+# Position2:
+#   x: 0
+#   y: 0
+#   z: 0
+#   theta_x: 0
+#   theta_y: 0
+#   theta_z: 0
+
+Position1:
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+

@@ -14,6 +14,7 @@ from commands.utility_commands import LoopStartCommand, LoopEndCommand
 
 # Should move loop interpretation to invoker?
 # Make functional with yaml safe_load
+# reconsider add_commands functionality for list of commands
 
 class CommandSequence:
     """Maintains a command list with optional iterations and looping. Supports saving/loading."""

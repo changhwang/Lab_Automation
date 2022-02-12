@@ -8,6 +8,7 @@ from devices.device import Device
 
 # TODO
 # logging from within the composite command execution?
+# The adding of args into params dict can be done with locals()
 
 class Command(ABC):
     """The Command abstract base class which acts as an interface for other objects that use commands."""

@@ -29,7 +29,7 @@ class PSD6SyringePumpInitialize(PSD6SyringePumpParentCommand):
         
 class PSD6SyringePumpMoveValve(PSD6SyringePumpParentCommand):
     def __init__(self, receiver: PSD6SyringePump, valve_num: int, **kwargs):
-        super().__init__(receiver, *kwargs)
+        super().__init__(receiver, **kwargs)
         self._params['valve_num'] = valve_num
         
     def execute(self) -> None:
@@ -37,7 +37,7 @@ class PSD6SyringePumpMoveValve(PSD6SyringePumpParentCommand):
         
 class PSD6SyringePumpMoveAbsolute(PSD6SyringePumpParentCommand):
     def __init__(self, receiver: PSD6SyringePump, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None, **kwargs):
-        super().__init__(receiver, *kwargs)
+        super().__init__(receiver, **kwargs)
         self._params['volume'] = volume
         self._params['valve_num'] = valve_num
         self._params['flowrate'] = flowrate
@@ -47,7 +47,7 @@ class PSD6SyringePumpMoveAbsolute(PSD6SyringePumpParentCommand):
         
 class PSD6SyringePumpInfuse(PSD6SyringePumpParentCommand):
     def __init__(self, receiver: PSD6SyringePump, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None, **kwargs):
-        super().__init__(receiver, *kwargs)
+        super().__init__(receiver, **kwargs)
         self._params['volume'] = volume
         self._params['valve_num'] = valve_num
         self._params['flowrate'] = flowrate
@@ -57,7 +57,7 @@ class PSD6SyringePumpInfuse(PSD6SyringePumpParentCommand):
 
 class PSD6SyringePumpWithdraw(PSD6SyringePumpParentCommand):
     def __init__(self, receiver: PSD6SyringePump, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None, **kwargs):
-        super().__init__(receiver, *kwargs)
+        super().__init__(receiver, **kwargs)
         self._params['volume'] = volume
         self._params['valve_num'] = valve_num
         self._params['flowrate'] = flowrate

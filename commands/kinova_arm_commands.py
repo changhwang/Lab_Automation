@@ -34,6 +34,14 @@ class KinovaArmMoveArmAngular(KinovaArmParentCommand):
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.move_arm_angular(self._params['pose_name']))
 
+class KinovaArmExecuteAction(KinovaArmParentCommand):
+    def __init__(self, receiver: KinovaArm, action_name: str, **kwargs):
+        super().__init__(receiver, **kwargs)
+        self._params['action_name'] = action_name
+
+    def execute(self) -> None:
+        self._result = CommandResult(*self._receiver.execute_action(self._params['action_name']))
+
 class KinovaArmOpenGripper(KinovaArmParentCommand):
     def __init__(self, receiver: KinovaArm, grip_speed: float = 0.2, **kwargs):
         super().__init__(receiver, **kwargs)

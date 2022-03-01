@@ -218,6 +218,27 @@ class ArduinoSerialDevice(SerialDevice):
         Tuple[bool, str]
             Was the desired control_char string received?, Result message
         """
+        was_successful, message = self.get_response(response_timeout)
+        if not was_successful:
+            return (False, message)
+        else:
+            response_result = message
+        
+        if delimiter in response_result:
+            # the response comes with a message/comment
+            response_char = response_result.split(delimiter)[0].strip()
+            response_comment = response_result.split(delimiter)[1].strip()
+        else:
+            # the response does not come with a message
+            response_char = response_result.strip()
+            response_comment = ""
+
+        if response_char != control_char:
+            return (False, "Did not receive the control char or str " + control_char + ". Instead received: " + response_result + ".")
+
+        return (True, "Successfully received the control char or str " + control_char + " with message: " + response_comment + ".")
+
+    def get_response(self, response_timeout: float = 1.0) -> Tuple[bool, str]:
         retry_count = 0
         partial_retries = ArduinoSerialDevice.partial_timeout // self._timeout
         response_retries = response_timeout // self._timeout
@@ -237,6 +258,8 @@ class ArduinoSerialDevice(SerialDevice):
         while response_result.decode('ascii') != "" and "\\n" not in str(response_result) and retry_count < partial_retries:
             temp_result = self.ser.readline()
             retry_count += 1
+            
+            # "not not" is correct, means not empty, != ""
             if not not temp_result.decode('ascii'):
                 response_result = (response_result.decode('ascii') + temp_result.decode('ascii')).encode('ascii')
         
@@ -247,20 +270,9 @@ class ArduinoSerialDevice(SerialDevice):
 
         if response_result == "":
             return (False, "Timed out. Did not receive any response for control char or str " + control_char + ".")
-        elif delimiter in response_result:
-            # the response comes with a message/comment
-            response_char = response_result.split(delimiter)[0].strip()
-            response_comment = response_result.split(delimiter)[1].strip()
-        else:
-            # the response does not come with a message
-            response_char = response_result.strip()
-            response_comment = ""
 
-        if response_char != control_char:
-            return (False, "Did not receive the control char or str " + control_char + ". Instead received: " + response_result + ".")
-
-        return (True, "Successfully received the control char or str " + control_char + " with message: " + response_comment + ".")
-
+        return (True, response_result)
+    
     @staticmethod
     def parse_equal_sign(text: str) -> Tuple[bool, str]:
         """For strings that contain information, get the desired information that is located at the end of the string which follows an = sign.

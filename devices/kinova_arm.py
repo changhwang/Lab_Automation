@@ -1,5 +1,6 @@
 # import sys
 # import os
+from lib2to3.pytree import Base
 import time
 import threading
 from typing import Tuple
@@ -111,7 +112,8 @@ class KinovaArm(Device):
         action_handle = None
         
         for action in action_list.action_list:
-            if action.name == "Home":
+            # if action.name == "Home":
+            if action.name == 'Above Fork Pickup':
                 action_handle = action.handle
 
         if action_handle is None:
@@ -129,6 +131,52 @@ class KinovaArm(Device):
 
         if finished:
             return (True, "Safe position reached")
+        else:
+            return (False, "Timeout on action notification wait")
+
+    def execute_action(self, action_name: str):
+        # Make sure the arm is in Single Level Servoing mode
+        base_servo_mode = Base_pb2.ServoingModeInformation()
+        base_servo_mode.servoing_mode = Base_pb2.SINGLE_LEVEL_SERVOING
+        self._base.SetServoingMode(base_servo_mode)
+        
+        # Move arm to ready position
+        # print("Moving the arm to a safe position")
+        action_type = Base_pb2.RequestedActionType()
+        # action_type.action_type = Base_pb2.REACH_JOINT_ANGLES
+        action_type.action_type = Base_pb2.REACH_POSE
+        action_list = self._base.ReadAllActions(action_type)
+        action_handle = None
+        
+        for action in action_list.action_list:
+            if action.name == action_name:
+                action_handle = action.handle
+
+        # if not found try to find in reach joint angles
+        if action_handle is None:
+            action_type.action_type = Base_pb2.REACH_JOINT_ANGLES
+        action_list = self._base.ReadAllActions(action_type)
+        for action in action_list.action_list:
+            if action.name == action_name:
+                action_handle = action.handle
+
+        if action_handle is None:
+            return (False, "Did not find action of name " + action_name)
+
+        e = threading.Event()
+        notification_handle = self._base.OnNotificationActionTopic(
+            self.check_for_end_or_abort(e),
+            Base_pb2.NotificationOptions()
+        )
+
+        self._base.ExecuteActionFromReference(action_handle)
+        finished = e.wait(self._action_timeout)
+        self._base.Unsubscribe(notification_handle)
+
+        time.sleep(0.2)
+
+        if finished:
+            return (True, action_name + " action completed")
         else:
             return (False, "Timeout on action notification wait")
 
@@ -226,7 +274,9 @@ class KinovaArm(Device):
                     break
             else: # Else, no finger present in answer, end loop
                 break
-        time.sleep(1)
+        
+        wait_time = (abs(grip_speed) / 0.2 * 2 + 0.5)
+        time.sleep(wait_time)
         return (True, "Successfully opened gripper")
 
     def close_gripper(self, grip_speed: float = -0.2):
@@ -251,7 +301,8 @@ class KinovaArm(Device):
                     break
             else: # Else, no finger present in answer, end loop
                 break
-        time.sleep(1) # without this, a close then open in fast succession causes the close to end early
+        wait_time = (abs(grip_speed) / 0.2 * 2 + 0.5)
+        time.sleep(wait_time) # without this, a close then open in fast succession causes the close to end early
         return (True, "Successfully closed gripper")
 
     # def move_gripper(self, position: float, speed: float):

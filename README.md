@@ -36,12 +36,14 @@ The following devices have tested receiver and command modules:
 - StellarNet Spectrometers (multiple spectrometers and spectra merging supported)
 - Ximea cameras
 - Arduino-based stepper motor(s) ([click here for materials, schematic, and code](https://github.com/JustinJKwok/Arduino-multi-stepper))
-- Arduino-based PID controlled resistive heater ([click here for materials, schematic, and code](https://github.com/JustinJKwok/Arduino-PID-heater))
+- Arduino-based PID controlled heater ([click here for materials, schematic, and code](https://github.com/JustinJKwok/Arduino-PID-heater))
+- Kinova robot arm
+- Hamilton PSD/6 syringe pump
+- Sonicator
 
 The following devices are planned to be added:
-- Kinova gen7 robot arm
+- Custom 4 point probe
 - IKA hot/stir plates
-- Hamilton PSD/6 syringe pump
 - Shutter and lamp control for StellarNet Spectrometers
 - More to come...
 

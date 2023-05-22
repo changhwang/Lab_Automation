@@ -9,7 +9,7 @@
 
 # from .device import Device, check_initialized
 
-# # TODO
+# # TOD
 # # convert to serial device parent when arduino added
 # # add shutter and lamp control
 # # check slicing as second index is not included in slice

@@ -27,6 +27,7 @@ from devices.newport_esp301 import NewportESP301
 # from devices.ximea_camera import XimeaCamera
 from devices.dummy_heater import DummyHeater
 from devices.dummy_motor import DummyMotor
+from devices.linear_stage_150 import LinearStage150
 
 
 # TODO
@@ -37,6 +38,7 @@ from devices.dummy_motor import DummyMotor
 
 #================ Constants =============================
 named_devices = {
+    "LinearStage150": LinearStage150,
     "PrintingStage": HeatingStage,
     "AnnealingStage": HeatingStage,
     "MultiStepper1": MultiStepper,

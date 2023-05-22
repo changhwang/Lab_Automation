@@ -28,7 +28,16 @@ class LinearStage150Initialize(LinearStage150ParentCommand):
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.initialize())
 
-#TODO: command to deinitialize lts150
+class LinearStage150Deinitialize(LinearStage150ParentCommand):
+    """Deinitialize the linear stage."""
+    
+    #TODO: command to deinitialize lts150
+
+    def __init__(self, receiver: LinearStage150, **kwargs):
+        super().__init__(receiver, **kwargs)
+    
+    def execute(self) -> None:
+        self._result = CommandResult(*self._receiver.deinitialize())
 
 class LinearStage150EnableMotor(LinearStage150ParentCommand):
     """Enable the linear stage motor."""

@@ -72,7 +72,7 @@ class LinearStage150(SerialDevice):
 
     @check_serial
     @check_initialized #TODO: lts150: check is initialized required for relative movement
-    def move_absolute(self, distance: float) -> Tuple[bool, str]:
+    def move_relative(self, distance: float) -> Tuple[bool, str]:
         
         #TODO: lts150 move relative, MGMSG_MOT_MOVE_RELATIVE
 

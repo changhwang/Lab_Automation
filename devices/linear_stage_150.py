@@ -17,8 +17,22 @@ class LinearStage150(SerialDevice):
 
         #TODO: lts150: initialize, home it (if needed)
 
+        #Home Stage; MGMSG_MOT_MOVE_HOME 
+        self.ser.write(pack('<HBBBB',0x0443,self._channel,0x00,self._destination,self._source))
+        print('Homing stage...')
+
+        #Confirm stage homed before advancing; MGMSG_MOT_MOVE_HOMED
+        Rx = ''
+        Homed = pack('<H',0x0444)
+        while Rx != Homed:
+            Rx = self.ser.read(2)
+        print('Stage Homed')
+        self.ser.flushInput()
+        self.ser.flushOutput()
+
+
         self._is_initialized = True
-        return (True, "Successfully initialized LTS150.")
+        return (True, "Successfully initialized LTS150 by homing it.")
         # return super().initialize()
 
     def deinitialize(self) -> Tuple[bool, str]:

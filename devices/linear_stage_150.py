@@ -9,7 +9,7 @@ class LinearStage150(SerialDevice):
         self._destination = destination
         self._source = source
         self._channel = channel
-        print("dest: "+str(self._destination))
+        # print("dest: "+str(self._destination))
     
     @check_serial
     def initialize(self) -> Tuple[bool, str]:

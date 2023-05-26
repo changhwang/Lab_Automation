@@ -2,6 +2,8 @@ from devices.device import Device
 from .command import Command, CommandResult
 from devices.mks_mfc import MFC
 
+#TODO mfc commands
+
 class MFCParentCommand(Command):
     """Parent class for all MKS MFC commands."""
     receiver_cls = MFC

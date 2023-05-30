@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Lab_Automation.devices.ximea_camera API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Lab_Automation.devices.ximea_camera</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># from datetime import datetime
+# from typing import Optional, Tuple, List
+
+# from PIL import Image
+# from ximea import xiapi
+
+# from .device import Device, check_initialized
+
+# # Unsure how cooperative xiapi.Camera is so did not use multiple inheritance
+# # will need to figure out the method resolution order if using multiple inheritance
+# class XimeaCamera(Device):
+#     save_directory = &#39;data/imaging/&#39;
+
+#     def __init__(self, name: str):
+#         super().__init__(name)
+#         self.cam = xiapi.Camera()
+#         # defaults, changeable for each instance
+#         # could use dictionary but lose IDE hinting
+#         # could consider a namedtuple to keep descriptive context of each param while still being able to use an iterative
+#         # for now, individual params
+#         self._default_imgdataformat = &#39;XI_RGB24&#39;
+#         self._default_exposure_time = 50000
+#         self._default_gain = 0.0
+#         # default wb coeffs below technically constants, leaving uncaptilaized
+#         self._default_wb_kr = 1.531
+#         self._default_wb_kg = 1.0
+#         self._default_wb_kb = 1.305
+#         # self.set_default_params() # done in initalize because cam is not yet open here
+
+#     # no setter for imgdataformat at the moment
+#     @property
+#     def default_imgdataformat(self) -&gt; str:
+#         return self._default_imgdataformat
+    
+#     @property
+#     def default_exposure_time(self) -&gt; int:
+#         return self._default_exposure_time
+    
+#     @default_exposure_time.setter
+#     def default_exposure_time(self, exposure_time: int):
+#         if exposure_time &gt; 0:
+#             self._default_exposure_time = int(exposure_time)
+
+#     @property
+#     def default_gain(self) -&gt; float:
+#         return self._default_gain
+
+#     @default_gain.setter
+#     def default_gain(self, gain: float):
+#         # there is an upper limit for this but not 100% sure what it is
+#         if gain &gt;= 0.0:
+#             self._default_gain = gain
+    
+#     # no setter for default wb coeffs
+#     @property
+#     def default_wb_kr(self) -&gt; float:
+#         return self._default_wb_kr
+
+#     @property
+#     def default_wb_kg(self) -&gt; float:
+#         return self._default_wb_kg
+
+#     @property
+#     def default_wb_kb(self) -&gt; float:
+#         return self._default_wb_kb
+
+#     def set_default_params(self):
+#         self.cam.set_imgdataformat(self._default_imgdataformat)
+#         self.cam.set_exposure(self._default_exposure_time)
+#         self.cam.set_gain(self._default_gain)
+#         self.cam.set_wb_kr(self._default_wb_kr)
+#         self.cam.set_wb_kg(self._default_wb_kg)
+#         self.cam.set_wb_kb(self._default_wb_kb)
+
+#     def initialize(self, set_defaults: bool = True) -&gt; Tuple[bool, str]:
+#         try:
+#             self.cam.open_device()
+#             # set defaults if flag is True. This should be True the very first time in order to set the default params, but not enforced
+#             if set_defaults:
+#                 self.set_default_params()
+#             self._is_initialized = True
+#         except xiapi.Xi_error as inst:
+#             self._is_initialized = False
+#             return (False, &#34;Failed to connect and initialize: &#34; + str(inst))
+ 
+#         if set_defaults:
+#             return (True, &#34;Successfully initialized camera by opening communications and setting defaults.&#34;)
+#         else:
+#             return (True, &#34;Successfully intitialized camera by opening communications.&#34;)
+
+#     def deinitialize(self, reset_init_flag: bool = True) -&gt; Tuple[bool, str]:
+#         try:
+#             self.cam.stop_acquisition()
+#             self.cam.close_device()
+#         except xiapi.Xi_error as inst:
+#             return (False, &#34;Failed to deinitialize the camera: &#34; + str(inst))
+
+#         if reset_init_flag:
+#             self._is_initialized = False
+
+#         return (True, &#34;Successfully deinitialized camera, communication closed.&#34;)
+
+#     @check_initialized
+#     def get_image(
+#             self, 
+#             save_to_file: bool = True, 
+#             filename: str = None, 
+#             exposure_time: Optional[int] = None, 
+#             gain: Optional[float] = None, 
+#             show_pop_up: bool = False) -&gt; Tuple[bool, str]:
+#         # if not self._is_initialized:
+#         #     return (False, &#34;Camera is not initialized&#34;)
+
+#         if exposure_time is None:
+#             exposure_time = self._default_exposure_time
+#         if gain is None:
+#             gain = self._default_gain
+
+#         try:
+#             self.cam.set_exposure(exposure_time)
+#             self.cam.set_gain(gain)
+
+#             img = xiapi.Image()
+#             self.cam.start_acquisition()
+#             # exposure time is in microsec, timeout is in millisec, timeout is set to double the exposure time
+#             self.cam.get_image(img, timeout=(int(exposure_time / 1000 * 2)))
+#             self.cam.stop_acquisition()
+#         except xiapi.Xi_error as inst:
+#             return (False, &#34;Error while getting image: &#34; + str(inst))
+
+#         data = img.get_image_data_numpy(invert_rgb_order=True)
+#         img = Image.fromarray(data, &#39;RGB&#39;)
+
+#         if save_to_file:
+            
+#             if filename is None:
+#                 timestamp = datetime.now().strftime(&#39;%Y%m%d_%H%M%S&#39;)
+#                 filename = timestamp
+#             fullfilename = self.save_directory + filename
+#             img.save(fullfilename + &#39;.bmp&#39;)
+
+#             settings = [&#34;image data format = &#34; + self.cam.get_imgdataformat() + &#34;\n&#34;,
+#                 &#34;exposure (us) = &#34; + str(self.cam.get_exposure()) + &#34;\n&#34;,
+#                 &#34;gain = &#34; + str(self.cam.get_gain()) + &#34;\n&#34;,
+#                 &#34;wb_kr = &#34; + str(self.cam.get_wb_kr()) + &#34;\n&#34;,
+#                 &#34;wb_kg = &#34; + str(self.cam.get_wb_kg()) + &#34;\n&#34;,
+#                 &#34;wb_kb = &#34; + str(self.cam.get_wb_kb()) + &#34;\n&#34;]
+#             with open(fullfilename + &#39;.txt&#39;, &#39;w&#39;) as file:
+#                 file.writelines(settings) 
+
+#             return (True, &#34;Successfully saved image and settings to &#34; + str(fullfilename) + &#34;.bmp&#34;)
+
+#         if show_pop_up:
+#             img.show()
+
+#         return (True, &#34;Successfully took image but did not save.&#34;)       
+
+#     @check_initialized
+#     def update_white_balance(self, exposure_time: int = None, gain: Optional[float] = None) -&gt; Tuple[bool, str]:
+#         # if not self._is_initialized:
+#         #     return (False, &#34;Camera is not initialized&#34;)
+        
+#         try:
+#             self.cam.set_manual_wb(1)
+#         except xiapi.Xi_error as inst:
+#             return (False, &#34;Failed to set white balance: &#34; + str(inst))
+
+#         was_successful, result_message = self.get_image(save_to_file=False, filename=None, exposure_time=exposure_time, gain=gain)
+
+#         if not was_successful:
+#             return (was_successful, result_message)
+
+#         return (True, &#34;Successfully updated white balance coefficients with image: wb_kr, wb_kg, wb_kb = &#34; + str(self.get_white_balance_rgb_coeffs()))
+ 
+#     @check_initialized # is this necessary
+#     def set_white_balance_manually(self, wb_kr: Optional[float] = None, wb_kg: Optional[float] = None, wb_kb: Optional[float] = None) -&gt; Tuple[bool, str]:
+#         # if not self._is_initialized:
+#         #     return (False, &#34;Camera is not initialized&#34;)
+        
+#         if wb_kr is None and wb_kg is None and wb_kb is None:
+#             return (True, &#34;No white balance coefficients were changed. Coefficients are currently: wb_kr, wb_kg, wb_kb = &#34; + str(self.get_white_balance_rgb_coeffs()))
+#         try:
+#             if wb_kr is not None:
+#                 self.cam.set_wb_kr(wb_kr)
+#             if wb_kg is not None:
+#                 self.cam.set_wb_kg(wb_kg)
+#             if wb_kb is not None:
+#                 self.cam.set_wb_kb(wb_kb)
+#         except:
+#             return (False, &#34;Error in setting white balance coefficients. Coefficients are currently: wb_kr, wb_kg, wb_kb = &#34; + str(self.get_white_balance_rgb_coeffs()))
+        
+#         return (True, &#34;Successfully set white balance coefficients manually: wb_kr, wb_kg, wb_kb = &#34; + str(self.get_white_balance_rgb_coeffs()))
+    
+#     @check_initialized # is this necessary
+#     def reset_white_balance_rgb_coeffs(self) -&gt; Tuple[bool, str]:
+#         self.cam.set_wb_kr(self._default_wb_kr)
+#         self.cam.set_wb_kg(self._default_wb_kg)
+#         self.cam.set_wb_kb(self._default_wb_kb)
+#         return (True, &#34;Successfully reset white balance coefficients to defaults. Coefficients are currently: wb_kr, wb_kg, wb_kb = &#34; + str(self.get_white_balance_rgb_coeffs()))
+
+#     @check_initialized # is this necessary
+#     def get_white_balance_rgb_coeffs(self) -&gt; List[float]:
+#         wb = []
+#         wb.append(self.cam.get_wb_kr())
+#         wb.append(self.cam.get_wb_kg())
+#         wb.append(self.cam.get_wb_kb())
+#         return wb</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Lab_Automation.devices" href="index.html">Lab_Automation.devices</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

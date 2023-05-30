@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Lab_Automation.commands.command API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Lab_Automation.commands.command</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from abc import ABC, abstractmethod
+from typing import Optional
+import time
+
+from devices.device import Device
+
+
+
+# TODO
+# logging from within the composite command execution?
+# The adding of args into params dict can be done with locals()
+
+class Command(ABC):
+    &#34;&#34;&#34;The Command abstract base class which acts as an interface for other objects that use commands.&#34;&#34;&#34;
+
+    receiver_cls = None # or Device?
+
+    @abstractmethod
+    def __init__(self, receiver: Device, delay: float = 0.0):
+        # Child classes will still have &#39;receiver&#39; in their signature (separate from **kwargs) because I want the IDE to hint at the specific receiver class
+        # delay will be passed up through **kwargs as it is an secondary parameter for all commands 
+        self._receiver = receiver
+        self._params = {}
+        self._params[&#39;receiver_name&#39;] = receiver.name
+        self._params[&#39;delay&#39;] = delay
+        # self._was_successful = None
+        # self._result_message = None  
+
+        # this could also just be None, instead of a CommandResult with None attributes  
+        # is there ever a time where the result would be accessed before the command is executed?
+        # it might be better to just have it as a CommandResult with None&#39;s since whatever accessing it
+        # is expecting _result to be a CommandResult object anyways
+        # but its possible even after successful execution that some attributes are still None
+        # Therefore there is a difference between whether an accessed attribute is None or if the entire result object is None
+        self._result = CommandResult()
+
+    # definitely enforce return None for execute()
+    @abstractmethod
+    def execute(self) -&gt; None:
+        &#34;&#34;&#34;Execute abstract method from which all commands implement; accepts no arguments and returns None.&#34;&#34;&#34;
+        pass
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;The command&#39;s name getter.
+
+        Returns
+        -------
+        str
+            Returns the command&#39;s class name followed by its parameters.
+        &#34;&#34;&#34;
+        self._name = type(self).__name__
+        for key, value in self._params.items():
+            if not key == &#39;delay&#39;:
+                self._name += &#34; &#34; + key + &#34;=&#34; + str(value)
+        # I want delay to always be last when displayed and only if its not zero
+        if isinstance(self._params[&#39;delay&#39;], str):
+            self._name += &#34; &#34; + &#39;delay=&#39; + str(self._params[&#39;delay&#39;])
+        else:
+            if self._params[&#39;delay&#39;] &gt; 0.0:
+                self._name += &#34; &#34; + &#39;delay=&#39; + str(self._params[&#39;delay&#39;])
+        return self._name
+
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;The command&#39;s description getter.
+
+        Returns
+        -------
+        str
+            Returns the command&#39;s docstring
+        &#34;&#34;&#34;
+        return self.__doc__
+
+    # params and receiver getter?
+
+    # type hint return CustomResult?
+    @property
+    def result(self):
+        return self._result
+
+    # @property
+    # def was_successful(self) -&gt; Optional[bool]:
+    #     &#34;&#34;&#34;Whether the command&#39;s execution was successful or not.
+
+    #     Returns
+    #     -------
+    #     Optional[bool]
+    #         Returns True if the command&#39;s execution was successful, otherwise False. Initialized with None.
+    #     &#34;&#34;&#34;
+    #     return self._was_successful
+
+    # @property
+    # def result_message(self) -&gt; Optional[str]:
+    #     &#34;&#34;&#34;A message describing the result of the command&#39;s execution
+
+    #     Returns
+    #     -------
+    #     Optional[str]
+    #         Returns a string describing the result of the command&#39;s execution with details if it failed.
+    #     &#34;&#34;&#34;
+    #     return self._result_message
+
+# store info like name and description in here too? or leave separate? Leave separate, semantically i think it makes sense 
+# to retrive non-result info from the command instead of the commandresult object, potentially avoid conflicting info too
+# Mainly adding to future proof in case more info needs to be retrieved after execution
+class CommandResult():
+    &#34;&#34;&#34;Object which stores whether a command&#39;s execution was successful and other relevant information&#34;&#34;&#34;
+
+    def __init__(self, was_successful: Optional[bool] = None, message: Optional[str] = None):
+        # I considered whether to have a reset/update function instead and have init call it, this function could be used outside to reset/update the result attributes
+        # The alternative is to just use the contructor to create a new reset object. I decided just using the constructor is better.
+        # Although it creates a new object in memory, it ensures that whenever a command executes if it uses the constructor then the results 
+        # will be fully reset and not hold any old info if it is executed multiples times. In other cases, it may hold old info like for 
+        # 1) explicitly tuple unpacking in the result attributes (old version) or 2) using an update function (which may not update all attrs)
+        
+        self._was_successful = was_successful
+        self._message = message
+    
+    @property
+    def was_successful(self) -&gt; Optional[bool]:
+        &#34;&#34;&#34;Whether the command&#39;s execution was successful or not.
+
+        Returns
+        -------
+        Optional[bool]
+            Returns True if the command&#39;s execution was successful, otherwise False. Initialized with None.
+        &#34;&#34;&#34;
+        return self._was_successful
+
+    @property
+    def message(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;A message describing the result of the command&#39;s execution
+
+        Returns
+        -------
+        Optional[str]
+            Returns a string describing the result of the command&#39;s execution with details if it failed.
+        &#34;&#34;&#34;
+        return self._message        
+    
+
+# A composite command contains a command list but it behaves like a regular command to any other object using it.
+# This means a composite command can contain a composite command and it can have many levels arbitrarily deep
+# This also means it can potentially be recursive causing an infinite loop
+# This also means that the contents of a composite command (and all potential levels of composite commands it has) should ideally be checked
+# To make sure it does not cause problems for the overall recipe
+# For now, CompositeCommands do not implement checks against adding other composite commands to itself as it can be useful to have at least 1-2 levels 
+class CompositeCommand(Command):
+    &#34;&#34;&#34;A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially.&#34;&#34;&#34;
+
+    # receiver_cls = None
+    
+    def __init__(self, delay: float = 0.0):
+        # super().__init__(**kwargs)
+        # self._name = &#34;CompositeCommand&#34;
+        # self._receiver_name = &#34;N/A temp&#34;
+        self._command_list = []
+        # self._receiver = None
+        self._params = {}
+        # self._params[&#39;receiver_name&#39;] = &#39;None&#39;
+        self._params[&#39;delay&#39;] = delay
+        # self._was_successful = None
+        # self._result_message = None  
+        self._result = CommandResult()
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;The composite command&#39;s name getter.
+
+        Returns
+        -------
+        str
+            Indicates it is a composite command followed by the names and params of each command it contains.
+        &#34;&#34;&#34;
+        self._name = type(self).__name__ + &#34; (CompositeCommand):&#34;
+        for command in self._command_list:
+            self._name += &#34; \n\t&#34; + command.name + &#34;;&#34;
+        return self._name
+
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;The composite command&#39;s description getter.
+
+        Returns
+        -------
+        str
+            Returns the composite command&#39;s docstring
+        &#34;&#34;&#34;
+        return self.__doc__
+
+    def add_command(self, command: Command, index: Optional[int] = None):
+        &#34;&#34;&#34;Add a command to the command list.
+
+        Parameters
+        ----------
+        command : Command
+            Any command that subclasses from Command
+        index : int, optional
+            The index to insert the command, if None then the command is appended, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            self._command_list.append(command)
+        else: 
+            self._command_list.insert(index, command)
+
+    def remove_command(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Remove a command from the command list.
+
+        Parameters
+        ----------
+        index : int, optional
+            The index of the command to remove, if None then removes the last command, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        del self._command_list[index]
+
+    def execute(self) -&gt; None:
+        &#34;&#34;&#34;Executes each command in the command list sequentially and returns early if a command&#39;s execution was not successful.&#34;&#34;&#34;
+        # LOGGING? 
+        for command in self._command_list:
+            
+            delay = command._params[&#39;delay&#39;]
+            if isinstance(delay, float) or isinstance(delay, int):
+                if delay &gt; 0.0:
+                    time.sleep(delay)
+            elif delay == &#34;PAUSE&#34; or delay == &#34;P&#34;:
+                userinput = input()
+
+            command.execute()
+            # self._result.was_successful = command.was_successful
+            # self._result._message = command.result_message
+            self._result = command.result
+            if not command.was_successful:
+                return 
+
+        # store the success of the last command 
+        # or write a new message specific to the composite command
+        # self._result_message = &#34;Successfully executed composite command &#34; + type(self).__name__
+
+
+# for the receiver and concretecommand classes, I figured there were two ways of writing the code. Keep the receiver methods low level and employ logic 
+# in the commands, or put all low level methods, logic, and subsequent high level methods in the receiver and have the command simply call the 
+# high level methods with minimal logic if at all. I decided the latter mainly because some devices/receivers will have many different commands
+# and I want to keep all the command classes streamlined and minimal. I also felt that having the logic and higher level methods separate from the lower level methods
+# would make it more difficult to write and maintain due to switching back and forth between the modules.
+# If there is a need to separate low level and high level methods, then in my opinion it should take place between the receiver class and another class it extends/inherits 
+# from or the actual device firmware.
+
+# nearly all attributes in Command and its child classes are protected because the parameters are not meant to be changed after construction.
+# They can be, but for now I would just suggest deleting existing commands that needs to be changed and creating a new one in its place
+# The initial reasoning for this is that the name and description may not update when params are changed because they are set during construction
+# This can be fixed by implementing the arg dictionary mentioned below and using the name and description getters to update the value by iterating the dict
+# This parallels the way CompositeCommands have names that update to reflect its command list when the name getter is used
+
+# consider a command rank system to be able to check that some commands must come before/after others, e.g. initialize?</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Lab_Automation.commands.command.Command"><code class="flex name class">
+<span>class <span class="ident">Command</span></span>
+<span>(</span><span>receiver: devices.device.Device, delay: float = 0.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The Command abstract base class which acts as an interface for other objects that use commands.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Command(ABC):
+    &#34;&#34;&#34;The Command abstract base class which acts as an interface for other objects that use commands.&#34;&#34;&#34;
+
+    receiver_cls = None # or Device?
+
+    @abstractmethod
+    def __init__(self, receiver: Device, delay: float = 0.0):
+        # Child classes will still have &#39;receiver&#39; in their signature (separate from **kwargs) because I want the IDE to hint at the specific receiver class
+        # delay will be passed up through **kwargs as it is an secondary parameter for all commands 
+        self._receiver = receiver
+        self._params = {}
+        self._params[&#39;receiver_name&#39;] = receiver.name
+        self._params[&#39;delay&#39;] = delay
+        # self._was_successful = None
+        # self._result_message = None  
+
+        # this could also just be None, instead of a CommandResult with None attributes  
+        # is there ever a time where the result would be accessed before the command is executed?
+        # it might be better to just have it as a CommandResult with None&#39;s since whatever accessing it
+        # is expecting _result to be a CommandResult object anyways
+        # but its possible even after successful execution that some attributes are still None
+        # Therefore there is a difference between whether an accessed attribute is None or if the entire result object is None
+        self._result = CommandResult()
+
+    # definitely enforce return None for execute()
+    @abstractmethod
+    def execute(self) -&gt; None:
+        &#34;&#34;&#34;Execute abstract method from which all commands implement; accepts no arguments and returns None.&#34;&#34;&#34;
+        pass
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;The command&#39;s name getter.
+
+        Returns
+        -------
+        str
+            Returns the command&#39;s class name followed by its parameters.
+        &#34;&#34;&#34;
+        self._name = type(self).__name__
+        for key, value in self._params.items():
+            if not key == &#39;delay&#39;:
+                self._name += &#34; &#34; + key + &#34;=&#34; + str(value)
+        # I want delay to always be last when displayed and only if its not zero
+        if isinstance(self._params[&#39;delay&#39;], str):
+            self._name += &#34; &#34; + &#39;delay=&#39; + str(self._params[&#39;delay&#39;])
+        else:
+            if self._params[&#39;delay&#39;] &gt; 0.0:
+                self._name += &#34; &#34; + &#39;delay=&#39; + str(self._params[&#39;delay&#39;])
+        return self._name
+
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;The command&#39;s description getter.
+
+        Returns
+        -------
+        str
+            Returns the command&#39;s docstring
+        &#34;&#34;&#34;
+        return self.__doc__
+
+    # params and receiver getter?
+
+    # type hint return CustomResult?
+    @property
+    def result(self):
+        return self._result
+
+    # @property
+    # def was_successful(self) -&gt; Optional[bool]:
+    #     &#34;&#34;&#34;Whether the command&#39;s execution was successful or not.
+
+    #     Returns
+    #     -------
+    #     Optional[bool]
+    #         Returns True if the command&#39;s execution was successful, otherwise False. Initialized with None.
+    #     &#34;&#34;&#34;
+    #     return self._was_successful
+
+    # @property
+    # def result_message(self) -&gt; Optional[str]:
+    #     &#34;&#34;&#34;A message describing the result of the command&#39;s execution
+
+    #     Returns
+    #     -------
+    #     Optional[str]
+    #         Returns a string describing the result of the command&#39;s execution with details if it failed.
+    #     &#34;&#34;&#34;
+    #     return self._result_message</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="Lab_Automation.commands.command.CompositeCommand" href="#Lab_Automation.commands.command.CompositeCommand">CompositeCommand</a></li>
+<li><a title="Lab_Automation.commands.dummy_heater_commands.DummyHeaterParentCommand" href="dummy_heater_commands.html#Lab_Automation.commands.dummy_heater_commands.DummyHeaterParentCommand">DummyHeaterParentCommand</a></li>
+<li><a title="Lab_Automation.commands.dummy_meter_commands.DummyMeterParentCommand" href="dummy_meter_commands.html#Lab_Automation.commands.dummy_meter_commands.DummyMeterParentCommand">DummyMeterParentCommand</a></li>
+<li><a title="Lab_Automation.commands.dummy_motor_commands.DummyMotorParentCommand" href="dummy_motor_commands.html#Lab_Automation.commands.dummy_motor_commands.DummyMotorParentCommand">DummyMotorParentCommand</a></li>
+<li><a title="Lab_Automation.commands.generic_commands.GenericDeinitialize" href="generic_commands.html#Lab_Automation.commands.generic_commands.GenericDeinitialize">GenericDeinitialize</a></li>
+<li><a title="Lab_Automation.commands.generic_commands.GenericInitialize" href="generic_commands.html#Lab_Automation.commands.generic_commands.GenericInitialize">GenericInitialize</a></li>
+<li><a title="Lab_Automation.commands.generic_commands.GenericSerialConnect" href="generic_commands.html#Lab_Automation.commands.generic_commands.GenericSerialConnect">GenericSerialConnect</a></li>
+<li><a title="Lab_Automation.commands.heating_stage_commands.HeatingStageParentCommand" href="heating_stage_commands.html#Lab_Automation.commands.heating_stage_commands.HeatingStageParentCommand">HeatingStageParentCommand</a></li>
+<li><a title="Lab_Automation.commands.linear_stage_150_commands.LinearStage150ParentCommand" href="linear_stage_150_commands.html#Lab_Automation.commands.linear_stage_150_commands.LinearStage150ParentCommand">LinearStage150ParentCommand</a></li>
+<li><a title="Lab_Automation.commands.mks_mkc_commands.MFCParentCommand" href="mks_mkc_commands.html#Lab_Automation.commands.mks_mkc_commands.MFCParentCommand">MFCParentCommand</a></li>
+<li><a title="Lab_Automation.commands.multi_stepper_commands.MultiStepperParentCommand" href="multi_stepper_commands.html#Lab_Automation.commands.multi_stepper_commands.MultiStepperParentCommand">MultiStepperParentCommand</a></li>
+<li><a title="Lab_Automation.commands.newport_esp301_commands.NewportESP301ParentCommand" href="newport_esp301_commands.html#Lab_Automation.commands.newport_esp301_commands.NewportESP301ParentCommand">NewportESP301ParentCommand</a></li>
+<li><a title="Lab_Automation.commands.psd6_syringe_pump_commands.PSD6SyringePumpParentCommand" href="psd6_syringe_pump_commands.html#Lab_Automation.commands.psd6_syringe_pump_commands.PSD6SyringePumpParentCommand">PSD6SyringePumpParentCommand</a></li>
+<li><a title="Lab_Automation.commands.utility_commands.UtilityParentCommand" href="utility_commands.html#Lab_Automation.commands.utility_commands.UtilityParentCommand">UtilityParentCommand</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="Lab_Automation.commands.command.Command.receiver_cls"><code class="name">var <span class="ident">receiver_cls</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="Lab_Automation.commands.command.Command.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The command's description getter.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Returns the command's docstring</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    &#34;&#34;&#34;The command&#39;s description getter.
+
+    Returns
+    -------
+    str
+        Returns the command&#39;s docstring
+    &#34;&#34;&#34;
+    return self.__doc__</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.commands.command.Command.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The command's name getter.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Returns the command's class name followed by its parameters.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    &#34;&#34;&#34;The command&#39;s name getter.
+
+    Returns
+    -------
+    str
+        Returns the command&#39;s class name followed by its parameters.
+    &#34;&#34;&#34;
+    self._name = type(self).__name__
+    for key, value in self._params.items():
+        if not key == &#39;delay&#39;:
+            self._name += &#34; &#34; + key + &#34;=&#34; + str(value)
+    # I want delay to always be last when displayed and only if its not zero
+    if isinstance(self._params[&#39;delay&#39;], str):
+        self._name += &#34; &#34; + &#39;delay=&#39; + str(self._params[&#39;delay&#39;])
+    else:
+        if self._params[&#39;delay&#39;] &gt; 0.0:
+            self._name += &#34; &#34; + &#39;delay=&#39; + str(self._params[&#39;delay&#39;])
+    return self._name</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.commands.command.Command.result"><code class="name">var <span class="ident">result</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def result(self):
+    return self._result</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="Lab_Automation.commands.command.Command.execute"><code class="name flex">
+<span>def <span class="ident">execute</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Execute abstract method from which all commands implement; accepts no arguments and returns None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def execute(self) -&gt; None:
+    &#34;&#34;&#34;Execute abstract method from which all commands implement; accepts no arguments and returns None.&#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="Lab_Automation.commands.command.CommandResult"><code class="flex name class">
+<span>class <span class="ident">CommandResult</span></span>
+<span>(</span><span>was_successful: Optional[bool] = None, message: Optional[str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Object which stores whether a command's execution was successful and other relevant information</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommandResult():
+    &#34;&#34;&#34;Object which stores whether a command&#39;s execution was successful and other relevant information&#34;&#34;&#34;
+
+    def __init__(self, was_successful: Optional[bool] = None, message: Optional[str] = None):
+        # I considered whether to have a reset/update function instead and have init call it, this function could be used outside to reset/update the result attributes
+        # The alternative is to just use the contructor to create a new reset object. I decided just using the constructor is better.
+        # Although it creates a new object in memory, it ensures that whenever a command executes if it uses the constructor then the results 
+        # will be fully reset and not hold any old info if it is executed multiples times. In other cases, it may hold old info like for 
+        # 1) explicitly tuple unpacking in the result attributes (old version) or 2) using an update function (which may not update all attrs)
+        
+        self._was_successful = was_successful
+        self._message = message
+    
+    @property
+    def was_successful(self) -&gt; Optional[bool]:
+        &#34;&#34;&#34;Whether the command&#39;s execution was successful or not.
+
+        Returns
+        -------
+        Optional[bool]
+            Returns True if the command&#39;s execution was successful, otherwise False. Initialized with None.
+        &#34;&#34;&#34;
+        return self._was_successful
+
+    @property
+    def message(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;A message describing the result of the command&#39;s execution
+
+        Returns
+        -------
+        Optional[str]
+            Returns a string describing the result of the command&#39;s execution with details if it failed.
+        &#34;&#34;&#34;
+        return self._message        </code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="Lab_Automation.commands.command.CommandResult.message"><code class="name">var <span class="ident">message</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"><p>A message describing the result of the command's execution</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Optional[str]</code></dt>
+<dd>Returns a string describing the result of the command's execution with details if it failed.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def message(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;A message describing the result of the command&#39;s execution
+
+    Returns
+    -------
+    Optional[str]
+        Returns a string describing the result of the command&#39;s execution with details if it failed.
+    &#34;&#34;&#34;
+    return self._message        </code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.commands.command.CommandResult.was_successful"><code class="name">var <span class="ident">was_successful</span> : Optional[bool]</code></dt>
+<dd>
+<div class="desc"><p>Whether the command's execution was successful or not.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Optional[bool]</code></dt>
+<dd>Returns True if the command's execution was successful, otherwise False. Initialized with None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def was_successful(self) -&gt; Optional[bool]:
+    &#34;&#34;&#34;Whether the command&#39;s execution was successful or not.
+
+    Returns
+    -------
+    Optional[bool]
+        Returns True if the command&#39;s execution was successful, otherwise False. Initialized with None.
+    &#34;&#34;&#34;
+    return self._was_successful</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="Lab_Automation.commands.command.CompositeCommand"><code class="flex name class">
+<span>class <span class="ident">CompositeCommand</span></span>
+<span>(</span><span>delay: float = 0.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CompositeCommand(Command):
+    &#34;&#34;&#34;A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially.&#34;&#34;&#34;
+
+    # receiver_cls = None
+    
+    def __init__(self, delay: float = 0.0):
+        # super().__init__(**kwargs)
+        # self._name = &#34;CompositeCommand&#34;
+        # self._receiver_name = &#34;N/A temp&#34;
+        self._command_list = []
+        # self._receiver = None
+        self._params = {}
+        # self._params[&#39;receiver_name&#39;] = &#39;None&#39;
+        self._params[&#39;delay&#39;] = delay
+        # self._was_successful = None
+        # self._result_message = None  
+        self._result = CommandResult()
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;The composite command&#39;s name getter.
+
+        Returns
+        -------
+        str
+            Indicates it is a composite command followed by the names and params of each command it contains.
+        &#34;&#34;&#34;
+        self._name = type(self).__name__ + &#34; (CompositeCommand):&#34;
+        for command in self._command_list:
+            self._name += &#34; \n\t&#34; + command.name + &#34;;&#34;
+        return self._name
+
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;The composite command&#39;s description getter.
+
+        Returns
+        -------
+        str
+            Returns the composite command&#39;s docstring
+        &#34;&#34;&#34;
+        return self.__doc__
+
+    def add_command(self, command: Command, index: Optional[int] = None):
+        &#34;&#34;&#34;Add a command to the command list.
+
+        Parameters
+        ----------
+        command : Command
+            Any command that subclasses from Command
+        index : int, optional
+            The index to insert the command, if None then the command is appended, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            self._command_list.append(command)
+        else: 
+            self._command_list.insert(index, command)
+
+    def remove_command(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Remove a command from the command list.
+
+        Parameters
+        ----------
+        index : int, optional
+            The index of the command to remove, if None then removes the last command, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        del self._command_list[index]
+
+    def execute(self) -&gt; None:
+        &#34;&#34;&#34;Executes each command in the command list sequentially and returns early if a command&#39;s execution was not successful.&#34;&#34;&#34;
+        # LOGGING? 
+        for command in self._command_list:
+            
+            delay = command._params[&#39;delay&#39;]
+            if isinstance(delay, float) or isinstance(delay, int):
+                if delay &gt; 0.0:
+                    time.sleep(delay)
+            elif delay == &#34;PAUSE&#34; or delay == &#34;P&#34;:
+                userinput = input()
+
+            command.execute()
+            # self._result.was_successful = command.was_successful
+            # self._result._message = command.result_message
+            self._result = command.result
+            if not command.was_successful:
+                return 
+
+        # store the success of the last command 
+        # or write a new message specific to the composite command
+        # self._result_message = &#34;Successfully executed composite command &#34; + type(self).__name__</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="Lab_Automation.commands.command.Command" href="#Lab_Automation.commands.command.Command">Command</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="Lab_Automation.commands.dummy_heater_commands.DummyHeaterRampHoldRamp" href="dummy_heater_commands.html#Lab_Automation.commands.dummy_heater_commands.DummyHeaterRampHoldRamp">DummyHeaterRampHoldRamp</a></li>
+<li><a title="Lab_Automation.commands.dummy_motor_commands.DummyMotorMoveSpeedAbsolute" href="dummy_motor_commands.html#Lab_Automation.commands.dummy_motor_commands.DummyMotorMoveSpeedAbsolute">DummyMotorMoveSpeedAbsolute</a></li>
+<li><a title="Lab_Automation.commands.dummy_motor_commands.DummyMotorMultiInitialize" href="dummy_motor_commands.html#Lab_Automation.commands.dummy_motor_commands.DummyMotorMultiInitialize">DummyMotorMultiInitialize</a></li>
+<li><a title="Lab_Automation.commands.dummy_motor_commands.DummyMotorMultiMoveAbsolute" href="dummy_motor_commands.html#Lab_Automation.commands.dummy_motor_commands.DummyMotorMultiMoveAbsolute">DummyMotorMultiMoveAbsolute</a></li>
+<li><a title="Lab_Automation.commands.newport_esp301_commands.NewportESP301Dance" href="newport_esp301_commands.html#Lab_Automation.commands.newport_esp301_commands.NewportESP301Dance">NewportESP301Dance</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="Lab_Automation.commands.command.CompositeCommand.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The composite command's description getter.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Returns the composite command's docstring</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    &#34;&#34;&#34;The composite command&#39;s description getter.
+
+    Returns
+    -------
+    str
+        Returns the composite command&#39;s docstring
+    &#34;&#34;&#34;
+    return self.__doc__</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.commands.command.CompositeCommand.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The composite command's name getter.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Indicates it is a composite command followed by the names and params of each command it contains.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    &#34;&#34;&#34;The composite command&#39;s name getter.
+
+    Returns
+    -------
+    str
+        Indicates it is a composite command followed by the names and params of each command it contains.
+    &#34;&#34;&#34;
+    self._name = type(self).__name__ + &#34; (CompositeCommand):&#34;
+    for command in self._command_list:
+        self._name += &#34; \n\t&#34; + command.name + &#34;;&#34;
+    return self._name</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="Lab_Automation.commands.command.CompositeCommand.add_command"><code class="name flex">
+<span>def <span class="ident">add_command</span></span>(<span>self, command: <a title="Lab_Automation.commands.command.Command" href="#Lab_Automation.commands.command.Command">Command</a>, index: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a command to the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>command</code></strong> :&ensp;<code><a title="Lab_Automation.commands.command.Command" href="#Lab_Automation.commands.command.Command">Command</a></code></dt>
+<dd>Any command that subclasses from Command</dd>
+<dt><strong><code>index</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The index to insert the command, if None then the command is appended, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_command(self, command: Command, index: Optional[int] = None):
+    &#34;&#34;&#34;Add a command to the command list.
+
+    Parameters
+    ----------
+    command : Command
+        Any command that subclasses from Command
+    index : int, optional
+        The index to insert the command, if None then the command is appended, by default None
+    &#34;&#34;&#34;
+    if index is None:
+        self._command_list.append(command)
+    else: 
+        self._command_list.insert(index, command)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.commands.command.CompositeCommand.execute"><code class="name flex">
+<span>def <span class="ident">execute</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Executes each command in the command list sequentially and returns early if a command's execution was not successful.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def execute(self) -&gt; None:
+    &#34;&#34;&#34;Executes each command in the command list sequentially and returns early if a command&#39;s execution was not successful.&#34;&#34;&#34;
+    # LOGGING? 
+    for command in self._command_list:
+        
+        delay = command._params[&#39;delay&#39;]
+        if isinstance(delay, float) or isinstance(delay, int):
+            if delay &gt; 0.0:
+                time.sleep(delay)
+        elif delay == &#34;PAUSE&#34; or delay == &#34;P&#34;:
+            userinput = input()
+
+        command.execute()
+        # self._result.was_successful = command.was_successful
+        # self._result._message = command.result_message
+        self._result = command.result
+        if not command.was_successful:
+            return 
+
+    # store the success of the last command 
+    # or write a new message specific to the composite command
+    # self._result_message = &#34;Successfully executed composite command &#34; + type(self).__name__</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.commands.command.CompositeCommand.remove_command"><code class="name flex">
+<span>def <span class="ident">remove_command</span></span>(<span>self, index: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove a command from the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The index of the command to remove, if None then removes the last command, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_command(self, index: Optional[int] = None):
+    &#34;&#34;&#34;Remove a command from the command list.
+
+    Parameters
+    ----------
+    index : int, optional
+        The index of the command to remove, if None then removes the last command, by default None
+    &#34;&#34;&#34;
+    if index is None:
+        index = -1
+    del self._command_list[index]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Lab_Automation.commands" href="index.html">Lab_Automation.commands</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Lab_Automation.commands.command.Command" href="#Lab_Automation.commands.command.Command">Command</a></code></h4>
+<ul class="">
+<li><code><a title="Lab_Automation.commands.command.Command.description" href="#Lab_Automation.commands.command.Command.description">description</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.Command.execute" href="#Lab_Automation.commands.command.Command.execute">execute</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.Command.name" href="#Lab_Automation.commands.command.Command.name">name</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.Command.receiver_cls" href="#Lab_Automation.commands.command.Command.receiver_cls">receiver_cls</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.Command.result" href="#Lab_Automation.commands.command.Command.result">result</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="Lab_Automation.commands.command.CommandResult" href="#Lab_Automation.commands.command.CommandResult">CommandResult</a></code></h4>
+<ul class="">
+<li><code><a title="Lab_Automation.commands.command.CommandResult.message" href="#Lab_Automation.commands.command.CommandResult.message">message</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.CommandResult.was_successful" href="#Lab_Automation.commands.command.CommandResult.was_successful">was_successful</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="Lab_Automation.commands.command.CompositeCommand" href="#Lab_Automation.commands.command.CompositeCommand">CompositeCommand</a></code></h4>
+<ul class="">
+<li><code><a title="Lab_Automation.commands.command.CompositeCommand.add_command" href="#Lab_Automation.commands.command.CompositeCommand.add_command">add_command</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.CompositeCommand.description" href="#Lab_Automation.commands.command.CompositeCommand.description">description</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.CompositeCommand.execute" href="#Lab_Automation.commands.command.CompositeCommand.execute">execute</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.CompositeCommand.name" href="#Lab_Automation.commands.command.CompositeCommand.name">name</a></code></li>
+<li><code><a title="Lab_Automation.commands.command.CompositeCommand.remove_command" href="#Lab_Automation.commands.command.CompositeCommand.remove_command">remove_command</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

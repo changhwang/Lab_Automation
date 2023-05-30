@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Lab_Automation.examples.example6 API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Lab_Automation.examples.example6</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Example 6: Bayesian optimization of an experiment
+# run from root using &#39;python -m examples.example6&#39;
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from skopt import Optimizer
+from skopt.plots import plot_convergence, plot_objective
+import pandas as pd
+
+from command_sequence import CommandSequence
+from command_invoker import CommandInvoker
+
+from devices.dummy_heater import DummyHeater
+from devices.dummy_motor import DummyMotor
+from devices.dummy_meter import DummyMeter
+from commands.dummy_heater_commands import *
+from commands.dummy_motor_commands import *
+from commands.dummy_meter_commands import *
+
+def main():
+    # This is only for creating a .yaml recipe file. You can create and save the recipe in a different script.
+    # Or if you already have a .yaml recipe then you can just start with that instead of creating it here
+    create_recipe()
+
+    # Initialize bayesian optimizer
+    opt = Optimizer([(25.0,100.0),(5.0,50.0)], base_estimator=&#39;GP&#39;, acq_func=&#39;gp_hedge&#39;, n_initial_points=10, initial_point_generator=&#39;grid&#39;, random_state=None)
+
+    max_iter = 30
+    for i in range(max_iter):
+        meter_file = &#34;myexp_run&#34; + str(i)
+        
+        # Get conditions to sample
+        next_x = opt.ask()
+        
+        # Run the experiment at the given conditions
+        run_experiment(next_x, meter_file)
+
+        # Process the raw data
+        data_file = &#39;data/dummy_meter/&#39; + meter_file + &#39;.csv&#39;
+        fval = process_data(data_file)
+
+        # Update the optimizer with objective function value
+        result = opt.tell(next_x, fval)
+
+    # Printing results
+    print(&#34;========== RESULT ==========&#34;)
+    print(result)
+    print()
+    print(&#34;Lowest minimum of &#34; + str(result.fun) + &#34; at &#34; + str(result.x))
+    fig2 = plt.figure()
+    plot_convergence(result)
+    # plt.show()
+    # fig3 = plt.figure()
+    plot_objective(result)
+    # plt.show()
+    input(&#34;\nPress Enter to quit&#34;)
+
+def create_recipe():
+    # Generate coefficients only for emulating the objective function
+    n_fourier = 3
+    a1 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    b1 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    a2 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    b2 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    noise_width = 0.1
+
+    ##### Start of actual recipe creation
+    # Create new command sequence
+    seq = CommandSequence()
+
+    # Create devices
+    heater = DummyHeater(&#39;heater&#39;, heat_rate=40.0)
+    motor = DummyMotor(&#39;motor&#39;)
+    meter = DummyMeter(&#39;meter&#39;, heater, motor, a1, b1, a2, b2, noise_width)
+
+    # Add devices to sequence
+    seq.add_device(heater)
+    seq.add_device(motor)
+    seq.add_device(meter)
+
+    # Add commands to sequence to form experimental procedure
+    seq.add_command(DummyHeaterInitialize(heater))
+    seq.add_command(DummyMotorInitialize(motor))
+    seq.add_command(DummyMeterInitialize(meter))
+
+    seq.add_command(DummyMotorMoveSpeedAbsolute(motor, 50.0, 5.0)) # Pretend to move printer to start position
+    seq.add_command(DummyHeaterSetTemp(heater, 25.0)) # index 4, Set print temperature
+    seq.add_command(DummyMotorSetSpeed(motor, 5.0)) # index 5, Set print speed
+    seq.add_command(DummyMotorMoveRelative(motor, distance=5.0)) # Pretend to print material
+    seq.add_command(DummyMotorMoveRelative(motor, distance=-5.0)) # Move motor back to original position
+    # Various sample manipulation and processing commands here
+    # Then measure material
+    seq.add_command(DummyMeterMeasure(meter, filename=None)) # index 8, Measure the material and store data in file
+    # Other measurement, sample manipulation, and processing commands here
+
+    # Optionally deinitialize devices, but may be unnecessary
+    seq.add_command(DummyHeaterDeinitialize(heater))
+    seq.add_command(DummyMotorDeinitialize(motor))
+    seq.add_command(DummyMeterDeinitialize(meter))
+
+    seq.num_iterations = 1
+
+    # Save recipe to .yaml file
+    # seq.print_command_names()
+    recipe_file = &#39;recipes/example6.yaml&#39;
+    seq.save_to_yaml(recipe_file)
+    ##### End of recipe creation
+
+    ##### Plot the objective function without noise for our reference (Can&#39;t do this for real experiements)   
+    n_pts = 200
+    x1 = np.linspace(meter.x1_range[0], meter.x1_range[1], n_pts).reshape(-1, 1)
+    x2 = np.linspace(meter.x2_range[0], meter.x2_range[1], n_pts).reshape(-1, 1)
+    Y = np.zeros((n_pts, n_pts))
+
+    for i in range(len(x1)):
+        for j in range(len(x2)):
+            Y[j,i] = meter.fourier2d([x1[i], x2[j]], meter.x1_range, meter.x2_range, a1, b1, a2, b2, noise_width=0.0)
+
+    X1, X2 = np.meshgrid(x1, x2)
+    fig1 = plt.figure()
+    ax = fig1.add_subplot(111, projection=&#39;3d&#39;)
+    surf = ax.plot_surface(X1, X2, Y, cmap=cm.coolwarm)
+
+    ax.set_xlabel(&#39;Temperature&#39;)
+    ax.set_ylabel(&#39;Speed&#39;)
+    ax.set_zlabel(&#39;Data&#39;)
+    plt.title(&#39;True Objective Function&#39;)
+    fig1.colorbar(surf, shrink=0.5, aspect=5)
+    plt.ion()
+    plt.show() 
+
+
+def run_experiment(params, meter_file):
+    # Alternatively you can simply create the recipe, devices, and commands each time for better readability
+    # But you lose the ability to save the device object states from run to run if that is desired
+    # And you may want to start with a pre-existing recipe .yaml file anyways
+
+    # Load the recipe
+    recipe_file = &#39;recipes/example6.yaml&#39;
+    seq = CommandSequence()
+    seq.load_from_yaml(recipe_file)
+
+    # Get tunable parameters from argument
+    temperature = params[0]
+    speed = params[1]
+
+    # Edit the commands
+    # (Alternatively you could have left out these commands when originally created and inserted them in here (insert them in reverse order to avoid index shifting))
+    seq.add_command_iteration(DummyHeaterSetTemp(seq.device_by_name[&#39;heater&#39;], temperature), index=4, iteration=0)
+    seq.remove_command_iteration(index=4, iteration=1)
+
+    seq.add_command_iteration(DummyMotorSetSpeed(seq.device_by_name[&#39;motor&#39;], speed), index=5, iteration=0)
+    seq.remove_command_iteration(index=5, iteration=1)
+
+    seq.add_command_iteration(DummyMeterMeasure(seq.device_by_name[&#39;meter&#39;], meter_file), index=8, iteration=0)
+    seq.remove_command_iteration(index=8, iteration=1)
+
+    invoker = CommandInvoker(seq, log_to_file=True, log_filename=&#39;logs/example6.log&#39;, alert_slack=False)
+    invoker.invoke_commands()
+
+    # If you wish to save the state of your device objects from run to run then overwrite your save file
+    seq.save_to_yaml(recipe_file)
+
+def process_data(data_file):
+    # Load data
+    dataframe = pd.read_csv(data_file)
+    raw_data = dataframe.iloc[0][&#39;Data&#39;]
+    # Process your data here
+    processed_data = raw_data
+    return processed_data
+
+if __name__ == &#34;__main__&#34;:
+    main()
+    </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="Lab_Automation.examples.example6.create_recipe"><code class="name flex">
+<span>def <span class="ident">create_recipe</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_recipe():
+    # Generate coefficients only for emulating the objective function
+    n_fourier = 3
+    a1 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    b1 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    a2 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    b2 = np.random.uniform(-1, 1, size=(n_fourier,1))
+    noise_width = 0.1
+
+    ##### Start of actual recipe creation
+    # Create new command sequence
+    seq = CommandSequence()
+
+    # Create devices
+    heater = DummyHeater(&#39;heater&#39;, heat_rate=40.0)
+    motor = DummyMotor(&#39;motor&#39;)
+    meter = DummyMeter(&#39;meter&#39;, heater, motor, a1, b1, a2, b2, noise_width)
+
+    # Add devices to sequence
+    seq.add_device(heater)
+    seq.add_device(motor)
+    seq.add_device(meter)
+
+    # Add commands to sequence to form experimental procedure
+    seq.add_command(DummyHeaterInitialize(heater))
+    seq.add_command(DummyMotorInitialize(motor))
+    seq.add_command(DummyMeterInitialize(meter))
+
+    seq.add_command(DummyMotorMoveSpeedAbsolute(motor, 50.0, 5.0)) # Pretend to move printer to start position
+    seq.add_command(DummyHeaterSetTemp(heater, 25.0)) # index 4, Set print temperature
+    seq.add_command(DummyMotorSetSpeed(motor, 5.0)) # index 5, Set print speed
+    seq.add_command(DummyMotorMoveRelative(motor, distance=5.0)) # Pretend to print material
+    seq.add_command(DummyMotorMoveRelative(motor, distance=-5.0)) # Move motor back to original position
+    # Various sample manipulation and processing commands here
+    # Then measure material
+    seq.add_command(DummyMeterMeasure(meter, filename=None)) # index 8, Measure the material and store data in file
+    # Other measurement, sample manipulation, and processing commands here
+
+    # Optionally deinitialize devices, but may be unnecessary
+    seq.add_command(DummyHeaterDeinitialize(heater))
+    seq.add_command(DummyMotorDeinitialize(motor))
+    seq.add_command(DummyMeterDeinitialize(meter))
+
+    seq.num_iterations = 1
+
+    # Save recipe to .yaml file
+    # seq.print_command_names()
+    recipe_file = &#39;recipes/example6.yaml&#39;
+    seq.save_to_yaml(recipe_file)
+    ##### End of recipe creation
+
+    ##### Plot the objective function without noise for our reference (Can&#39;t do this for real experiements)   
+    n_pts = 200
+    x1 = np.linspace(meter.x1_range[0], meter.x1_range[1], n_pts).reshape(-1, 1)
+    x2 = np.linspace(meter.x2_range[0], meter.x2_range[1], n_pts).reshape(-1, 1)
+    Y = np.zeros((n_pts, n_pts))
+
+    for i in range(len(x1)):
+        for j in range(len(x2)):
+            Y[j,i] = meter.fourier2d([x1[i], x2[j]], meter.x1_range, meter.x2_range, a1, b1, a2, b2, noise_width=0.0)
+
+    X1, X2 = np.meshgrid(x1, x2)
+    fig1 = plt.figure()
+    ax = fig1.add_subplot(111, projection=&#39;3d&#39;)
+    surf = ax.plot_surface(X1, X2, Y, cmap=cm.coolwarm)
+
+    ax.set_xlabel(&#39;Temperature&#39;)
+    ax.set_ylabel(&#39;Speed&#39;)
+    ax.set_zlabel(&#39;Data&#39;)
+    plt.title(&#39;True Objective Function&#39;)
+    fig1.colorbar(surf, shrink=0.5, aspect=5)
+    plt.ion()
+    plt.show() </code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.examples.example6.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    # This is only for creating a .yaml recipe file. You can create and save the recipe in a different script.
+    # Or if you already have a .yaml recipe then you can just start with that instead of creating it here
+    create_recipe()
+
+    # Initialize bayesian optimizer
+    opt = Optimizer([(25.0,100.0),(5.0,50.0)], base_estimator=&#39;GP&#39;, acq_func=&#39;gp_hedge&#39;, n_initial_points=10, initial_point_generator=&#39;grid&#39;, random_state=None)
+
+    max_iter = 30
+    for i in range(max_iter):
+        meter_file = &#34;myexp_run&#34; + str(i)
+        
+        # Get conditions to sample
+        next_x = opt.ask()
+        
+        # Run the experiment at the given conditions
+        run_experiment(next_x, meter_file)
+
+        # Process the raw data
+        data_file = &#39;data/dummy_meter/&#39; + meter_file + &#39;.csv&#39;
+        fval = process_data(data_file)
+
+        # Update the optimizer with objective function value
+        result = opt.tell(next_x, fval)
+
+    # Printing results
+    print(&#34;========== RESULT ==========&#34;)
+    print(result)
+    print()
+    print(&#34;Lowest minimum of &#34; + str(result.fun) + &#34; at &#34; + str(result.x))
+    fig2 = plt.figure()
+    plot_convergence(result)
+    # plt.show()
+    # fig3 = plt.figure()
+    plot_objective(result)
+    # plt.show()
+    input(&#34;\nPress Enter to quit&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.examples.example6.process_data"><code class="name flex">
+<span>def <span class="ident">process_data</span></span>(<span>data_file)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_data(data_file):
+    # Load data
+    dataframe = pd.read_csv(data_file)
+    raw_data = dataframe.iloc[0][&#39;Data&#39;]
+    # Process your data here
+    processed_data = raw_data
+    return processed_data</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.examples.example6.run_experiment"><code class="name flex">
+<span>def <span class="ident">run_experiment</span></span>(<span>params, meter_file)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_experiment(params, meter_file):
+    # Alternatively you can simply create the recipe, devices, and commands each time for better readability
+    # But you lose the ability to save the device object states from run to run if that is desired
+    # And you may want to start with a pre-existing recipe .yaml file anyways
+
+    # Load the recipe
+    recipe_file = &#39;recipes/example6.yaml&#39;
+    seq = CommandSequence()
+    seq.load_from_yaml(recipe_file)
+
+    # Get tunable parameters from argument
+    temperature = params[0]
+    speed = params[1]
+
+    # Edit the commands
+    # (Alternatively you could have left out these commands when originally created and inserted them in here (insert them in reverse order to avoid index shifting))
+    seq.add_command_iteration(DummyHeaterSetTemp(seq.device_by_name[&#39;heater&#39;], temperature), index=4, iteration=0)
+    seq.remove_command_iteration(index=4, iteration=1)
+
+    seq.add_command_iteration(DummyMotorSetSpeed(seq.device_by_name[&#39;motor&#39;], speed), index=5, iteration=0)
+    seq.remove_command_iteration(index=5, iteration=1)
+
+    seq.add_command_iteration(DummyMeterMeasure(seq.device_by_name[&#39;meter&#39;], meter_file), index=8, iteration=0)
+    seq.remove_command_iteration(index=8, iteration=1)
+
+    invoker = CommandInvoker(seq, log_to_file=True, log_filename=&#39;logs/example6.log&#39;, alert_slack=False)
+    invoker.invoke_commands()
+
+    # If you wish to save the state of your device objects from run to run then overwrite your save file
+    seq.save_to_yaml(recipe_file)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Lab_Automation.examples" href="index.html">Lab_Automation.examples</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="Lab_Automation.examples.example6.create_recipe" href="#Lab_Automation.examples.example6.create_recipe">create_recipe</a></code></li>
+<li><code><a title="Lab_Automation.examples.example6.main" href="#Lab_Automation.examples.example6.main">main</a></code></li>
+<li><code><a title="Lab_Automation.examples.example6.process_data" href="#Lab_Automation.examples.example6.process_data">process_data</a></code></li>
+<li><code><a title="Lab_Automation.examples.example6.run_experiment" href="#Lab_Automation.examples.example6.run_experiment">run_experiment</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

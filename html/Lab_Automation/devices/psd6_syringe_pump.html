@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Lab_Automation.devices.psd6_syringe_pump API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Lab_Automation.devices.psd6_syringe_pump</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import time
+from typing import Optional, Tuple, List
+
+from .device import SerialDevice, check_initialized, check_serial
+
+
+# terminology, valve_num or position; steps_per_sec or step_rate, valve or port
+# dead volume flags
+# double check flowrates are accurate
+
+class PSD6SyringePump(SerialDevice):
+    status_dict = {
+        &#39;@&#39;: &#34;Pump busy - no error&#34;,
+        &#39;`&#39;: &#34;Pump ready - no error&#34;,
+        &#39;a&#39;: &#34;Initialization error - pump failed to initialize&#34;,
+        &#39;b&#39;: &#34;Invalid command - unrecognized command is used.&#34;,
+        &#39;c&#39;: &#34;Invalid operand - invalid parameter is given with a command.&#34;,
+        &#39;d&#39;: &#34;Invalid command sequence - command communication protocol is incorrect&#34;,
+        &#39;f&#39;: &#34;EEPROM failure - EEPROM is faulty&#34;,
+        &#39;g&#39;: &#34;Syringe not initialized - syringe failed to initialize&#34;,
+        &#39;i&#39;: &#34;Syringe overload - syringe encounters excessive back pressure&#34;,
+        &#39;j&#39;: &#34;Valve overload - valve drive encounters excessive back pressure&#34;,
+        &#39;k&#39;: &#34;Syringe move not allowed - valve is in the bypass or throughput position, syringe move commands are not allowed&#34;,
+        &#39;o&#39;: &#34;Pump busy - command buffer is full&#34;
+    }
+    
+    # volume_factor = {&#39;ul&#39;: 1.0, &#39;ml&#39;: 1000.0}
+    # time_factor = {&#39;s&#39;: 1.0, &#39;min&#39;: 1.0/60.0}
+    
+    def __init__(
+            self,
+            name: str,
+            port: str,
+            baudrate: int = 9600,
+            timeout: Optional[float] = 10.0,
+            stroke_volume: float = 5000.0, 
+            stroke_steps: int = 6000,
+            default_flowrate: float = 1000.0,
+            # volume_unit: str = &#39;ul&#39;,
+            # time_unit: str = &#39;s&#39;,
+            port_dead_volumes: List[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            poll_interval: float = 0.1):
+
+        super().__init__(name, port, baudrate, timeout)
+        self._stroke_volume = stroke_volume
+        self._stroke_steps = stroke_steps
+        self._default_flowrate = default_flowrate
+        # self._volume_unit = volume_unit
+        # self._time_unit = time_unit
+        self._port_dead_volumes = port_dead_volumes
+        self._poll_interval = poll_interval
+        
+        # technically if I send a command that is out of range of these values
+        # the pump should be able to give me an error message anyways
+        # but if I store a default flowrate in this object I&#39;d rather
+        # have it be correct, than let the pump handle it because
+        # setting a wrong default flowrate here does not yield an error until
+        # later when some other command is sent that uses it
+        self._max_steps_per_sec = 10000
+        self._min_steps_per_sec = 2
+        
+        # # this is ok to leave out since anything using a position immediately issues a command
+        # self._min_position = 0
+        # self._max_position = 6000
+
+    @property
+    def default_flowrate(self) -&gt; float:
+        return self._default_flowrate
+    
+    @default_flowrate.setter
+    def default_flowrate(self, flowrate: float):
+        # careful units!
+        # steps_per_sec = flowrate / self._stroke_volume * self._stroke_steps
+        # steps_per_sec = int(round(steps_per_sec))
+        steps_per_sec = self.volume_to_step(flowrate)
+        if steps_per_sec &gt;= self._min_steps_per_sec and steps_per_sec &lt;= self._max_steps_per_sec:
+            self._default_flowrate = flowrate
+            
+    @property
+    def default_step_rate(self) -&gt; int:
+        return self.volume_to_step(self._default_flowrate)
+            
+    
+    # for init and deinit, it needs to set the waste valve!, not just left most or right most!!
+    # we need to check, does it move valve first? or syringe first? IT MOVES VALVE FIRST
+    # either way, enable hfactor, initialize valve, move to waste, then either run Y/Z or init syringe only
+    @check_serial
+    def initialize(self) -&gt; Tuple[bool, str]:
+        self._is_initialized = False
+        
+        # sets syringe to 0 (max dispense)
+        # sets valve to position 1 (Use command Z to set valve to 6 instead)
+        command = &#39;/1ZR\r&#39; # sets output to right side
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+        self._is_initialized = True
+        return (True, &#34;Successfully initialized PSD6 syringe pump.&#34;)
+    
+    def deinitialize(self, reset_init_flag: bool = True) -&gt; Tuple[bool, str]:
+        #move to waste first
+        if reset_init_flag:
+            self._is_initialized = False
+        return (True, &#34;Successfully deinitialized PSD6 syringe pump.&#34;)
+        
+        
+    
+    def volume_to_step(self, volume: float):
+        return int(round(volume / self._stroke_volume * self._stroke_steps))
+    
+    def step_to_volume(self, step: int):
+        return float(step / self._stroke_steps * self._stroke_volume)
+    
+    # change order, valve num before flowrate
+    def move_syringe_absolute_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+        step = self.volume_to_step(volume)
+        if flowrate is None:
+            step_rate = None
+        else:
+            step_rate = self.volume_to_step(flowrate)
+        return self.move_syringe_absolute_step(step, valve_num, step_rate)
+
+    # dead volume compensation flag
+    def infuse_syringe_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+        step = self.volume_to_step(volume)
+        if flowrate is None:
+            step_rate = None
+        else:
+            step_rate = self.volume_to_step(flowrate)
+        return self.infuse_syringe_steps(step, valve_num, step_rate)
+    
+    def withdraw_syringe_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+        step = self.volume_to_step(volume)
+        if flowrate is None:
+            step_rate = None
+        else:
+            step_rate = self.volume_to_step(flowrate)
+        return self.withdraw_syringe_steps(step, valve_num, step_rate)
+    
+    
+    # switch order of step and volume display in message, volume first steps in ()
+    @check_serial
+    @check_initialized
+    def move_syringe_absolute_step(self, step: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+        if valve_num is not None:
+            self.move_valve_position(valve_num)
+        if step_rate is None:
+            step_rate = self.default_step_rate
+        # this is here in case a user manually passes a step_rate
+        if isinstance(step_rate, float):
+            step_rate = int(round(step_rate))
+        
+        command = &#39;/1V&#39; + str(step_rate) + &#39;A&#39; + str(step) + &#39;R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+
+        volume = self.step_to_volume(step)
+        return (True, &#34;Successfully moved syringe to step &#34; + str(step) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)
+       
+    @check_serial
+    @check_initialized
+    def infuse_syringe_steps(self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+        if valve_num is not None:
+            self.move_valve_position(valve_num)
+        if step_rate is None:
+            step_rate = self.default_step_rate
+        if isinstance(step_rate, float):
+            step_rate = int(round(step_rate))
+        
+        command = &#39;/1V&#39; + str(step_rate) + &#39;D&#39; + str(steps) + &#39;R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+
+        volume = self.step_to_volume(steps)
+        return (True, &#34;Successfully infused syringe by steps &#34; + str(steps) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)
+    
+    @check_serial
+    @check_initialized
+    def withdraw_syringe_steps(self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+        if valve_num is not None:
+            self.move_valve_position(valve_num)
+        if step_rate is None:
+            step_rate = self.default_step_rate
+        if isinstance(step_rate, float):
+            step_rate = int(round(step_rate))
+        
+        command = &#39;/1V&#39; + str(step_rate) + &#39;P&#39; + str(steps) + &#39;R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+
+        volume = self.step_to_volume(steps)
+        return (True, &#34;Successfully withdrew syringe by steps &#34; + str(steps) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)
+    
+    @check_serial
+    @check_initialized
+    def move_valve_position(self, valve_num: int):
+        command = &#39;/1I&#39; + str(valve_num) + &#34;R\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+        
+        return (True, &#34;Successfully moved valve to position &#34; + str(valve_num))
+    
+    
+    # we need to think how numerical information is returned
+    # either return value, or return tuple of (bool, message=value)
+    # or consider adding a new attribute to the CommandResult class
+    def syringe_position(self):
+        pass
+    
+    def valve_position(self):
+        command = &#39;/1?24000R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+        position = response.decode(&#39;ascii&#39;)[3]
+        return position
+
+    def port_dead_volume(self, port_num: int):
+        # no real need to check port, any command sent regarding a wrong port will be caught by the pump
+        # if port_num &lt; 1 or port_num &gt; 6:
+        #     pass 
+        return self._port_dead_volumes[port_num-1]
+    
+    def check_error_ready(self, read_first: bool = True) -&gt; Tuple[bool, str]:
+        # Read first if checking right after sending a command
+        # there should be a response in the input buffer
+        if read_first:
+            response = self.ser.readline()
+            status_byte = response.decode(&#39;ascii&#39;)[2]
+            if status_byte not in &#39;@`&#39;:
+                # there was a problem with the initial response
+                return (False, self.status_dict[status_byte])
+        
+        # keep querying status until ready or error
+        status_byte = &#39;@&#39;    
+        while status_byte == &#39;@&#39;:
+            time.sleep(self._poll_interval)
+            status_byte = self.query_status_byte()
+            
+        message = self.status_dict[status_byte]
+        
+        if status_byte == &#39;`&#39;:
+            return (True, message)
+        else:
+            return (False, message)
+
+    def query_status_byte(self):
+        command = &#34;/1QR\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+        status_byte = response.decode(&#39;ascii&#39;)[2]
+        return status_byte</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump"><code class="flex name class">
+<span>class <span class="ident">PSD6SyringePump</span></span>
+<span>(</span><span>name: str, port: str, baudrate: int = 9600, timeout: Optional[float] = 10.0, stroke_volume: float = 5000.0, stroke_steps: int = 6000, default_flowrate: float = 1000.0, port_dead_volumes: List[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], poll_interval: float = 0.1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A Device that uses serial communication.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PSD6SyringePump(SerialDevice):
+    status_dict = {
+        &#39;@&#39;: &#34;Pump busy - no error&#34;,
+        &#39;`&#39;: &#34;Pump ready - no error&#34;,
+        &#39;a&#39;: &#34;Initialization error - pump failed to initialize&#34;,
+        &#39;b&#39;: &#34;Invalid command - unrecognized command is used.&#34;,
+        &#39;c&#39;: &#34;Invalid operand - invalid parameter is given with a command.&#34;,
+        &#39;d&#39;: &#34;Invalid command sequence - command communication protocol is incorrect&#34;,
+        &#39;f&#39;: &#34;EEPROM failure - EEPROM is faulty&#34;,
+        &#39;g&#39;: &#34;Syringe not initialized - syringe failed to initialize&#34;,
+        &#39;i&#39;: &#34;Syringe overload - syringe encounters excessive back pressure&#34;,
+        &#39;j&#39;: &#34;Valve overload - valve drive encounters excessive back pressure&#34;,
+        &#39;k&#39;: &#34;Syringe move not allowed - valve is in the bypass or throughput position, syringe move commands are not allowed&#34;,
+        &#39;o&#39;: &#34;Pump busy - command buffer is full&#34;
+    }
+    
+    # volume_factor = {&#39;ul&#39;: 1.0, &#39;ml&#39;: 1000.0}
+    # time_factor = {&#39;s&#39;: 1.0, &#39;min&#39;: 1.0/60.0}
+    
+    def __init__(
+            self,
+            name: str,
+            port: str,
+            baudrate: int = 9600,
+            timeout: Optional[float] = 10.0,
+            stroke_volume: float = 5000.0, 
+            stroke_steps: int = 6000,
+            default_flowrate: float = 1000.0,
+            # volume_unit: str = &#39;ul&#39;,
+            # time_unit: str = &#39;s&#39;,
+            port_dead_volumes: List[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            poll_interval: float = 0.1):
+
+        super().__init__(name, port, baudrate, timeout)
+        self._stroke_volume = stroke_volume
+        self._stroke_steps = stroke_steps
+        self._default_flowrate = default_flowrate
+        # self._volume_unit = volume_unit
+        # self._time_unit = time_unit
+        self._port_dead_volumes = port_dead_volumes
+        self._poll_interval = poll_interval
+        
+        # technically if I send a command that is out of range of these values
+        # the pump should be able to give me an error message anyways
+        # but if I store a default flowrate in this object I&#39;d rather
+        # have it be correct, than let the pump handle it because
+        # setting a wrong default flowrate here does not yield an error until
+        # later when some other command is sent that uses it
+        self._max_steps_per_sec = 10000
+        self._min_steps_per_sec = 2
+        
+        # # this is ok to leave out since anything using a position immediately issues a command
+        # self._min_position = 0
+        # self._max_position = 6000
+
+    @property
+    def default_flowrate(self) -&gt; float:
+        return self._default_flowrate
+    
+    @default_flowrate.setter
+    def default_flowrate(self, flowrate: float):
+        # careful units!
+        # steps_per_sec = flowrate / self._stroke_volume * self._stroke_steps
+        # steps_per_sec = int(round(steps_per_sec))
+        steps_per_sec = self.volume_to_step(flowrate)
+        if steps_per_sec &gt;= self._min_steps_per_sec and steps_per_sec &lt;= self._max_steps_per_sec:
+            self._default_flowrate = flowrate
+            
+    @property
+    def default_step_rate(self) -&gt; int:
+        return self.volume_to_step(self._default_flowrate)
+            
+    
+    # for init and deinit, it needs to set the waste valve!, not just left most or right most!!
+    # we need to check, does it move valve first? or syringe first? IT MOVES VALVE FIRST
+    # either way, enable hfactor, initialize valve, move to waste, then either run Y/Z or init syringe only
+    @check_serial
+    def initialize(self) -&gt; Tuple[bool, str]:
+        self._is_initialized = False
+        
+        # sets syringe to 0 (max dispense)
+        # sets valve to position 1 (Use command Z to set valve to 6 instead)
+        command = &#39;/1ZR\r&#39; # sets output to right side
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+        self._is_initialized = True
+        return (True, &#34;Successfully initialized PSD6 syringe pump.&#34;)
+    
+    def deinitialize(self, reset_init_flag: bool = True) -&gt; Tuple[bool, str]:
+        #move to waste first
+        if reset_init_flag:
+            self._is_initialized = False
+        return (True, &#34;Successfully deinitialized PSD6 syringe pump.&#34;)
+        
+        
+    
+    def volume_to_step(self, volume: float):
+        return int(round(volume / self._stroke_volume * self._stroke_steps))
+    
+    def step_to_volume(self, step: int):
+        return float(step / self._stroke_steps * self._stroke_volume)
+    
+    # change order, valve num before flowrate
+    def move_syringe_absolute_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+        step = self.volume_to_step(volume)
+        if flowrate is None:
+            step_rate = None
+        else:
+            step_rate = self.volume_to_step(flowrate)
+        return self.move_syringe_absolute_step(step, valve_num, step_rate)
+
+    # dead volume compensation flag
+    def infuse_syringe_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+        step = self.volume_to_step(volume)
+        if flowrate is None:
+            step_rate = None
+        else:
+            step_rate = self.volume_to_step(flowrate)
+        return self.infuse_syringe_steps(step, valve_num, step_rate)
+    
+    def withdraw_syringe_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+        step = self.volume_to_step(volume)
+        if flowrate is None:
+            step_rate = None
+        else:
+            step_rate = self.volume_to_step(flowrate)
+        return self.withdraw_syringe_steps(step, valve_num, step_rate)
+    
+    
+    # switch order of step and volume display in message, volume first steps in ()
+    @check_serial
+    @check_initialized
+    def move_syringe_absolute_step(self, step: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+        if valve_num is not None:
+            self.move_valve_position(valve_num)
+        if step_rate is None:
+            step_rate = self.default_step_rate
+        # this is here in case a user manually passes a step_rate
+        if isinstance(step_rate, float):
+            step_rate = int(round(step_rate))
+        
+        command = &#39;/1V&#39; + str(step_rate) + &#39;A&#39; + str(step) + &#39;R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+
+        volume = self.step_to_volume(step)
+        return (True, &#34;Successfully moved syringe to step &#34; + str(step) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)
+       
+    @check_serial
+    @check_initialized
+    def infuse_syringe_steps(self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+        if valve_num is not None:
+            self.move_valve_position(valve_num)
+        if step_rate is None:
+            step_rate = self.default_step_rate
+        if isinstance(step_rate, float):
+            step_rate = int(round(step_rate))
+        
+        command = &#39;/1V&#39; + str(step_rate) + &#39;D&#39; + str(steps) + &#39;R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+
+        volume = self.step_to_volume(steps)
+        return (True, &#34;Successfully infused syringe by steps &#34; + str(steps) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)
+    
+    @check_serial
+    @check_initialized
+    def withdraw_syringe_steps(self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+        if valve_num is not None:
+            self.move_valve_position(valve_num)
+        if step_rate is None:
+            step_rate = self.default_step_rate
+        if isinstance(step_rate, float):
+            step_rate = int(round(step_rate))
+        
+        command = &#39;/1V&#39; + str(step_rate) + &#39;P&#39; + str(steps) + &#39;R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+
+        volume = self.step_to_volume(steps)
+        return (True, &#34;Successfully withdrew syringe by steps &#34; + str(steps) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)
+    
+    @check_serial
+    @check_initialized
+    def move_valve_position(self, valve_num: int):
+        command = &#39;/1I&#39; + str(valve_num) + &#34;R\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        is_ready, message = self.check_error_ready()
+        if not is_ready:
+            return (False, message)
+        
+        return (True, &#34;Successfully moved valve to position &#34; + str(valve_num))
+    
+    
+    # we need to think how numerical information is returned
+    # either return value, or return tuple of (bool, message=value)
+    # or consider adding a new attribute to the CommandResult class
+    def syringe_position(self):
+        pass
+    
+    def valve_position(self):
+        command = &#39;/1?24000R\r&#39;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+        position = response.decode(&#39;ascii&#39;)[3]
+        return position
+
+    def port_dead_volume(self, port_num: int):
+        # no real need to check port, any command sent regarding a wrong port will be caught by the pump
+        # if port_num &lt; 1 or port_num &gt; 6:
+        #     pass 
+        return self._port_dead_volumes[port_num-1]
+    
+    def check_error_ready(self, read_first: bool = True) -&gt; Tuple[bool, str]:
+        # Read first if checking right after sending a command
+        # there should be a response in the input buffer
+        if read_first:
+            response = self.ser.readline()
+            status_byte = response.decode(&#39;ascii&#39;)[2]
+            if status_byte not in &#39;@`&#39;:
+                # there was a problem with the initial response
+                return (False, self.status_dict[status_byte])
+        
+        # keep querying status until ready or error
+        status_byte = &#39;@&#39;    
+        while status_byte == &#39;@&#39;:
+            time.sleep(self._poll_interval)
+            status_byte = self.query_status_byte()
+            
+        message = self.status_dict[status_byte]
+        
+        if status_byte == &#39;`&#39;:
+            return (True, message)
+        else:
+            return (False, message)
+
+    def query_status_byte(self):
+        command = &#34;/1QR\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+        status_byte = response.decode(&#39;ascii&#39;)[2]
+        return status_byte</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="Lab_Automation.devices.device.SerialDevice" href="device.html#Lab_Automation.devices.device.SerialDevice">SerialDevice</a></li>
+<li><a title="Lab_Automation.devices.device.Device" href="device.html#Lab_Automation.devices.device.Device">Device</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.status_dict"><code class="name">var <span class="ident">status_dict</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.default_flowrate"><code class="name">var <span class="ident">default_flowrate</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_flowrate(self) -&gt; float:
+    return self._default_flowrate</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.default_step_rate"><code class="name">var <span class="ident">default_step_rate</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_step_rate(self) -&gt; int:
+    return self.volume_to_step(self._default_flowrate)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.check_error_ready"><code class="name flex">
+<span>def <span class="ident">check_error_ready</span></span>(<span>self, read_first: bool = True) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_error_ready(self, read_first: bool = True) -&gt; Tuple[bool, str]:
+    # Read first if checking right after sending a command
+    # there should be a response in the input buffer
+    if read_first:
+        response = self.ser.readline()
+        status_byte = response.decode(&#39;ascii&#39;)[2]
+        if status_byte not in &#39;@`&#39;:
+            # there was a problem with the initial response
+            return (False, self.status_dict[status_byte])
+    
+    # keep querying status until ready or error
+    status_byte = &#39;@&#39;    
+    while status_byte == &#39;@&#39;:
+        time.sleep(self._poll_interval)
+        status_byte = self.query_status_byte()
+        
+    message = self.status_dict[status_byte]
+    
+    if status_byte == &#39;`&#39;:
+        return (True, message)
+    else:
+        return (False, message)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.infuse_syringe_steps"><code class="name flex">
+<span>def <span class="ident">infuse_syringe_steps</span></span>(<span>self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_initialized
+def infuse_syringe_steps(self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+    if valve_num is not None:
+        self.move_valve_position(valve_num)
+    if step_rate is None:
+        step_rate = self.default_step_rate
+    if isinstance(step_rate, float):
+        step_rate = int(round(step_rate))
+    
+    command = &#39;/1V&#39; + str(step_rate) + &#39;D&#39; + str(steps) + &#39;R\r&#39;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    is_ready, message = self.check_error_ready()
+    if not is_ready:
+        return (False, message)
+
+    volume = self.step_to_volume(steps)
+    return (True, &#34;Successfully infused syringe by steps &#34; + str(steps) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.infuse_syringe_volume"><code class="name flex">
+<span>def <span class="ident">infuse_syringe_volume</span></span>(<span>self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def infuse_syringe_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+    step = self.volume_to_step(volume)
+    if flowrate is None:
+        step_rate = None
+    else:
+        step_rate = self.volume_to_step(flowrate)
+    return self.infuse_syringe_steps(step, valve_num, step_rate)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_syringe_absolute_step"><code class="name flex">
+<span>def <span class="ident">move_syringe_absolute_step</span></span>(<span>self, step: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_initialized
+def move_syringe_absolute_step(self, step: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+    if valve_num is not None:
+        self.move_valve_position(valve_num)
+    if step_rate is None:
+        step_rate = self.default_step_rate
+    # this is here in case a user manually passes a step_rate
+    if isinstance(step_rate, float):
+        step_rate = int(round(step_rate))
+    
+    command = &#39;/1V&#39; + str(step_rate) + &#39;A&#39; + str(step) + &#39;R\r&#39;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    is_ready, message = self.check_error_ready()
+    if not is_ready:
+        return (False, message)
+
+    volume = self.step_to_volume(step)
+    return (True, &#34;Successfully moved syringe to step &#34; + str(step) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_syringe_absolute_volume"><code class="name flex">
+<span>def <span class="ident">move_syringe_absolute_volume</span></span>(<span>self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_syringe_absolute_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+    step = self.volume_to_step(volume)
+    if flowrate is None:
+        step_rate = None
+    else:
+        step_rate = self.volume_to_step(flowrate)
+    return self.move_syringe_absolute_step(step, valve_num, step_rate)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_valve_position"><code class="name flex">
+<span>def <span class="ident">move_valve_position</span></span>(<span>self, valve_num: int)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_initialized
+def move_valve_position(self, valve_num: int):
+    command = &#39;/1I&#39; + str(valve_num) + &#34;R\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    is_ready, message = self.check_error_ready()
+    if not is_ready:
+        return (False, message)
+    
+    return (True, &#34;Successfully moved valve to position &#34; + str(valve_num))</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.port_dead_volume"><code class="name flex">
+<span>def <span class="ident">port_dead_volume</span></span>(<span>self, port_num: int)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def port_dead_volume(self, port_num: int):
+    # no real need to check port, any command sent regarding a wrong port will be caught by the pump
+    # if port_num &lt; 1 or port_num &gt; 6:
+    #     pass 
+    return self._port_dead_volumes[port_num-1]</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.query_status_byte"><code class="name flex">
+<span>def <span class="ident">query_status_byte</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def query_status_byte(self):
+    command = &#34;/1QR\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    response = self.ser.readline()
+    status_byte = response.decode(&#39;ascii&#39;)[2]
+    return status_byte</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.step_to_volume"><code class="name flex">
+<span>def <span class="ident">step_to_volume</span></span>(<span>self, step: int)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step_to_volume(self, step: int):
+    return float(step / self._stroke_steps * self._stroke_volume)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.syringe_position"><code class="name flex">
+<span>def <span class="ident">syringe_position</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def syringe_position(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.valve_position"><code class="name flex">
+<span>def <span class="ident">valve_position</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def valve_position(self):
+    command = &#39;/1?24000R\r&#39;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    response = self.ser.readline()
+    position = response.decode(&#39;ascii&#39;)[3]
+    return position</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.volume_to_step"><code class="name flex">
+<span>def <span class="ident">volume_to_step</span></span>(<span>self, volume: float)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def volume_to_step(self, volume: float):
+    return int(round(volume / self._stroke_volume * self._stroke_steps))</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.withdraw_syringe_steps"><code class="name flex">
+<span>def <span class="ident">withdraw_syringe_steps</span></span>(<span>self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_initialized
+def withdraw_syringe_steps(self, steps: int, valve_num: Optional[int] = None, step_rate: Optional[int] = None):
+    if valve_num is not None:
+        self.move_valve_position(valve_num)
+    if step_rate is None:
+        step_rate = self.default_step_rate
+    if isinstance(step_rate, float):
+        step_rate = int(round(step_rate))
+    
+    command = &#39;/1V&#39; + str(step_rate) + &#39;P&#39; + str(steps) + &#39;R\r&#39;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    is_ready, message = self.check_error_ready()
+    if not is_ready:
+        return (False, message)
+
+    volume = self.step_to_volume(steps)
+    return (True, &#34;Successfully withdrew syringe by steps &#34; + str(steps) + &#34;, volume &#34; + str(volume) + &#34; uL.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.withdraw_syringe_volume"><code class="name flex">
+<span>def <span class="ident">withdraw_syringe_volume</span></span>(<span>self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def withdraw_syringe_volume(self, volume: float, valve_num: Optional[int] = None, flowrate: Optional[float] = None):
+    step = self.volume_to_step(volume)
+    if flowrate is None:
+        step_rate = None
+    else:
+        step_rate = self.volume_to_step(flowrate)
+    return self.withdraw_syringe_steps(step, valve_num, step_rate)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="Lab_Automation.devices.device.SerialDevice" href="device.html#Lab_Automation.devices.device.SerialDevice">SerialDevice</a></b></code>:
+<ul class="hlist">
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.deinitialize" href="device.html#Lab_Automation.devices.device.Device.deinitialize">deinitialize</a></code></li>
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.initialize" href="device.html#Lab_Automation.devices.device.Device.initialize">initialize</a></code></li>
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.is_initialized" href="device.html#Lab_Automation.devices.device.Device.is_initialized">is_initialized</a></code></li>
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.start_serial" href="device.html#Lab_Automation.devices.device.SerialDevice.start_serial">start_serial</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Lab_Automation.devices" href="index.html">Lab_Automation.devices</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump">PSD6SyringePump</a></code></h4>
+<ul class="">
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.check_error_ready" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.check_error_ready">check_error_ready</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.default_flowrate" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.default_flowrate">default_flowrate</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.default_step_rate" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.default_step_rate">default_step_rate</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.infuse_syringe_steps" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.infuse_syringe_steps">infuse_syringe_steps</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.infuse_syringe_volume" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.infuse_syringe_volume">infuse_syringe_volume</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_syringe_absolute_step" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_syringe_absolute_step">move_syringe_absolute_step</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_syringe_absolute_volume" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_syringe_absolute_volume">move_syringe_absolute_volume</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_valve_position" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.move_valve_position">move_valve_position</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.port_dead_volume" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.port_dead_volume">port_dead_volume</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.query_status_byte" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.query_status_byte">query_status_byte</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.status_dict" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.status_dict">status_dict</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.step_to_volume" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.step_to_volume">step_to_volume</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.syringe_position" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.syringe_position">syringe_position</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.valve_position" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.valve_position">valve_position</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.volume_to_step" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.volume_to_step">volume_to_step</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.withdraw_syringe_steps" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.withdraw_syringe_steps">withdraw_syringe_steps</a></code></li>
+<li><code><a title="Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.withdraw_syringe_volume" href="#Lab_Automation.devices.psd6_syringe_pump.PSD6SyringePump.withdraw_syringe_volume">withdraw_syringe_volume</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

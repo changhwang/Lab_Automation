@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Lab_Automation.devices.newport_esp301 API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Lab_Automation.devices.newport_esp301</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import time
+from typing import Optional, Tuple, Union
+import functools
+
+from .device import SerialDevice, check_initialized, check_serial
+
+
+def check_axis_num(func):
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        # could be a kwarg or arg
+        if &#39;axis_number&#39; in kwargs:
+            axis_number = kwargs[&#39;axis_number&#39;]
+        else:
+            axis_number = args[0]
+            
+        if not self.is_axis_num_valid(axis_number):
+            return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+        return func(self, *args, **kwargs)
+    return wrapper
+
+class NewportESP301(SerialDevice):
+    def __init__(
+            self, 
+            name: str,
+            port: str,
+            baudrate: int = 921600,
+            timeout: Optional[float] = 1.0,
+            axis_list: Tuple[int, ...] = (1,),
+            default_speed: float = 20.0,
+            poll_interval: float = 0.1):
+
+        super().__init__(name, port, baudrate, timeout)
+        self._axis_list = axis_list
+        self._default_speed = default_speed #make list
+        # self._default_speed_list = defaults_speed_list
+        self._poll_interval = poll_interval
+        self._max_speed = 200.0 # make list
+        # self._max_speed_list = max_speed_list
+
+    @property
+    def default_speed(self) -&gt; float:
+        return self._default_speed
+
+    @default_speed.setter
+    def default_speed(self, speed: float):
+        if speed &gt; 0.0 and speed &lt; self._max_speed:
+            self._default_speed = speed
+
+    # check_error already has serial check
+    # easier to just set is_intialized False at the very beginning
+    # do for all receivers
+    def initialize(self) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        was_successful, message = self.check_error() # just used to flush error and serial input buffer if there is an error
+        if not was_successful:
+            return (was_successful, message)
+
+        self.ser.reset_input_buffer() # flush the serial input buffer even if there was no error
+
+        for axis in self._axis_list:
+            # Make sure axis motor is turned on
+            was_turned_on, message = self.axis_on(axis)
+            if not was_turned_on:
+                self._is_initialized = False
+                return (was_turned_on, message)
+            # set units to mm, homing value to 0, set max speed, set current speed 
+            command = str(axis) + &#34;SN2;&#34; + str(axis) + &#34;SH0;&#34; + str(axis) + &#34;VU&#34; + str(self._max_speed) + &#34;;&#34; + str(axis) + &#34;VA&#34; + str(self.default_speed) + &#34;\r&#34;
+            self.ser.write(command.encode(&#39;ascii&#39;))
+
+        # Make sure initialization of settings was successful
+        was_successful, message = self.check_error()
+        if not was_successful:
+            self._is_initialized = False
+            return (was_successful, message)
+
+        for axis in self._axis_list:
+            was_homed, message = self.home(axis)
+            if not was_homed:
+                self._is_initialized = False
+                return (was_homed, message)
+    
+        self._is_initialized = True
+        return (True, &#34;Successfully initialized axes by setting units to mm, settings max/current speeds, and homing. Current position set to zero.&#34;)
+
+    # move_speed_absolute already has serial check
+    def deinitialize(self, reset_init_flag: bool = True) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        for axis in self._axis_list:
+            was_zeroed, message = self.move_speed_absolute(0.0, speed=None, axis_number=axis)
+            if not was_zeroed:
+                return (was_zeroed, message)
+
+        if reset_init_flag:
+            self._is_initialized = False
+
+        return (True, &#34;Successfully deinitialized axes by moving to position zero.&#34;)
+
+    # make a home_all function
+    @check_serial
+    def home(self, axis_number: int) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        command = str(axis_number) + &#34;OR4\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        while self.is_any_moving():
+            time.sleep(self._poll_interval)
+        # pause one more time in case motor stopped moving but position has not been reset yet     
+        time.sleep(self._poll_interval)
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+        else:
+            return (True, &#34;Successfully homed axes &#34; + str(axis_number))
+
+    # Consider a decorator for checks?
+    @check_serial
+    @check_initialized
+    @check_axis_num
+    def move_speed_absolute(self, axis_number: int = 1, position: Optional[float] = None, speed: Optional[float] = None) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        # #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+        # if not self._is_initialized:
+        #     return (False, &#34;ESP301 axes are not initialized.&#34;)
+        
+        # I want axis number to be the first arg so the decorator can pick it up as arg[0]
+        # but I also want axis_number to have a default value of 1, so position needs a default value now
+        if position is None:
+            return (False, &#34;Position was not specified&#34;)
+
+        if speed is None:
+            speed = self._default_speed
+
+        command = str(axis_number) + &#34;VA&#34; + str(speed) +&#34;\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        if position &gt;= 0.0:
+            sign = &#34;+&#34;
+        else:
+            sign = &#34;-&#34;
+
+        # removed the WS command because it causes timeouts when checking if moving 
+        # command = str(axis_number) + &#34;PA&#34; + sign + str(abs(position)) + &#34;;&#34; + str(axis_number) + &#34;WS\r&#34;
+        command = str(axis_number) + &#34;PA&#34; + sign + str(abs(position)) + &#34;\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        while self.is_moving(axis_number):
+            time.sleep(self._poll_interval)
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+        else:
+            return (True, &#34;Successfully completed absolute move at &#34; + str(position))
+
+    @check_serial
+    @check_initialized
+    @check_axis_num
+    def move_speed_relative(self, axis_number: int = 1, distance: Optional[float] = None, speed: Optional[float] = None) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        # #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+        # if not self._is_initialized:
+        #     return (False, &#34;ESP301 axes are not initialized.&#34;)
+        if distance is None:
+            return (False, &#34;Distance was not specified&#34;)
+        
+        if speed is None:
+            speed = self._default_speed
+
+        command = str(axis_number) + &#34;VA&#34; + str(speed) +&#34;\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        if distance &gt;= 0.0:
+            sign = &#34;+&#34;
+        else:
+            sign = &#34;-&#34;
+
+        # removed the WS command because it causes timeouts when checking if moving 
+        # command = str(axis_number) + &#34;PR&#34; + sign + str(abs(distance)) + &#34;;&#34; + str(axis_number) + &#34;WS\r&#34;
+        command = str(axis_number) + &#34;PR&#34; + sign + str(abs(distance)) + &#34;\r&#34;
+
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        while self.is_moving(axis_number):
+            time.sleep(self._poll_interval)
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+        else:
+            return (True, &#34;Successfully completed relative move by &#34; + str(distance))
+        
+
+    def is_axis_num_valid(self, axis_number: int) -&gt; bool:
+        if axis_number in self._axis_list:
+            return True
+        else:
+            return False
+    
+    # check axis num
+    @check_serial
+    @check_axis_num
+    def is_moving(self, axis_number: int = 1) -&gt; bool:
+        # if not self.ser.is_open:
+        #     return False
+        # else:
+        command = str(axis_number) + &#34;MD?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+            # motion is not done = is moving
+            return True
+        else:
+            # includes timeout case
+            return False
+
+    def is_any_moving(self) -&gt; bool:
+        is_moving_list = []
+        for ndx, axis_number in enumerate(self._axis_list):
+            command = str(axis_number) + &#34;MD?\r&#34;
+            self.ser.write(command.encode(&#39;ascii&#39;))
+            response = self.ser.readline()
+
+            if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+                is_moving_list.append(True)
+            else:
+                is_moving_list.append(False)
+
+        if any(is_moving_list):
+            return True
+        else: 
+            return False
+
+    @check_serial
+    def check_error(self) -&gt; Tuple[bool, str]:
+        # not needed for queries, but use when instructing to do something
+        
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        command = &#34;TB?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response == b&#39;&#39;:
+            return (False, &#34;Response timed out.&#34;)
+        
+        response = response.strip().decode(&#39;ascii&#39;)
+
+        if response[0] == &#39;0&#39;:
+            return (True, &#34;No errors.&#34;)
+        else:
+            # flush the error buffer
+            for n in range(10):
+                self.ser.write(command.encode(&#39;ascii&#39;))
+                self.ser.readline()
+            # flush the serial input buffer
+            time.sleep(0.1)
+            self.ser.reset_input_buffer()
+            return (False, response)
+    
+    @check_serial
+    @check_axis_num
+    def position(self, axis_number: int = 1) -&gt; Tuple[bool, Union[str, float]]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+        command = str(axis_number) + &#34;TP\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        position_str = self.ser.readline()
+        if position_str == b&#39;&#39;:
+            return (False, &#34;Response timed out.&#34;)
+        else:    
+            return (True, float(position_str.strip().decode(&#39;ascii&#39;)))
+
+    @check_serial
+    @check_axis_num
+    def axis_on(self, axis_number: int = 1) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+        command = str(axis_number) + &#34;MO\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        command = str(axis_number) + &#34;MO?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response.strip().decode(&#39;ascii&#39;) == &#39;1&#39;:
+            return (True, &#34;Axis &#34; + str(axis_number) + &#34; motor successfully turned ON.&#34;)
+        else:
+            # also means timeout
+            return (False, &#34;Axis &#34; + str(axis_number) + &#34; motor failed to turned ON.&#34;)
+
+    @check_serial
+    @check_axis_num
+    def axis_off(self, axis_number: int = 1) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+        command = str(axis_number) + &#34;MF\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        command = str(axis_number) + &#34;MF?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+            return (True, &#34;Axis &#34; + str(axis_number) + &#34; motor successfully turned OFF.&#34;)
+        else:
+            # also means timeout
+            return (False, &#34;Axis &#34; + str(axis_number) + &#34; motor failed to turned OFF.&#34;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="Lab_Automation.devices.newport_esp301.check_axis_num"><code class="name flex">
+<span>def <span class="ident">check_axis_num</span></span>(<span>func)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_axis_num(func):
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        # could be a kwarg or arg
+        if &#39;axis_number&#39; in kwargs:
+            axis_number = kwargs[&#39;axis_number&#39;]
+        else:
+            axis_number = args[0]
+            
+        if not self.is_axis_num_valid(axis_number):
+            return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+        return func(self, *args, **kwargs)
+    return wrapper</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301"><code class="flex name class">
+<span>class <span class="ident">NewportESP301</span></span>
+<span>(</span><span>name: str, port: str, baudrate: int = 921600, timeout: Optional[float] = 1.0, axis_list: Tuple[int, ...] = (1,), default_speed: float = 20.0, poll_interval: float = 0.1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A Device that uses serial communication.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NewportESP301(SerialDevice):
+    def __init__(
+            self, 
+            name: str,
+            port: str,
+            baudrate: int = 921600,
+            timeout: Optional[float] = 1.0,
+            axis_list: Tuple[int, ...] = (1,),
+            default_speed: float = 20.0,
+            poll_interval: float = 0.1):
+
+        super().__init__(name, port, baudrate, timeout)
+        self._axis_list = axis_list
+        self._default_speed = default_speed #make list
+        # self._default_speed_list = defaults_speed_list
+        self._poll_interval = poll_interval
+        self._max_speed = 200.0 # make list
+        # self._max_speed_list = max_speed_list
+
+    @property
+    def default_speed(self) -&gt; float:
+        return self._default_speed
+
+    @default_speed.setter
+    def default_speed(self, speed: float):
+        if speed &gt; 0.0 and speed &lt; self._max_speed:
+            self._default_speed = speed
+
+    # check_error already has serial check
+    # easier to just set is_intialized False at the very beginning
+    # do for all receivers
+    def initialize(self) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        was_successful, message = self.check_error() # just used to flush error and serial input buffer if there is an error
+        if not was_successful:
+            return (was_successful, message)
+
+        self.ser.reset_input_buffer() # flush the serial input buffer even if there was no error
+
+        for axis in self._axis_list:
+            # Make sure axis motor is turned on
+            was_turned_on, message = self.axis_on(axis)
+            if not was_turned_on:
+                self._is_initialized = False
+                return (was_turned_on, message)
+            # set units to mm, homing value to 0, set max speed, set current speed 
+            command = str(axis) + &#34;SN2;&#34; + str(axis) + &#34;SH0;&#34; + str(axis) + &#34;VU&#34; + str(self._max_speed) + &#34;;&#34; + str(axis) + &#34;VA&#34; + str(self.default_speed) + &#34;\r&#34;
+            self.ser.write(command.encode(&#39;ascii&#39;))
+
+        # Make sure initialization of settings was successful
+        was_successful, message = self.check_error()
+        if not was_successful:
+            self._is_initialized = False
+            return (was_successful, message)
+
+        for axis in self._axis_list:
+            was_homed, message = self.home(axis)
+            if not was_homed:
+                self._is_initialized = False
+                return (was_homed, message)
+    
+        self._is_initialized = True
+        return (True, &#34;Successfully initialized axes by setting units to mm, settings max/current speeds, and homing. Current position set to zero.&#34;)
+
+    # move_speed_absolute already has serial check
+    def deinitialize(self, reset_init_flag: bool = True) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        for axis in self._axis_list:
+            was_zeroed, message = self.move_speed_absolute(0.0, speed=None, axis_number=axis)
+            if not was_zeroed:
+                return (was_zeroed, message)
+
+        if reset_init_flag:
+            self._is_initialized = False
+
+        return (True, &#34;Successfully deinitialized axes by moving to position zero.&#34;)
+
+    # make a home_all function
+    @check_serial
+    def home(self, axis_number: int) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        command = str(axis_number) + &#34;OR4\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        while self.is_any_moving():
+            time.sleep(self._poll_interval)
+        # pause one more time in case motor stopped moving but position has not been reset yet     
+        time.sleep(self._poll_interval)
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+        else:
+            return (True, &#34;Successfully homed axes &#34; + str(axis_number))
+
+    # Consider a decorator for checks?
+    @check_serial
+    @check_initialized
+    @check_axis_num
+    def move_speed_absolute(self, axis_number: int = 1, position: Optional[float] = None, speed: Optional[float] = None) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        # #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+        # if not self._is_initialized:
+        #     return (False, &#34;ESP301 axes are not initialized.&#34;)
+        
+        # I want axis number to be the first arg so the decorator can pick it up as arg[0]
+        # but I also want axis_number to have a default value of 1, so position needs a default value now
+        if position is None:
+            return (False, &#34;Position was not specified&#34;)
+
+        if speed is None:
+            speed = self._default_speed
+
+        command = str(axis_number) + &#34;VA&#34; + str(speed) +&#34;\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        if position &gt;= 0.0:
+            sign = &#34;+&#34;
+        else:
+            sign = &#34;-&#34;
+
+        # removed the WS command because it causes timeouts when checking if moving 
+        # command = str(axis_number) + &#34;PA&#34; + sign + str(abs(position)) + &#34;;&#34; + str(axis_number) + &#34;WS\r&#34;
+        command = str(axis_number) + &#34;PA&#34; + sign + str(abs(position)) + &#34;\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        while self.is_moving(axis_number):
+            time.sleep(self._poll_interval)
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+        else:
+            return (True, &#34;Successfully completed absolute move at &#34; + str(position))
+
+    @check_serial
+    @check_initialized
+    @check_axis_num
+    def move_speed_relative(self, axis_number: int = 1, distance: Optional[float] = None, speed: Optional[float] = None) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        # #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+        # if not self._is_initialized:
+        #     return (False, &#34;ESP301 axes are not initialized.&#34;)
+        if distance is None:
+            return (False, &#34;Distance was not specified&#34;)
+        
+        if speed is None:
+            speed = self._default_speed
+
+        command = str(axis_number) + &#34;VA&#34; + str(speed) +&#34;\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        if distance &gt;= 0.0:
+            sign = &#34;+&#34;
+        else:
+            sign = &#34;-&#34;
+
+        # removed the WS command because it causes timeouts when checking if moving 
+        # command = str(axis_number) + &#34;PR&#34; + sign + str(abs(distance)) + &#34;;&#34; + str(axis_number) + &#34;WS\r&#34;
+        command = str(axis_number) + &#34;PR&#34; + sign + str(abs(distance)) + &#34;\r&#34;
+
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        while self.is_moving(axis_number):
+            time.sleep(self._poll_interval)
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+        else:
+            return (True, &#34;Successfully completed relative move by &#34; + str(distance))
+        
+
+    def is_axis_num_valid(self, axis_number: int) -&gt; bool:
+        if axis_number in self._axis_list:
+            return True
+        else:
+            return False
+    
+    # check axis num
+    @check_serial
+    @check_axis_num
+    def is_moving(self, axis_number: int = 1) -&gt; bool:
+        # if not self.ser.is_open:
+        #     return False
+        # else:
+        command = str(axis_number) + &#34;MD?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+            # motion is not done = is moving
+            return True
+        else:
+            # includes timeout case
+            return False
+
+    def is_any_moving(self) -&gt; bool:
+        is_moving_list = []
+        for ndx, axis_number in enumerate(self._axis_list):
+            command = str(axis_number) + &#34;MD?\r&#34;
+            self.ser.write(command.encode(&#39;ascii&#39;))
+            response = self.ser.readline()
+
+            if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+                is_moving_list.append(True)
+            else:
+                is_moving_list.append(False)
+
+        if any(is_moving_list):
+            return True
+        else: 
+            return False
+
+    @check_serial
+    def check_error(self) -&gt; Tuple[bool, str]:
+        # not needed for queries, but use when instructing to do something
+        
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+        command = &#34;TB?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response == b&#39;&#39;:
+            return (False, &#34;Response timed out.&#34;)
+        
+        response = response.strip().decode(&#39;ascii&#39;)
+
+        if response[0] == &#39;0&#39;:
+            return (True, &#34;No errors.&#34;)
+        else:
+            # flush the error buffer
+            for n in range(10):
+                self.ser.write(command.encode(&#39;ascii&#39;))
+                self.ser.readline()
+            # flush the serial input buffer
+            time.sleep(0.1)
+            self.ser.reset_input_buffer()
+            return (False, response)
+    
+    @check_serial
+    @check_axis_num
+    def position(self, axis_number: int = 1) -&gt; Tuple[bool, Union[str, float]]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+        command = str(axis_number) + &#34;TP\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        position_str = self.ser.readline()
+        if position_str == b&#39;&#39;:
+            return (False, &#34;Response timed out.&#34;)
+        else:    
+            return (True, float(position_str.strip().decode(&#39;ascii&#39;)))
+
+    @check_serial
+    @check_axis_num
+    def axis_on(self, axis_number: int = 1) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+        command = str(axis_number) + &#34;MO\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        command = str(axis_number) + &#34;MO?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response.strip().decode(&#39;ascii&#39;) == &#39;1&#39;:
+            return (True, &#34;Axis &#34; + str(axis_number) + &#34; motor successfully turned ON.&#34;)
+        else:
+            # also means timeout
+            return (False, &#34;Axis &#34; + str(axis_number) + &#34; motor failed to turned ON.&#34;)
+
+    @check_serial
+    @check_axis_num
+    def axis_off(self, axis_number: int = 1) -&gt; Tuple[bool, str]:
+        # if not self.ser.is_open:
+        #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+        # if not self.is_axis_num_valid(axis_number):
+        #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+        command = str(axis_number) + &#34;MF\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+
+        was_successful, message = self.check_error()
+        if not was_successful:
+            return (was_successful, message)
+
+        command = str(axis_number) + &#34;MF?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+            return (True, &#34;Axis &#34; + str(axis_number) + &#34; motor successfully turned OFF.&#34;)
+        else:
+            # also means timeout
+            return (False, &#34;Axis &#34; + str(axis_number) + &#34; motor failed to turned OFF.&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="Lab_Automation.devices.device.SerialDevice" href="device.html#Lab_Automation.devices.device.SerialDevice">SerialDevice</a></li>
+<li><a title="Lab_Automation.devices.device.Device" href="device.html#Lab_Automation.devices.device.Device">Device</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.default_speed"><code class="name">var <span class="ident">default_speed</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_speed(self) -&gt; float:
+    return self._default_speed</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.axis_off"><code class="name flex">
+<span>def <span class="ident">axis_off</span></span>(<span>self, axis_number: int = 1) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_axis_num
+def axis_off(self, axis_number: int = 1) -&gt; Tuple[bool, str]:
+    # if not self.ser.is_open:
+    #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+    # if not self.is_axis_num_valid(axis_number):
+    #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+    command = str(axis_number) + &#34;MF\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+
+    was_successful, message = self.check_error()
+    if not was_successful:
+        return (was_successful, message)
+
+    command = str(axis_number) + &#34;MF?\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    response = self.ser.readline()
+
+    if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+        return (True, &#34;Axis &#34; + str(axis_number) + &#34; motor successfully turned OFF.&#34;)
+    else:
+        # also means timeout
+        return (False, &#34;Axis &#34; + str(axis_number) + &#34; motor failed to turned OFF.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.axis_on"><code class="name flex">
+<span>def <span class="ident">axis_on</span></span>(<span>self, axis_number: int = 1) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_axis_num
+def axis_on(self, axis_number: int = 1) -&gt; Tuple[bool, str]:
+    # if not self.ser.is_open:
+    #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+    # if not self.is_axis_num_valid(axis_number):
+    #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+    command = str(axis_number) + &#34;MO\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+
+    was_successful, message = self.check_error()
+    if not was_successful:
+        return (was_successful, message)
+
+    command = str(axis_number) + &#34;MO?\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    response = self.ser.readline()
+
+    if response.strip().decode(&#39;ascii&#39;) == &#39;1&#39;:
+        return (True, &#34;Axis &#34; + str(axis_number) + &#34; motor successfully turned ON.&#34;)
+    else:
+        # also means timeout
+        return (False, &#34;Axis &#34; + str(axis_number) + &#34; motor failed to turned ON.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.check_error"><code class="name flex">
+<span>def <span class="ident">check_error</span></span>(<span>self) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+def check_error(self) -&gt; Tuple[bool, str]:
+    # not needed for queries, but use when instructing to do something
+    
+    # if not self.ser.is_open:
+    #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+    command = &#34;TB?\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    response = self.ser.readline()
+
+    if response == b&#39;&#39;:
+        return (False, &#34;Response timed out.&#34;)
+    
+    response = response.strip().decode(&#39;ascii&#39;)
+
+    if response[0] == &#39;0&#39;:
+        return (True, &#34;No errors.&#34;)
+    else:
+        # flush the error buffer
+        for n in range(10):
+            self.ser.write(command.encode(&#39;ascii&#39;))
+            self.ser.readline()
+        # flush the serial input buffer
+        time.sleep(0.1)
+        self.ser.reset_input_buffer()
+        return (False, response)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.home"><code class="name flex">
+<span>def <span class="ident">home</span></span>(<span>self, axis_number: int) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+def home(self, axis_number: int) -&gt; Tuple[bool, str]:
+    # if not self.ser.is_open:
+    #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+
+    command = str(axis_number) + &#34;OR4\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+
+    while self.is_any_moving():
+        time.sleep(self._poll_interval)
+    # pause one more time in case motor stopped moving but position has not been reset yet     
+    time.sleep(self._poll_interval)
+
+    was_successful, message = self.check_error()
+    if not was_successful:
+        return (was_successful, message)
+    else:
+        return (True, &#34;Successfully homed axes &#34; + str(axis_number))</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.is_any_moving"><code class="name flex">
+<span>def <span class="ident">is_any_moving</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_any_moving(self) -&gt; bool:
+    is_moving_list = []
+    for ndx, axis_number in enumerate(self._axis_list):
+        command = str(axis_number) + &#34;MD?\r&#34;
+        self.ser.write(command.encode(&#39;ascii&#39;))
+        response = self.ser.readline()
+
+        if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+            is_moving_list.append(True)
+        else:
+            is_moving_list.append(False)
+
+    if any(is_moving_list):
+        return True
+    else: 
+        return False</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.is_axis_num_valid"><code class="name flex">
+<span>def <span class="ident">is_axis_num_valid</span></span>(<span>self, axis_number: int) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_axis_num_valid(self, axis_number: int) -&gt; bool:
+    if axis_number in self._axis_list:
+        return True
+    else:
+        return False</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.is_moving"><code class="name flex">
+<span>def <span class="ident">is_moving</span></span>(<span>self, axis_number: int = 1) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_axis_num
+def is_moving(self, axis_number: int = 1) -&gt; bool:
+    # if not self.ser.is_open:
+    #     return False
+    # else:
+    command = str(axis_number) + &#34;MD?\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    response = self.ser.readline()
+
+    if response.strip().decode(&#39;ascii&#39;) == &#39;0&#39;:
+        # motion is not done = is moving
+        return True
+    else:
+        # includes timeout case
+        return False</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.move_speed_absolute"><code class="name flex">
+<span>def <span class="ident">move_speed_absolute</span></span>(<span>self, axis_number: int = 1, position: Optional[float] = None, speed: Optional[float] = None) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_initialized
+@check_axis_num
+def move_speed_absolute(self, axis_number: int = 1, position: Optional[float] = None, speed: Optional[float] = None) -&gt; Tuple[bool, str]:
+    # if not self.ser.is_open:
+    # #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+    # if not self.is_axis_num_valid(axis_number):
+    #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+    # if not self._is_initialized:
+    #     return (False, &#34;ESP301 axes are not initialized.&#34;)
+    
+    # I want axis number to be the first arg so the decorator can pick it up as arg[0]
+    # but I also want axis_number to have a default value of 1, so position needs a default value now
+    if position is None:
+        return (False, &#34;Position was not specified&#34;)
+
+    if speed is None:
+        speed = self._default_speed
+
+    command = str(axis_number) + &#34;VA&#34; + str(speed) +&#34;\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+
+    was_successful, message = self.check_error()
+    if not was_successful:
+        return (was_successful, message)
+
+    if position &gt;= 0.0:
+        sign = &#34;+&#34;
+    else:
+        sign = &#34;-&#34;
+
+    # removed the WS command because it causes timeouts when checking if moving 
+    # command = str(axis_number) + &#34;PA&#34; + sign + str(abs(position)) + &#34;;&#34; + str(axis_number) + &#34;WS\r&#34;
+    command = str(axis_number) + &#34;PA&#34; + sign + str(abs(position)) + &#34;\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+
+    while self.is_moving(axis_number):
+        time.sleep(self._poll_interval)
+
+    was_successful, message = self.check_error()
+    if not was_successful:
+        return (was_successful, message)
+    else:
+        return (True, &#34;Successfully completed absolute move at &#34; + str(position))</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.move_speed_relative"><code class="name flex">
+<span>def <span class="ident">move_speed_relative</span></span>(<span>self, axis_number: int = 1, distance: Optional[float] = None, speed: Optional[float] = None) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_initialized
+@check_axis_num
+def move_speed_relative(self, axis_number: int = 1, distance: Optional[float] = None, speed: Optional[float] = None) -&gt; Tuple[bool, str]:
+    # if not self.ser.is_open:
+    # #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+    # if not self.is_axis_num_valid(axis_number):
+    #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+    # if not self._is_initialized:
+    #     return (False, &#34;ESP301 axes are not initialized.&#34;)
+    if distance is None:
+        return (False, &#34;Distance was not specified&#34;)
+    
+    if speed is None:
+        speed = self._default_speed
+
+    command = str(axis_number) + &#34;VA&#34; + str(speed) +&#34;\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+
+    was_successful, message = self.check_error()
+    if not was_successful:
+        return (was_successful, message)
+
+    if distance &gt;= 0.0:
+        sign = &#34;+&#34;
+    else:
+        sign = &#34;-&#34;
+
+    # removed the WS command because it causes timeouts when checking if moving 
+    # command = str(axis_number) + &#34;PR&#34; + sign + str(abs(distance)) + &#34;;&#34; + str(axis_number) + &#34;WS\r&#34;
+    command = str(axis_number) + &#34;PR&#34; + sign + str(abs(distance)) + &#34;\r&#34;
+
+    self.ser.write(command.encode(&#39;ascii&#39;))
+
+    while self.is_moving(axis_number):
+        time.sleep(self._poll_interval)
+
+    was_successful, message = self.check_error()
+    if not was_successful:
+        return (was_successful, message)
+    else:
+        return (True, &#34;Successfully completed relative move by &#34; + str(distance))</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.devices.newport_esp301.NewportESP301.position"><code class="name flex">
+<span>def <span class="ident">position</span></span>(<span>self, axis_number: int = 1) ‑> Tuple[bool, Union[float, str]]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@check_serial
+@check_axis_num
+def position(self, axis_number: int = 1) -&gt; Tuple[bool, Union[str, float]]:
+    # if not self.ser.is_open:
+    #     return (False, &#34;Serial port &#34; + self._port + &#34; is not open. &#34;)
+    # if not self.is_axis_num_valid(axis_number):
+    #     return (False, &#34;Axis number is not valid or not part of passed tuple during construction.&#34;)
+
+    command = str(axis_number) + &#34;TP\r&#34;
+    self.ser.write(command.encode(&#39;ascii&#39;))
+    position_str = self.ser.readline()
+    if position_str == b&#39;&#39;:
+        return (False, &#34;Response timed out.&#34;)
+    else:    
+        return (True, float(position_str.strip().decode(&#39;ascii&#39;)))</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="Lab_Automation.devices.device.SerialDevice" href="device.html#Lab_Automation.devices.device.SerialDevice">SerialDevice</a></b></code>:
+<ul class="hlist">
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.deinitialize" href="device.html#Lab_Automation.devices.device.Device.deinitialize">deinitialize</a></code></li>
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.initialize" href="device.html#Lab_Automation.devices.device.Device.initialize">initialize</a></code></li>
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.is_initialized" href="device.html#Lab_Automation.devices.device.Device.is_initialized">is_initialized</a></code></li>
+<li><code><a title="Lab_Automation.devices.device.SerialDevice.start_serial" href="device.html#Lab_Automation.devices.device.SerialDevice.start_serial">start_serial</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Lab_Automation.devices" href="index.html">Lab_Automation.devices</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="Lab_Automation.devices.newport_esp301.check_axis_num" href="#Lab_Automation.devices.newport_esp301.check_axis_num">check_axis_num</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301" href="#Lab_Automation.devices.newport_esp301.NewportESP301">NewportESP301</a></code></h4>
+<ul class="two-column">
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.axis_off" href="#Lab_Automation.devices.newport_esp301.NewportESP301.axis_off">axis_off</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.axis_on" href="#Lab_Automation.devices.newport_esp301.NewportESP301.axis_on">axis_on</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.check_error" href="#Lab_Automation.devices.newport_esp301.NewportESP301.check_error">check_error</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.default_speed" href="#Lab_Automation.devices.newport_esp301.NewportESP301.default_speed">default_speed</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.home" href="#Lab_Automation.devices.newport_esp301.NewportESP301.home">home</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.is_any_moving" href="#Lab_Automation.devices.newport_esp301.NewportESP301.is_any_moving">is_any_moving</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.is_axis_num_valid" href="#Lab_Automation.devices.newport_esp301.NewportESP301.is_axis_num_valid">is_axis_num_valid</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.is_moving" href="#Lab_Automation.devices.newport_esp301.NewportESP301.is_moving">is_moving</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.move_speed_absolute" href="#Lab_Automation.devices.newport_esp301.NewportESP301.move_speed_absolute">move_speed_absolute</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.move_speed_relative" href="#Lab_Automation.devices.newport_esp301.NewportESP301.move_speed_relative">move_speed_relative</a></code></li>
+<li><code><a title="Lab_Automation.devices.newport_esp301.NewportESP301.position" href="#Lab_Automation.devices.newport_esp301.NewportESP301.position">position</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

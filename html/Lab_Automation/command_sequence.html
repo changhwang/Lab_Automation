@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Lab_Automation.command_sequence API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Lab_Automation.command_sequence</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from typing import Type, Optional, List, Union, Generator, Tuple
+from collections import Counter
+
+import yaml
+from yaml.representer import Representer
+from abc import ABCMeta
+
+from commands.command import Command
+from devices.device import Device
+from commands.utility_commands import LoopStartCommand, LoopEndCommand
+
+
+# Representer.add_representer(ABCMeta, Representer.represent_name)
+
+# Should move loop interpretation to invoker?
+# Make functional with yaml safe_load
+# reconsider add_commands functionality for list of commands
+
+class CommandSequence:
+    &#34;&#34;&#34;Maintains a command list with optional iterations and looping. Supports saving/loading.&#34;&#34;&#34;
+    recipe_directory = &#39;&#39;
+
+    def __init__(self):
+        self.device_list = []
+        self.command_list = []
+        self.num_iterations = &#39;ALL&#39;
+        # self.processed_devices = []
+        # self.processed_commands = []
+        # self.processed_delays = []
+        self.device_by_name = {}
+
+    def add_device(self, receiver: Device) -&gt; bool:
+        &#34;&#34;&#34;Add a device to the device list then update the device dict.
+
+        Parameters
+        ----------
+        receiver : Device
+            The device to add.
+
+        Returns
+        -------
+        bool
+            Whether the device was successfully added
+        &#34;&#34;&#34;
+
+        if receiver.name in self.device_by_name:
+            return False
+        else:
+            self.device_list.append(receiver)
+            self.update_device_by_name()
+            return True
+
+    def remove_device(self, receiver_name: str):
+        &#34;&#34;&#34;Remove a device from the device list then update the device dict.
+
+        Parameters
+        ----------
+        receiver_name : str
+            The name attribute of the device/receiver to remove.
+        &#34;&#34;&#34;
+        if receiver_name in self.device_by_name:
+            for ndx, device in enumerate(self.device_list):
+                if device.name == receiver_name:
+                    del self.device_list[ndx]
+                    self.update_device_by_name()
+                    break # Each device should have a unique name, always
+
+    def remove_device_by_index(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Remove a device from the device list by index then update the device dict.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the device to remove, If index is None remove the last device, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        del self.device_list[index]
+        self.update_device_by_name()
+
+    def add_command(self, command: Union[Command, List[Command]], index: Optional[int] = None):
+        &#34;&#34;&#34;Add a command to the command list.
+
+        Parameters
+        ----------
+        command : Union[Command, List[Command]]
+            A command or a list of commands to add at the index, If a list is passed then the list corresponds to multiple iterations of the command at the index.
+        index : Optional[int], optional
+            The index to insert the command, If None then appends the command, by default None
+        &#34;&#34;&#34;
+        if not isinstance(command, list):
+            command = [command]
+        if index is None:
+            self.command_list.append(command)
+        else:
+            self.command_list.insert(index, command)
+    
+    def remove_command(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Remove a command from the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the command to remove, If None the remove the last command, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        del self.command_list[index]
+
+    def move_command_by_index(self, old_index: int, new_index: int):
+        &#34;&#34;&#34;Move the command or command iterations to a different index in the command list.
+
+        Parameters
+        ----------
+        old_index : int
+            The index of the command(s) to move
+        new_index : int
+            The index to move the command(s) to
+        &#34;&#34;&#34;
+        if old_index &gt;= 0 and old_index &lt;= len(self.command_list) - 1 and new_index &gt;= 0 and new_index &lt;= len(self.command_list) - 1:
+            if old_index != new_index:
+                self.command_list.insert(new_index, self.command_list.pop(old_index))
+        else:
+            print(&#34;Invalid indices&#34;)
+
+    def add_loop_start(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Add a LoopStartCommand to the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index to insert the command, If None then append the command, by default None
+        &#34;&#34;&#34;
+        self.add_command(LoopStartCommand(), index)
+
+    def add_loop_end(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Add a LoopEndCommand to the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index to insert the command, If None then append the command, by default None
+        &#34;&#34;&#34;
+        self.add_command(LoopEndCommand(), index)
+
+    def add_command_iteration(self, command: Union[Command, List[Command]], index: Optional[int] = None, iteration: Optional[int] = None):
+        &#34;&#34;&#34;Add command(s) as iterations to a pre-existing command in the command list.
+
+        Parameters
+        ----------
+        command : Union[Command, List[Command]]
+            The command or list of commands to add as iterations
+        index : Optional[int], optional
+            The index of the pre-existing command to add iterations to, If None then adds to the last command, by default None
+        iteration : Optional[int], optional
+            The iteration index to add the command(s) at, by default None
+        &#34;&#34;&#34;
+        if not isinstance(command, list):
+            command = [command]
+        if index is None:
+            index = -1
+        if iteration is None:
+            # add to end of iteration list
+            self.command_list[index].extend(command)
+        else:
+            # insert at specific iteration index
+            for ndx in range(len(command)):
+                self.command_list[index].insert(iteration, command.pop(-1))
+
+    def remove_command_iteration(self, index: Optional[int] = None, iteration: Optional[int] = None):
+        &#34;&#34;&#34;Remove a command iteration from a command&#39;s iteration list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the command to remove an iteration from, if None then removes from the last command, by default None
+        iteration : Optional[int], optional
+            The iteration index of the command iteration to remove, if None then removes the last iteration, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        if iteration is None:
+            iteration = -1
+        del self.command_list[index][iteration]
+
+    def move_command_iteration_by_index(self, index: int, old_iter: int, new_iter: int):
+        &#34;&#34;&#34;Move a command iteration to a different index in the command&#39;s iteration list.
+
+        Parameters
+        ----------
+        index : int
+            The index of the command to move around one if it&#39;s iterations
+        old_iter : int
+            The iteration index of the iteration to move
+        new_iter : int
+            The new iteration index to move the iteration to
+        &#34;&#34;&#34;
+        if old_iter &gt;= 0 and old_iter &lt;= len(self.command_list[index]) - 1 and new_iter &gt;= 0 and new_iter &lt;= len(self.command_list[index]) - 1:
+            if old_iter != new_iter:
+                self.command_list[index].insert(new_iter, self.command_list[index].pop(old_iter))
+        else:
+            print(&#34;Invalid indices&#34;)
+
+    def verify_device_list(self) -&gt; Tuple[bool, str]:
+        &#34;&#34;&#34;Checks that the device list does not have duplicate named devices.
+
+        Returns
+        -------
+        Tuple[bool, str]
+            Whether the device list is valid, Duplicate device names
+        &#34;&#34;&#34;
+        # each device must be unique (by name attribute)
+        # Duplicates are prevented by the add_device method, but still possible if a .yaml file is manually edited
+        device_names = []
+        dupes = []
+        for device in self.device_list:
+            device_names.append(device.name)
+        for name, count in Counter(device_names).items():
+            if count &gt; 1:
+                dupes.append(name)
+        if len(dupes) &gt; 0:
+            return False, &#34;Duplicates: &#34; + str(dupes)
+        else:
+            return True, &#34;&#34;
+
+    def verify_command_list(self) -&gt; Tuple[bool, str]:
+        &#34;&#34;&#34;Checks that any looping in the command list is valid.
+
+        Returns
+        -------
+        Tuple[bool, str]
+            Whether the command list is valid, Message describing problem if not valid
+        &#34;&#34;&#34;
+        # Important Note!: So far, this doesn&#39;t consider composite commands since they can hide away other commands which may break the entire recipe
+        # One way is to unwrap the composite command, but keep in mind since composite commands behave like commands, this means a composite command
+        # can have composite commands. Therefore, composite commands can be arbitrarily deep and can potentially be recursive, causing an infinite loop
+        
+        # iteration lists must have commands of same class? Not necessarily. Currently not enforced
+        loop_start_location = []
+        loop_end_location = []
+        for index, command_iters in enumerate(self.command_list):
+            for iter_index, command in enumerate(command_iters):
+                if isinstance(command, LoopStartCommand):
+                    loop_start_location.append([index, iter_index])
+                elif isinstance(command, LoopEndCommand):
+                    loop_end_location.append([index, iter_index])
+
+        if len(loop_start_location) &gt; 1:
+            return False, &#34;There can only be one loop start&#34;
+        if len(loop_end_location) &gt; 1:
+            return False, &#34;There can only be one loop end&#34;
+  
+        if len(loop_start_location) != len(loop_end_location):
+            return False, &#34;There must either be no loop start/end or exactly one of each&#34;
+        
+        if len(loop_start_location) &gt; 0:
+            if len(self.command_list[loop_start_location[0][0]]) &gt; 1:
+                return False, &#34;Loop start command can not have additional iterations&#34;
+        if len(loop_end_location) &gt; 0:
+            if len(self.command_list[loop_end_location[0][0]]) &gt; 1:
+                return False, &#34;Loop end command can not have additional iterations&#34;
+
+        if len(loop_start_location) &gt; 0 and len(loop_end_location) &gt; 0:
+            if loop_start_location[0] &gt; loop_end_location[0]:
+                return False, &#34;Loop end must be after loop start&#34;
+
+        return True, &#34;&#34;
+
+    def verify_num_iterations(self) -&gt; Tuple[bool, str]:
+        # Could also raise Value and Type Errors here
+        if isinstance(self.num_iterations, str):
+            if self.num_iterations == &#34;ALL&#34;:
+                return True, &#34;&#34;
+            else:
+                return False, &#34;num_iterations invalid value&#34;
+        elif isinstance(self.num_iterations, int):
+            if self.num_iterations &gt;= 1:
+                return True, &#34;&#34;
+            else:
+                return False, &#34;num_iterations invalid value&#34;
+        else:
+            return False, &#34;num_iterations invalid type&#34;
+
+    def verify(self) -&gt; Tuple[bool, str]:
+        &#34;&#34;&#34;Verify devices, commands, and num_iterations
+
+        Returns
+        -------
+        Tuple[bool, str]
+            [description]
+        &#34;&#34;&#34;
+        is_valid, message = self.verify_device_list()
+        if not is_valid:
+            return (is_valid, message)
+        is_valid, message = self.verify_command_list()
+        if not is_valid:
+            return (is_valid, message)
+        is_valid, message = self.verify_num_iterations()
+        if not is_valid:
+            return (is_valid, message)
+        return True, &#34;All checks passed&#34;  
+
+    def update_device_by_name(self):
+        &#34;&#34;&#34;Update the device dict that stores each device/receiver by it&#39;s name.&#34;&#34;&#34;
+
+        self.device_by_name = {}
+        for device in self.device_list:
+            self.device_by_name[device.name] = device
+
+    def get_unlooped_command_list(self) -&gt; List[Command]:
+        &#34;&#34;&#34;Get the full unlooped command list by pre-evaluating any loops.
+
+        Returns
+        -------
+        List[Command]
+            The unlooped command list
+        &#34;&#34;&#34;
+        unlooped_list= []
+        command_generator = self.yield_next_command()
+        for command in command_generator:
+            if not isinstance(command, Command):
+                break
+            unlooped_list.append(command)
+        return unlooped_list      
+
+    def yield_next_command(self) -&gt; Generator[Union[Command, Tuple[bool, str]], None, None]:
+        &#34;&#34;&#34;A generator that yields each command sequentially, accounting for loops.
+
+        Yields
+        -------
+        Generator[Union[Command, Tuple[bool, str]], None, None]
+            Generator that yields the next command, or a tuple of (False, error message) if there is a problem with the command sequence
+        &#34;&#34;&#34;
+        # originally used this function to pre-process the whole unlooped list
+        # changed to generator that yields next command
+        # if the whole unlooped list is wanted then get_unlooped_command_list uses this function to populate a list
+        # generator is likely unnecessary but have both methods here for flexibility
+
+        # Verify the command list before proceeding
+        # Could consider returning/yield a utility Fail command that &#39;returns&#39; false on execute and accepts a string error message to put into its result
+        # This would stop the invoker but not necessarily other uses of this method
+        is_valid, message = self.verify()
+        if not is_valid:
+            yield (is_valid, message)
+            return
+
+        index = 0
+        iteration = 0
+        loop_start_index = None
+        if self.num_iterations == &#39;ALL&#39;:
+            max_iterations = self.get_max_iteration()
+        else:
+            max_iterations = self.num_iterations
+
+        while index &lt; len(self.command_list):
+            # Get the command at the current index and iteration
+            # if current iteration is larger than the number of the current command&#39;s iterations then use the last one
+            if iteration &gt; len(self.command_list[index]) - 1:
+                command = self.command_list[index][-1]
+            else:
+                command = self.command_list[index][iteration]
+            
+            if isinstance(command, LoopStartCommand):
+                loop_start_index = index
+                index += 1
+                continue
+
+            if isinstance(command, LoopEndCommand):
+                iteration += 1
+                if iteration &lt; max_iterations:
+                    index = loop_start_index + 1
+                    continue
+                else:
+                    iteration = 0
+                    index += 1
+                    continue
+            yield command
+            index += 1
+
+    def get_max_iteration(self) -&gt; int:
+        &#34;&#34;&#34;Gets the length of the largest command iteration list.
+
+        Returns
+        -------
+        int
+            The largest iteration length
+        &#34;&#34;&#34;
+        max_iter = 1
+        for command in self.command_list:
+            if len(command) &gt; max_iter:
+                max_iter = len(command)
+        return max_iter
+
+    def save_to_yaml(self, filename: str):
+        &#34;&#34;&#34;Save the device_list, command_list, and num_iterations to a .yaml file.
+
+        Parameters
+        ----------
+        filename : str
+            The filename of the .yaml to save to
+        &#34;&#34;&#34;
+        filename = self.recipe_directory + filename
+        data_list = [self.device_list, self.command_list, self.num_iterations]
+        with open(filename, &#39;w&#39;) as file:
+            yaml.dump(data_list, file, default_flow_style=False, sort_keys=False)
+
+    def load_from_yaml(self, filename: str):
+        &#34;&#34;&#34;Load the device_list, command_list, and num_iterations from a .yaml file.
+
+        Parameters
+        ----------
+        filename : str
+            The filename of the .yaml to load from
+        &#34;&#34;&#34;
+        filename = self.recipe_directory + filename
+        with open(filename) as file:
+            # not safe loader
+            imported_list = yaml.load(file, Loader=yaml.Loader)
+            self.device_list = imported_list[0]
+            self.command_list = imported_list[1]
+            self.num_iterations = imported_list[2]
+            self.update_device_by_name()
+
+    # Functions for getting and printing info about the sequence
+    def get_command_names(self, unloop: bool = False) -&gt; List[str]:
+        &#34;&#34;&#34;Get a list of command names, either with a loop or unlooped.
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to have the list unlooped or not, by default False
+
+        Returns
+        -------
+        List[str]
+            The list of command names 
+        &#34;&#34;&#34;
+        name_list = []
+        if unloop:
+            for command in self.yield_next_command():
+                name_list.append(command.name)
+        else:
+            for command in self.command_list:
+                for iter_ndx, iter_command in enumerate(command):
+                    if iter_ndx == 0:
+                        name_list.append(iter_command.name)
+                    else:
+                        name_list.append(&#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + iter_command.name)
+        return name_list
+
+    def get_command_names_descriptions(self, unloop: bool = False) -&gt; List[List[str]]:
+        &#34;&#34;&#34;Get a list of [command names, command descriptions] either with a loop or unlooped.
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to have the list unlooped or not, by default False
+
+        Returns
+        -------
+        List[List[str]]
+            The list of [command names, command descriptions] 
+        &#34;&#34;&#34;
+        name_desc_list = []
+        if unloop:
+            for command in self.yield_next_command():
+                name_desc_list.append([&#34;Name: &#34; + command.name, &#34;Description: &#34; + command.description])
+        else:
+            for command in self.command_list:
+                for iter_ndx, iter_command in enumerate(command):
+                    if iter_ndx == 0:
+                        name_desc_list.append([&#34;Name: &#34; + iter_command.name, &#34;Description: &#34; + iter_command.description])
+                    else:
+                        name_desc_list.append([&#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + &#34;Name: &#34; + iter_command.name,
+                                                 &#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + &#34;Description: &#34; + iter_command.description])
+        return name_desc_list
+
+    def print_command_names(self):
+        &#34;&#34;&#34;Print the command names with any loop.&#34;&#34;&#34;
+        for name in self.get_command_names(unloop=False):
+            print(name)
+    
+    def print_unlooped_command_names(self):
+        &#34;&#34;&#34;Print the command names unlooped.&#34;&#34;&#34;
+        for name in self.get_command_names(unloop=True):
+            print(name)
+
+    def print_command_names_descriptions(self):
+        &#34;&#34;&#34;Print the command names and descriptions with any loop.&#34;&#34;&#34;
+        for name_desc in self.get_command_names_descriptions(unloop=False):
+            print(name_desc[0])
+            print(name_desc[1])
+
+    def print_unlooped_command_names_descriptions(self):
+        &#34;&#34;&#34;Print the command names and descriptions unlooped.&#34;&#34;&#34;
+        for name_desc in self.get_command_names_descriptions(unloop=True):
+            print(name_desc[0])
+            print(name_desc[1])
+    
+    def get_device_names_classes(self) -&gt; List[List[str]]:
+        name_cls_list = []
+        for device in self.device_list:
+            name_cls_list.append([device.name, device.__class__.__name__])
+        return name_cls_list
+
+    def count_loop_commands(self) -&gt; int:
+        loop_marker_count = 0
+        for index, command_iters in enumerate(self.command_list):
+            for iter_index, command in enumerate(command_iters):
+                if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                    loop_marker_count += 1
+        return loop_marker_count
+
+    def remove_all_loop_commands(self):
+        # iterates through 2 dimensions, if it finds a loop command it deletes it and starts over until there are no more
+        # starting over is slower but don&#39;t have to deal with index shifting in 2 dimensions
+        # if 1 dimension then can use reverse sort method
+        while self.count_loop_commands() != 0:
+            for index, command_iters in enumerate(self.command_list):
+                for iter_index, command in enumerate(command_iters):
+                    if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                        # delete the command
+                        del self.command_list[index][iter_index]
+                        if len(self.command_list[index]) == 0:
+                            del self.command_list[index]
+                        # break inner loop
+                        break
+                else:
+                    # if not loop found then continue
+                    continue
+                # if inner broke, then break outer loop to start over
+                # https://stackoverflow.com/questions/189645/how-to-break-out-of-multiple-loops
+                break</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Lab_Automation.command_sequence.CommandSequence"><code class="flex name class">
+<span>class <span class="ident">CommandSequence</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Maintains a command list with optional iterations and looping. Supports saving/loading.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommandSequence:
+    &#34;&#34;&#34;Maintains a command list with optional iterations and looping. Supports saving/loading.&#34;&#34;&#34;
+    recipe_directory = &#39;&#39;
+
+    def __init__(self):
+        self.device_list = []
+        self.command_list = []
+        self.num_iterations = &#39;ALL&#39;
+        # self.processed_devices = []
+        # self.processed_commands = []
+        # self.processed_delays = []
+        self.device_by_name = {}
+
+    def add_device(self, receiver: Device) -&gt; bool:
+        &#34;&#34;&#34;Add a device to the device list then update the device dict.
+
+        Parameters
+        ----------
+        receiver : Device
+            The device to add.
+
+        Returns
+        -------
+        bool
+            Whether the device was successfully added
+        &#34;&#34;&#34;
+
+        if receiver.name in self.device_by_name:
+            return False
+        else:
+            self.device_list.append(receiver)
+            self.update_device_by_name()
+            return True
+
+    def remove_device(self, receiver_name: str):
+        &#34;&#34;&#34;Remove a device from the device list then update the device dict.
+
+        Parameters
+        ----------
+        receiver_name : str
+            The name attribute of the device/receiver to remove.
+        &#34;&#34;&#34;
+        if receiver_name in self.device_by_name:
+            for ndx, device in enumerate(self.device_list):
+                if device.name == receiver_name:
+                    del self.device_list[ndx]
+                    self.update_device_by_name()
+                    break # Each device should have a unique name, always
+
+    def remove_device_by_index(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Remove a device from the device list by index then update the device dict.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the device to remove, If index is None remove the last device, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        del self.device_list[index]
+        self.update_device_by_name()
+
+    def add_command(self, command: Union[Command, List[Command]], index: Optional[int] = None):
+        &#34;&#34;&#34;Add a command to the command list.
+
+        Parameters
+        ----------
+        command : Union[Command, List[Command]]
+            A command or a list of commands to add at the index, If a list is passed then the list corresponds to multiple iterations of the command at the index.
+        index : Optional[int], optional
+            The index to insert the command, If None then appends the command, by default None
+        &#34;&#34;&#34;
+        if not isinstance(command, list):
+            command = [command]
+        if index is None:
+            self.command_list.append(command)
+        else:
+            self.command_list.insert(index, command)
+    
+    def remove_command(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Remove a command from the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the command to remove, If None the remove the last command, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        del self.command_list[index]
+
+    def move_command_by_index(self, old_index: int, new_index: int):
+        &#34;&#34;&#34;Move the command or command iterations to a different index in the command list.
+
+        Parameters
+        ----------
+        old_index : int
+            The index of the command(s) to move
+        new_index : int
+            The index to move the command(s) to
+        &#34;&#34;&#34;
+        if old_index &gt;= 0 and old_index &lt;= len(self.command_list) - 1 and new_index &gt;= 0 and new_index &lt;= len(self.command_list) - 1:
+            if old_index != new_index:
+                self.command_list.insert(new_index, self.command_list.pop(old_index))
+        else:
+            print(&#34;Invalid indices&#34;)
+
+    def add_loop_start(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Add a LoopStartCommand to the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index to insert the command, If None then append the command, by default None
+        &#34;&#34;&#34;
+        self.add_command(LoopStartCommand(), index)
+
+    def add_loop_end(self, index: Optional[int] = None):
+        &#34;&#34;&#34;Add a LoopEndCommand to the command list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index to insert the command, If None then append the command, by default None
+        &#34;&#34;&#34;
+        self.add_command(LoopEndCommand(), index)
+
+    def add_command_iteration(self, command: Union[Command, List[Command]], index: Optional[int] = None, iteration: Optional[int] = None):
+        &#34;&#34;&#34;Add command(s) as iterations to a pre-existing command in the command list.
+
+        Parameters
+        ----------
+        command : Union[Command, List[Command]]
+            The command or list of commands to add as iterations
+        index : Optional[int], optional
+            The index of the pre-existing command to add iterations to, If None then adds to the last command, by default None
+        iteration : Optional[int], optional
+            The iteration index to add the command(s) at, by default None
+        &#34;&#34;&#34;
+        if not isinstance(command, list):
+            command = [command]
+        if index is None:
+            index = -1
+        if iteration is None:
+            # add to end of iteration list
+            self.command_list[index].extend(command)
+        else:
+            # insert at specific iteration index
+            for ndx in range(len(command)):
+                self.command_list[index].insert(iteration, command.pop(-1))
+
+    def remove_command_iteration(self, index: Optional[int] = None, iteration: Optional[int] = None):
+        &#34;&#34;&#34;Remove a command iteration from a command&#39;s iteration list.
+
+        Parameters
+        ----------
+        index : Optional[int], optional
+            The index of the command to remove an iteration from, if None then removes from the last command, by default None
+        iteration : Optional[int], optional
+            The iteration index of the command iteration to remove, if None then removes the last iteration, by default None
+        &#34;&#34;&#34;
+        if index is None:
+            index = -1
+        if iteration is None:
+            iteration = -1
+        del self.command_list[index][iteration]
+
+    def move_command_iteration_by_index(self, index: int, old_iter: int, new_iter: int):
+        &#34;&#34;&#34;Move a command iteration to a different index in the command&#39;s iteration list.
+
+        Parameters
+        ----------
+        index : int
+            The index of the command to move around one if it&#39;s iterations
+        old_iter : int
+            The iteration index of the iteration to move
+        new_iter : int
+            The new iteration index to move the iteration to
+        &#34;&#34;&#34;
+        if old_iter &gt;= 0 and old_iter &lt;= len(self.command_list[index]) - 1 and new_iter &gt;= 0 and new_iter &lt;= len(self.command_list[index]) - 1:
+            if old_iter != new_iter:
+                self.command_list[index].insert(new_iter, self.command_list[index].pop(old_iter))
+        else:
+            print(&#34;Invalid indices&#34;)
+
+    def verify_device_list(self) -&gt; Tuple[bool, str]:
+        &#34;&#34;&#34;Checks that the device list does not have duplicate named devices.
+
+        Returns
+        -------
+        Tuple[bool, str]
+            Whether the device list is valid, Duplicate device names
+        &#34;&#34;&#34;
+        # each device must be unique (by name attribute)
+        # Duplicates are prevented by the add_device method, but still possible if a .yaml file is manually edited
+        device_names = []
+        dupes = []
+        for device in self.device_list:
+            device_names.append(device.name)
+        for name, count in Counter(device_names).items():
+            if count &gt; 1:
+                dupes.append(name)
+        if len(dupes) &gt; 0:
+            return False, &#34;Duplicates: &#34; + str(dupes)
+        else:
+            return True, &#34;&#34;
+
+    def verify_command_list(self) -&gt; Tuple[bool, str]:
+        &#34;&#34;&#34;Checks that any looping in the command list is valid.
+
+        Returns
+        -------
+        Tuple[bool, str]
+            Whether the command list is valid, Message describing problem if not valid
+        &#34;&#34;&#34;
+        # Important Note!: So far, this doesn&#39;t consider composite commands since they can hide away other commands which may break the entire recipe
+        # One way is to unwrap the composite command, but keep in mind since composite commands behave like commands, this means a composite command
+        # can have composite commands. Therefore, composite commands can be arbitrarily deep and can potentially be recursive, causing an infinite loop
+        
+        # iteration lists must have commands of same class? Not necessarily. Currently not enforced
+        loop_start_location = []
+        loop_end_location = []
+        for index, command_iters in enumerate(self.command_list):
+            for iter_index, command in enumerate(command_iters):
+                if isinstance(command, LoopStartCommand):
+                    loop_start_location.append([index, iter_index])
+                elif isinstance(command, LoopEndCommand):
+                    loop_end_location.append([index, iter_index])
+
+        if len(loop_start_location) &gt; 1:
+            return False, &#34;There can only be one loop start&#34;
+        if len(loop_end_location) &gt; 1:
+            return False, &#34;There can only be one loop end&#34;
+  
+        if len(loop_start_location) != len(loop_end_location):
+            return False, &#34;There must either be no loop start/end or exactly one of each&#34;
+        
+        if len(loop_start_location) &gt; 0:
+            if len(self.command_list[loop_start_location[0][0]]) &gt; 1:
+                return False, &#34;Loop start command can not have additional iterations&#34;
+        if len(loop_end_location) &gt; 0:
+            if len(self.command_list[loop_end_location[0][0]]) &gt; 1:
+                return False, &#34;Loop end command can not have additional iterations&#34;
+
+        if len(loop_start_location) &gt; 0 and len(loop_end_location) &gt; 0:
+            if loop_start_location[0] &gt; loop_end_location[0]:
+                return False, &#34;Loop end must be after loop start&#34;
+
+        return True, &#34;&#34;
+
+    def verify_num_iterations(self) -&gt; Tuple[bool, str]:
+        # Could also raise Value and Type Errors here
+        if isinstance(self.num_iterations, str):
+            if self.num_iterations == &#34;ALL&#34;:
+                return True, &#34;&#34;
+            else:
+                return False, &#34;num_iterations invalid value&#34;
+        elif isinstance(self.num_iterations, int):
+            if self.num_iterations &gt;= 1:
+                return True, &#34;&#34;
+            else:
+                return False, &#34;num_iterations invalid value&#34;
+        else:
+            return False, &#34;num_iterations invalid type&#34;
+
+    def verify(self) -&gt; Tuple[bool, str]:
+        &#34;&#34;&#34;Verify devices, commands, and num_iterations
+
+        Returns
+        -------
+        Tuple[bool, str]
+            [description]
+        &#34;&#34;&#34;
+        is_valid, message = self.verify_device_list()
+        if not is_valid:
+            return (is_valid, message)
+        is_valid, message = self.verify_command_list()
+        if not is_valid:
+            return (is_valid, message)
+        is_valid, message = self.verify_num_iterations()
+        if not is_valid:
+            return (is_valid, message)
+        return True, &#34;All checks passed&#34;  
+
+    def update_device_by_name(self):
+        &#34;&#34;&#34;Update the device dict that stores each device/receiver by it&#39;s name.&#34;&#34;&#34;
+
+        self.device_by_name = {}
+        for device in self.device_list:
+            self.device_by_name[device.name] = device
+
+    def get_unlooped_command_list(self) -&gt; List[Command]:
+        &#34;&#34;&#34;Get the full unlooped command list by pre-evaluating any loops.
+
+        Returns
+        -------
+        List[Command]
+            The unlooped command list
+        &#34;&#34;&#34;
+        unlooped_list= []
+        command_generator = self.yield_next_command()
+        for command in command_generator:
+            if not isinstance(command, Command):
+                break
+            unlooped_list.append(command)
+        return unlooped_list      
+
+    def yield_next_command(self) -&gt; Generator[Union[Command, Tuple[bool, str]], None, None]:
+        &#34;&#34;&#34;A generator that yields each command sequentially, accounting for loops.
+
+        Yields
+        -------
+        Generator[Union[Command, Tuple[bool, str]], None, None]
+            Generator that yields the next command, or a tuple of (False, error message) if there is a problem with the command sequence
+        &#34;&#34;&#34;
+        # originally used this function to pre-process the whole unlooped list
+        # changed to generator that yields next command
+        # if the whole unlooped list is wanted then get_unlooped_command_list uses this function to populate a list
+        # generator is likely unnecessary but have both methods here for flexibility
+
+        # Verify the command list before proceeding
+        # Could consider returning/yield a utility Fail command that &#39;returns&#39; false on execute and accepts a string error message to put into its result
+        # This would stop the invoker but not necessarily other uses of this method
+        is_valid, message = self.verify()
+        if not is_valid:
+            yield (is_valid, message)
+            return
+
+        index = 0
+        iteration = 0
+        loop_start_index = None
+        if self.num_iterations == &#39;ALL&#39;:
+            max_iterations = self.get_max_iteration()
+        else:
+            max_iterations = self.num_iterations
+
+        while index &lt; len(self.command_list):
+            # Get the command at the current index and iteration
+            # if current iteration is larger than the number of the current command&#39;s iterations then use the last one
+            if iteration &gt; len(self.command_list[index]) - 1:
+                command = self.command_list[index][-1]
+            else:
+                command = self.command_list[index][iteration]
+            
+            if isinstance(command, LoopStartCommand):
+                loop_start_index = index
+                index += 1
+                continue
+
+            if isinstance(command, LoopEndCommand):
+                iteration += 1
+                if iteration &lt; max_iterations:
+                    index = loop_start_index + 1
+                    continue
+                else:
+                    iteration = 0
+                    index += 1
+                    continue
+            yield command
+            index += 1
+
+    def get_max_iteration(self) -&gt; int:
+        &#34;&#34;&#34;Gets the length of the largest command iteration list.
+
+        Returns
+        -------
+        int
+            The largest iteration length
+        &#34;&#34;&#34;
+        max_iter = 1
+        for command in self.command_list:
+            if len(command) &gt; max_iter:
+                max_iter = len(command)
+        return max_iter
+
+    def save_to_yaml(self, filename: str):
+        &#34;&#34;&#34;Save the device_list, command_list, and num_iterations to a .yaml file.
+
+        Parameters
+        ----------
+        filename : str
+            The filename of the .yaml to save to
+        &#34;&#34;&#34;
+        filename = self.recipe_directory + filename
+        data_list = [self.device_list, self.command_list, self.num_iterations]
+        with open(filename, &#39;w&#39;) as file:
+            yaml.dump(data_list, file, default_flow_style=False, sort_keys=False)
+
+    def load_from_yaml(self, filename: str):
+        &#34;&#34;&#34;Load the device_list, command_list, and num_iterations from a .yaml file.
+
+        Parameters
+        ----------
+        filename : str
+            The filename of the .yaml to load from
+        &#34;&#34;&#34;
+        filename = self.recipe_directory + filename
+        with open(filename) as file:
+            # not safe loader
+            imported_list = yaml.load(file, Loader=yaml.Loader)
+            self.device_list = imported_list[0]
+            self.command_list = imported_list[1]
+            self.num_iterations = imported_list[2]
+            self.update_device_by_name()
+
+    # Functions for getting and printing info about the sequence
+    def get_command_names(self, unloop: bool = False) -&gt; List[str]:
+        &#34;&#34;&#34;Get a list of command names, either with a loop or unlooped.
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to have the list unlooped or not, by default False
+
+        Returns
+        -------
+        List[str]
+            The list of command names 
+        &#34;&#34;&#34;
+        name_list = []
+        if unloop:
+            for command in self.yield_next_command():
+                name_list.append(command.name)
+        else:
+            for command in self.command_list:
+                for iter_ndx, iter_command in enumerate(command):
+                    if iter_ndx == 0:
+                        name_list.append(iter_command.name)
+                    else:
+                        name_list.append(&#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + iter_command.name)
+        return name_list
+
+    def get_command_names_descriptions(self, unloop: bool = False) -&gt; List[List[str]]:
+        &#34;&#34;&#34;Get a list of [command names, command descriptions] either with a loop or unlooped.
+
+        Parameters
+        ----------
+        unloop : bool, optional
+            Whether to have the list unlooped or not, by default False
+
+        Returns
+        -------
+        List[List[str]]
+            The list of [command names, command descriptions] 
+        &#34;&#34;&#34;
+        name_desc_list = []
+        if unloop:
+            for command in self.yield_next_command():
+                name_desc_list.append([&#34;Name: &#34; + command.name, &#34;Description: &#34; + command.description])
+        else:
+            for command in self.command_list:
+                for iter_ndx, iter_command in enumerate(command):
+                    if iter_ndx == 0:
+                        name_desc_list.append([&#34;Name: &#34; + iter_command.name, &#34;Description: &#34; + iter_command.description])
+                    else:
+                        name_desc_list.append([&#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + &#34;Name: &#34; + iter_command.name,
+                                                 &#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + &#34;Description: &#34; + iter_command.description])
+        return name_desc_list
+
+    def print_command_names(self):
+        &#34;&#34;&#34;Print the command names with any loop.&#34;&#34;&#34;
+        for name in self.get_command_names(unloop=False):
+            print(name)
+    
+    def print_unlooped_command_names(self):
+        &#34;&#34;&#34;Print the command names unlooped.&#34;&#34;&#34;
+        for name in self.get_command_names(unloop=True):
+            print(name)
+
+    def print_command_names_descriptions(self):
+        &#34;&#34;&#34;Print the command names and descriptions with any loop.&#34;&#34;&#34;
+        for name_desc in self.get_command_names_descriptions(unloop=False):
+            print(name_desc[0])
+            print(name_desc[1])
+
+    def print_unlooped_command_names_descriptions(self):
+        &#34;&#34;&#34;Print the command names and descriptions unlooped.&#34;&#34;&#34;
+        for name_desc in self.get_command_names_descriptions(unloop=True):
+            print(name_desc[0])
+            print(name_desc[1])
+    
+    def get_device_names_classes(self) -&gt; List[List[str]]:
+        name_cls_list = []
+        for device in self.device_list:
+            name_cls_list.append([device.name, device.__class__.__name__])
+        return name_cls_list
+
+    def count_loop_commands(self) -&gt; int:
+        loop_marker_count = 0
+        for index, command_iters in enumerate(self.command_list):
+            for iter_index, command in enumerate(command_iters):
+                if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                    loop_marker_count += 1
+        return loop_marker_count
+
+    def remove_all_loop_commands(self):
+        # iterates through 2 dimensions, if it finds a loop command it deletes it and starts over until there are no more
+        # starting over is slower but don&#39;t have to deal with index shifting in 2 dimensions
+        # if 1 dimension then can use reverse sort method
+        while self.count_loop_commands() != 0:
+            for index, command_iters in enumerate(self.command_list):
+                for iter_index, command in enumerate(command_iters):
+                    if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                        # delete the command
+                        del self.command_list[index][iter_index]
+                        if len(self.command_list[index]) == 0:
+                            del self.command_list[index]
+                        # break inner loop
+                        break
+                else:
+                    # if not loop found then continue
+                    continue
+                # if inner broke, then break outer loop to start over
+                # https://stackoverflow.com/questions/189645/how-to-break-out-of-multiple-loops
+                break</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="Lab_Automation.command_sequence.CommandSequence.recipe_directory"><code class="name">var <span class="ident">recipe_directory</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="Lab_Automation.command_sequence.CommandSequence.add_command"><code class="name flex">
+<span>def <span class="ident">add_command</span></span>(<span>self, command: Union[commands.command.Command, List[commands.command.Command]], index: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a command to the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>command</code></strong> :&ensp;<code>Union[Command, List[Command]]</code></dt>
+<dd>A command or a list of commands to add at the index, If a list is passed then the list corresponds to multiple iterations of the command at the index.</dd>
+<dt><strong><code>index</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The index to insert the command, If None then appends the command, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_command(self, command: Union[Command, List[Command]], index: Optional[int] = None):
+    &#34;&#34;&#34;Add a command to the command list.
+
+    Parameters
+    ----------
+    command : Union[Command, List[Command]]
+        A command or a list of commands to add at the index, If a list is passed then the list corresponds to multiple iterations of the command at the index.
+    index : Optional[int], optional
+        The index to insert the command, If None then appends the command, by default None
+    &#34;&#34;&#34;
+    if not isinstance(command, list):
+        command = [command]
+    if index is None:
+        self.command_list.append(command)
+    else:
+        self.command_list.insert(index, command)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.add_command_iteration"><code class="name flex">
+<span>def <span class="ident">add_command_iteration</span></span>(<span>self, command: Union[commands.command.Command, List[commands.command.Command]], index: Optional[int] = None, iteration: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add command(s) as iterations to a pre-existing command in the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>command</code></strong> :&ensp;<code>Union[Command, List[Command]]</code></dt>
+<dd>The command or list of commands to add as iterations</dd>
+<dt><strong><code>index</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The index of the pre-existing command to add iterations to, If None then adds to the last command, by default None</dd>
+<dt><strong><code>iteration</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The iteration index to add the command(s) at, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_command_iteration(self, command: Union[Command, List[Command]], index: Optional[int] = None, iteration: Optional[int] = None):
+    &#34;&#34;&#34;Add command(s) as iterations to a pre-existing command in the command list.
+
+    Parameters
+    ----------
+    command : Union[Command, List[Command]]
+        The command or list of commands to add as iterations
+    index : Optional[int], optional
+        The index of the pre-existing command to add iterations to, If None then adds to the last command, by default None
+    iteration : Optional[int], optional
+        The iteration index to add the command(s) at, by default None
+    &#34;&#34;&#34;
+    if not isinstance(command, list):
+        command = [command]
+    if index is None:
+        index = -1
+    if iteration is None:
+        # add to end of iteration list
+        self.command_list[index].extend(command)
+    else:
+        # insert at specific iteration index
+        for ndx in range(len(command)):
+            self.command_list[index].insert(iteration, command.pop(-1))</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.add_device"><code class="name flex">
+<span>def <span class="ident">add_device</span></span>(<span>self, receiver: devices.device.Device) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a device to the device list then update the device dict.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>receiver</code></strong> :&ensp;<code>Device</code></dt>
+<dd>The device to add.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>Whether the device was successfully added</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_device(self, receiver: Device) -&gt; bool:
+    &#34;&#34;&#34;Add a device to the device list then update the device dict.
+
+    Parameters
+    ----------
+    receiver : Device
+        The device to add.
+
+    Returns
+    -------
+    bool
+        Whether the device was successfully added
+    &#34;&#34;&#34;
+
+    if receiver.name in self.device_by_name:
+        return False
+    else:
+        self.device_list.append(receiver)
+        self.update_device_by_name()
+        return True</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.add_loop_end"><code class="name flex">
+<span>def <span class="ident">add_loop_end</span></span>(<span>self, index: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a LoopEndCommand to the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The index to insert the command, If None then append the command, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_loop_end(self, index: Optional[int] = None):
+    &#34;&#34;&#34;Add a LoopEndCommand to the command list.
+
+    Parameters
+    ----------
+    index : Optional[int], optional
+        The index to insert the command, If None then append the command, by default None
+    &#34;&#34;&#34;
+    self.add_command(LoopEndCommand(), index)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.add_loop_start"><code class="name flex">
+<span>def <span class="ident">add_loop_start</span></span>(<span>self, index: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a LoopStartCommand to the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The index to insert the command, If None then append the command, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_loop_start(self, index: Optional[int] = None):
+    &#34;&#34;&#34;Add a LoopStartCommand to the command list.
+
+    Parameters
+    ----------
+    index : Optional[int], optional
+        The index to insert the command, If None then append the command, by default None
+    &#34;&#34;&#34;
+    self.add_command(LoopStartCommand(), index)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.count_loop_commands"><code class="name flex">
+<span>def <span class="ident">count_loop_commands</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def count_loop_commands(self) -&gt; int:
+    loop_marker_count = 0
+    for index, command_iters in enumerate(self.command_list):
+        for iter_index, command in enumerate(command_iters):
+            if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                loop_marker_count += 1
+    return loop_marker_count</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.get_command_names"><code class="name flex">
+<span>def <span class="ident">get_command_names</span></span>(<span>self, unloop: bool = False) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a list of command names, either with a loop or unlooped.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>unloop</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to have the list unlooped or not, by default False</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[str]</code></dt>
+<dd>The list of command names</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_command_names(self, unloop: bool = False) -&gt; List[str]:
+    &#34;&#34;&#34;Get a list of command names, either with a loop or unlooped.
+
+    Parameters
+    ----------
+    unloop : bool, optional
+        Whether to have the list unlooped or not, by default False
+
+    Returns
+    -------
+    List[str]
+        The list of command names 
+    &#34;&#34;&#34;
+    name_list = []
+    if unloop:
+        for command in self.yield_next_command():
+            name_list.append(command.name)
+    else:
+        for command in self.command_list:
+            for iter_ndx, iter_command in enumerate(command):
+                if iter_ndx == 0:
+                    name_list.append(iter_command.name)
+                else:
+                    name_list.append(&#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + iter_command.name)
+    return name_list</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.get_command_names_descriptions"><code class="name flex">
+<span>def <span class="ident">get_command_names_descriptions</span></span>(<span>self, unloop: bool = False) ‑> List[List[str]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a list of [command names, command descriptions] either with a loop or unlooped.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>unloop</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to have the list unlooped or not, by default False</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[List[str]]</code></dt>
+<dd>The list of [command names, command descriptions]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_command_names_descriptions(self, unloop: bool = False) -&gt; List[List[str]]:
+    &#34;&#34;&#34;Get a list of [command names, command descriptions] either with a loop or unlooped.
+
+    Parameters
+    ----------
+    unloop : bool, optional
+        Whether to have the list unlooped or not, by default False
+
+    Returns
+    -------
+    List[List[str]]
+        The list of [command names, command descriptions] 
+    &#34;&#34;&#34;
+    name_desc_list = []
+    if unloop:
+        for command in self.yield_next_command():
+            name_desc_list.append([&#34;Name: &#34; + command.name, &#34;Description: &#34; + command.description])
+    else:
+        for command in self.command_list:
+            for iter_ndx, iter_command in enumerate(command):
+                if iter_ndx == 0:
+                    name_desc_list.append([&#34;Name: &#34; + iter_command.name, &#34;Description: &#34; + iter_command.description])
+                else:
+                    name_desc_list.append([&#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + &#34;Name: &#34; + iter_command.name,
+                                             &#34;    IterIndex&#34; + str(iter_ndx) + &#34;: &#34; + &#34;Description: &#34; + iter_command.description])
+    return name_desc_list</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.get_device_names_classes"><code class="name flex">
+<span>def <span class="ident">get_device_names_classes</span></span>(<span>self) ‑> List[List[str]]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_device_names_classes(self) -&gt; List[List[str]]:
+    name_cls_list = []
+    for device in self.device_list:
+        name_cls_list.append([device.name, device.__class__.__name__])
+    return name_cls_list</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.get_max_iteration"><code class="name flex">
+<span>def <span class="ident">get_max_iteration</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the length of the largest command iteration list.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The largest iteration length</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_max_iteration(self) -&gt; int:
+    &#34;&#34;&#34;Gets the length of the largest command iteration list.
+
+    Returns
+    -------
+    int
+        The largest iteration length
+    &#34;&#34;&#34;
+    max_iter = 1
+    for command in self.command_list:
+        if len(command) &gt; max_iter:
+            max_iter = len(command)
+    return max_iter</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.get_unlooped_command_list"><code class="name flex">
+<span>def <span class="ident">get_unlooped_command_list</span></span>(<span>self) ‑> List[commands.command.Command]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the full unlooped command list by pre-evaluating any loops.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[Command]</code></dt>
+<dd>The unlooped command list</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_unlooped_command_list(self) -&gt; List[Command]:
+    &#34;&#34;&#34;Get the full unlooped command list by pre-evaluating any loops.
+
+    Returns
+    -------
+    List[Command]
+        The unlooped command list
+    &#34;&#34;&#34;
+    unlooped_list= []
+    command_generator = self.yield_next_command()
+    for command in command_generator:
+        if not isinstance(command, Command):
+            break
+        unlooped_list.append(command)
+    return unlooped_list      </code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.load_from_yaml"><code class="name flex">
+<span>def <span class="ident">load_from_yaml</span></span>(<span>self, filename: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Load the device_list, command_list, and num_iterations from a .yaml file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>The filename of the .yaml to load from</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_from_yaml(self, filename: str):
+    &#34;&#34;&#34;Load the device_list, command_list, and num_iterations from a .yaml file.
+
+    Parameters
+    ----------
+    filename : str
+        The filename of the .yaml to load from
+    &#34;&#34;&#34;
+    filename = self.recipe_directory + filename
+    with open(filename) as file:
+        # not safe loader
+        imported_list = yaml.load(file, Loader=yaml.Loader)
+        self.device_list = imported_list[0]
+        self.command_list = imported_list[1]
+        self.num_iterations = imported_list[2]
+        self.update_device_by_name()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.move_command_by_index"><code class="name flex">
+<span>def <span class="ident">move_command_by_index</span></span>(<span>self, old_index: int, new_index: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Move the command or command iterations to a different index in the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>old_index</code></strong> :&ensp;<code>int</code></dt>
+<dd>The index of the command(s) to move</dd>
+<dt><strong><code>new_index</code></strong> :&ensp;<code>int</code></dt>
+<dd>The index to move the command(s) to</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_command_by_index(self, old_index: int, new_index: int):
+    &#34;&#34;&#34;Move the command or command iterations to a different index in the command list.
+
+    Parameters
+    ----------
+    old_index : int
+        The index of the command(s) to move
+    new_index : int
+        The index to move the command(s) to
+    &#34;&#34;&#34;
+    if old_index &gt;= 0 and old_index &lt;= len(self.command_list) - 1 and new_index &gt;= 0 and new_index &lt;= len(self.command_list) - 1:
+        if old_index != new_index:
+            self.command_list.insert(new_index, self.command_list.pop(old_index))
+    else:
+        print(&#34;Invalid indices&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.move_command_iteration_by_index"><code class="name flex">
+<span>def <span class="ident">move_command_iteration_by_index</span></span>(<span>self, index: int, old_iter: int, new_iter: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Move a command iteration to a different index in the command's iteration list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>int</code></dt>
+<dd>The index of the command to move around one if it's iterations</dd>
+<dt><strong><code>old_iter</code></strong> :&ensp;<code>int</code></dt>
+<dd>The iteration index of the iteration to move</dd>
+<dt><strong><code>new_iter</code></strong> :&ensp;<code>int</code></dt>
+<dd>The new iteration index to move the iteration to</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_command_iteration_by_index(self, index: int, old_iter: int, new_iter: int):
+    &#34;&#34;&#34;Move a command iteration to a different index in the command&#39;s iteration list.
+
+    Parameters
+    ----------
+    index : int
+        The index of the command to move around one if it&#39;s iterations
+    old_iter : int
+        The iteration index of the iteration to move
+    new_iter : int
+        The new iteration index to move the iteration to
+    &#34;&#34;&#34;
+    if old_iter &gt;= 0 and old_iter &lt;= len(self.command_list[index]) - 1 and new_iter &gt;= 0 and new_iter &lt;= len(self.command_list[index]) - 1:
+        if old_iter != new_iter:
+            self.command_list[index].insert(new_iter, self.command_list[index].pop(old_iter))
+    else:
+        print(&#34;Invalid indices&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.print_command_names"><code class="name flex">
+<span>def <span class="ident">print_command_names</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the command names with any loop.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_command_names(self):
+    &#34;&#34;&#34;Print the command names with any loop.&#34;&#34;&#34;
+    for name in self.get_command_names(unloop=False):
+        print(name)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.print_command_names_descriptions"><code class="name flex">
+<span>def <span class="ident">print_command_names_descriptions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the command names and descriptions with any loop.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_command_names_descriptions(self):
+    &#34;&#34;&#34;Print the command names and descriptions with any loop.&#34;&#34;&#34;
+    for name_desc in self.get_command_names_descriptions(unloop=False):
+        print(name_desc[0])
+        print(name_desc[1])</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.print_unlooped_command_names"><code class="name flex">
+<span>def <span class="ident">print_unlooped_command_names</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the command names unlooped.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_unlooped_command_names(self):
+    &#34;&#34;&#34;Print the command names unlooped.&#34;&#34;&#34;
+    for name in self.get_command_names(unloop=True):
+        print(name)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.print_unlooped_command_names_descriptions"><code class="name flex">
+<span>def <span class="ident">print_unlooped_command_names_descriptions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the command names and descriptions unlooped.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_unlooped_command_names_descriptions(self):
+    &#34;&#34;&#34;Print the command names and descriptions unlooped.&#34;&#34;&#34;
+    for name_desc in self.get_command_names_descriptions(unloop=True):
+        print(name_desc[0])
+        print(name_desc[1])</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.remove_all_loop_commands"><code class="name flex">
+<span>def <span class="ident">remove_all_loop_commands</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_all_loop_commands(self):
+    # iterates through 2 dimensions, if it finds a loop command it deletes it and starts over until there are no more
+    # starting over is slower but don&#39;t have to deal with index shifting in 2 dimensions
+    # if 1 dimension then can use reverse sort method
+    while self.count_loop_commands() != 0:
+        for index, command_iters in enumerate(self.command_list):
+            for iter_index, command in enumerate(command_iters):
+                if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
+                    # delete the command
+                    del self.command_list[index][iter_index]
+                    if len(self.command_list[index]) == 0:
+                        del self.command_list[index]
+                    # break inner loop
+                    break
+            else:
+                # if not loop found then continue
+                continue
+            # if inner broke, then break outer loop to start over
+            # https://stackoverflow.com/questions/189645/how-to-break-out-of-multiple-loops
+            break</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.remove_command"><code class="name flex">
+<span>def <span class="ident">remove_command</span></span>(<span>self, index: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove a command from the command list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The index of the command to remove, If None the remove the last command, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_command(self, index: Optional[int] = None):
+    &#34;&#34;&#34;Remove a command from the command list.
+
+    Parameters
+    ----------
+    index : Optional[int], optional
+        The index of the command to remove, If None the remove the last command, by default None
+    &#34;&#34;&#34;
+    if index is None:
+        index = -1
+    del self.command_list[index]</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.remove_command_iteration"><code class="name flex">
+<span>def <span class="ident">remove_command_iteration</span></span>(<span>self, index: Optional[int] = None, iteration: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove a command iteration from a command's iteration list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The index of the command to remove an iteration from, if None then removes from the last command, by default None</dd>
+<dt><strong><code>iteration</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The iteration index of the command iteration to remove, if None then removes the last iteration, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_command_iteration(self, index: Optional[int] = None, iteration: Optional[int] = None):
+    &#34;&#34;&#34;Remove a command iteration from a command&#39;s iteration list.
+
+    Parameters
+    ----------
+    index : Optional[int], optional
+        The index of the command to remove an iteration from, if None then removes from the last command, by default None
+    iteration : Optional[int], optional
+        The iteration index of the command iteration to remove, if None then removes the last iteration, by default None
+    &#34;&#34;&#34;
+    if index is None:
+        index = -1
+    if iteration is None:
+        iteration = -1
+    del self.command_list[index][iteration]</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.remove_device"><code class="name flex">
+<span>def <span class="ident">remove_device</span></span>(<span>self, receiver_name: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove a device from the device list then update the device dict.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>receiver_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name attribute of the device/receiver to remove.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_device(self, receiver_name: str):
+    &#34;&#34;&#34;Remove a device from the device list then update the device dict.
+
+    Parameters
+    ----------
+    receiver_name : str
+        The name attribute of the device/receiver to remove.
+    &#34;&#34;&#34;
+    if receiver_name in self.device_by_name:
+        for ndx, device in enumerate(self.device_list):
+            if device.name == receiver_name:
+                del self.device_list[ndx]
+                self.update_device_by_name()
+                break # Each device should have a unique name, always</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.remove_device_by_index"><code class="name flex">
+<span>def <span class="ident">remove_device_by_index</span></span>(<span>self, index: Optional[int] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove a device from the device list by index then update the device dict.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>Optional[int]</code>, optional</dt>
+<dd>The index of the device to remove, If index is None remove the last device, by default None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_device_by_index(self, index: Optional[int] = None):
+    &#34;&#34;&#34;Remove a device from the device list by index then update the device dict.
+
+    Parameters
+    ----------
+    index : Optional[int], optional
+        The index of the device to remove, If index is None remove the last device, by default None
+    &#34;&#34;&#34;
+    if index is None:
+        index = -1
+    del self.device_list[index]
+    self.update_device_by_name()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.save_to_yaml"><code class="name flex">
+<span>def <span class="ident">save_to_yaml</span></span>(<span>self, filename: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save the device_list, command_list, and num_iterations to a .yaml file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>The filename of the .yaml to save to</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_to_yaml(self, filename: str):
+    &#34;&#34;&#34;Save the device_list, command_list, and num_iterations to a .yaml file.
+
+    Parameters
+    ----------
+    filename : str
+        The filename of the .yaml to save to
+    &#34;&#34;&#34;
+    filename = self.recipe_directory + filename
+    data_list = [self.device_list, self.command_list, self.num_iterations]
+    with open(filename, &#39;w&#39;) as file:
+        yaml.dump(data_list, file, default_flow_style=False, sort_keys=False)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.update_device_by_name"><code class="name flex">
+<span>def <span class="ident">update_device_by_name</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update the device dict that stores each device/receiver by it's name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_device_by_name(self):
+    &#34;&#34;&#34;Update the device dict that stores each device/receiver by it&#39;s name.&#34;&#34;&#34;
+
+    self.device_by_name = {}
+    for device in self.device_list:
+        self.device_by_name[device.name] = device</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.verify"><code class="name flex">
+<span>def <span class="ident">verify</span></span>(<span>self) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Verify devices, commands, and num_iterations</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tuple[bool, str]</code></dt>
+<dd>[description]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verify(self) -&gt; Tuple[bool, str]:
+    &#34;&#34;&#34;Verify devices, commands, and num_iterations
+
+    Returns
+    -------
+    Tuple[bool, str]
+        [description]
+    &#34;&#34;&#34;
+    is_valid, message = self.verify_device_list()
+    if not is_valid:
+        return (is_valid, message)
+    is_valid, message = self.verify_command_list()
+    if not is_valid:
+        return (is_valid, message)
+    is_valid, message = self.verify_num_iterations()
+    if not is_valid:
+        return (is_valid, message)
+    return True, &#34;All checks passed&#34;  </code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.verify_command_list"><code class="name flex">
+<span>def <span class="ident">verify_command_list</span></span>(<span>self) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks that any looping in the command list is valid.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tuple[bool, str]</code></dt>
+<dd>Whether the command list is valid, Message describing problem if not valid</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verify_command_list(self) -&gt; Tuple[bool, str]:
+    &#34;&#34;&#34;Checks that any looping in the command list is valid.
+
+    Returns
+    -------
+    Tuple[bool, str]
+        Whether the command list is valid, Message describing problem if not valid
+    &#34;&#34;&#34;
+    # Important Note!: So far, this doesn&#39;t consider composite commands since they can hide away other commands which may break the entire recipe
+    # One way is to unwrap the composite command, but keep in mind since composite commands behave like commands, this means a composite command
+    # can have composite commands. Therefore, composite commands can be arbitrarily deep and can potentially be recursive, causing an infinite loop
+    
+    # iteration lists must have commands of same class? Not necessarily. Currently not enforced
+    loop_start_location = []
+    loop_end_location = []
+    for index, command_iters in enumerate(self.command_list):
+        for iter_index, command in enumerate(command_iters):
+            if isinstance(command, LoopStartCommand):
+                loop_start_location.append([index, iter_index])
+            elif isinstance(command, LoopEndCommand):
+                loop_end_location.append([index, iter_index])
+
+    if len(loop_start_location) &gt; 1:
+        return False, &#34;There can only be one loop start&#34;
+    if len(loop_end_location) &gt; 1:
+        return False, &#34;There can only be one loop end&#34;
+
+    if len(loop_start_location) != len(loop_end_location):
+        return False, &#34;There must either be no loop start/end or exactly one of each&#34;
+    
+    if len(loop_start_location) &gt; 0:
+        if len(self.command_list[loop_start_location[0][0]]) &gt; 1:
+            return False, &#34;Loop start command can not have additional iterations&#34;
+    if len(loop_end_location) &gt; 0:
+        if len(self.command_list[loop_end_location[0][0]]) &gt; 1:
+            return False, &#34;Loop end command can not have additional iterations&#34;
+
+    if len(loop_start_location) &gt; 0 and len(loop_end_location) &gt; 0:
+        if loop_start_location[0] &gt; loop_end_location[0]:
+            return False, &#34;Loop end must be after loop start&#34;
+
+    return True, &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.verify_device_list"><code class="name flex">
+<span>def <span class="ident">verify_device_list</span></span>(<span>self) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks that the device list does not have duplicate named devices.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Tuple[bool, str]</code></dt>
+<dd>Whether the device list is valid, Duplicate device names</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verify_device_list(self) -&gt; Tuple[bool, str]:
+    &#34;&#34;&#34;Checks that the device list does not have duplicate named devices.
+
+    Returns
+    -------
+    Tuple[bool, str]
+        Whether the device list is valid, Duplicate device names
+    &#34;&#34;&#34;
+    # each device must be unique (by name attribute)
+    # Duplicates are prevented by the add_device method, but still possible if a .yaml file is manually edited
+    device_names = []
+    dupes = []
+    for device in self.device_list:
+        device_names.append(device.name)
+    for name, count in Counter(device_names).items():
+        if count &gt; 1:
+            dupes.append(name)
+    if len(dupes) &gt; 0:
+        return False, &#34;Duplicates: &#34; + str(dupes)
+    else:
+        return True, &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.verify_num_iterations"><code class="name flex">
+<span>def <span class="ident">verify_num_iterations</span></span>(<span>self) ‑> Tuple[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verify_num_iterations(self) -&gt; Tuple[bool, str]:
+    # Could also raise Value and Type Errors here
+    if isinstance(self.num_iterations, str):
+        if self.num_iterations == &#34;ALL&#34;:
+            return True, &#34;&#34;
+        else:
+            return False, &#34;num_iterations invalid value&#34;
+    elif isinstance(self.num_iterations, int):
+        if self.num_iterations &gt;= 1:
+            return True, &#34;&#34;
+        else:
+            return False, &#34;num_iterations invalid value&#34;
+    else:
+        return False, &#34;num_iterations invalid type&#34;</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.command_sequence.CommandSequence.yield_next_command"><code class="name flex">
+<span>def <span class="ident">yield_next_command</span></span>(<span>self) ‑> Generator[Union[commands.command.Command, Tuple[bool, str]], None, None]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A generator that yields each command sequentially, accounting for loops.</p>
+<h2 id="yields">Yields</h2>
+<dl>
+<dt><code>Generator[Union[Command, Tuple[bool, str]], None, None]</code></dt>
+<dd>Generator that yields the next command, or a tuple of (False, error message) if there is a problem with the command sequence</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def yield_next_command(self) -&gt; Generator[Union[Command, Tuple[bool, str]], None, None]:
+    &#34;&#34;&#34;A generator that yields each command sequentially, accounting for loops.
+
+    Yields
+    -------
+    Generator[Union[Command, Tuple[bool, str]], None, None]
+        Generator that yields the next command, or a tuple of (False, error message) if there is a problem with the command sequence
+    &#34;&#34;&#34;
+    # originally used this function to pre-process the whole unlooped list
+    # changed to generator that yields next command
+    # if the whole unlooped list is wanted then get_unlooped_command_list uses this function to populate a list
+    # generator is likely unnecessary but have both methods here for flexibility
+
+    # Verify the command list before proceeding
+    # Could consider returning/yield a utility Fail command that &#39;returns&#39; false on execute and accepts a string error message to put into its result
+    # This would stop the invoker but not necessarily other uses of this method
+    is_valid, message = self.verify()
+    if not is_valid:
+        yield (is_valid, message)
+        return
+
+    index = 0
+    iteration = 0
+    loop_start_index = None
+    if self.num_iterations == &#39;ALL&#39;:
+        max_iterations = self.get_max_iteration()
+    else:
+        max_iterations = self.num_iterations
+
+    while index &lt; len(self.command_list):
+        # Get the command at the current index and iteration
+        # if current iteration is larger than the number of the current command&#39;s iterations then use the last one
+        if iteration &gt; len(self.command_list[index]) - 1:
+            command = self.command_list[index][-1]
+        else:
+            command = self.command_list[index][iteration]
+        
+        if isinstance(command, LoopStartCommand):
+            loop_start_index = index
+            index += 1
+            continue
+
+        if isinstance(command, LoopEndCommand):
+            iteration += 1
+            if iteration &lt; max_iterations:
+                index = loop_start_index + 1
+                continue
+            else:
+                iteration = 0
+                index += 1
+                continue
+        yield command
+        index += 1</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Lab_Automation" href="index.html">Lab_Automation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Lab_Automation.command_sequence.CommandSequence" href="#Lab_Automation.command_sequence.CommandSequence">CommandSequence</a></code></h4>
+<ul class="">
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.add_command" href="#Lab_Automation.command_sequence.CommandSequence.add_command">add_command</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.add_command_iteration" href="#Lab_Automation.command_sequence.CommandSequence.add_command_iteration">add_command_iteration</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.add_device" href="#Lab_Automation.command_sequence.CommandSequence.add_device">add_device</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.add_loop_end" href="#Lab_Automation.command_sequence.CommandSequence.add_loop_end">add_loop_end</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.add_loop_start" href="#Lab_Automation.command_sequence.CommandSequence.add_loop_start">add_loop_start</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.count_loop_commands" href="#Lab_Automation.command_sequence.CommandSequence.count_loop_commands">count_loop_commands</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.get_command_names" href="#Lab_Automation.command_sequence.CommandSequence.get_command_names">get_command_names</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.get_command_names_descriptions" href="#Lab_Automation.command_sequence.CommandSequence.get_command_names_descriptions">get_command_names_descriptions</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.get_device_names_classes" href="#Lab_Automation.command_sequence.CommandSequence.get_device_names_classes">get_device_names_classes</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.get_max_iteration" href="#Lab_Automation.command_sequence.CommandSequence.get_max_iteration">get_max_iteration</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.get_unlooped_command_list" href="#Lab_Automation.command_sequence.CommandSequence.get_unlooped_command_list">get_unlooped_command_list</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.load_from_yaml" href="#Lab_Automation.command_sequence.CommandSequence.load_from_yaml">load_from_yaml</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.move_command_by_index" href="#Lab_Automation.command_sequence.CommandSequence.move_command_by_index">move_command_by_index</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.move_command_iteration_by_index" href="#Lab_Automation.command_sequence.CommandSequence.move_command_iteration_by_index">move_command_iteration_by_index</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.print_command_names" href="#Lab_Automation.command_sequence.CommandSequence.print_command_names">print_command_names</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.print_command_names_descriptions" href="#Lab_Automation.command_sequence.CommandSequence.print_command_names_descriptions">print_command_names_descriptions</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.print_unlooped_command_names" href="#Lab_Automation.command_sequence.CommandSequence.print_unlooped_command_names">print_unlooped_command_names</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.print_unlooped_command_names_descriptions" href="#Lab_Automation.command_sequence.CommandSequence.print_unlooped_command_names_descriptions">print_unlooped_command_names_descriptions</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.recipe_directory" href="#Lab_Automation.command_sequence.CommandSequence.recipe_directory">recipe_directory</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.remove_all_loop_commands" href="#Lab_Automation.command_sequence.CommandSequence.remove_all_loop_commands">remove_all_loop_commands</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.remove_command" href="#Lab_Automation.command_sequence.CommandSequence.remove_command">remove_command</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.remove_command_iteration" href="#Lab_Automation.command_sequence.CommandSequence.remove_command_iteration">remove_command_iteration</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.remove_device" href="#Lab_Automation.command_sequence.CommandSequence.remove_device">remove_device</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.remove_device_by_index" href="#Lab_Automation.command_sequence.CommandSequence.remove_device_by_index">remove_device_by_index</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.save_to_yaml" href="#Lab_Automation.command_sequence.CommandSequence.save_to_yaml">save_to_yaml</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.update_device_by_name" href="#Lab_Automation.command_sequence.CommandSequence.update_device_by_name">update_device_by_name</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.verify" href="#Lab_Automation.command_sequence.CommandSequence.verify">verify</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.verify_command_list" href="#Lab_Automation.command_sequence.CommandSequence.verify_command_list">verify_command_list</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.verify_device_list" href="#Lab_Automation.command_sequence.CommandSequence.verify_device_list">verify_device_list</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.verify_num_iterations" href="#Lab_Automation.command_sequence.CommandSequence.verify_num_iterations">verify_num_iterations</a></code></li>
+<li><code><a title="Lab_Automation.command_sequence.CommandSequence.yield_next_command" href="#Lab_Automation.command_sequence.CommandSequence.yield_next_command">yield_next_command</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

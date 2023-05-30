@@ -1,0 +1,2591 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Lab_Automation.recipe_tool API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Lab_Automation.recipe_tool</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import sys
+import inspect
+from os import listdir
+from os.path import isfile, join
+import importlib
+import copy
+
+try:
+    import serial.tools.list_ports
+except ImportError:
+    _has_serial = False
+else:
+    _has_serial = True
+import questionary
+from colorama import init
+from colorama import Fore, Back, Style
+init()
+
+from command_sequence import CommandSequence
+from command_invoker import CommandInvoker
+from commands.command import Command
+from commands.utility_commands import LoopStartCommand, LoopEndCommand
+from devices.heating_stage import HeatingStage
+from devices.multi_stepper import MultiStepper
+from devices.newport_esp301 import NewportESP301
+# from devices.stellarnet_spectrometer import StellarNetSpectrometer
+# from devices.ximea_camera import XimeaCamera
+from devices.dummy_heater import DummyHeater
+from devices.dummy_motor import DummyMotor
+from devices.linear_stage_150 import LinearStage150
+
+
+# TODO
+# Clean up comments
+# some refactoring of duplicate code
+# type hinting
+# add compatibility with composite and utility commands (try to avoid coding speciific class dependencies)
+
+#================ Constants =============================
+named_devices = {
+    &#34;LinearStage150&#34;: LinearStage150,
+    &#34;PrintingStage&#34;: HeatingStage,
+    &#34;AnnealingStage&#34;: HeatingStage,
+    &#34;MultiStepper1&#34;: MultiStepper,
+    &#34;PrinterMotorX&#34;: NewportESP301,
+    # &#34;Spectrometer&#34;: StellarNetSpectrometer,
+    # &#34;SampleCamera&#34;: XimeaCamera,
+    &#34;DummyHeater1&#34;: DummyHeater,
+    &#34;DummyHeater2&#34;: DummyHeater,
+    &#34;DummyMotor1&#34;: DummyMotor,
+    &#34;DummyMotor2&#34;: DummyMotor,
+    }
+command_directory = &#34;commands/&#34;
+load_directory = &#34;recipes/user_recipes/&#34;
+save_directory = &#34;recipes/user_recipes/&#34;
+log_directory = &#34;logs/&#34;
+#data directory?
+custom_style = questionary.Style([(&#34;highlighted&#34;, &#34;bold&#34;),(&#34;pointer&#34;, &#34;fg:#00ff00&#34;)])
+
+
+seq = CommandSequence()
+# seq.load_from_yaml(&#39;test.yaml&#39;)
+def main():
+    print_intro()
+    main_menu()
+
+##################################################
+# Main Menu
+##################################################
+def main_menu():
+    while True:
+        main_menu_prompt = &#34;Main Menu - Choose an option:&#34;
+        main_menu_options = {
+            &#34;New/Save/Load Recipe&#34;: recipe_menu,
+            &#34;Display Recipe Info&#34;: display_menu,
+            &#34;Edit Devices&#34;: device_menu,
+            &#34;Edit Commands&#34;: command_menu,
+            &#34;Edit Command Iterations&#34;: iteration_menu,
+            &#34;Execute Recipe&#34;: execute_recipe,
+            &#34;Manual Command Session&#34;: execute_manual,
+            &#34;Help&#34;: print_help,
+            &#34;Quit&#34;: quit_program
+        }
+        prompt = questionary.select(main_menu_prompt, choices=list(main_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = main_menu_options[response]
+        response_function()
+        
+##################################################
+# New/Save/Load Recipe Menu
+##################################################
+def recipe_menu():
+    recipe_menu_prompt = &#34;Choose an option:&#34;
+    recipe_menu_options = {
+        &#34;Save Recipe&#34;: save_sequence,
+        &#34;Load Recipe&#34;: load_sequence,
+        &#34;New Recipe&#34;: clear_sequence,
+        &#34;Back to Main Menu&#34;: main_menu,
+    }
+    prompt = questionary.select(recipe_menu_prompt, choices=list(recipe_menu_options.keys()), style=custom_style)
+    response = prompt.ask()
+    response_function = recipe_menu_options[response]
+    response_function()
+
+def clear_sequence():
+    response = questionary.confirm(&#34;Create new recipe. Any unsaved data will be lost. Continue?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+    if response:
+        global seq
+        seq = CommandSequence()
+        print(Fore.GREEN + &#34;New recipe created!&#34;)
+    else:
+        print(Fore.RED + &#34;Did not create new recipe!&#34;)
+
+def save_sequence():
+    save_file = questionary.path(&#34;Enter the file you would like to save to or type &#39;quit&#39;:&#34;, default=save_directory, validate=lambda file: valid_save_file(file, save_directory), style=custom_style).ask()
+    
+    if save_file == &#34;quit&#34;:
+        return
+    
+    if isfile(save_file):
+        response = questionary.confirm(&#34;File already exists. Overwrite file?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+        if response:
+            seq.save_to_yaml(save_file)
+            print(Fore.GREEN + &#34;Recipe has been saved to &#39;&#34; + save_file + &#34;&#39;!&#34;)
+        else:
+            print(Fore.RED + &#34;Recipe has not been saved to file!&#34;)
+    else:
+        seq.save_to_yaml(save_file)
+        print(Fore.GREEN + &#34;Recipe has been saved to &#39;&#34; + save_file + &#34;&#39;!&#34;)
+
+def load_sequence():
+    prompt = questionary.path(&#34;Enter the recipe file you would like to load or type &#39;quit&#39;:&#34;, default=load_directory, validate=lambda file: valid_yml(file))
+    yaml_file = prompt.ask()
+
+    if yaml_file.lower() == &#34;quit&#34;:
+        return
+
+    #Load the yml file data into the sequence
+    global seq
+    seq = CommandSequence()
+    seq.load_from_yaml(yaml_file)
+    print(Fore.GREEN + &#34;Recipe from yaml file loaded!&#34;)
+
+##################################################
+# Display Menu
+##################################################
+def display_menu():
+    while True:
+        display_menu_prompt = &#34;Display Menu - Choose an option:&#34;
+        display_menu_options = {
+            &#34;Display Devices&#34;: display_device_menu,
+            &#34;Display Commands&#34;: display_commands,
+            &#34;Display Commands (Hide Iterations)&#34;: display_commands_hide_iterations,
+            &#34;Display Commands (Unlooped)&#34;: display_commands_unlooped,
+            &#34;Display a Command&#39;s Iterations&#34;: display_command_iterations,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(display_menu_prompt, choices=list(display_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = display_menu_options[response]
+        response_function()
+
+def display_device_menu():
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices added to the recipe.&#34;)
+        return
+    while True:
+        display_device_menu_prompt = &#34;Choose a device to see more details:&#34;
+        print_devices()
+        device_index = select_device(display_device_menu_prompt)
+        if device_index is None:
+            break
+        else:
+            display_device_properties(device_index)
+
+def print_devices():
+    device_names_classes = seq.get_device_names_classes() # [name, class name] of every device
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Devices:&#34;)
+    print(Fore.GREEN + &#34; {:20.20s}&#34;.format(&#34;Name&#34;) + Fore.YELLOW + &#34;Class&#34;)
+    for name_class in device_names_classes:
+        print(Fore.GREEN + &#34; {:20.20s}&#34;.format(name_class[0]) + Fore.YELLOW + name_class[1])
+    print(&#34;&#34;)
+
+def display_device_properties(device_index: int):
+    attr_dict = seq.device_list[device_index].__dict__
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of device properties for: &#34; + Fore.GREEN + seq.device_list[device_index].name)
+    for name, value in attr_dict.items():
+        print(Fore.WHITE + &#34; {:20.20s}&#34;.format(name) + &#34; = &#34; + Fore.YELLOW + str(value))
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;Press ENTER to continue&#34;)
+    input()
+
+def display_commands():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+    command_names = seq.get_command_names()
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Commands:&#34;)
+    print(Fore.RED + &#34;{:7s}&#34;.format(&#34;Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in command_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        
+        if &#39;IterIndex&#39; in name_parts[0]:
+            print(Fore.RED + &#34;{:7s}&#34;.format(&#34; &#34;), end=&#34;&#34;)
+            print(Fore.WHITE + &#34;{:12.12s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+            print(Fore.CYAN + &#34;{:28.28s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        else:
+            print(Fore.RED + &#34;{:7s}&#34;.format(str(index)), end=&#34;&#34;)
+            index += 1
+            print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)
+
+def display_commands_hide_iterations():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+
+    command_names = seq.get_command_names()
+    for ndx, name in enumerate(command_names):
+        if &#39;IterIndex&#39; in name:
+            command_names[ndx-1] = &#34;*&#34; + command_names[ndx-1]
+    for ndx, name in enumerate(command_names):
+        while &#39;IterIndex&#39; in command_names[ndx]:
+            del command_names[ndx]
+
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Commands:&#34;)
+    print(Fore.RED + &#34;{:7s}&#34;.format(&#34;Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in command_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        print(Fore.RED + &#34;{:7s}&#34;.format(str(index)), end=&#34;&#34;)
+        index += 1
+        if &#39;*&#39; in name_parts[0]:
+            print(Fore.WHITE + &#34;*&#34; + Fore.CYAN + &#34;{:39.39s}&#34;.format(name_parts.pop(0)[1:]), end=&#34;&#34;)
+        else:
+            print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)
+
+def display_commands_unlooped():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+
+    command_list = seq.get_unlooped_command_list()
+    if len(command_list) == 0:
+        print(Fore.RED + &#34;The command sequence and/or num_iterations is not valid, cannot unloop.&#34;)
+        return
+
+    command_names = []
+    for command in command_list:
+        command_names.append(command.name)
+    
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Commands:&#34;)
+    print(Fore.RED + &#34;{:15s}&#34;.format(&#34;Unlooped Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in command_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        print(Fore.RED + &#34;{:15s}&#34;.format(str(index)), end=&#34;&#34;)
+        index += 1
+        print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)
+
+def display_command_iterations():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+
+    index = select_command(&#34;Choose a command to view its iterations:&#34;)
+    if index is None:
+        return
+    iteration_names = []
+    for iteration in seq.command_list[index]:
+        iteration_names.append(iteration.name)
+
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Command Iterations:&#34;)
+    print(Fore.RED + &#34;{:16s}&#34;.format(&#34;Iteration Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Iteration Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in iteration_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        print(Fore.RED + &#34;{:16s}&#34;.format(str(index)), end=&#34;&#34;)
+        index += 1
+        print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)
+
+##################################################
+# Edit Device Menu
+##################################################
+def device_menu():
+    while True:
+        device_menu_prompt = &#34;Device Menu - Choose an option:&#34;
+        device_menu_options = {
+            &#34;Display Devices&#34;: display_device_menu,
+            &#34;Add Device&#34;: add_device,
+            &#34;Remove Device&#34;: remove_device,
+            &#34;Display COM Port Info&#34;: print_com_port_info,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(device_menu_prompt, choices=list(device_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = device_menu_options[response]
+        response_function()
+
+def add_device():
+    approved_devices = list(named_devices.keys())
+    approved_devices.append(&#34;Go back&#34;)
+    response = questionary.select(&#34;Which approved device would you like to add?&#34;, choices=approved_devices, style=custom_style).ask()
+    
+    if response == &#34;Go back&#34;:
+        return
+    if response in seq.device_by_name:
+        print(Fore.RED + &#34;Device is already added. To edit it, you must remove it and re-add it.&#34;)
+        return
+    device_cls = named_devices[response]
+    arg_dict = prompt_signature_args(device_cls.__init__, ignored_args=[&#39;name&#39;])
+    arg_dict[&#39;name&#39;] = response
+    seq.add_device(device_cls(**arg_dict))
+    print(Fore.GREEN + response + &#34; was added to the device list&#34;)
+
+def remove_device():
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices added to the recipe.&#34;)
+        return
+    device_index = select_device(&#34;Choose ONE device to remove:&#34;)
+    if device_index is None:
+        return
+    name = seq.device_list[device_index].name
+    response = questionary.confirm(&#34;Are you sure you want to delete &#34; + name + &#34;?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+    if response:
+        seq.remove_device_by_index(device_index)
+        print(Fore.GREEN + name + &#34; was removed from the device list&#34;)
+    else:
+        print(Fore.RED + name + &#34; was NOT removed from the device list&#34;)
+
+def print_com_port_info():
+    if _has_serial:
+        ports = serial.tools.list_ports.comports()
+        print(&#39;&#39;)
+        for port, desc, hwid in sorted(ports):
+            print(&#34;{}: {} [{}]&#34;.format(port, desc, hwid))
+        print(&#39;&#39;)
+    else:
+        print(Fore.RED + &#34;PySerial is not installed&#34;)
+
+##################################################
+# Edit Command Menu
+##################################################
+def command_menu():
+    while True:
+        command_menu_prompt = &#34;Command Menu - Choose an option:&#34;
+        command_menu_options = {
+            &#34;Display Commands&#34;: display_commands,
+            &#34;Add Command&#34;: add_command,
+            &#34;Remove Command(s)&#34;: remove_commands,
+            &#34;Move Command&#34;: move_command,
+            &#34;Add Loop&#34;: add_loop,
+            &#34;Remove All Loops&#34;: remove_loops,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(command_menu_prompt, choices=list(command_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = command_menu_options[response]
+        response_function()
+
+def add_command():
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices. Add a device to create commands for it.&#34;)
+        return
+
+    device_index = select_device(&#34;Choose a device to create a command for:&#34;)
+    if device_index is None:
+        return
+    device = seq.device_list[device_index]
+
+    valid_command_dict =  get_all_commands_classes_for_receiver(command_directory, device.__class__)
+    valid_command_names_desc = []
+    for name, cls in valid_command_dict.items():
+        valid_command_names_desc.append(&#34;{:30.30s}&#34;.format(name) + &#34;- &#34; + cls.__doc__)
+    valid_command_names_desc.append(&#34;Go back&#34;)
+
+    response = questionary.select(&#34;Choose the command to add:&#34;, choices=valid_command_names_desc, style=custom_style).ask()
+    if response == &#34;Go back&#34;:
+        return
+    command_class_name = response.split(&#34; &#34;)[0]
+    command_class = valid_command_dict[command_class_name]
+
+    arg_dict = prompt_signature_args(command_class.__init__, [&#39;receiver&#39;])
+    arg_dict[&#39;receiver&#39;] = device
+    arg_dict[&#39;delay&#39;] = prompt_delay()
+
+    append_insert = questionary.select(&#34;Append this command to the list or insert at a specific position?&#34;, choices=[&#39;Append&#39;,&#39;Insert&#39;], style=custom_style).ask()
+    if append_insert == &#34;Append&#34;:
+        seq.add_command(command_class(**arg_dict))
+    else:
+        insert_index = select_command(&#34;Select the position to insert the new command:&#34;)
+        if insert_index is None:
+            return
+        seq.add_command(command_class(**arg_dict), insert_index)
+
+def remove_commands():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    del_indices = select_multiple_commands(&#34;Select the command(s) you would like to remove:&#34;)
+    if len(del_indices) == 0:
+        print(Fore.RED + &#34;No commands were deleted (Select commands with Space Bar)&#34;)
+        return
+    
+    # Must sort in descending order otherwise removing earlier commands will shift later commands
+    del_indices.sort(reverse=True)
+    response = questionary.confirm(&#34;Are you sure you want to delete the command(s)?&#34;, default=False).ask()
+    if response:
+        for del_index in del_indices:
+            seq.remove_command(del_index)
+            print(Fore.GREEN + &#34;Successfully removed command(s)&#34;)
+    else:
+        print(Fore.RED + &#34;No commands were deleted&#34;)
+        return
+    
+def move_command():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+    if len(seq.command_list) == 1:
+        print(Fore.RED + &#34;There is currently only one command.&#34;)
+        return
+
+    old_index = select_command(&#34;Select the command you would like to move:&#34;)
+    if old_index is None:
+        return
+    new_index = select_command(&#34;Select where to move the command to:&#34;)
+    if new_index is None:
+        return
+    seq.move_command_by_index(old_index, new_index)
+
+def add_loop():
+    if seq.count_loop_commands() &gt; 0:
+        print(Fore.RED + &#34;Recipe already has loop commands. Remove them and re-add them.&#34;)
+        return
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    loop_indices = select_multiple_commands(&#34;Select the FIRST and LAST commands of the loop section:&#34;, validator_func=valid_loop_count)
+
+    if len(loop_indices) == 0:
+        print(Fore.RED + &#34;Loop was NOT added to the recipe.&#34;)
+        return
+    
+    loop_indices.sort()
+    loop_start_index = loop_indices[0]
+    loop_end_index = loop_indices[1] + 1
+    seq.add_loop_end(loop_end_index)
+    seq.add_loop_start(loop_start_index)
+    print(Fore.GREEN + &#34;Loop has been added to recipe!&#34;)
+    
+def remove_loops():
+    response = questionary.confirm(&#34;Are you sure you want to delete all loop commands?&#34;, default=False).ask()
+    if response:
+        loop_command_count = seq.count_loop_commands()
+        seq.remove_all_loop_commands()
+        print(Fore.GREEN + &#34;Removed &#34; + str(loop_command_count) + &#34; loop commands. If these loop commands were erroneously part of an iteration then you should fix your recipe.&#34;)
+    else:
+        print(Fore.RED + &#34;No loop commands were deleted&#34;)
+        return
+
+def get_all_command_classes(command_dir: str):
+    # initialize lists
+    module_names = []
+    cls_list = []
+    cls_name_list = []
+    cls_dict = {}
+
+    # check if each file is a &#34;regular file&#34; with extension &#34;.py&#34; and neglecting the &#34;__init__.py&#34; file
+    # then add to module_names str list
+    for file in listdir(command_dir):
+        if isfile(join(command_dir, file)) and file != &#34;__init__.py&#34; and file.split(&#34;.&#34;)[1] == &#34;py&#34;:
+            # get rid of the file extension and replace / with .
+            module_name = join(command_dir, file).split(&#34;.&#34;)[0].replace(&#34;/&#34;,&#34;.&#34;)
+            module_names.append(module_name)
+
+    # import each module
+    # for each module get each class, if the class is not the base class Command and is not already on our list, then add it to our list
+    for module_name in module_names:
+        module = importlib.import_module(module_name)
+        for name, cls in inspect.getmembers(module, inspect.isclass):
+            if issubclass(cls, Command) and cls is not Command and cls not in cls_list:
+                if not &#39;ParentCommand&#39; in name:
+                    cls_list.append(cls)
+                    cls_name_list.append(name)
+                    cls_dict[name] = cls
+    return cls_dict
+
+def get_all_commands_classes_for_receiver(command_dir: str, receiver_class):
+    cls_dict = get_all_command_classes(command_dir)
+
+    valid_dict = {}
+    for name, cls in cls_dict.items():
+        if cls.receiver_cls == receiver_class:
+            valid_dict[name] = cls
+    return valid_dict
+
+##################################################
+# Iteration Menu
+##################################################
+def iteration_menu():
+    while True:
+
+        if isinstance(seq.num_iterations, str):
+            # Because I want the quotes to appear if it is a string
+            num_iter_str = &#34;&#39;&#34; + seq.num_iterations + &#34;&#39;&#34;
+        else:
+            num_iter_str = str(seq.num_iterations)
+
+        command_menu_prompt = &#34;Command Iteration Menu - Choose an option:&#34;
+        command_menu_options = {
+            &#34;Display a Command&#39;s Iterations&#34;: display_command_iterations,
+            &#34;Add Command Iteration&#34;: add_command_iteration,
+            &#34;Remove Command Iteration(s)&#34;: remove_command_iterations,
+            &#34;Move Command Iteration&#34;: move_command_iteration,
+            &#34;Set Number of Loop Iterations (currently=&#34; + num_iter_str + &#34;)&#34;: set_num_iterations,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(command_menu_prompt, choices=list(command_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = command_menu_options[response]
+        response_function()
+
+def add_command_iteration():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    command_index = select_command(&#34;Select the command to add an iteration for:&#34;)
+    if command_index is None:
+        return
+    
+    for iteration in seq.command_list[command_index]:
+        if isinstance(iteration, LoopStartCommand) or isinstance(iteration, LoopEndCommand):
+            print(Fore.RED + &#34;Cannot add iteration to a Loop Start/End Command&#34;)
+            return
+
+    first_command_iteration = seq.command_list[command_index][0]
+    device = first_command_iteration._receiver
+    command_class = first_command_iteration.__class__
+
+    arg_dict = prompt_signature_args(command_class.__init__, [&#39;receiver&#39;])
+    arg_dict[&#39;receiver&#39;] = device
+    arg_dict[&#39;delay&#39;] = prompt_delay()
+
+    append_insert = questionary.select(&#34;Append this command to the iteration list or insert at a specific position?&#34;, choices=[&#39;Append&#39;,&#39;Insert&#39;], style=custom_style).ask()
+    if append_insert == &#34;Append&#34;:
+        seq.add_command_iteration(command_class(**arg_dict), index=command_index)
+    else:
+        insert_index = select_command_iteration(command_index, &#34;Select the position to insert the new command iteration:&#34;)
+        if insert_index is None:
+            return
+        seq.add_command_iteration(command_class(**arg_dict), index=command_index, iteration=insert_index)
+
+def remove_command_iterations():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    command_index = select_command(&#34;Select the command to add an iteration for:&#34;)
+    if command_index is None:
+        return
+
+    if len(seq.command_list[command_index]) == 1:
+        print(Fore.RED + &#34;Selected command only has 1 command iteration. To change it, insert a new command or command iteration in its place then delete the old one.&#34;)
+        return
+
+    del_indices = select_multiple_command_iterations(command_index, &#34;Select the command iterations(s) you would like to remove:&#34;)
+    if len(del_indices) == 0:
+        print(Fore.RED + &#34;No command iterations were deleted (Select command iterations with Space Bar)&#34;)
+        return
+    
+    if len(del_indices) == len(seq.command_list[command_index]):
+        print(Fore.RED + &#34;There must be at least one iteration remaining&#34;)
+        return
+    
+    # Must sort in descending order otherwise removing earlier commands will shift later commands
+    del_indices.sort(reverse=True)
+    response = questionary.confirm(&#34;Are you sure you want to delete the command iterations(s)?&#34;, default=False).ask()
+    if response:
+        for del_index in del_indices:
+            seq.remove_command_iteration(command_index, del_index)
+            print(Fore.GREEN + &#34;Successfully removed command iteration(s)&#34;)
+    else:
+        print(Fore.RED + &#34;No command iterations were deleted&#34;)
+        return
+
+def move_command_iteration():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    command_index = select_command(&#34;Select the command to move iterations for:&#34;)
+    if command_index is None:
+        return
+
+    if len(seq.command_list[command_index]) == 1:
+        print(Fore.RED + &#34;There is currently only one command iteration.&#34;)
+        return
+
+    old_index = select_command_iteration(command_index, &#34;Select the command iteration you would like to move:&#34;)
+    if old_index is None:
+        return
+    new_index = select_command_iteration(command_index, &#34;Select where to move the command iteration to:&#34;)
+    if new_index is None:
+        return
+    seq.move_command_iteration_by_index(command_index, old_index, new_index)
+
+def set_num_iterations():
+    print(&#34;&#34;)
+    is_valid = False
+    while not is_valid:
+        print(Fore.WHITE + &#34;The current number of iterations is: &#34; + Fore.YELLOW + str(seq.num_iterations))
+        print(&#34;&#34;)
+        response = questionary.text(&#34;Enter the number of iterations to perform (minimum = 1, automatic = &#39;ALL&#39;):&#34;, default=&#34;ALL&#34;).ask()
+        if response == &#39;ALL&#39;:
+            num_iterations = &#39;ALL&#39;
+            is_valid = True
+        else:
+            try:
+                num_iterations = int(response)
+                if num_iterations &gt;= 1:
+                    is_valid = True
+                else:
+                    print(Fore.RED + &#34;Invalid value for num iterations. It must be an integer &gt;= 1 or the string &#39;ALL&#39;.&#34;)
+            except ValueError:
+                print(Fore.RED + &#34;Invalid value for num iterations. It must be an integer &gt;= 1 or the string &#39;ALL&#39;.&#34;)
+    seq.num_iterations = num_iterations
+
+##################################################
+# Execute Recipe
+##################################################
+def execute_recipe():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+    
+    log_options = [&#34;Log with default timestamped filename&#34;, &#34;Log with specified filename&#34;, &#34;No logging&#34;]
+    response = questionary.select(&#34;Select logging option:&#34;, choices=log_options, default=log_options[0], style=custom_style).ask()
+    
+    if response == log_options[0]:
+        log_to_file = True
+        log_filename = None
+        print(Fore.GREEN + &#34;Log filename will be displayed before and after execution!&#34;)
+    elif response == log_options[1]:
+        log_to_file = True
+        log_filename = questionary.path(&#34;Enter log file to create:&#34;, default=log_directory, validate=lambda file: valid_log_file(file, log_directory), style=custom_style).ask()
+        print(Fore.GREEN + &#34;Log messages will be saved to &#39;&#34; + log_filename + &#34;&#39;!&#34;)
+    else:
+        log_to_file = False
+        log_filename = None
+        print(Fore.YELLOW + &#34;Messages will not be logged to file!&#34;)
+
+    alert_slack = questionary.confirm(&#34;Do you want to alert Slack if the recipe fails?&#34;, default=True).ask()
+    response = questionary.confirm(&#34;Are you ready to execute the recipe?&#34;).ask()
+    if response:
+        invoker = CommandInvoker(seq, log_to_file, log_filename, alert_slack)
+        invocation_successful = invoker.invoke_commands()
+        if invocation_successful:
+            print(Fore.CYAN + &#34;Recipe execution complete.&#34; + Fore.GREEN + &#34; Execution was successful.&#34;)
+        else:
+            print(Fore.CYAN + &#34;Recipe execution complete.&#34; + Fore.RED + &#34; Execution encountered errors.&#34;)
+        print(&#34;&#34;)
+
+##################################################
+# Execute Manual Commands
+##################################################
+def execute_manual():
+    global seq
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices. Add a device to execute commands for it.&#34;)
+        return
+    
+    # Warning! Manual command execution can alter the state of your devices which may or may not be desired!
+    # For example, it can cause a device to have its is_initialized flag set to True, which can be dumped to a .yaml file
+    # This means loading the &#34;recipe&#34; later will start with an initialized device even if it may not be initialized in reality
+    # An option is to make a deepcopy of the device objects and execute commands on them
+    # However, changing the state of the device may actually be desired!
+    # For example, you may actually want to manually get the device to a certain state before executing the full recipe
+    # Therefore, manual commands executed here have the option to operate on the same device/receiver objects as the recipe using a shallow copy
+    # So use carefully! Try not to save to .yaml file after executing commands manually, instead reload this program to make changes then save
+    
+    # response = questionary.confirm(&#34;WARNING! Executing commands manually can alter the state of your devices which may be undesirable. Continue?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+    print(Fore.RED + &#34;WARNING! Executing commands manually can alter the state of your devices which may be undesirable.&#34;)
+    print(Fore.RED + &#34;*BUG - Performing a deepcopy after previously performing a shallow copy results in an error.&#34;)
+    # response = questionary.confirm(&#34;Do you want to preserve the state of the devices after execution? (Recommend No!)&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask())
+    copy_options = [
+        &#34;No, DO NOT preserve the state of the devices (Recommended, performs a deepcopy and creates new device objects)&#34;,
+        &#34;Yes, preserve the state of the devices (performs a shallow copy and references the original device objects)&#34;
+    ]
+    prompt = questionary.select(&#34;Do you want to preserve the state of the devices after execution?&#34;, choices=copy_options, default=copy_options[0], style=custom_style)
+    response = prompt.ask()
+    
+    if response == copy_options[0]:
+        # Do not preserve the device state
+        seq_manual = copy.deepcopy(seq)
+    else:
+        # Preserve the device state
+        seq_manual = copy.copy(seq)
+    
+    seq_manual.command_list = []
+    seq_manual.num_iterations = 1
+
+    # Enter the manual execution loop, Choose device
+    while True:
+        seq_manual.command_list = []
+        # copied from add_command (refactor this)
+        device_index = select_device(&#34;Choose a device to execute commands for:&#34;)
+        if device_index is None:
+            break
+
+        device = seq_manual.device_list[device_index]
+
+        valid_command_dict =  get_all_commands_classes_for_receiver(command_directory, device.__class__)
+        valid_command_names_desc = []
+        for name, cls in valid_command_dict.items():
+            valid_command_names_desc.append(&#34;{:30.30s}&#34;.format(name) + &#34;- &#34; + cls.__doc__)
+        valid_command_names_desc.append(&#34;Go back&#34;)
+
+        # Choose command loop
+        while True:
+            response = questionary.select(&#34;Choose the command to add:&#34;, choices=valid_command_names_desc, style=custom_style).ask()
+            if response == &#34;Go back&#34;:
+                break
+            command_class_name = response.split(&#34; &#34;)[0]
+            command_class = valid_command_dict[command_class_name]
+
+            arg_dict = prompt_signature_args(command_class.__init__, [&#39;receiver&#39;])
+            arg_dict[&#39;receiver&#39;] = device
+            arg_dict[&#39;delay&#39;] = prompt_delay()
+
+            response = questionary.confirm(&#34;Are you sure you want to execute this command?&#34;, default=True, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+            if not response:
+                break
+
+            seq_manual.command_list = []
+            seq_manual.add_command(command_class(**arg_dict))
+            invoker_manual = CommandInvoker(seq_manual, log_to_file=False, log_filename=None, alert_slack=False)
+            invocation_successful = invoker_manual.invoke_commands()
+
+            if invocation_successful:
+                print(Fore.CYAN + &#34;Manual command execution complete.&#34; + Fore.GREEN + &#34; Execution was successful.&#34;)
+            else:
+                print(Fore.CYAN + &#34;Manual command execution complete.&#34; + Fore.RED + &#34; Execution encountered errors.&#34;)
+            print(&#34;&#34;)
+
+    
+
+##################################################
+# Print Help
+##################################################
+def print_help():
+    print(&#39;&#39;)
+    print(Fore.GREEN + &#34;=&#34;*10 + &#34; How to use this tool? &#34; +&#34;=&#34;*140)
+    # print(rainbow(&#39;#?&#39;)*1 + Fore.CYAN + &#34;  How to use this tool  &#34; + rainbow(&#39;#?&#39;)*14)
+    print(&#39;&#39;)
+    print(Fore.WHITE + &#34; 1) Add devices that will be needed for the recipe. You will be prompted for parameters (e.g. COM port, timeout, motor numbers, etc.)&#34;)
+    print(&#34; 2) Add commands for any device that has been added. You will be prompted for parameters if any. (e.g. temperature, speed, position, etc.)&#34;)
+    print(&#34; 3) After adding commands, you can designate a subsection of the recipe as a looped section using &#39;Add Loop&#39;. The looped section will execute a specified number of iterations.&#34;)
+    print(&#34; 4) For each command, you can add additional &#39;command iterations&#39; which are additional commands that correspond to each loop iteration.&#34;)
+    print(&#34;         (If there are more loop iterations (at least 1) than command&#39;s &#39;command iterations&#39;, the latest command iteration will be used.)&#34;)
+    print(&#34; 5) You can set the integer number of loop iterations in the command iteration menu. A string value of &#39;ALL&#39; will automatically determine the largest command iteration length and use that.&#34;)
+    print(&#34; 6) Frequently save you recipe to a .yaml file so it can be loaded later&#34;)
+    print(&#34; 7) When ready to execute the recipe you will be prompted for logging options, slack alerts, and a final confirmation before execution.&#34;)
+    print(&#34; 8) During execution the status will be updated live and logged to the screen and log file. After completion you will be returned to the main menu.&#34;)
+    print(&#39;&#39;)
+    # print(rainbow(&#39;#?&#39;)*17)
+    print(Fore.GREEN + &#34;=&#34;*173)
+    # print(rainbow(&#34;#&#34;)*10)
+    # print(rainbow(&#34;?&#34;)*10)
+    # print(rainbow_bg()*10)
+    print(&#34;&#34;)
+
+##################################################
+# Quit
+##################################################
+def quit_program():
+    print(Fore.RED + &#34;User quit program&#34;)
+    sys.exit()
+
+##################################################
+# Useful Functions
+##################################################
+def select_device(prompt_message, allow_backout = True):
+    device_names_classes = seq.get_device_names_classes() # [name, class name] of every device
+    display_device_menu_options = []
+    for name_class in device_names_classes:
+        display_device_menu_options.append(&#34;Name: {:20.20s} Class: {}&#34;.format(name_class[0], name_class[1]))
+    if allow_backout:
+        display_device_menu_options.append(&#34;Go back&#34;)
+    prompt = questionary.select(prompt_message, choices=display_device_menu_options, style=custom_style)
+    response = prompt.ask()
+    if response == &#34;Go back&#34;:
+        response = None
+    else:
+        response = display_device_menu_options.index(response)
+    return response # index of the device
+
+def select_command(prompt_message, allow_backout = True):
+    command_names = seq.get_command_names()
+    # Any command with additional iterations is marked with *
+    for ndx, name in enumerate(command_names):
+        if &#39;IterIndex&#39; in name:
+            command_names[ndx-1] = &#34;*&#34; + command_names[ndx-1]
+    # Delete the iterations from the list
+    for ndx, name in enumerate(command_names):
+        while &#39;IterIndex&#39; in command_names[ndx]:
+            del command_names[ndx]
+    # Format the string with spaces
+    for ndx, name in enumerate(command_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        command_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                command_names[ndx] += &#34; &#34; + param
+    if allow_backout:
+        command_names.append(&#34;Go back&#34;)
+    prompt = questionary.select(prompt_message, choices=command_names, style=custom_style)
+    response = prompt.ask()
+    if response == &#34;Go back&#34;:
+        response = None
+    else:
+        response = command_names.index(response)
+    return response # index of the command
+
+def select_multiple_commands(prompt_message, validator_func = None):
+    command_names = seq.get_command_names()
+    # Any command with additional iterations is marked with *
+    for ndx, name in enumerate(command_names):
+        if &#39;IterIndex&#39; in name:
+            command_names[ndx-1] = &#34;*&#34; + command_names[ndx-1]
+    # Delete the iterations from the list
+    for ndx, name in enumerate(command_names):
+        while &#39;IterIndex&#39; in command_names[ndx]:
+            del command_names[ndx]
+    # Format the string with spaces
+    for ndx, name in enumerate(command_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        command_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                command_names[ndx] += &#34; &#34; + param
+    if validator_func is None:
+        prompt = questionary.checkbox(prompt_message, choices=command_names, style=custom_style)
+    else:
+        prompt = questionary.checkbox(prompt_message, choices=command_names, validate=lambda resp: validator_func(resp), style=custom_style)
+    response_list = prompt.ask()
+    index_list = []
+    for response in response_list:
+        index_list.append(command_names.index(response))
+    return index_list
+
+def select_command_iteration(command_index, prompt_message, allow_backout = True):
+    iteration_names = []
+    for iteration in seq.command_list[command_index]:
+        iteration_names.append(iteration.name)
+    
+    for ndx, name in enumerate(iteration_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        iteration_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                iteration_names[ndx] += &#34; &#34; + param
+  
+    if allow_backout:
+        iteration_names.append(&#34;Go back&#34;)
+    prompt = questionary.select(prompt_message, choices=iteration_names, style=custom_style)
+    response = prompt.ask()
+    if response == &#34;Go back&#34;:
+        response = None
+    else:
+        response = iteration_names.index(response)
+    return response # index of the command iteration
+
+def select_multiple_command_iterations(command_index, prompt_message):
+    iteration_names = []
+    for iteration in seq.command_list[command_index]:
+        iteration_names.append(iteration.name)
+    
+    for ndx, name in enumerate(iteration_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        iteration_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                iteration_names[ndx] += &#34; &#34; + param
+
+    prompt = questionary.checkbox(prompt_message, choices=iteration_names, style=custom_style)
+    response_list = prompt.ask()
+    index_list = []
+    for response in response_list:
+        index_list.append(iteration_names.index(response))
+    return index_list
+
+def prompt_signature_args(func, ignored_args):
+    # ignored args, list of strings for arg names
+    # returns dictionary of args
+    sig = inspect.signature(func)
+    arg_dict = {}
+    ignored_args.extend([&#39;self&#39;, &#39;kwargs&#39;, &#39;args&#39;])
+
+    for param in sig.parameters.values():
+        if not param.name in ignored_args:
+            print_eval_warning()
+            if param.default == inspect._empty:
+                default = &#34;N/A&#34;
+            else:
+                default = str(param.default)
+            print(Fore.WHITE + &#34;Parameter: &#34; + Fore.GREEN + param.name + Fore.WHITE + &#34;  type: &#34; + Fore.YELLOW + str(param.annotation) + Fore.WHITE + &#34;  default: &#34; + Fore.YELLOW + default)
+            
+            if default == &#34;N/A&#34;:
+                response = questionary.text(&#34;Enter value for the parameter&#34;).ask()
+            else:
+                response = questionary.text(&#34;Enter value for the parameter&#34;, default=default).ask()
+
+            arg_dict[param.name] = eval(response)
+    return arg_dict
+
+def prompt_delay():
+    # print(Fore.WHITE + &#34;Parameter: &#34; + Fore.GREEN + &#34;delay&#34; + Fore.WHITE + &#34;  type: &#34; + Fore.YELLOW + &#34;float&#34; + Fore.WHITE + &#34;  default: &#34; + Fore.YELLOW + &#34;0.0&#34;)
+    is_valid = False
+    while not is_valid:
+        response = questionary.text(&#34;Enter delay (in seconds) before this command executes. (0.0 = no delay, P = Pause &amp; wait for ENTER before execute):&#34;, default=&#34;0.0&#34;).ask()
+        if response == &#39;P&#39; or response == &#39;PAUSE&#39;:
+            delay = &#39;PAUSE&#39;
+            is_valid = True
+        else:
+            try:
+                delay = float(response)
+                if delay &gt;= 0.0:
+                    is_valid = True
+                else:
+                    print(Fore.RED + &#34;Invalid value for delay. It must be an number &gt;= 0.0 or the string &#39;P&#39; or &#39;PAUSE&#39;.&#34;)
+            except ValueError:
+                print(Fore.RED + &#34;Invalid value for delay. It must be an number &gt;= 0.0 or the string &#39;P&#39; or &#39;PAUSE&#39;.&#34;)
+    return delay
+
+def print_eval_warning():
+    print(Fore.RED + &#34;Your response will be evaluated directly with eval()!&#34;)
+    print(Fore.RED + &#34;Examples: string = &#39;COM9&#39;, integer = 5, float = 5.0, list of ints = [1, 2, 3], tuple of ints = (1, 2, 3)&#34;)
+
+def print_intro():
+    print(Fore.GREEN + Style.BRIGHT + &#39;=&#39;*50)
+    print(&#34; &#34;*15 + &#34;Command Recipe Tool&#34;)
+    print(&#34; &#34;*13 + &#34;8/12/2021 - Justin Kwok&#34;)
+    print(&#39;=&#39;*50)
+    print(&#39;&#39;)
+
+def rainbow(char):
+    string = Fore.RED + char + Fore.YELLOW + char + Fore.GREEN + char + Fore.CYAN + char + Fore.BLUE + char + Fore.MAGENTA + char
+    return string
+
+def rainbow_bg():
+    char = &#34; &#34;
+    string = Back.RED + char + Back.YELLOW + char + Back.GREEN + char + Back.CYAN + char + Back.BLUE + char + Back.MAGENTA + char
+    return string
+
+##################################################
+# Questionary validator functions
+##################################################
+def valid_yml(file):
+    if file.lower() == &#34;quit&#34;:
+        return True
+    if not isfile(file) or (file.split(&#34;.&#34;)[-1] != &#34;yml&#34; and file.split(&#34;.&#34;)[-1] != &#34;yaml&#34;):
+        return &#34;Enter a valid yml/yaml file&#34;
+    else:
+        return True
+
+def valid_loop_count(response_list):
+    if len(response_list) == 0 or len(response_list) == 2:
+        return True
+    else:
+        return &#34;You must select 2 options only or select none to exit&#34;  
+
+def valid_save_file(file, save_directory):
+    if file.lower() == &#34;quit&#34;:
+        return True
+    if not save_directory in file:
+        return &#34;You must save in the directory: &#34; + save_directory
+    if not &#39;.yaml&#39; in file:
+        return &#34;File must have a &#39;.yaml&#39; extension&#34;
+    else:
+        return True
+
+def valid_log_file(file, log_directory):
+    if not log_directory in file:
+        return &#34;You must save log in the directory: &#34; + log_directory
+    if not &#39;.log&#39; in file:
+        return &#34;File must have a &#39;.log&#39; extension&#34;
+    if isfile(file):
+        return &#34;You must create a new log file&#34;
+    else:
+        return True
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="Lab_Automation.recipe_tool.add_command"><code class="name flex">
+<span>def <span class="ident">add_command</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_command():
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices. Add a device to create commands for it.&#34;)
+        return
+
+    device_index = select_device(&#34;Choose a device to create a command for:&#34;)
+    if device_index is None:
+        return
+    device = seq.device_list[device_index]
+
+    valid_command_dict =  get_all_commands_classes_for_receiver(command_directory, device.__class__)
+    valid_command_names_desc = []
+    for name, cls in valid_command_dict.items():
+        valid_command_names_desc.append(&#34;{:30.30s}&#34;.format(name) + &#34;- &#34; + cls.__doc__)
+    valid_command_names_desc.append(&#34;Go back&#34;)
+
+    response = questionary.select(&#34;Choose the command to add:&#34;, choices=valid_command_names_desc, style=custom_style).ask()
+    if response == &#34;Go back&#34;:
+        return
+    command_class_name = response.split(&#34; &#34;)[0]
+    command_class = valid_command_dict[command_class_name]
+
+    arg_dict = prompt_signature_args(command_class.__init__, [&#39;receiver&#39;])
+    arg_dict[&#39;receiver&#39;] = device
+    arg_dict[&#39;delay&#39;] = prompt_delay()
+
+    append_insert = questionary.select(&#34;Append this command to the list or insert at a specific position?&#34;, choices=[&#39;Append&#39;,&#39;Insert&#39;], style=custom_style).ask()
+    if append_insert == &#34;Append&#34;:
+        seq.add_command(command_class(**arg_dict))
+    else:
+        insert_index = select_command(&#34;Select the position to insert the new command:&#34;)
+        if insert_index is None:
+            return
+        seq.add_command(command_class(**arg_dict), insert_index)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.add_command_iteration"><code class="name flex">
+<span>def <span class="ident">add_command_iteration</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_command_iteration():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    command_index = select_command(&#34;Select the command to add an iteration for:&#34;)
+    if command_index is None:
+        return
+    
+    for iteration in seq.command_list[command_index]:
+        if isinstance(iteration, LoopStartCommand) or isinstance(iteration, LoopEndCommand):
+            print(Fore.RED + &#34;Cannot add iteration to a Loop Start/End Command&#34;)
+            return
+
+    first_command_iteration = seq.command_list[command_index][0]
+    device = first_command_iteration._receiver
+    command_class = first_command_iteration.__class__
+
+    arg_dict = prompt_signature_args(command_class.__init__, [&#39;receiver&#39;])
+    arg_dict[&#39;receiver&#39;] = device
+    arg_dict[&#39;delay&#39;] = prompt_delay()
+
+    append_insert = questionary.select(&#34;Append this command to the iteration list or insert at a specific position?&#34;, choices=[&#39;Append&#39;,&#39;Insert&#39;], style=custom_style).ask()
+    if append_insert == &#34;Append&#34;:
+        seq.add_command_iteration(command_class(**arg_dict), index=command_index)
+    else:
+        insert_index = select_command_iteration(command_index, &#34;Select the position to insert the new command iteration:&#34;)
+        if insert_index is None:
+            return
+        seq.add_command_iteration(command_class(**arg_dict), index=command_index, iteration=insert_index)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.add_device"><code class="name flex">
+<span>def <span class="ident">add_device</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_device():
+    approved_devices = list(named_devices.keys())
+    approved_devices.append(&#34;Go back&#34;)
+    response = questionary.select(&#34;Which approved device would you like to add?&#34;, choices=approved_devices, style=custom_style).ask()
+    
+    if response == &#34;Go back&#34;:
+        return
+    if response in seq.device_by_name:
+        print(Fore.RED + &#34;Device is already added. To edit it, you must remove it and re-add it.&#34;)
+        return
+    device_cls = named_devices[response]
+    arg_dict = prompt_signature_args(device_cls.__init__, ignored_args=[&#39;name&#39;])
+    arg_dict[&#39;name&#39;] = response
+    seq.add_device(device_cls(**arg_dict))
+    print(Fore.GREEN + response + &#34; was added to the device list&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.add_loop"><code class="name flex">
+<span>def <span class="ident">add_loop</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_loop():
+    if seq.count_loop_commands() &gt; 0:
+        print(Fore.RED + &#34;Recipe already has loop commands. Remove them and re-add them.&#34;)
+        return
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    loop_indices = select_multiple_commands(&#34;Select the FIRST and LAST commands of the loop section:&#34;, validator_func=valid_loop_count)
+
+    if len(loop_indices) == 0:
+        print(Fore.RED + &#34;Loop was NOT added to the recipe.&#34;)
+        return
+    
+    loop_indices.sort()
+    loop_start_index = loop_indices[0]
+    loop_end_index = loop_indices[1] + 1
+    seq.add_loop_end(loop_end_index)
+    seq.add_loop_start(loop_start_index)
+    print(Fore.GREEN + &#34;Loop has been added to recipe!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.clear_sequence"><code class="name flex">
+<span>def <span class="ident">clear_sequence</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear_sequence():
+    response = questionary.confirm(&#34;Create new recipe. Any unsaved data will be lost. Continue?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+    if response:
+        global seq
+        seq = CommandSequence()
+        print(Fore.GREEN + &#34;New recipe created!&#34;)
+    else:
+        print(Fore.RED + &#34;Did not create new recipe!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.command_menu"><code class="name flex">
+<span>def <span class="ident">command_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def command_menu():
+    while True:
+        command_menu_prompt = &#34;Command Menu - Choose an option:&#34;
+        command_menu_options = {
+            &#34;Display Commands&#34;: display_commands,
+            &#34;Add Command&#34;: add_command,
+            &#34;Remove Command(s)&#34;: remove_commands,
+            &#34;Move Command&#34;: move_command,
+            &#34;Add Loop&#34;: add_loop,
+            &#34;Remove All Loops&#34;: remove_loops,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(command_menu_prompt, choices=list(command_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = command_menu_options[response]
+        response_function()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.device_menu"><code class="name flex">
+<span>def <span class="ident">device_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def device_menu():
+    while True:
+        device_menu_prompt = &#34;Device Menu - Choose an option:&#34;
+        device_menu_options = {
+            &#34;Display Devices&#34;: display_device_menu,
+            &#34;Add Device&#34;: add_device,
+            &#34;Remove Device&#34;: remove_device,
+            &#34;Display COM Port Info&#34;: print_com_port_info,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(device_menu_prompt, choices=list(device_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = device_menu_options[response]
+        response_function()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.display_command_iterations"><code class="name flex">
+<span>def <span class="ident">display_command_iterations</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_command_iterations():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+
+    index = select_command(&#34;Choose a command to view its iterations:&#34;)
+    if index is None:
+        return
+    iteration_names = []
+    for iteration in seq.command_list[index]:
+        iteration_names.append(iteration.name)
+
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Command Iterations:&#34;)
+    print(Fore.RED + &#34;{:16s}&#34;.format(&#34;Iteration Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Iteration Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in iteration_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        print(Fore.RED + &#34;{:16s}&#34;.format(str(index)), end=&#34;&#34;)
+        index += 1
+        print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.display_commands"><code class="name flex">
+<span>def <span class="ident">display_commands</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_commands():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+    command_names = seq.get_command_names()
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Commands:&#34;)
+    print(Fore.RED + &#34;{:7s}&#34;.format(&#34;Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in command_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        
+        if &#39;IterIndex&#39; in name_parts[0]:
+            print(Fore.RED + &#34;{:7s}&#34;.format(&#34; &#34;), end=&#34;&#34;)
+            print(Fore.WHITE + &#34;{:12.12s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+            print(Fore.CYAN + &#34;{:28.28s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        else:
+            print(Fore.RED + &#34;{:7s}&#34;.format(str(index)), end=&#34;&#34;)
+            index += 1
+            print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.display_commands_hide_iterations"><code class="name flex">
+<span>def <span class="ident">display_commands_hide_iterations</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_commands_hide_iterations():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+
+    command_names = seq.get_command_names()
+    for ndx, name in enumerate(command_names):
+        if &#39;IterIndex&#39; in name:
+            command_names[ndx-1] = &#34;*&#34; + command_names[ndx-1]
+    for ndx, name in enumerate(command_names):
+        while &#39;IterIndex&#39; in command_names[ndx]:
+            del command_names[ndx]
+
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Commands:&#34;)
+    print(Fore.RED + &#34;{:7s}&#34;.format(&#34;Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in command_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        print(Fore.RED + &#34;{:7s}&#34;.format(str(index)), end=&#34;&#34;)
+        index += 1
+        if &#39;*&#39; in name_parts[0]:
+            print(Fore.WHITE + &#34;*&#34; + Fore.CYAN + &#34;{:39.39s}&#34;.format(name_parts.pop(0)[1:]), end=&#34;&#34;)
+        else:
+            print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.display_commands_unlooped"><code class="name flex">
+<span>def <span class="ident">display_commands_unlooped</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_commands_unlooped():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands added to the recipe.&#34;)
+        return
+
+    command_list = seq.get_unlooped_command_list()
+    if len(command_list) == 0:
+        print(Fore.RED + &#34;The command sequence and/or num_iterations is not valid, cannot unloop.&#34;)
+        return
+
+    command_names = []
+    for command in command_list:
+        command_names.append(command.name)
+    
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Commands:&#34;)
+    print(Fore.RED + &#34;{:15s}&#34;.format(&#34;Unlooped Index&#34;) + Fore.CYAN + &#34;{:40s}&#34;.format(&#34;Command Class&#34;) + Fore.GREEN + Fore.WHITE + &#34;Parameters&#34;)
+    index = 0
+    for name in command_names:
+        name_parts = name.strip().split(&#34; &#34;)
+        print(Fore.RED + &#34;{:15s}&#34;.format(str(index)), end=&#34;&#34;)
+        index += 1
+        print(Fore.CYAN + &#34;{:40.40s}&#34;.format(name_parts.pop(0)), end=&#34;&#34;)
+        if len(name_parts) == 0:
+            print(&#34;&#34;)
+        else:
+            for param in name_parts:
+                param_name = param.split(&#34;=&#34;)[0]
+                param_value = param.split(&#34;=&#34;)[1]
+                print(Fore.WHITE + param_name + &#34;=&#34;+ Fore.YELLOW + param_value, end=&#34; &#34;)
+            print(&#34;&#34;)
+    print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.display_device_menu"><code class="name flex">
+<span>def <span class="ident">display_device_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_device_menu():
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices added to the recipe.&#34;)
+        return
+    while True:
+        display_device_menu_prompt = &#34;Choose a device to see more details:&#34;
+        print_devices()
+        device_index = select_device(display_device_menu_prompt)
+        if device_index is None:
+            break
+        else:
+            display_device_properties(device_index)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.display_device_properties"><code class="name flex">
+<span>def <span class="ident">display_device_properties</span></span>(<span>device_index: int)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_device_properties(device_index: int):
+    attr_dict = seq.device_list[device_index].__dict__
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of device properties for: &#34; + Fore.GREEN + seq.device_list[device_index].name)
+    for name, value in attr_dict.items():
+        print(Fore.WHITE + &#34; {:20.20s}&#34;.format(name) + &#34; = &#34; + Fore.YELLOW + str(value))
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;Press ENTER to continue&#34;)
+    input()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.display_menu"><code class="name flex">
+<span>def <span class="ident">display_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_menu():
+    while True:
+        display_menu_prompt = &#34;Display Menu - Choose an option:&#34;
+        display_menu_options = {
+            &#34;Display Devices&#34;: display_device_menu,
+            &#34;Display Commands&#34;: display_commands,
+            &#34;Display Commands (Hide Iterations)&#34;: display_commands_hide_iterations,
+            &#34;Display Commands (Unlooped)&#34;: display_commands_unlooped,
+            &#34;Display a Command&#39;s Iterations&#34;: display_command_iterations,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(display_menu_prompt, choices=list(display_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = display_menu_options[response]
+        response_function()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.execute_manual"><code class="name flex">
+<span>def <span class="ident">execute_manual</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def execute_manual():
+    global seq
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices. Add a device to execute commands for it.&#34;)
+        return
+    
+    # Warning! Manual command execution can alter the state of your devices which may or may not be desired!
+    # For example, it can cause a device to have its is_initialized flag set to True, which can be dumped to a .yaml file
+    # This means loading the &#34;recipe&#34; later will start with an initialized device even if it may not be initialized in reality
+    # An option is to make a deepcopy of the device objects and execute commands on them
+    # However, changing the state of the device may actually be desired!
+    # For example, you may actually want to manually get the device to a certain state before executing the full recipe
+    # Therefore, manual commands executed here have the option to operate on the same device/receiver objects as the recipe using a shallow copy
+    # So use carefully! Try not to save to .yaml file after executing commands manually, instead reload this program to make changes then save
+    
+    # response = questionary.confirm(&#34;WARNING! Executing commands manually can alter the state of your devices which may be undesirable. Continue?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+    print(Fore.RED + &#34;WARNING! Executing commands manually can alter the state of your devices which may be undesirable.&#34;)
+    print(Fore.RED + &#34;*BUG - Performing a deepcopy after previously performing a shallow copy results in an error.&#34;)
+    # response = questionary.confirm(&#34;Do you want to preserve the state of the devices after execution? (Recommend No!)&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask())
+    copy_options = [
+        &#34;No, DO NOT preserve the state of the devices (Recommended, performs a deepcopy and creates new device objects)&#34;,
+        &#34;Yes, preserve the state of the devices (performs a shallow copy and references the original device objects)&#34;
+    ]
+    prompt = questionary.select(&#34;Do you want to preserve the state of the devices after execution?&#34;, choices=copy_options, default=copy_options[0], style=custom_style)
+    response = prompt.ask()
+    
+    if response == copy_options[0]:
+        # Do not preserve the device state
+        seq_manual = copy.deepcopy(seq)
+    else:
+        # Preserve the device state
+        seq_manual = copy.copy(seq)
+    
+    seq_manual.command_list = []
+    seq_manual.num_iterations = 1
+
+    # Enter the manual execution loop, Choose device
+    while True:
+        seq_manual.command_list = []
+        # copied from add_command (refactor this)
+        device_index = select_device(&#34;Choose a device to execute commands for:&#34;)
+        if device_index is None:
+            break
+
+        device = seq_manual.device_list[device_index]
+
+        valid_command_dict =  get_all_commands_classes_for_receiver(command_directory, device.__class__)
+        valid_command_names_desc = []
+        for name, cls in valid_command_dict.items():
+            valid_command_names_desc.append(&#34;{:30.30s}&#34;.format(name) + &#34;- &#34; + cls.__doc__)
+        valid_command_names_desc.append(&#34;Go back&#34;)
+
+        # Choose command loop
+        while True:
+            response = questionary.select(&#34;Choose the command to add:&#34;, choices=valid_command_names_desc, style=custom_style).ask()
+            if response == &#34;Go back&#34;:
+                break
+            command_class_name = response.split(&#34; &#34;)[0]
+            command_class = valid_command_dict[command_class_name]
+
+            arg_dict = prompt_signature_args(command_class.__init__, [&#39;receiver&#39;])
+            arg_dict[&#39;receiver&#39;] = device
+            arg_dict[&#39;delay&#39;] = prompt_delay()
+
+            response = questionary.confirm(&#34;Are you sure you want to execute this command?&#34;, default=True, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+            if not response:
+                break
+
+            seq_manual.command_list = []
+            seq_manual.add_command(command_class(**arg_dict))
+            invoker_manual = CommandInvoker(seq_manual, log_to_file=False, log_filename=None, alert_slack=False)
+            invocation_successful = invoker_manual.invoke_commands()
+
+            if invocation_successful:
+                print(Fore.CYAN + &#34;Manual command execution complete.&#34; + Fore.GREEN + &#34; Execution was successful.&#34;)
+            else:
+                print(Fore.CYAN + &#34;Manual command execution complete.&#34; + Fore.RED + &#34; Execution encountered errors.&#34;)
+            print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.execute_recipe"><code class="name flex">
+<span>def <span class="ident">execute_recipe</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def execute_recipe():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+    
+    log_options = [&#34;Log with default timestamped filename&#34;, &#34;Log with specified filename&#34;, &#34;No logging&#34;]
+    response = questionary.select(&#34;Select logging option:&#34;, choices=log_options, default=log_options[0], style=custom_style).ask()
+    
+    if response == log_options[0]:
+        log_to_file = True
+        log_filename = None
+        print(Fore.GREEN + &#34;Log filename will be displayed before and after execution!&#34;)
+    elif response == log_options[1]:
+        log_to_file = True
+        log_filename = questionary.path(&#34;Enter log file to create:&#34;, default=log_directory, validate=lambda file: valid_log_file(file, log_directory), style=custom_style).ask()
+        print(Fore.GREEN + &#34;Log messages will be saved to &#39;&#34; + log_filename + &#34;&#39;!&#34;)
+    else:
+        log_to_file = False
+        log_filename = None
+        print(Fore.YELLOW + &#34;Messages will not be logged to file!&#34;)
+
+    alert_slack = questionary.confirm(&#34;Do you want to alert Slack if the recipe fails?&#34;, default=True).ask()
+    response = questionary.confirm(&#34;Are you ready to execute the recipe?&#34;).ask()
+    if response:
+        invoker = CommandInvoker(seq, log_to_file, log_filename, alert_slack)
+        invocation_successful = invoker.invoke_commands()
+        if invocation_successful:
+            print(Fore.CYAN + &#34;Recipe execution complete.&#34; + Fore.GREEN + &#34; Execution was successful.&#34;)
+        else:
+            print(Fore.CYAN + &#34;Recipe execution complete.&#34; + Fore.RED + &#34; Execution encountered errors.&#34;)
+        print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.get_all_command_classes"><code class="name flex">
+<span>def <span class="ident">get_all_command_classes</span></span>(<span>command_dir: str)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_command_classes(command_dir: str):
+    # initialize lists
+    module_names = []
+    cls_list = []
+    cls_name_list = []
+    cls_dict = {}
+
+    # check if each file is a &#34;regular file&#34; with extension &#34;.py&#34; and neglecting the &#34;__init__.py&#34; file
+    # then add to module_names str list
+    for file in listdir(command_dir):
+        if isfile(join(command_dir, file)) and file != &#34;__init__.py&#34; and file.split(&#34;.&#34;)[1] == &#34;py&#34;:
+            # get rid of the file extension and replace / with .
+            module_name = join(command_dir, file).split(&#34;.&#34;)[0].replace(&#34;/&#34;,&#34;.&#34;)
+            module_names.append(module_name)
+
+    # import each module
+    # for each module get each class, if the class is not the base class Command and is not already on our list, then add it to our list
+    for module_name in module_names:
+        module = importlib.import_module(module_name)
+        for name, cls in inspect.getmembers(module, inspect.isclass):
+            if issubclass(cls, Command) and cls is not Command and cls not in cls_list:
+                if not &#39;ParentCommand&#39; in name:
+                    cls_list.append(cls)
+                    cls_name_list.append(name)
+                    cls_dict[name] = cls
+    return cls_dict</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.get_all_commands_classes_for_receiver"><code class="name flex">
+<span>def <span class="ident">get_all_commands_classes_for_receiver</span></span>(<span>command_dir: str, receiver_class)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_commands_classes_for_receiver(command_dir: str, receiver_class):
+    cls_dict = get_all_command_classes(command_dir)
+
+    valid_dict = {}
+    for name, cls in cls_dict.items():
+        if cls.receiver_cls == receiver_class:
+            valid_dict[name] = cls
+    return valid_dict</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.iteration_menu"><code class="name flex">
+<span>def <span class="ident">iteration_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def iteration_menu():
+    while True:
+
+        if isinstance(seq.num_iterations, str):
+            # Because I want the quotes to appear if it is a string
+            num_iter_str = &#34;&#39;&#34; + seq.num_iterations + &#34;&#39;&#34;
+        else:
+            num_iter_str = str(seq.num_iterations)
+
+        command_menu_prompt = &#34;Command Iteration Menu - Choose an option:&#34;
+        command_menu_options = {
+            &#34;Display a Command&#39;s Iterations&#34;: display_command_iterations,
+            &#34;Add Command Iteration&#34;: add_command_iteration,
+            &#34;Remove Command Iteration(s)&#34;: remove_command_iterations,
+            &#34;Move Command Iteration&#34;: move_command_iteration,
+            &#34;Set Number of Loop Iterations (currently=&#34; + num_iter_str + &#34;)&#34;: set_num_iterations,
+            &#34;Back to Main Menu&#34;: main_menu,
+        }
+        prompt = questionary.select(command_menu_prompt, choices=list(command_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = command_menu_options[response]
+        response_function()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.load_sequence"><code class="name flex">
+<span>def <span class="ident">load_sequence</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_sequence():
+    prompt = questionary.path(&#34;Enter the recipe file you would like to load or type &#39;quit&#39;:&#34;, default=load_directory, validate=lambda file: valid_yml(file))
+    yaml_file = prompt.ask()
+
+    if yaml_file.lower() == &#34;quit&#34;:
+        return
+
+    #Load the yml file data into the sequence
+    global seq
+    seq = CommandSequence()
+    seq.load_from_yaml(yaml_file)
+    print(Fore.GREEN + &#34;Recipe from yaml file loaded!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    print_intro()
+    main_menu()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.main_menu"><code class="name flex">
+<span>def <span class="ident">main_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main_menu():
+    while True:
+        main_menu_prompt = &#34;Main Menu - Choose an option:&#34;
+        main_menu_options = {
+            &#34;New/Save/Load Recipe&#34;: recipe_menu,
+            &#34;Display Recipe Info&#34;: display_menu,
+            &#34;Edit Devices&#34;: device_menu,
+            &#34;Edit Commands&#34;: command_menu,
+            &#34;Edit Command Iterations&#34;: iteration_menu,
+            &#34;Execute Recipe&#34;: execute_recipe,
+            &#34;Manual Command Session&#34;: execute_manual,
+            &#34;Help&#34;: print_help,
+            &#34;Quit&#34;: quit_program
+        }
+        prompt = questionary.select(main_menu_prompt, choices=list(main_menu_options.keys()), style=custom_style)
+        response = prompt.ask()
+        response_function = main_menu_options[response]
+        response_function()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.move_command"><code class="name flex">
+<span>def <span class="ident">move_command</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_command():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+    if len(seq.command_list) == 1:
+        print(Fore.RED + &#34;There is currently only one command.&#34;)
+        return
+
+    old_index = select_command(&#34;Select the command you would like to move:&#34;)
+    if old_index is None:
+        return
+    new_index = select_command(&#34;Select where to move the command to:&#34;)
+    if new_index is None:
+        return
+    seq.move_command_by_index(old_index, new_index)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.move_command_iteration"><code class="name flex">
+<span>def <span class="ident">move_command_iteration</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_command_iteration():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    command_index = select_command(&#34;Select the command to move iterations for:&#34;)
+    if command_index is None:
+        return
+
+    if len(seq.command_list[command_index]) == 1:
+        print(Fore.RED + &#34;There is currently only one command iteration.&#34;)
+        return
+
+    old_index = select_command_iteration(command_index, &#34;Select the command iteration you would like to move:&#34;)
+    if old_index is None:
+        return
+    new_index = select_command_iteration(command_index, &#34;Select where to move the command iteration to:&#34;)
+    if new_index is None:
+        return
+    seq.move_command_iteration_by_index(command_index, old_index, new_index)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.print_com_port_info"><code class="name flex">
+<span>def <span class="ident">print_com_port_info</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_com_port_info():
+    if _has_serial:
+        ports = serial.tools.list_ports.comports()
+        print(&#39;&#39;)
+        for port, desc, hwid in sorted(ports):
+            print(&#34;{}: {} [{}]&#34;.format(port, desc, hwid))
+        print(&#39;&#39;)
+    else:
+        print(Fore.RED + &#34;PySerial is not installed&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.print_devices"><code class="name flex">
+<span>def <span class="ident">print_devices</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_devices():
+    device_names_classes = seq.get_device_names_classes() # [name, class name] of every device
+    print(&#34;&#34;)
+    print(Fore.WHITE + &#34;List of Devices:&#34;)
+    print(Fore.GREEN + &#34; {:20.20s}&#34;.format(&#34;Name&#34;) + Fore.YELLOW + &#34;Class&#34;)
+    for name_class in device_names_classes:
+        print(Fore.GREEN + &#34; {:20.20s}&#34;.format(name_class[0]) + Fore.YELLOW + name_class[1])
+    print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.print_eval_warning"><code class="name flex">
+<span>def <span class="ident">print_eval_warning</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_eval_warning():
+    print(Fore.RED + &#34;Your response will be evaluated directly with eval()!&#34;)
+    print(Fore.RED + &#34;Examples: string = &#39;COM9&#39;, integer = 5, float = 5.0, list of ints = [1, 2, 3], tuple of ints = (1, 2, 3)&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.print_help"><code class="name flex">
+<span>def <span class="ident">print_help</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_help():
+    print(&#39;&#39;)
+    print(Fore.GREEN + &#34;=&#34;*10 + &#34; How to use this tool? &#34; +&#34;=&#34;*140)
+    # print(rainbow(&#39;#?&#39;)*1 + Fore.CYAN + &#34;  How to use this tool  &#34; + rainbow(&#39;#?&#39;)*14)
+    print(&#39;&#39;)
+    print(Fore.WHITE + &#34; 1) Add devices that will be needed for the recipe. You will be prompted for parameters (e.g. COM port, timeout, motor numbers, etc.)&#34;)
+    print(&#34; 2) Add commands for any device that has been added. You will be prompted for parameters if any. (e.g. temperature, speed, position, etc.)&#34;)
+    print(&#34; 3) After adding commands, you can designate a subsection of the recipe as a looped section using &#39;Add Loop&#39;. The looped section will execute a specified number of iterations.&#34;)
+    print(&#34; 4) For each command, you can add additional &#39;command iterations&#39; which are additional commands that correspond to each loop iteration.&#34;)
+    print(&#34;         (If there are more loop iterations (at least 1) than command&#39;s &#39;command iterations&#39;, the latest command iteration will be used.)&#34;)
+    print(&#34; 5) You can set the integer number of loop iterations in the command iteration menu. A string value of &#39;ALL&#39; will automatically determine the largest command iteration length and use that.&#34;)
+    print(&#34; 6) Frequently save you recipe to a .yaml file so it can be loaded later&#34;)
+    print(&#34; 7) When ready to execute the recipe you will be prompted for logging options, slack alerts, and a final confirmation before execution.&#34;)
+    print(&#34; 8) During execution the status will be updated live and logged to the screen and log file. After completion you will be returned to the main menu.&#34;)
+    print(&#39;&#39;)
+    # print(rainbow(&#39;#?&#39;)*17)
+    print(Fore.GREEN + &#34;=&#34;*173)
+    # print(rainbow(&#34;#&#34;)*10)
+    # print(rainbow(&#34;?&#34;)*10)
+    # print(rainbow_bg()*10)
+    print(&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.print_intro"><code class="name flex">
+<span>def <span class="ident">print_intro</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_intro():
+    print(Fore.GREEN + Style.BRIGHT + &#39;=&#39;*50)
+    print(&#34; &#34;*15 + &#34;Command Recipe Tool&#34;)
+    print(&#34; &#34;*13 + &#34;8/12/2021 - Justin Kwok&#34;)
+    print(&#39;=&#39;*50)
+    print(&#39;&#39;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.prompt_delay"><code class="name flex">
+<span>def <span class="ident">prompt_delay</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prompt_delay():
+    # print(Fore.WHITE + &#34;Parameter: &#34; + Fore.GREEN + &#34;delay&#34; + Fore.WHITE + &#34;  type: &#34; + Fore.YELLOW + &#34;float&#34; + Fore.WHITE + &#34;  default: &#34; + Fore.YELLOW + &#34;0.0&#34;)
+    is_valid = False
+    while not is_valid:
+        response = questionary.text(&#34;Enter delay (in seconds) before this command executes. (0.0 = no delay, P = Pause &amp; wait for ENTER before execute):&#34;, default=&#34;0.0&#34;).ask()
+        if response == &#39;P&#39; or response == &#39;PAUSE&#39;:
+            delay = &#39;PAUSE&#39;
+            is_valid = True
+        else:
+            try:
+                delay = float(response)
+                if delay &gt;= 0.0:
+                    is_valid = True
+                else:
+                    print(Fore.RED + &#34;Invalid value for delay. It must be an number &gt;= 0.0 or the string &#39;P&#39; or &#39;PAUSE&#39;.&#34;)
+            except ValueError:
+                print(Fore.RED + &#34;Invalid value for delay. It must be an number &gt;= 0.0 or the string &#39;P&#39; or &#39;PAUSE&#39;.&#34;)
+    return delay</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.prompt_signature_args"><code class="name flex">
+<span>def <span class="ident">prompt_signature_args</span></span>(<span>func, ignored_args)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prompt_signature_args(func, ignored_args):
+    # ignored args, list of strings for arg names
+    # returns dictionary of args
+    sig = inspect.signature(func)
+    arg_dict = {}
+    ignored_args.extend([&#39;self&#39;, &#39;kwargs&#39;, &#39;args&#39;])
+
+    for param in sig.parameters.values():
+        if not param.name in ignored_args:
+            print_eval_warning()
+            if param.default == inspect._empty:
+                default = &#34;N/A&#34;
+            else:
+                default = str(param.default)
+            print(Fore.WHITE + &#34;Parameter: &#34; + Fore.GREEN + param.name + Fore.WHITE + &#34;  type: &#34; + Fore.YELLOW + str(param.annotation) + Fore.WHITE + &#34;  default: &#34; + Fore.YELLOW + default)
+            
+            if default == &#34;N/A&#34;:
+                response = questionary.text(&#34;Enter value for the parameter&#34;).ask()
+            else:
+                response = questionary.text(&#34;Enter value for the parameter&#34;, default=default).ask()
+
+            arg_dict[param.name] = eval(response)
+    return arg_dict</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.quit_program"><code class="name flex">
+<span>def <span class="ident">quit_program</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quit_program():
+    print(Fore.RED + &#34;User quit program&#34;)
+    sys.exit()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.rainbow"><code class="name flex">
+<span>def <span class="ident">rainbow</span></span>(<span>char)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rainbow(char):
+    string = Fore.RED + char + Fore.YELLOW + char + Fore.GREEN + char + Fore.CYAN + char + Fore.BLUE + char + Fore.MAGENTA + char
+    return string</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.rainbow_bg"><code class="name flex">
+<span>def <span class="ident">rainbow_bg</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rainbow_bg():
+    char = &#34; &#34;
+    string = Back.RED + char + Back.YELLOW + char + Back.GREEN + char + Back.CYAN + char + Back.BLUE + char + Back.MAGENTA + char
+    return string</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.recipe_menu"><code class="name flex">
+<span>def <span class="ident">recipe_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def recipe_menu():
+    recipe_menu_prompt = &#34;Choose an option:&#34;
+    recipe_menu_options = {
+        &#34;Save Recipe&#34;: save_sequence,
+        &#34;Load Recipe&#34;: load_sequence,
+        &#34;New Recipe&#34;: clear_sequence,
+        &#34;Back to Main Menu&#34;: main_menu,
+    }
+    prompt = questionary.select(recipe_menu_prompt, choices=list(recipe_menu_options.keys()), style=custom_style)
+    response = prompt.ask()
+    response_function = recipe_menu_options[response]
+    response_function()</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.remove_command_iterations"><code class="name flex">
+<span>def <span class="ident">remove_command_iterations</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_command_iterations():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    command_index = select_command(&#34;Select the command to add an iteration for:&#34;)
+    if command_index is None:
+        return
+
+    if len(seq.command_list[command_index]) == 1:
+        print(Fore.RED + &#34;Selected command only has 1 command iteration. To change it, insert a new command or command iteration in its place then delete the old one.&#34;)
+        return
+
+    del_indices = select_multiple_command_iterations(command_index, &#34;Select the command iterations(s) you would like to remove:&#34;)
+    if len(del_indices) == 0:
+        print(Fore.RED + &#34;No command iterations were deleted (Select command iterations with Space Bar)&#34;)
+        return
+    
+    if len(del_indices) == len(seq.command_list[command_index]):
+        print(Fore.RED + &#34;There must be at least one iteration remaining&#34;)
+        return
+    
+    # Must sort in descending order otherwise removing earlier commands will shift later commands
+    del_indices.sort(reverse=True)
+    response = questionary.confirm(&#34;Are you sure you want to delete the command iterations(s)?&#34;, default=False).ask()
+    if response:
+        for del_index in del_indices:
+            seq.remove_command_iteration(command_index, del_index)
+            print(Fore.GREEN + &#34;Successfully removed command iteration(s)&#34;)
+    else:
+        print(Fore.RED + &#34;No command iterations were deleted&#34;)
+        return</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.remove_commands"><code class="name flex">
+<span>def <span class="ident">remove_commands</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_commands():
+    if len(seq.command_list) == 0:
+        print(Fore.RED + &#34;There are currently no commands.&#34;)
+        return
+
+    del_indices = select_multiple_commands(&#34;Select the command(s) you would like to remove:&#34;)
+    if len(del_indices) == 0:
+        print(Fore.RED + &#34;No commands were deleted (Select commands with Space Bar)&#34;)
+        return
+    
+    # Must sort in descending order otherwise removing earlier commands will shift later commands
+    del_indices.sort(reverse=True)
+    response = questionary.confirm(&#34;Are you sure you want to delete the command(s)?&#34;, default=False).ask()
+    if response:
+        for del_index in del_indices:
+            seq.remove_command(del_index)
+            print(Fore.GREEN + &#34;Successfully removed command(s)&#34;)
+    else:
+        print(Fore.RED + &#34;No commands were deleted&#34;)
+        return</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.remove_device"><code class="name flex">
+<span>def <span class="ident">remove_device</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_device():
+    if len(seq.device_list) == 0:
+        print(Fore.RED + &#34;There are currently no devices added to the recipe.&#34;)
+        return
+    device_index = select_device(&#34;Choose ONE device to remove:&#34;)
+    if device_index is None:
+        return
+    name = seq.device_list[device_index].name
+    response = questionary.confirm(&#34;Are you sure you want to delete &#34; + name + &#34;?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+    if response:
+        seq.remove_device_by_index(device_index)
+        print(Fore.GREEN + name + &#34; was removed from the device list&#34;)
+    else:
+        print(Fore.RED + name + &#34; was NOT removed from the device list&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.remove_loops"><code class="name flex">
+<span>def <span class="ident">remove_loops</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_loops():
+    response = questionary.confirm(&#34;Are you sure you want to delete all loop commands?&#34;, default=False).ask()
+    if response:
+        loop_command_count = seq.count_loop_commands()
+        seq.remove_all_loop_commands()
+        print(Fore.GREEN + &#34;Removed &#34; + str(loop_command_count) + &#34; loop commands. If these loop commands were erroneously part of an iteration then you should fix your recipe.&#34;)
+    else:
+        print(Fore.RED + &#34;No loop commands were deleted&#34;)
+        return</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.save_sequence"><code class="name flex">
+<span>def <span class="ident">save_sequence</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_sequence():
+    save_file = questionary.path(&#34;Enter the file you would like to save to or type &#39;quit&#39;:&#34;, default=save_directory, validate=lambda file: valid_save_file(file, save_directory), style=custom_style).ask()
+    
+    if save_file == &#34;quit&#34;:
+        return
+    
+    if isfile(save_file):
+        response = questionary.confirm(&#34;File already exists. Overwrite file?&#34;, default=False, style=questionary.Style([(&#34;question&#34;, &#34;fg:#ff0000&#34;),])).ask()
+        if response:
+            seq.save_to_yaml(save_file)
+            print(Fore.GREEN + &#34;Recipe has been saved to &#39;&#34; + save_file + &#34;&#39;!&#34;)
+        else:
+            print(Fore.RED + &#34;Recipe has not been saved to file!&#34;)
+    else:
+        seq.save_to_yaml(save_file)
+        print(Fore.GREEN + &#34;Recipe has been saved to &#39;&#34; + save_file + &#34;&#39;!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.select_command"><code class="name flex">
+<span>def <span class="ident">select_command</span></span>(<span>prompt_message, allow_backout=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_command(prompt_message, allow_backout = True):
+    command_names = seq.get_command_names()
+    # Any command with additional iterations is marked with *
+    for ndx, name in enumerate(command_names):
+        if &#39;IterIndex&#39; in name:
+            command_names[ndx-1] = &#34;*&#34; + command_names[ndx-1]
+    # Delete the iterations from the list
+    for ndx, name in enumerate(command_names):
+        while &#39;IterIndex&#39; in command_names[ndx]:
+            del command_names[ndx]
+    # Format the string with spaces
+    for ndx, name in enumerate(command_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        command_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                command_names[ndx] += &#34; &#34; + param
+    if allow_backout:
+        command_names.append(&#34;Go back&#34;)
+    prompt = questionary.select(prompt_message, choices=command_names, style=custom_style)
+    response = prompt.ask()
+    if response == &#34;Go back&#34;:
+        response = None
+    else:
+        response = command_names.index(response)
+    return response # index of the command</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.select_command_iteration"><code class="name flex">
+<span>def <span class="ident">select_command_iteration</span></span>(<span>command_index, prompt_message, allow_backout=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_command_iteration(command_index, prompt_message, allow_backout = True):
+    iteration_names = []
+    for iteration in seq.command_list[command_index]:
+        iteration_names.append(iteration.name)
+    
+    for ndx, name in enumerate(iteration_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        iteration_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                iteration_names[ndx] += &#34; &#34; + param
+  
+    if allow_backout:
+        iteration_names.append(&#34;Go back&#34;)
+    prompt = questionary.select(prompt_message, choices=iteration_names, style=custom_style)
+    response = prompt.ask()
+    if response == &#34;Go back&#34;:
+        response = None
+    else:
+        response = iteration_names.index(response)
+    return response # index of the command iteration</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.select_device"><code class="name flex">
+<span>def <span class="ident">select_device</span></span>(<span>prompt_message, allow_backout=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_device(prompt_message, allow_backout = True):
+    device_names_classes = seq.get_device_names_classes() # [name, class name] of every device
+    display_device_menu_options = []
+    for name_class in device_names_classes:
+        display_device_menu_options.append(&#34;Name: {:20.20s} Class: {}&#34;.format(name_class[0], name_class[1]))
+    if allow_backout:
+        display_device_menu_options.append(&#34;Go back&#34;)
+    prompt = questionary.select(prompt_message, choices=display_device_menu_options, style=custom_style)
+    response = prompt.ask()
+    if response == &#34;Go back&#34;:
+        response = None
+    else:
+        response = display_device_menu_options.index(response)
+    return response # index of the device</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.select_multiple_command_iterations"><code class="name flex">
+<span>def <span class="ident">select_multiple_command_iterations</span></span>(<span>command_index, prompt_message)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_multiple_command_iterations(command_index, prompt_message):
+    iteration_names = []
+    for iteration in seq.command_list[command_index]:
+        iteration_names.append(iteration.name)
+    
+    for ndx, name in enumerate(iteration_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        iteration_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                iteration_names[ndx] += &#34; &#34; + param
+
+    prompt = questionary.checkbox(prompt_message, choices=iteration_names, style=custom_style)
+    response_list = prompt.ask()
+    index_list = []
+    for response in response_list:
+        index_list.append(iteration_names.index(response))
+    return index_list</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.select_multiple_commands"><code class="name flex">
+<span>def <span class="ident">select_multiple_commands</span></span>(<span>prompt_message, validator_func=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_multiple_commands(prompt_message, validator_func = None):
+    command_names = seq.get_command_names()
+    # Any command with additional iterations is marked with *
+    for ndx, name in enumerate(command_names):
+        if &#39;IterIndex&#39; in name:
+            command_names[ndx-1] = &#34;*&#34; + command_names[ndx-1]
+    # Delete the iterations from the list
+    for ndx, name in enumerate(command_names):
+        while &#39;IterIndex&#39; in command_names[ndx]:
+            del command_names[ndx]
+    # Format the string with spaces
+    for ndx, name in enumerate(command_names):
+        name_parts = name.strip().split(&#34; &#34;)
+        command_names[ndx] = &#34;{:4s}&#34;.format(str(ndx)) + &#34;{:30s}&#34;.format(name_parts.pop(0))
+        if len(name_parts) &gt; 0:
+            for param in name_parts:
+                command_names[ndx] += &#34; &#34; + param
+    if validator_func is None:
+        prompt = questionary.checkbox(prompt_message, choices=command_names, style=custom_style)
+    else:
+        prompt = questionary.checkbox(prompt_message, choices=command_names, validate=lambda resp: validator_func(resp), style=custom_style)
+    response_list = prompt.ask()
+    index_list = []
+    for response in response_list:
+        index_list.append(command_names.index(response))
+    return index_list</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.set_num_iterations"><code class="name flex">
+<span>def <span class="ident">set_num_iterations</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_num_iterations():
+    print(&#34;&#34;)
+    is_valid = False
+    while not is_valid:
+        print(Fore.WHITE + &#34;The current number of iterations is: &#34; + Fore.YELLOW + str(seq.num_iterations))
+        print(&#34;&#34;)
+        response = questionary.text(&#34;Enter the number of iterations to perform (minimum = 1, automatic = &#39;ALL&#39;):&#34;, default=&#34;ALL&#34;).ask()
+        if response == &#39;ALL&#39;:
+            num_iterations = &#39;ALL&#39;
+            is_valid = True
+        else:
+            try:
+                num_iterations = int(response)
+                if num_iterations &gt;= 1:
+                    is_valid = True
+                else:
+                    print(Fore.RED + &#34;Invalid value for num iterations. It must be an integer &gt;= 1 or the string &#39;ALL&#39;.&#34;)
+            except ValueError:
+                print(Fore.RED + &#34;Invalid value for num iterations. It must be an integer &gt;= 1 or the string &#39;ALL&#39;.&#34;)
+    seq.num_iterations = num_iterations</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.valid_log_file"><code class="name flex">
+<span>def <span class="ident">valid_log_file</span></span>(<span>file, log_directory)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def valid_log_file(file, log_directory):
+    if not log_directory in file:
+        return &#34;You must save log in the directory: &#34; + log_directory
+    if not &#39;.log&#39; in file:
+        return &#34;File must have a &#39;.log&#39; extension&#34;
+    if isfile(file):
+        return &#34;You must create a new log file&#34;
+    else:
+        return True</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.valid_loop_count"><code class="name flex">
+<span>def <span class="ident">valid_loop_count</span></span>(<span>response_list)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def valid_loop_count(response_list):
+    if len(response_list) == 0 or len(response_list) == 2:
+        return True
+    else:
+        return &#34;You must select 2 options only or select none to exit&#34;  </code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.valid_save_file"><code class="name flex">
+<span>def <span class="ident">valid_save_file</span></span>(<span>file, save_directory)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def valid_save_file(file, save_directory):
+    if file.lower() == &#34;quit&#34;:
+        return True
+    if not save_directory in file:
+        return &#34;You must save in the directory: &#34; + save_directory
+    if not &#39;.yaml&#39; in file:
+        return &#34;File must have a &#39;.yaml&#39; extension&#34;
+    else:
+        return True</code></pre>
+</details>
+</dd>
+<dt id="Lab_Automation.recipe_tool.valid_yml"><code class="name flex">
+<span>def <span class="ident">valid_yml</span></span>(<span>file)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def valid_yml(file):
+    if file.lower() == &#34;quit&#34;:
+        return True
+    if not isfile(file) or (file.split(&#34;.&#34;)[-1] != &#34;yml&#34; and file.split(&#34;.&#34;)[-1] != &#34;yaml&#34;):
+        return &#34;Enter a valid yml/yaml file&#34;
+    else:
+        return True</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Lab_Automation" href="index.html">Lab_Automation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="Lab_Automation.recipe_tool.add_command" href="#Lab_Automation.recipe_tool.add_command">add_command</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.add_command_iteration" href="#Lab_Automation.recipe_tool.add_command_iteration">add_command_iteration</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.add_device" href="#Lab_Automation.recipe_tool.add_device">add_device</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.add_loop" href="#Lab_Automation.recipe_tool.add_loop">add_loop</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.clear_sequence" href="#Lab_Automation.recipe_tool.clear_sequence">clear_sequence</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.command_menu" href="#Lab_Automation.recipe_tool.command_menu">command_menu</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.device_menu" href="#Lab_Automation.recipe_tool.device_menu">device_menu</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.display_command_iterations" href="#Lab_Automation.recipe_tool.display_command_iterations">display_command_iterations</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.display_commands" href="#Lab_Automation.recipe_tool.display_commands">display_commands</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.display_commands_hide_iterations" href="#Lab_Automation.recipe_tool.display_commands_hide_iterations">display_commands_hide_iterations</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.display_commands_unlooped" href="#Lab_Automation.recipe_tool.display_commands_unlooped">display_commands_unlooped</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.display_device_menu" href="#Lab_Automation.recipe_tool.display_device_menu">display_device_menu</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.display_device_properties" href="#Lab_Automation.recipe_tool.display_device_properties">display_device_properties</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.display_menu" href="#Lab_Automation.recipe_tool.display_menu">display_menu</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.execute_manual" href="#Lab_Automation.recipe_tool.execute_manual">execute_manual</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.execute_recipe" href="#Lab_Automation.recipe_tool.execute_recipe">execute_recipe</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.get_all_command_classes" href="#Lab_Automation.recipe_tool.get_all_command_classes">get_all_command_classes</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.get_all_commands_classes_for_receiver" href="#Lab_Automation.recipe_tool.get_all_commands_classes_for_receiver">get_all_commands_classes_for_receiver</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.iteration_menu" href="#Lab_Automation.recipe_tool.iteration_menu">iteration_menu</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.load_sequence" href="#Lab_Automation.recipe_tool.load_sequence">load_sequence</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.main" href="#Lab_Automation.recipe_tool.main">main</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.main_menu" href="#Lab_Automation.recipe_tool.main_menu">main_menu</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.move_command" href="#Lab_Automation.recipe_tool.move_command">move_command</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.move_command_iteration" href="#Lab_Automation.recipe_tool.move_command_iteration">move_command_iteration</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.print_com_port_info" href="#Lab_Automation.recipe_tool.print_com_port_info">print_com_port_info</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.print_devices" href="#Lab_Automation.recipe_tool.print_devices">print_devices</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.print_eval_warning" href="#Lab_Automation.recipe_tool.print_eval_warning">print_eval_warning</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.print_help" href="#Lab_Automation.recipe_tool.print_help">print_help</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.print_intro" href="#Lab_Automation.recipe_tool.print_intro">print_intro</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.prompt_delay" href="#Lab_Automation.recipe_tool.prompt_delay">prompt_delay</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.prompt_signature_args" href="#Lab_Automation.recipe_tool.prompt_signature_args">prompt_signature_args</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.quit_program" href="#Lab_Automation.recipe_tool.quit_program">quit_program</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.rainbow" href="#Lab_Automation.recipe_tool.rainbow">rainbow</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.rainbow_bg" href="#Lab_Automation.recipe_tool.rainbow_bg">rainbow_bg</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.recipe_menu" href="#Lab_Automation.recipe_tool.recipe_menu">recipe_menu</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.remove_command_iterations" href="#Lab_Automation.recipe_tool.remove_command_iterations">remove_command_iterations</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.remove_commands" href="#Lab_Automation.recipe_tool.remove_commands">remove_commands</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.remove_device" href="#Lab_Automation.recipe_tool.remove_device">remove_device</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.remove_loops" href="#Lab_Automation.recipe_tool.remove_loops">remove_loops</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.save_sequence" href="#Lab_Automation.recipe_tool.save_sequence">save_sequence</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.select_command" href="#Lab_Automation.recipe_tool.select_command">select_command</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.select_command_iteration" href="#Lab_Automation.recipe_tool.select_command_iteration">select_command_iteration</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.select_device" href="#Lab_Automation.recipe_tool.select_device">select_device</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.select_multiple_command_iterations" href="#Lab_Automation.recipe_tool.select_multiple_command_iterations">select_multiple_command_iterations</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.select_multiple_commands" href="#Lab_Automation.recipe_tool.select_multiple_commands">select_multiple_commands</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.set_num_iterations" href="#Lab_Automation.recipe_tool.set_num_iterations">set_num_iterations</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.valid_log_file" href="#Lab_Automation.recipe_tool.valid_log_file">valid_log_file</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.valid_loop_count" href="#Lab_Automation.recipe_tool.valid_loop_count">valid_loop_count</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.valid_save_file" href="#Lab_Automation.recipe_tool.valid_save_file">valid_save_file</a></code></li>
+<li><code><a title="Lab_Automation.recipe_tool.valid_yml" href="#Lab_Automation.recipe_tool.valid_yml">valid_yml</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

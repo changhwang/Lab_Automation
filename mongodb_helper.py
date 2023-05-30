@@ -23,6 +23,17 @@ class MongoDBHelper:
         self.client = MongoClient(host, port)
         self.db = self.client[database]
 
+    def __init__(self, uri, database):
+        """
+        Initializes a MongoDBHelper object.
+
+        Args:
+            uri (str): The MongoDB connection URI string.
+            database (str): The name of the MongoDB database to connect to.
+        """
+        self.client = MongoClient(uri)
+        self.db = self.client[database]
+
     def insert_document(self, collection, document):
         """
         Inserts a document into the specified collection.
@@ -114,3 +125,6 @@ class MongoDBHelper:
 # # Close the connection to the MongoDB server
 # mongo.close_connection()
 
+
+
+#s5eMFr1js8iEcMt8

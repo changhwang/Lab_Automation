@@ -1,5 +1,5 @@
 # import pymongo
-
+import yaml
 from pymongo import MongoClient
 
 # # Connection parameters
@@ -46,6 +46,50 @@ class MongoDBHelper:
             pymongo.results.InsertOneResult: The result of the insertion operation.
         """
         return self.db[collection].insert_one(document)
+
+    def insert_yaml_file(self, collection, file_path):
+        """
+        Inserts a YAML file into the MongoDB collection.
+
+        Args:
+            collection (str): The name of the collection to insert the document into.
+            file_path (str): The path to the YAML file.
+
+        Returns:
+            str: The inserted document ID.
+        """
+        with open(file_path, 'r') as file:
+            yaml_data = yaml.safe_load(file)
+
+        return str(self.db[collection].insert_one(yaml_data).inserted_id)
+    
+    def update_yaml_file(self, collection, file_id, updated_data):
+        """
+        Updates a YAML file in the MongoDB collection.
+
+        Args:
+            collection (str): The name of the collection to insert the document into.
+            file_id (str): The ID of the document representing the YAML file.
+            updated_data (dict): The updated YAML data.
+
+        Returns:
+            bool: True if the update is successful, False otherwise.
+        """
+        result = self.db[collection].update_one({"_id": file_id}, {"$set": updated_data})
+        return result.modified_count > 0
+    
+    def get_yaml_file(self, collection, file_id):
+        """
+        Retrieves a YAML file from the MongoDB collection.
+
+        Args:
+            collection (str): The name of the collection to insert the document into.
+            file_id (str): The ID of the document representing the YAML file.
+
+        Returns:
+            dict: The YAML data.
+        """
+        return self.db[collection].find_one({"_id": file_id})
 
     def find_documents(self, collection, query):
         """
@@ -127,4 +171,4 @@ class MongoDBHelper:
 
 
 
-#s5eMFr1js8iEcMt8
+

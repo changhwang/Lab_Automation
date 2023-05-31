@@ -15,7 +15,7 @@ class LinearStage150(SerialDevice):
     def initialize(self) -> Tuple[bool, str]:
         self._is_initialized = False
 
-        #TODO: lts150: initialize, home it (if needed)
+        #lts150: initialize, home it (if needed)
 
         #Home Stage; MGMSG_MOT_MOVE_HOME 
         self.ser.write(pack('<HBBBB',0x0443,self._channel,0x00,self._destination,self._source))
@@ -58,8 +58,9 @@ class LinearStage150(SerialDevice):
         else:
             self.ser.write(pack('<HBBBB',0x0210,1,0x02,0x50,0x01))
         time.sleep(0.1)
-        #TODO-VERIFY: (verify) lts150 set enable state, MGMSG_MOD_SET_CHANENABLESTATE
-        #TODO: check if flushing is needed
+
+        self.ser.flushInput()
+        self.ser.flushOutput()
         return (True, "Successfully set enable state to " + str(state) + ".")
 
     @check_serial
@@ -80,7 +81,6 @@ class LinearStage150(SerialDevice):
         self.ser.flushInput()
         self.ser.flushOutput()
 
-        #TODO-VERIFY: (verify) lts150 move absolute, MGMSG_MOT_MOVE_ABSOLUTE
 
         return (True, "Successfully moved stage to position " + str(position) + "[units].")
 
@@ -88,6 +88,20 @@ class LinearStage150(SerialDevice):
     @check_initialized #TODO: lts150: check is initialized required for relative movement
     def move_relative(self, distance: float) -> Tuple[bool, str]:
         
-        #TODO: lts150 move relative, MGMSG_MOT_MOVE_RELATIVE
+        Device_Unit_SF = 409600
+        dUnitpos = int(Device_Unit_SF*distance)
+        self.ser.write(pack('<HBBBBHI',0x0448,0x06,0x00,self._destination|0x80,self._source,self._channel,dUnitpos))
+
+        #Confirm stage completed move before advancing; MGMSG_MOT_MOVE_COMPLETED 
+        Rx = ''
+        Moved = pack('<H',0x0464)
+        while Rx != Moved:
+            Rx = self.ser.read(2)
+
+        print('Move Complete')
+
+        self.ser.flushInput()
+        self.ser.flushOutput()
+
 
         return (True, "Successfully moved stage by distance " + str(distance) + "[units].")

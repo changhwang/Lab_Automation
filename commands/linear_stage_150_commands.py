@@ -68,3 +68,13 @@ class LinearStage150MoveAbsolute(LinearStage150ParentCommand):
     
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.move_absolute(self._params['position']))
+
+class LinearStage150MoveRelative(LinearStage150ParentCommand):
+    """Move the linear stage by a relative distance."""
+
+    def __init__(self, receiver: LinearStage150, distance: float, **kwargs):
+        super().__init__(receiver, **kwargs)
+        self._params['distance'] = distance
+    
+    def execute(self) -> None:
+        self._result = CommandResult(*self._receiver.move_relative(self._params['distance']))

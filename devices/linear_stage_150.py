@@ -37,18 +37,21 @@ class LinearStage150(SerialDevice):
 
     def deinitialize(self) -> Tuple[bool, str]:
         
-        #TODO: lts150: deinitialize
+        #i dont think this is needed: lts150: deinitialize
         # if reset_init_flag: //used in other devices
         self._is_initialized = False
         return (True, "Successfully deinitialized LTS150.")
         # return super().deinitialize()
     
     @check_serial
-    @check_initialized
+    # @check_initialized
     def get_enabled_state(self) -> bool:
         self._is_enabled = False
 
         #TODO: lts150 get enabled state, MGMSG_MOD_GET_CHANENABLESTATE
+        # self.ser.write(pack('<HBBBB',0x0212,self._channel,0x00,self._destination,self._source))
+
+
 
         return self._is_enabled
     
@@ -64,7 +67,20 @@ class LinearStage150(SerialDevice):
         return (True, "Successfully set enable state to " + str(state) + ".")
 
     @check_serial
-    @check_initialized #TODO: lts150: check if initialized required for absolute movement
+    def get_position(self) -> float:
+        self._position = 0.0
+        Device_Unit_SF = 409600
+        # MGMSG_MOT_GET_POSCOUNTER
+        self.ser.write(pack('<HBBBB',0x0411,self._channel,0x00,self._destination,self._source))
+
+        #Read back position returns by the cube; Rx message MGMSG_MOT_GET_POSCOUNTER 
+        header, chan_dent, position_dUnits = unpack('<6sHI',self.ser.read(12))
+        self._position = position_dUnits/float(Device_Unit_SF)
+
+        return self._position
+
+    @check_serial
+    # @check_initialized
     def move_absolute(self, position: float) -> Tuple[bool, str]:
         Device_Unit_SF = 409600
         dUnitpos = int(Device_Unit_SF*position)
@@ -85,7 +101,7 @@ class LinearStage150(SerialDevice):
         return (True, "Successfully moved stage to position " + str(position) + "[units].")
 
     @check_serial
-    @check_initialized #TODO: lts150: check is initialized required for relative movement
+    # @check_initialized # lts150: check is initialized required for relative movement
     def move_relative(self, distance: float) -> Tuple[bool, str]:
         
         Device_Unit_SF = 409600

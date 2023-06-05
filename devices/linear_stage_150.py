@@ -82,6 +82,9 @@ class LinearStage150(SerialDevice):
     @check_serial
     # @check_initialized
     def move_absolute(self, position: float) -> Tuple[bool, str]:
+        if position > 150:
+            return (False, "Position " + str(position) + " is out of range.")
+        
         Device_Unit_SF = 409600
         dUnitpos = int(Device_Unit_SF*position)
         self.ser.write(pack('<HBBBBHI',0x0453,0x06,0x00,self._destination|0x80,self._source,self._channel,dUnitpos))
@@ -101,9 +104,11 @@ class LinearStage150(SerialDevice):
         return (True, "Successfully moved stage to position " + str(position) + "[units].")
 
     @check_serial
-    # @check_initialized # lts150: check is initialized required for relative movement
+    # @check_initialized
     def move_relative(self, distance: float) -> Tuple[bool, str]:
-        
+        if distance + self.get_position() > 150:
+            return (False, "Position " + str(distance + self.get_position()) + " is out of range.")
+
         Device_Unit_SF = 409600
         dUnitpos = int(Device_Unit_SF*distance)
         self.ser.write(pack('<HBBBBHI',0x0448,0x06,0x00,self._destination|0x80,self._source,self._channel,dUnitpos))

@@ -17,7 +17,7 @@ class LinearStage150Connect(LinearStage150ParentCommand):
         super().__init__(receiver, **kwargs)
 
     def execute(self) -> None:
-        self._result = CommandResult(*self._receiver.start_serial()) #TODO: check this (autocomplete did not show start serial method)
+        self._result = CommandResult(*self._receiver.start_serial()) 
 
 class LinearStage150Initialize(LinearStage150ParentCommand):
     """Initialize the linear stage by homing it."""
@@ -31,8 +31,6 @@ class LinearStage150Initialize(LinearStage150ParentCommand):
 class LinearStage150Deinitialize(LinearStage150ParentCommand):
     """Deinitialize the linear stage."""
     
-    #TODO: command to deinitialize lts150
-
     def __init__(self, receiver: LinearStage150, **kwargs):
         super().__init__(receiver, **kwargs)
     
@@ -68,3 +66,13 @@ class LinearStage150MoveAbsolute(LinearStage150ParentCommand):
     
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.move_absolute(self._params['position']))
+
+class LinearStage150MoveRelative(LinearStage150ParentCommand):
+    """Move the linear stage by a relative distance."""
+
+    def __init__(self, receiver: LinearStage150, distance: float, **kwargs):
+        super().__init__(receiver, **kwargs)
+        self._params['distance'] = distance
+    
+    def execute(self) -> None:
+        self._result = CommandResult(*self._receiver.move_relative(self._params['distance']))

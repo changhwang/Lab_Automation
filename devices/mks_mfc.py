@@ -1,10 +1,16 @@
 from typing import Tuple
 from .device import Device, check_initialized
+from mfc import FlowController
 
 class MFC(Device):
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, ip: str):
         super().__init__(name)
+        self._ip = ip
+
+    # async def get():
+    #     async with FlowController(self._ip) as fc:
+    #         print(await fc.get())
     
     def initialize(self) -> Tuple[bool, str]:
         self._is_initialized = False

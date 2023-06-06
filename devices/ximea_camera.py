@@ -207,3 +207,4 @@ class XimeaCamera(Device):
         return wb
 
 
+

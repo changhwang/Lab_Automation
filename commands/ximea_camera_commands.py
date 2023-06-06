@@ -112,3 +112,4 @@ class XimeaCameraResetWhiteBal(XimeaCameraParentCommand):
     
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.reset_white_balance_rgb_coeffs())
+

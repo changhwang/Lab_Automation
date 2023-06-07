@@ -1,4 +1,3 @@
-import pyvisa
 from typing import List
 
 from devices.device import Device
@@ -56,7 +55,7 @@ class KeithleyWriteCommand(KeithleyParentCommand):
 class KeithleySetTerminal(KeithleyParentCommand):
     """Set the terminal position of the SMU"""
 
-    def __init__(self, receiver: Keithley2450, position: str, **kwargs):
+    def __init__(self, receiver: Keithley2450, position: str = 'front', **kwargs):
         super().__init__(receiver, **kwargs)
         self._params['position'] = position
 
@@ -72,26 +71,53 @@ class KeithleyErrorCheck(KeithleyParentCommand):
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.error_check())
 
+class KeithleyClearBuffer(KeithleyParentCommand):
+    """Clear the data storage buffer within the Keithley2450"""
+    def __init__(self, receiver: Keithley2450, buffer: str = "defbuffer1", **kwargs):
+        super().__init__(receiver, **kwargs)
+        self._params['buffer'] = buffer
+
+    def execute(self) -> None:
+        self._result = CommandResult(*self._receiver.clear_buffer(self._params['buffer']))
+
 class KeithleyIVCharacteristic(KeithleyParentCommand):
     """I-V linear sweep sourcing voltage and measuring current"""
 
-    def __init__(self, receiver: Keithley2450, ilimit: float, vmin: float, vmax: float, steps: int, delay: float, **kwargs):
+    def __init__(self, receiver: Keithley2450, ilimit: float, vmin: float, vmax: float, delay: float, steps: int = 60, **kwargs):
         super().__init__(receiver, **kwargs)
         self._params['ilimit'] = ilimit
         self._params['vmin'] = vmin
         self._params['vmax'] = vmax
-        self._params['steps'] = steps
         self._params['delay'] = delay
+        self._params['steps'] = steps
+
 
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.IV_characteristic(self._params['ilimit'], self._params['vmin'], 
             self._params['vmax'], self._params['steps'], self._params['delay']))
-        
+
+
+class KeithleyFourPoint(KeithleyParentCommand):
+    """Four collinear point sheet resistance measurement"""
+    
+    def __init__(self, receiver: Keithley2450, test_curr: float, vlimit: float, curr_reversal: bool = False, **kwargs):
+        super().__init__(receiver, **kwargs)
+        self._params['test_curr'] = test_curr
+        self._params['vlimit'] = vlimit
+        self._params['curr_reversal'] = curr_reversal
+
+    def execute(self) -> None:
+        self._result = CommandResult(*self._receiver.four_point(self._params['test_curr'], self._params['vlimit'], self._params['curr_reversal']))
+
 class KeithleyGetData(KeithleyParentCommand):
     """Retrieve data"""
 
-    def __init__(self, receiver: Keithley2450, **kwargs):
+    def __init__(self, receiver: Keithley2450, filename: str = None, four_point: bool = False, **kwargs):
         super().__init__(receiver, **kwargs)
+        self._params['filename'] = filename
+        self._params['four_point'] = four_point
 
     def execute(self) -> None:
-        self._result = CommandResult(*self._receiver.get_data())
+        self._result = CommandResult(*self._receiver.get_data(self._params['filename'], self._params['four_point']))
+
+

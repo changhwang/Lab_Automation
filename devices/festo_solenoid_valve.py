@@ -38,8 +38,6 @@ class FestoSolenoidValve(ArduinoSerialDevice):
         self.pin.write(0)
         return (True, f"Solenoid valve was opened for {time} seconds")
 
-test = FestoSolenoidValve('tester', 13)
-#test.initialize()
-test.valve_open()
+
 
     

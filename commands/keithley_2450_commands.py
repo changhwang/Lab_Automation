@@ -30,7 +30,7 @@ class Keithley2450Deinitialize(KeithleyParentCommand):
         self._params['reset_init_flag'] = reset_init_flag
 
     def execute(self) -> None:
-        self._result = CommandResult(*self._receiver.deinitialize())
+        self._result = CommandResult(*self._receiver.deinitialize(self._params['reset_init_flag']))
 
 
 class KeithleyWait(KeithleyParentCommand):

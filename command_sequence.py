@@ -8,6 +8,7 @@ from abc import ABCMeta
 from commands.command import Command
 from devices.device import Device
 from commands.utility_commands import LoopStartCommand, LoopEndCommand
+import util
 
 
 # Representer.add_representer(ABCMeta, Representer.represent_name)
@@ -531,3 +532,16 @@ class CommandSequence:
                 # if inner broke, then break outer loop to start over
                 # https://stackoverflow.com/questions/189645/how-to-break-out-of-multiple-loops
                 break
+
+    def get_clean_device_list(self):
+        """Returns a list for use with the dashboard."""
+        device_list = self.get_device_names_classes().copy()
+        device_list_ret = []
+        for index, device in enumerate(device_list):
+            device_list_temp = []
+            device_list_temp.append(device_list[index][1])
+            device_list_temp.append(util.device_to_dict(self.device_list[index]))
+            # device_list[index].append(util.device_to_dict(self.device_list[index]))
+            device_list_ret.append(device_list_temp)
+        return device_list_ret
+        

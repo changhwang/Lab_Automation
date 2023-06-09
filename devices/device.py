@@ -94,6 +94,17 @@ class Device(ABC):
         """
         pass
 
+    # @abstractmethod TODO uncomment and implement method in all devices
+    def get_args(self) -> dict:
+        """The get_args abstract method that all devices should implement. Method should return a dict with only the arguments needed to initialize the device.
+
+        Returns
+        -------
+        dict
+            Returns a dict containing the arguments needed to initialize the device.
+        """
+        pass
+
 
 class SerialDevice(Device):
     """A Device that uses serial communication."""

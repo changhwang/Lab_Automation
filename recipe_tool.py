@@ -23,10 +23,12 @@ from commands.utility_commands import LoopStartCommand, LoopEndCommand
 from devices.heating_stage import HeatingStage
 from devices.multi_stepper import MultiStepper
 from devices.newport_esp301 import NewportESP301
-from devices.stellarnet_spectrometer import StellarNetSpectrometer
-from devices.ximea_camera import XimeaCamera
+# from devices.stellarnet_spectrometer import StellarNetSpectrometer
+# from devices.ximea_camera import XimeaCamera
 from devices.dummy_heater import DummyHeater
 from devices.dummy_motor import DummyMotor
+
+import project_const
 
 
 # TODO
@@ -36,18 +38,7 @@ from devices.dummy_motor import DummyMotor
 # add compatibility with composite and utility commands (try to avoid coding speciific class dependencies)
 
 #================ Constants =============================
-named_devices = {
-    "PrintingStage": HeatingStage,
-    "AnnealingStage": HeatingStage,
-    "MultiStepper1": MultiStepper,
-    "PrinterMotorX": NewportESP301,
-    "Spectrometer": StellarNetSpectrometer,
-    "SampleCamera": XimeaCamera,
-    "DummyHeater1": DummyHeater,
-    "DummyHeater2": DummyHeater,
-    "DummyMotor1": DummyMotor,
-    "DummyMotor2": DummyMotor,
-    }
+named_devices = project_const.named_devices
 command_directory = "commands/"
 load_directory = "recipes/user_recipes/"
 save_directory = "recipes/user_recipes/"

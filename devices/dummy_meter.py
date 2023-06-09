@@ -44,6 +44,42 @@ class DummyMeter(Device):
         self.b2 = b2
         self.noise_width = noise_width
 
+    def __init__(
+            self, 
+            name: str, 
+            heater: dict,
+            motor: dict,
+            a1: List[float], 
+            b1: List[float], 
+            a2: List[float], 
+            b2: List[float], 
+            noise_width: float = 0.0
+            ):
+        super().__init__(name)
+        # All arguments except 'name' are only for emulation purposes
+        self.heater = DummyHeater(**heater)
+        self.motor = DummyMotor(**motor)
+        self.x1_range = (self.heater.min_temperature, self.heater.max_temperature)
+        self.x2_range = (self.motor.motor.min_speed, self.motor.motor.max_speed)
+        self.a1 = a1
+        self.b1 = b1
+        self.a2 = a2
+        self.b2 = b2
+        self.noise_width = noise_width
+
+    def get_args(self) -> dict:
+        args_dict = {
+            "name": self._name,
+            "heater": self.heater.get_args(),
+            "motor": self.motor.get_args(),
+            "a1": self.a1,
+            "b1": self.b1,
+            "a2": self.a2,
+            "b2": self.b2,
+            "noise_width": self.noise_width,
+        }
+        return args_dict
+
     def initialize(self):
         self._is_initialized = True
         return (True, "Initialized DummyMeter")

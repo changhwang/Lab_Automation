@@ -17,7 +17,7 @@ class DummyHeater(Device):
         self._temperature = random.uniform(self.min_temperature, self.max_temperature)
         self._hardware_interval = 0.05
 
-    def get_args(self) -> dict:
+    def get_init_args(self) -> dict:
         args_dict = {
             "name": self._name,
             "heat_rate": self._heat_rate,

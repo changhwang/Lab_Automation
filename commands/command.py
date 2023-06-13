@@ -101,6 +101,16 @@ class Command(ABC):
     #     """
     #     return self._result_message
 
+    def get_init_args(self) -> dict:
+        """Get the command's initialization arguments.
+
+        Returns
+        -------
+        dict
+            Returns a dictionary of the command's initialization arguments.
+        """
+        return self._params
+
 # store info like name and description in here too? or leave separate? Leave separate, semantically i think it makes sense 
 # to retrive non-result info from the command instead of the commandresult object, potentially avoid conflicting info too
 # Mainly adding to future proof in case more info needs to be retrieved after execution

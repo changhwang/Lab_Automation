@@ -7,8 +7,9 @@ from devices.newport_esp301 import NewportESP301
 # from devices.ximea_camera import XimeaCamera
 from devices.dummy_heater import DummyHeater
 from devices.dummy_motor import DummyMotor
-from devices.device import Device
-
+from devices.device import Device, MiscDeviceClass
+import json
+import numpy as np
 
 
 named_devices = {
@@ -28,14 +29,14 @@ named_devices = {
 command_directory = "commands/"
 approved_devices = list(named_devices.keys())
 
-device_init_args = {
-    "DummyHeater": ["name", "heat_rate"],
-    "DummyMotor": ["name", "speed"],
-}
+# device_init_args = {
+#     "DummyHeater": ["name", "heat_rate"],
+#     "DummyMotor": ["name", "speed"],
+# }
 
 def dict_to_device(device: Device, type: str):
     device_cls = named_devices[type]
-    arg_dict = device.get_args()
+    arg_dict = device.get_init_args()
     
     # for attr in device_init_args[type]:
     #     arg_dict[attr] = dict["_"+attr]
@@ -44,4 +45,12 @@ def dict_to_device(device: Device, type: str):
     return device_cls(**arg_dict)
 
 def device_to_dict(device: Device):
-    return device.get_args()
+    return device.get_init_args()
+
+class Encoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Device) or isinstance(obj, Command) or isinstance(obj, MiscDeviceClass):
+            return obj.__dict__
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super().default(obj)

@@ -6,6 +6,7 @@ try:
     import serial
 except ImportError:
     pass
+import json
 
 
 # Decorator to check if is initialized, optional custom message on fail
@@ -95,7 +96,7 @@ class Device(ABC):
         pass
 
     # @abstractmethod TODO uncomment and implement method in all devices
-    def get_args(self) -> dict:
+    def get_init_args(self) -> dict:
         """The get_args abstract method that all devices should implement. Method should return a dict with only the arguments needed to initialize the device.
 
         Returns
@@ -303,3 +304,8 @@ class ArduinoSerialDevice(SerialDevice):
             return (True, last_token.strip())
         else:
             return (False, "")
+        
+
+class MiscDeviceClass():
+    def exists():
+        return True

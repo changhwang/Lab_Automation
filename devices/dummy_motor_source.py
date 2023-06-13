@@ -1,7 +1,8 @@
 import threading
 import random
+from devices.device import MiscDeviceClass
 
-class DummyMotorSource():
+class DummyMotorSource(MiscDeviceClass):
 
     def __init__(self, speed: float = 20.0):
         self._speed = speed

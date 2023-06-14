@@ -28,10 +28,12 @@ class FestoSolenoidValve(ArduinoSerialDevice):
         self.pin.write(1)
         return (True, "Solenoid valve is open")
     
+    @check_serial
     def valve_closed(self) -> Tuple[bool, str]:
         self.pin.write(0)
         return (True, "Solenoid valve is closed")
     
+    @check_serial
     def open_timed(self, time: int) -> Tuple[bool, str]:
         self.pin.write(1)
         self.board.pass_time(time)

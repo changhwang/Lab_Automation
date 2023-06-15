@@ -44,6 +44,10 @@ def dict_to_device(device: Device, type: str):
     # print(arg_dict)
     return device_cls(**arg_dict)
 
+def str_to_device(device_str: str):
+    print(device_str)
+    return eval(device_str)
+
 def device_to_dict(device: Device):
     return device.get_init_args()
 

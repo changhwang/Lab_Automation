@@ -74,6 +74,8 @@ class DummyMotorMoveSpeedAbsolute(CompositeCommand):
         self.add_command(DummyMotorSetSpeed(receiver, speed))
         self.add_command(DummyMotorMoveAbsolute(receiver, position))
         self.add_command(DummyMotorSetSpeed(receiver, original_speed))
+        self._params['speed'] = speed
+        self._params["position"] = position
 
 class DummyMotorMultiMoveAbsolute(CompositeCommand):
     """Move a list of motors to a list of position at a particular speed"""

@@ -106,6 +106,18 @@ class Device(ABC):
         """
         pass
 
+    # @abstractmethod # TODO uncomment and implement method in all devices
+    def update_init_args(self, args_dict: dict):
+        """The update_init_args abstract method that all devices should implement. Method should update the arguments needed to initialize the device.
+        
+        Parameters
+        ----------
+        
+        args_dict : dict
+            A dict containing the arguments needed to initialize the device.
+        """
+        pass
+
 
 class SerialDevice(Device):
     """A Device that uses serial communication."""

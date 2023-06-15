@@ -12,12 +12,16 @@ class DummyMotor(Device):
         # Using composition instead of multiple inheritance
         self.motor = DummyMotorSource(speed)
 
-    def get_args(self) -> dict:
+    def get_init_args(self) -> dict:
         args_dict = {
             "name": self._name,
-            "speed": self.motor.speed,
+            "speed": self.motor._speed,
         }
         return args_dict
+    
+    def update_init_args(self, args_dict: dict):
+        self.motor._speed = args_dict["speed"]
+        self._name = args_dict["name"]
 
     @property
     def position(self) -> float:

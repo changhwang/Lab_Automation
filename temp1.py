@@ -8,57 +8,16 @@ from commands.command import Command, CompositeCommand
 com = CommandSequence()
 
 
-print()
-print()
 
 com.load_from_yaml("e1.yaml")
-# print(com.device_list[0].__dict__)
 
 
-# print(com.device_list[0].__dict__)
-# print(com.device_list[1])
-# print(type(com.command_list[0][0].__dict__))
-
-
-# print(com.get_device_names_classes())
-# print(com.get_clean_device_list())
-# quit()
-# print(com.get_command_names())
-
-# temp = {
-#         "_name": "heater1",
-#         "_is_initialized": False,
-#         "_heat_rate": 20.0,
-#         "min_heat_rate": 1.0,
-#         "max_heat_rate": 50.0,
-#         "min_temperature": 25.0,
-#         "max_temperature": 100.0,
-#         "_temperature": 95.71927572168929,
-#         "_hardware_interval": 0.05,
-#         # "name": "heater1",
-#     }
-# print("hello")
-# print(temp)
 
 import util
+import ctypes
 
-# out = util.dict_to_device(com.device_list[1].__dict__, com.get_device_names_classes()[1][1])
-# out = util.dict_to_device(com.device_list[0], com.get_device_names_classes()[0][1])
 
 out = util.device_to_dict(com.device_list[0])
-
-
-# print("\n\nresult:\n\n")
-# print(out)
-# quit()
-
-
-# device_cls = project_const.named_devices[com.get_device_names_classes()[0][1]]
-# arg_dict = temp
-# com.add_device(device_cls(**arg_dict))
-# print(com.add_device(device_cls(**arg_dict)))
-
-# quit()
 
 import dash
 from dash import dcc
@@ -70,25 +29,24 @@ import dash_bootstrap_components as dbc
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# Sample data lists
-data_list1 = [
-    {"Name": "John", "Value": 25},
-    {"Name": "Amy", "Value": 31},
-    {"Name": "David", "Value": 28},
-]
-data_list2 = [
-    {"Name": "Apple", "Value": 10},
-    {"Name": "Banana", "Value": 5},
-    {"Name": "Orange", "Value": 8},
-]
-data_list3 = [
-    {"Name": "Red", "Value": 15},
-    {"Name": "Green", "Value": 20},
-    {"Name": "Blue", "Value": 12},
-]
+navbar = dbc.NavbarSimple(
+    children = [
+        dbc.NavItem(dbc.NavLink("Home", href="/")),
+        dbc.NavItem(dbc.NavLink("Edit Recipe", href="/edit-recipe")),
+    ],
+    brand = "AAMP",
+    brand_href = "/",
+    color="primary",
+    dark=True
+)
 
+home_layout = html.Div(
+    [
+        html.H1("Home"),
+    ]
+)
 
-app.layout = html.Div(
+edit_recipe_layout = html.Div(
     [
         html.H1("Edit Recipe"),
         html.Div(
@@ -97,21 +55,45 @@ app.layout = html.Div(
                     [
                         html.H2("Devices"),
                         dbc.Button("Refresh", id="refresh-button1", n_clicks=0),
-                        dbc.Button("Open editor", id="open-editor"),
                         dbc.Button("Add device", id="add-device-button"),
+                        dbc.Button("Edit", id="edit-device-button"),
                         dbc.Modal(
                             [
                                 dbc.ModalHeader(
                                     dbc.ModalTitle("Editor"), close_button=False
                                 ),
-                                dbc.ModalBody("this will be the editor"),
-                                dbc.ModalFooter(dbc.Button("Save", id="save-editor")),
+                                dbc.ModalBody(
+                                    [
+                                        dcc.Textarea(
+                                            id="device-json-editor",
+                                            style={
+                                                "width": "100%",
+                                                "height": "200px",
+                                                "fontFamily": "monospace",
+                                                "backgroundColor": "#f5f5f5",
+                                                "border": "1px solid #ccc",
+                                                "padding": "10px",
+                                                "color": "#333",
+                                            },
+                                        ),
+                                        html.Div(
+                                            id="edit-device-error",
+                                            style={"color": "red"},
+                                        ),
+                                    ]
+                                ),
+                                dbc.ModalFooter(
+                                    dbc.Button("Save", id="save-device-editor")
+                                ),
                             ],
-                            id="editor-modal",
+                            id="device-editor-modal",
                             keyboard=False,
                             backdrop="static",
                         ),
-                        html.Div(id="table-container1"),
+                        html.Div(
+                            children=[dash_table.DataTable(id="devices-table")],
+                            id="devices-table-div",
+                        ),
                     ],
                     className="table-container",
                 ),
@@ -120,7 +102,44 @@ app.layout = html.Div(
                         html.H2("Commands"),
                         dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
                         dbc.Button("Add command", id="add-command-button"),
-                        html.Div(id="table-container2"),
+                        dbc.Button("Edit", id="edit-command-button"),
+                        dbc.Modal(
+                            [
+                                dbc.ModalHeader(
+                                    dbc.ModalTitle("Editor"), close_button=False
+                                ),
+                                dbc.ModalBody(
+                                    [
+                                        dcc.Textarea(
+                                            id="command-json-editor",
+                                            style={
+                                                "width": "100%",
+                                                "height": "200px",
+                                                "fontFamily": "monospace",
+                                                "backgroundColor": "#f5f5f5",
+                                                "border": "1px solid #ccc",
+                                                "padding": "10px",
+                                                "color": "#333",
+                                            },
+                                        ),
+                                        html.Div(
+                                            id="edit-command-error",
+                                            style={"color": "red"},
+                                        ),
+                                    ]
+                                ),
+                                dbc.ModalFooter(
+                                    dbc.Button("Save", id="save-command-editor")
+                                ),
+                            ],
+                            id="command-editor-modal",
+                            keyboard=False,
+                            backdrop="static",
+                        ),
+                        html.Div(
+                            children=[dash_table.DataTable(id="commands-table")],
+                            id="commands-table-div",
+                        ),
                         dbc.Accordion(
                             [
                                 dbc.AccordionItem(
@@ -149,46 +168,20 @@ app.layout = html.Div(
     className="main-container",
 )
 
+app.layout = html.Div([dcc.Location(id="url", refresh=False), navbar, html.Div(id="page-content")])
+
+@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
+def display_page(pathname):
+    if pathname == "/":
+        return home_layout
+    elif pathname == "/edit-recipe":
+        return edit_recipe_layout
+    else:
+        return html.Div("404")
+    
+
 data_list4 = com.device_list
-dl5_og = [
-    {
-        "_name": "heater1",
-        "_is_initialized": False,
-        "_heat_rate": 20.0,
-        "min_heat_rate": 1.0,
-        "max_heat_rate": 50.0,
-        "min_temperature": 25.0,
-        "max_temperature": 100.0,
-        "_temperature": 95.71927572168929,
-        "_hardware_interval": 0.05,
-    },
-    {
-        "_name": "motor1",
-        "_is_initialized": False,
-        "motor": {
-            "_speed": 20.0,
-            "min_speed": 1.0,
-            "max_speed": 50.0,
-            "min_position": 0.0,
-            "max_position": 100.0,
-            "_position": 37.44120879993549,
-            "_hardware_interval": 0.05,
-        },
-    },
-    {
-        "_name": "motor2",
-        "_is_initialized": False,
-        "motor": {
-            "_speed": 20.0,
-            "min_speed": 1.0,
-            "max_speed": 50.0,
-            "min_position": 0.0,
-            "max_position": 100.0,
-            "_position": 82.48283286198111,
-            "_hardware_interval": 0.05,
-        },
-    },
-]
+
 # dl5 = []
 # for list in data_list4:
 #     dl5.append(list.__dict__)
@@ -200,49 +193,51 @@ print()
 
 
 @app.callback(
-    Output("table-container1", "children"),
-    [Input("refresh-button1", "n_clicks")],
-    [State("table-container1", "children")],
+    Output("devices-table-div", "children"),
+    [Input("refresh-button1", "n_clicks"), Input('devices-table', 'data')],
+    [State("devices-table-div", "children")],
 )
-def update_table1(n_clicks, table):
-    dl5 = dl5_og.copy()
-    dl5_props_temp = {}
-    count = 0
-    for list in dl5:
-        dl5_props_temp.clear()
-        if len(list) > 1:
-            for prop in list:
-                if prop != "_name":
-                    dl5_props_temp[prop] = list[prop]
-                    # print(prop)
-            # print("h")
-            dl5_temp_list = list
-            dl5[count] = {}
-            dl5[count]["_name"] = dl5_temp_list["_name"]
-            # dl5[count]["_is_initialized"] = dl5_temp_list["_is_initialized"]
-            dl5[count]["props"] = str(dl5_props_temp)
-            # print(str(dl5_props_temp))
-        count += 1
+def update_table1(n_clicks, data, table):
+    # dl5 = dl5_og.copy()
+    # dl5_props_temp = {}
+    # count = 0
+    # for list in dl5:
+    #     dl5_props_temp.clear()
+    #     if len(list) > 1:
+    #         for prop in list:
+    #             if prop != "_name":
+    #                 dl5_props_temp[prop] = list[prop]
+    #                 # print(prop)
+    #         # print("h")
+    #         dl5_temp_list = list
+    #         dl5[count] = {}
+    #         dl5[count]["_name"] = dl5_temp_list["_name"]
+    #         # dl5[count]["_is_initialized"] = dl5_temp_list["_is_initialized"]
+    #         dl5[count]["props"] = str(dl5_props_temp)
+    #         # print(str(dl5_props_temp))
+    #     count += 1
 
     # table_data1 = dl5
     table_data1 = com.get_clean_device_list().copy()
-
+    # print(com.device_list[1].get_init_args())
     table_data1_new = []
     for index, list in enumerate(table_data1):
         # table_data1[index][1].update({"device_type": table_data1[index][0]})
         # del table_data1[index][0]
         table_data1_new.append(
-            {"device_type": table_data1[index][0], "props": str(table_data1[index][1])}
+            {"index": index,"device_type": table_data1[index][0], "params": str(table_data1[index][1])}
         )
 
     table_data1 = table_data1_new
-    print(table_data1)
+    
     table = dash_table.DataTable(
+        id="devices-table",
         data=table_data1,
         columns=[
+            {"name": "Index", "id": "index"},
             {"name": "Type", "id": "device_type"},
             # {"name": "Initialized", "id": "_is_initialized"},
-            {"name": "Properties", "id": "props"},
+            {"name": "Parameters", "id": "params"},
         ],
         # style_data_conditional=[
         #     {"if": {"column_id": "_name"}, "width": "250px", 'overflow': 'hidden', 'textOverflow': 'ellipsis'},
@@ -258,17 +253,18 @@ def update_table1(n_clicks, table):
             "padding": "5px",
         },
         style_cell_conditional=[
-            {"if": {"column_id": "_name"}, "width": "20%"},
-            {"if": {"column_id": "props"}, "width": "80%"},
+            {"if": {"column_id": "index"}, "width": "5%"},
+            {"if": {"column_id": "device_type"}, "width": "20%"},
+            {"if": {"column_id": "params"}, "width": "70%"},
         ],
-        tooltip_data=[
-            {
-                column: {"value": str(value), "type": "markdown"}
-                for column, value in row.items()
-            }
-            for row in table_data1
-        ],
-        tooltip_duration=None,
+        # tooltip_data=[
+        #     {
+        #         column: {"value": str(value), "type": "markdown"}
+        #         for column, value in row.items()
+        #     }
+        #     for row in table_data1
+        # ],
+        # tooltip_duration=None,
         # editable = True,
     )
     print("done")
@@ -276,15 +272,147 @@ def update_table1(n_clicks, table):
 
 
 @app.callback(
-    Output("editor-modal", "is_open"),
-    [Input("open-editor", "n_clicks"), Input("save-editor", "n_clicks")],
-    [State("editor-modal", "is_open")],
+    Output("device-editor-modal", "is_open"),
+    [Input("edit-device-button", "n_clicks"), Input("save-device-editor", "n_clicks")],
+    [State("device-editor-modal", "is_open")],
 )
-def toggle_editor_modal(n1, n2, is_open):
+def toggle_device_editor_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
 
+
+@app.callback(
+    Output("command-editor-modal", "is_open"),
+    [
+        Input("edit-command-button", "n_clicks"),
+        Input("save-command-editor", "n_clicks"),
+    ],
+    [State("command-editor-modal", "is_open")],
+)
+def toggle_command_editor_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+
+
+@app.callback(
+    Output("commands-table", "data"),
+    Input("save-command-editor", "n_clicks"),
+    [
+        State("commands-table", "active_cell"),
+        State("commands-table", "data"),
+        State("command-json-editor", "value"),
+    ],
+    prevent_initial_call=True,
+)
+def save_command(n_clicks, active_cell, data, value):
+    if active_cell is not None and data[active_cell["row"]]["params"] != str(
+        json.loads(value)
+    ):
+        # data[active_cell['row']]['params'] = str(json.loads(value))
+        # com.command_list[data[active_cell['row']]['index']]
+        # print(data[active_cell['row']]['params'])
+        # print((eval(value)))
+
+        com.command_list[data[active_cell["row"]]["index"]][0]._params = eval(value)
+        # print((com.command_list[data[active_cell['row']]['index']][0]._params))
+        # print(com.get_unlooped_command_list()[active_cell['row']])
+        return None
+    return data
+
+
+@app.callback(
+        Output("devices-table", "data"),
+        Input("save-device-editor", "n_clicks"),
+        [
+            State("devices-table", "active_cell"),
+            State("devices-table", "data"),
+            State("device-json-editor", "value"),
+        ],
+        prevent_initial_call=True,
+)
+def save_device(n_clicks, active_cell, data, value):
+    if active_cell is not None and data[active_cell["row"]]['params'] != str(json.loads(value)):
+        # data_row = data[active_cell["row"]]
+        params = eval(value)
+        # print(com.device_by_name[params['name']])
+        # init_str = data_row['device_type'] + '('
+        # for key, value2 in params.items():
+        #     if isinstance(value2, str):
+        #         init_str += key + '=' + "'" + str(value2) + "'" + ','
+        #     else:
+        #         init_str += key + '=' + str(value2) + ','
+        # init_str = init_str[:-1] + ')'
+        com.device_by_name[params['name']].update_init_args(params)
+        return None
+    return data
+
+@app.callback(
+    Output("command-json-editor", "value"),
+    [Input("command-editor-modal", "is_open")],
+    [State("commands-table", "active_cell"), State("commands-table", "data")],
+    prevent_initial_call=True,
+)
+def fill_command_json_editor(is_open, active_cell, data):
+    if active_cell is not None and is_open:
+        # print(active_cell)
+        # print(eval(data[active_cell['row']]['params']))
+        return json.dumps(eval(data[active_cell["row"]]["params"]), indent=4)
+
+    return ""
+
+@app.callback(
+        Output("device-json-editor", "value"),
+        [Input("device-editor-modal", "is_open")],
+        [State("devices-table", "active_cell"), State("devices-table", "data")],
+        prevent_initial_call=True,
+)
+def fill_device_json_editor(is_open, active_cell, data):
+    if active_cell is not None and is_open:
+        return json.dumps(eval(data[active_cell['row']]['params']), indent=4)
+    return ""
+
+@app.callback(
+    [
+        Output("save-command-editor", "disabled"),
+        Output("edit-command-error", "children"),
+    ],
+    Input("command-json-editor", "value"),
+    State("command-editor-modal", "is_open"),
+    prevent_initial_call=True,
+)
+def enable_save_command_button(value, is_open):
+    if not is_open:
+        return False, ""
+    try:
+        parsed_json = json.loads(value)
+        # print(type(parsed_json))
+        # print(parsed_json)
+        if parsed_json["delay"] < 0:
+            return True, "Delay must be greater than or equal to 0"
+        return False, ""
+    except Exception as e:
+        if type(e) == json.decoder.JSONDecodeError:
+            return True, "Invalid JSON" 
+        return True, str(type(e))
+
+@app.callback(
+    [Output('save-device-editor', 'disabled'),Output('edit-device-error', 'children')],
+    Input('device-json-editor', 'value'),
+    State('device-editor-modal', 'is_open'),
+    prevent_initial_call=True
+)
+def enable_save_device_button(value, is_open):
+    if not is_open:
+        return False, ""
+    try:
+        parsed_json = json.loads(value)
+        return False, ""
+    except Exception as e:
+        if type(e) == json.decoder.JSONDecodeError:
+            return True, "Invalid JSON"
+        return True, str(type(e))
 
 # @app.callback(
 #         Output("commands-accordion", "children"),
@@ -325,8 +453,8 @@ def load_commands_accordion(n_clicks, children):
     for command in command_list:
         # if isinstance(command, CompositeCommand):
         # print(type(command).__name__)
-        temp_dict_command_params = {"command":type(command).__name__}
-        temp_dict_command_params.update({"params":command.get_init_args()})
+        temp_dict_command_params = {"command": type(command).__name__}
+        temp_dict_command_params.update({"params": command.get_init_args()})
         command_params.append(temp_dict_command_params)
         # print(command._params)
         # else:
@@ -343,24 +471,48 @@ def load_commands_accordion(n_clicks, children):
                         "```json",
                         json.dumps(command, indent=4, cls=util.Encoder),
                         # str(command.__dict__),
-                        "```"
+                        "```",
                     ],
                 ),
                 # str(command.__dict__),
-                title=command['command'],
-                item_id=command['command']+str(index),
+                title=command["command"],
+                item_id=command["command"] + str(index),
             )
         )
     return children
 
 
 @app.callback(
-    Output("table-container2", "children"),
-    [Input("refresh-button2", "n_clicks")],
-    [State("table-container2", "children")],
+    Output("edit-command-button", "disabled"),
+    Input("commands-table", "active_cell"),
 )
-def update_table2(n_clicks, table):
-    command_list = com.get_unlooped_command_list().copy()
+def edit_command_button(table_div_children):
+    active_cell = table_div_children
+    # print(active_cell)
+    # if active_cell is not None and active_cell["column_id"] == "params":
+    if active_cell is not None:
+        return False
+    else:
+        return True
+
+@app.callback(
+        Output("edit-device-button", 'disabled'),
+        Input("devices-table", "active_cell"),
+)
+def edit_device_button(table_div_children):
+    active_cell = table_div_children
+    if active_cell is not None:
+        return False
+    else:
+        return True
+
+@app.callback(
+    Output("commands-table-div", "children"),
+    [Input("refresh-button2", "n_clicks"), Input("commands-table", "data")],
+    [State("commands-table-div", "children")],
+)
+def update_table2(n_clicks, data, table):
+    command_list = com.command_list.copy()
     # print(command_list)
     # for command in command_list:
     #     if isinstance(command, CompositeCommand):
@@ -371,25 +523,29 @@ def update_table2(n_clicks, table):
     #         # print(command.__dict__)
     #         command._receiver = command._receiver._name
     command_params = []
-    for command in command_list:
+    for index, command in enumerate(command_list):
         # if isinstance(command, CompositeCommand):
         # print(type(command).__name__)
-        temp_dict_command_params = {"command":type(command).__name__}
-        temp_dict_command_params.update({"params":str(command.get_init_args())})
+        temp_dict_command_params = {"command": type(command[0]).__name__}
+        temp_dict_command_params.update(
+            {"params": str(command[0].get_init_args()), "index": index}
+        )
         command_params.append((temp_dict_command_params))
         # print(command._params)
         # else:
         #     command_params.append(command._params)
     # print(command_params)
 
-    print(command_params)
+    # print(command_params)
     table_data2 = command_params
     # print(com.get_unlooped_command_list().copy()[3].__dict__)
     # add_command_accordian(0, to_add=[dbc.AccordionItem("new new", title="new new", item_id="new new")])
 
     table = dash_table.DataTable(
+        id="commands-table",
         data=table_data2,
         columns=[
+            {"name": "Index", "id": "index"},
             {"name": "Command", "id": "command"},
             {"name": "Parameters", "id": "params"},
         ],
@@ -401,8 +557,9 @@ def update_table2(n_clicks, table):
             "padding": "5px",
         },
         style_cell_conditional=[
+            {"if": {"column_id": "index"}, "width": "5%"},
             {"if": {"column_id": "command"}, "width": "20%"},
-            {"if": {"column_id": "params"}, "width": "80%"},
+            {"if": {"column_id": "params"}, "width": "70%"},
         ],
         # tooltip_data=[
         #     {
@@ -433,5 +590,3 @@ def update_table2(n_clicks, table):
 
 if __name__ == "__main__":
     app.run_server(debug=True)
-
-

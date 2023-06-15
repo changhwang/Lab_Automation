@@ -23,6 +23,11 @@ class DummyHeater(Device):
             "heat_rate": self._heat_rate,
         }
         return args_dict
+    
+    def update_init_args(self, args_dict: dict):
+        self._name = args_dict["name"]
+        self._heat_rate = args_dict["heat_rate"]
+
 
     @property
     def temperature(self) -> float:

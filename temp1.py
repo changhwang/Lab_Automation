@@ -1,4 +1,5 @@
 from command_sequence import CommandSequence
+from command_invoker import CommandInvoker
 import project_const
 import json
 from devices.device import Device
@@ -8,13 +9,17 @@ from commands.command import Command, CompositeCommand
 com = CommandSequence()
 
 
-
-com.load_from_yaml("e1.yaml")
-
+com.load_from_yaml("to_load.yaml")
 
 
 import util
 import ctypes
+from mongodb_helper import MongoDBHelper
+
+mongo = MongoDBHelper(
+    "mongodb+srv://ppahuja2:s5eMFr1js8iEcMt8@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+    "diaogroup",
+)
 
 
 out = util.device_to_dict(com.device_list[0])
@@ -30,21 +35,58 @@ import dash_bootstrap_components as dbc
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 navbar = dbc.NavbarSimple(
-    children = [
+    children=[
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("Edit Recipe", href="/edit-recipe")),
+        dbc.NavItem(dbc.NavLink("Execute Recipe", href="/execute-recipe")),
     ],
-    brand = "AAMP",
-    brand_href = "/",
+    brand="AAMP",
+    brand_href="/",
     color="primary",
-    dark=True
+    dark=True,
 )
 
 home_layout = html.Div(
     [
         html.H1("Home"),
+        dcc.Input(id="filename-input", type="text", placeholder="Enter filename name"),
+        dbc.Button("Load", id="filename-input-button", n_clicks=0),
+        html.Div(id="home-output"),
     ]
 )
+
+execute_recipe_layout = html.Div(
+    [html.H1("Execute Recipe"), dbc.Button("Execute", id="execute-button", n_clicks=0), html.Div(id="execute-recipe-output")]
+)
+
+@app.callback(
+    Output("execute-recipe-output", "children"),
+    [Input("execute-button", "n_clicks")],
+    prevent_initial_call=True,
+)
+def execute_recipe(n_clicks):
+    invoker = CommandInvoker(com,False,None,False)
+    return html.Div(str(invoker.invoke_commands()))
+
+
+@app.callback(
+    Output("url", "pathname"),
+    [Input("filename-input-button", "n_clicks")],
+    [State("filename-input", "value")],
+)
+def get_document_from_db(n_clicks, filename):
+    if filename is not None and filename != "":
+        # Extract the YAML content from the document
+        document = mongo.find_documents("recipes", {"file_name": filename})[0]
+        yaml_content = document.get("yaml_data", "")
+        # Update the YAML output
+        with open("to_load.yaml", "w") as file:
+            file.write(yaml_content)
+        com.load_from_yaml("to_load.yaml")
+        return "/edit-recipe"
+
+    return "/"
+
 
 edit_recipe_layout = html.Div(
     [
@@ -168,7 +210,10 @@ edit_recipe_layout = html.Div(
     className="main-container",
 )
 
-app.layout = html.Div([dcc.Location(id="url", refresh=False), navbar, html.Div(id="page-content")])
+app.layout = html.Div(
+    [dcc.Location(id="url", refresh=False), navbar, html.Div(id="page-content")]
+)
+
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def display_page(pathname):
@@ -176,9 +221,11 @@ def display_page(pathname):
         return home_layout
     elif pathname == "/edit-recipe":
         return edit_recipe_layout
+    elif pathname == "/execute-recipe":
+        return execute_recipe_layout
     else:
         return html.Div("404")
-    
+
 
 data_list4 = com.device_list
 
@@ -194,7 +241,7 @@ print()
 
 @app.callback(
     Output("devices-table-div", "children"),
-    [Input("refresh-button1", "n_clicks"), Input('devices-table', 'data')],
+    [Input("refresh-button1", "n_clicks"), Input("devices-table", "data")],
     [State("devices-table-div", "children")],
 )
 def update_table1(n_clicks, data, table):
@@ -225,11 +272,15 @@ def update_table1(n_clicks, data, table):
         # table_data1[index][1].update({"device_type": table_data1[index][0]})
         # del table_data1[index][0]
         table_data1_new.append(
-            {"index": index,"device_type": table_data1[index][0], "params": str(table_data1[index][1])}
+            {
+                "index": index,
+                "device_type": table_data1[index][0],
+                "params": str(table_data1[index][1]),
+            }
         )
 
     table_data1 = table_data1_new
-    
+
     table = dash_table.DataTable(
         id="devices-table",
         data=table_data1,
@@ -323,17 +374,19 @@ def save_command(n_clicks, active_cell, data, value):
 
 
 @app.callback(
-        Output("devices-table", "data"),
-        Input("save-device-editor", "n_clicks"),
-        [
-            State("devices-table", "active_cell"),
-            State("devices-table", "data"),
-            State("device-json-editor", "value"),
-        ],
-        prevent_initial_call=True,
+    Output("devices-table", "data"),
+    Input("save-device-editor", "n_clicks"),
+    [
+        State("devices-table", "active_cell"),
+        State("devices-table", "data"),
+        State("device-json-editor", "value"),
+    ],
+    prevent_initial_call=True,
 )
 def save_device(n_clicks, active_cell, data, value):
-    if active_cell is not None and data[active_cell["row"]]['params'] != str(json.loads(value)):
+    if active_cell is not None and data[active_cell["row"]]["params"] != str(
+        json.loads(value)
+    ):
         # data_row = data[active_cell["row"]]
         params = eval(value)
         # print(com.device_by_name[params['name']])
@@ -344,9 +397,10 @@ def save_device(n_clicks, active_cell, data, value):
         #     else:
         #         init_str += key + '=' + str(value2) + ','
         # init_str = init_str[:-1] + ')'
-        com.device_by_name[params['name']].update_init_args(params)
+        com.device_by_name[params["name"]].update_init_args(params)
         return None
     return data
+
 
 @app.callback(
     Output("command-json-editor", "value"),
@@ -362,16 +416,18 @@ def fill_command_json_editor(is_open, active_cell, data):
 
     return ""
 
+
 @app.callback(
-        Output("device-json-editor", "value"),
-        [Input("device-editor-modal", "is_open")],
-        [State("devices-table", "active_cell"), State("devices-table", "data")],
-        prevent_initial_call=True,
+    Output("device-json-editor", "value"),
+    [Input("device-editor-modal", "is_open")],
+    [State("devices-table", "active_cell"), State("devices-table", "data")],
+    prevent_initial_call=True,
 )
 def fill_device_json_editor(is_open, active_cell, data):
     if active_cell is not None and is_open:
-        return json.dumps(eval(data[active_cell['row']]['params']), indent=4)
+        return json.dumps(eval(data[active_cell["row"]]["params"]), indent=4)
     return ""
+
 
 @app.callback(
     [
@@ -394,14 +450,15 @@ def enable_save_command_button(value, is_open):
         return False, ""
     except Exception as e:
         if type(e) == json.decoder.JSONDecodeError:
-            return True, "Invalid JSON" 
+            return True, "Invalid JSON"
         return True, str(type(e))
 
+
 @app.callback(
-    [Output('save-device-editor', 'disabled'),Output('edit-device-error', 'children')],
-    Input('device-json-editor', 'value'),
-    State('device-editor-modal', 'is_open'),
-    prevent_initial_call=True
+    [Output("save-device-editor", "disabled"), Output("edit-device-error", "children")],
+    Input("device-json-editor", "value"),
+    State("device-editor-modal", "is_open"),
+    prevent_initial_call=True,
 )
 def enable_save_device_button(value, is_open):
     if not is_open:
@@ -413,6 +470,7 @@ def enable_save_device_button(value, is_open):
         if type(e) == json.decoder.JSONDecodeError:
             return True, "Invalid JSON"
         return True, str(type(e))
+
 
 # @app.callback(
 #         Output("commands-accordion", "children"),
@@ -495,9 +553,10 @@ def edit_command_button(table_div_children):
     else:
         return True
 
+
 @app.callback(
-        Output("edit-device-button", 'disabled'),
-        Input("devices-table", "active_cell"),
+    Output("edit-device-button", "disabled"),
+    Input("devices-table", "active_cell"),
 )
 def edit_device_button(table_div_children):
     active_cell = table_div_children
@@ -505,6 +564,7 @@ def edit_device_button(table_div_children):
         return False
     else:
         return True
+
 
 @app.callback(
     Output("commands-table-div", "children"),

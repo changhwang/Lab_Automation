@@ -59,9 +59,11 @@ class MongoDBHelper:
             str: The inserted document ID.
         """
         with open(file_path, 'r') as file:
-            yaml_data = yaml.safe_load(file)
+            # yaml_data = yaml.load(file, Loader=yaml.Loader)
+            yaml_data = file.read()
+            doc = {'yaml_data': yaml_data, 'file_name': file_path}
 
-        return str(self.db[collection].insert_one(yaml_data).inserted_id)
+        return str(self.db[collection].insert_one(doc).inserted_id)
     
     def update_yaml_file(self, collection, file_id, updated_data):
         """

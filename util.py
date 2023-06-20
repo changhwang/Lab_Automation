@@ -19,7 +19,6 @@ named_devices = {
     "PrinterMotorX": NewportESP301,
     # "Spectrometer": StellarNetSpectrometer,
     # "SampleCamera": XimeaCamera,
-    "DummyHeater": DummyHeater,
     "DummyHeater1": DummyHeater,
     "DummyHeater2": DummyHeater,
     "DummyMotor": DummyMotor,

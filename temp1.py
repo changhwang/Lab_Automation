@@ -4,6 +4,7 @@ import project_const
 import json
 from devices.device import Device
 from commands.command import Command, CompositeCommand
+from devices.device import Device, SerialDevice
 
 
 com = CommandSequence()
@@ -15,6 +16,7 @@ com.load_from_yaml("to_load.yaml")
 import util
 import ctypes
 from mongodb_helper import MongoDBHelper
+import pandas as pd
 
 mongo = MongoDBHelper(
     "mongodb+srv://ppahuja2:s5eMFr1js8iEcMt8@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
@@ -52,12 +54,56 @@ home_layout = html.Div(
         dcc.Input(id="filename-input", type="text", placeholder="Enter filename name"),
         dbc.Button("Load", id="filename-input-button", n_clicks=0),
         html.Div(id="home-output"),
+        dbc.Button("Refresh List", id='home-refresh-list-button', n_clicks=0),
+        dash_table.DataTable(
+            id='home-recipes-list-table',
+            columns=[
+                {'name': 'File Name', 'id': 'file_name'},
+                    #  {'name':'YAML', 'id':'yaml_data'}
+                    ],
+            data=[],
+            style_table={'width': '300px'},
+            style_cell={'textAlign': 'left'}
+        ),
     ]
 )
 
-execute_recipe_layout = html.Div(
-    [html.H1("Execute Recipe"), dbc.Button("Execute", id="execute-button", n_clicks=0), html.Div(id="execute-recipe-output")]
+@app.callback(
+    Output("home-recipes-list-table", "data"),
+   [ Input("home-refresh-list-button", "n_clicks")],
+    # prevent_initial_call=True,
 )
+def fetch_recipe_list(n_clicks):
+    docs = mongo.find_documents('recipes', {})
+    docs = mongo.db['recipes'].find({}, {'_id': 0, 'file_name': 1})
+    # print(pd.DataFrame(docs).to_dict('records'))
+    print('recipe list refresh done')
+    return pd.DataFrame(docs).to_dict('records')
+
+@app.callback(
+    Output('filename-input', 'value'),
+    Input('home-recipes-list-table', 'active_cell'),
+    State('home-recipes-list-table', 'data'),
+    prevent_initial_call=True,
+)
+def fill_filename_input(active_cell, data):
+    if active_cell is not None:
+        return data[active_cell['row']]['file_name']
+    return ""
+
+
+execute_recipe_layout = html.Div(
+    [
+        html.H1("Execute Recipe"),
+        dbc.Button("Execute", id="execute-button", n_clicks=0),
+        html.Div(id="execute-recipe-output"),
+        dcc.Interval(id='update-interval', interval=1000, n_intervals=0),
+        dcc.Textarea(
+            id="console-output", readOnly=True, style={"width": "100%", "height": 200}
+        ),
+    ]
+)
+
 
 @app.callback(
     Output("execute-recipe-output", "children"),
@@ -65,8 +111,19 @@ execute_recipe_layout = html.Div(
     prevent_initial_call=True,
 )
 def execute_recipe(n_clicks):
-    invoker = CommandInvoker(com,False,None,False)
+    invoker = CommandInvoker(com, False, None, False)
     return html.Div(str(invoker.invoke_commands()))
+
+# import sys
+# from io import StringIO
+# stringio = StringIO()
+# sys.stdout = stringio
+# @app.callback(Output('console-output', 'value'), [Input('update-interval', 'n_intervals')])
+# def show_console_output(n):
+#     # Retrieve console output from StringIO object
+#     stringio.seek(0)
+#     console_output = stringio.read()
+#     return console_output
 
 
 @app.callback(
@@ -122,6 +179,9 @@ edit_recipe_layout = html.Div(
                                             id="edit-device-error",
                                             style={"color": "red"},
                                         ),
+                                        html.Div(
+                                            id='edit-device-serial-ports-info',
+                                        ),
                                     ]
                                 ),
                                 dbc.ModalFooter(
@@ -129,6 +189,47 @@ edit_recipe_layout = html.Div(
                                 ),
                             ],
                             id="device-editor-modal",
+                            keyboard=False,
+                            backdrop="static",
+                        ),
+                        dbc.Modal(
+                            [
+                                dbc.ModalHeader(
+                                    dbc.ModalTitle("Add Device")
+                                ),
+                                dbc.ModalBody(
+                                    [
+                                        dcc.Dropdown(
+                                            id='add-device-dropdown',
+                                            options=[],
+                                            value = None,
+                                        ),
+                                        dcc.Textarea(
+                                            id="add-device-json-editor",
+                                            style={
+                                                "width": "100%",
+                                                "height": "200px",
+                                                "fontFamily": "monospace",
+                                                "backgroundColor": "#f5f5f5",
+                                                "border": "1px solid #ccc",
+                                                "padding": "10px",
+                                                "color": "#333",
+                                            },
+                                        ),
+                                        html.Div(
+                                            id="add-device-error",
+                                            style={"color": "red"},
+                                        ),
+                                        html.Div(
+                                            id='add-device-serial-ports-info',
+                                        ),
+                                    ]
+                                ),
+                                dbc.ModalFooter(
+                                    dbc.Button("Add", id="add-device-editor")
+                                ),
+                            ],
+                            id="device-add-modal",
                             keyboard=False,
                             backdrop="static",
                         ),
@@ -217,6 +318,7 @@ app.layout = html.Div(
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def display_page(pathname):
+    print("\n\nrefreshing to " + pathname)
     if pathname == "/":
         return home_layout
     elif pathname == "/edit-recipe":
@@ -233,9 +335,6 @@ data_list4 = com.device_list
 # for list in data_list4:
 #     dl5.append(list.__dict__)
 
-print()
-print()
-print()
 # print(dl5[2]['motor'].__dict__)
 
 
@@ -318,7 +417,7 @@ def update_table1(n_clicks, data, table):
         # tooltip_duration=None,
         # editable = True,
     )
-    print("done")
+    print("devices table refresh done")
     return table
 
 
@@ -328,6 +427,16 @@ def update_table1(n_clicks, data, table):
     [State("device-editor-modal", "is_open")],
 )
 def toggle_device_editor_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+
+@app.callback(
+    Output("device-add-modal", "is_open"),
+    [Input("add-device-button", "n_clicks"), Input("add-device-editor", "n_clicks")],
+    [State("device-add-modal", "is_open")],
+)
+def toggle_device_add_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
@@ -416,17 +525,42 @@ def fill_command_json_editor(is_open, active_cell, data):
 
     return ""
 
+@app.callback(
+        [Output("add-device-json-editor", "value"),Output('add-device-dropdown', 'options')],
+        [Input("device-add-modal", "is_open")],
+        [State("devices-table", "active_cell"), State("devices-table", "data")],
+        prevent_initial_call=True,
+)
+def fill_device_add_modal(is_open, active_cell, data):
+    return '',util.approved_devices
+
+try:
+    import serial.tools.list_ports
+except ImportError:
+    _has_serial = False
+else:
+    _has_serial = True
 
 @app.callback(
-    Output("device-json-editor", "value"),
+    [Output("device-json-editor", "value"), Output('edit-device-serial-ports-info', 'children')],
     [Input("device-editor-modal", "is_open")],
     [State("devices-table", "active_cell"), State("devices-table", "data")],
     prevent_initial_call=True,
 )
 def fill_device_json_editor(is_open, active_cell, data):
     if active_cell is not None and is_open:
-        return json.dumps(eval(data[active_cell["row"]]["params"]), indent=4)
-    return ""
+        if _has_serial and isinstance(com.device_by_name[eval(data[active_cell["row"]]["params"])["name"]], SerialDevice):
+            ports = serial.tools.list_ports.comports()
+            str_ports = ""
+            for port, desc, hwid in sorted(ports):
+                str_ports += f"{port}: {desc} [{hwid}]\n"
+            lines = str_ports.splitlines()
+            device_port_html = [html.Div(['COM Port Info:'], style={'font-weight': 'bold'})]
+            device_port_html.append(html.Div([html.Div(line) for line in lines]))
+        else:
+            device_port_html = ""
+        return json.dumps(eval(data[active_cell["row"]]["params"]), indent=4), device_port_html
+    return "",""
 
 
 @app.callback(
@@ -496,7 +630,7 @@ def enable_save_device_button(value, is_open):
 )
 def load_commands_accordion(n_clicks, children):
     children = []
-    print()
+    # print()
     command_list = com.get_unlooped_command_list().copy()
     # print(command_list)
     # for command in command_list:
@@ -631,6 +765,7 @@ def update_table2(n_clicks, data, table):
         # tooltip_duration=None,
         # editable = True,
     )
+    print("commands table refresh done")
     return table
 
 

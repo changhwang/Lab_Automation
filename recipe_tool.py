@@ -28,7 +28,7 @@ from devices.newport_esp301 import NewportESP301
 from devices.dummy_heater import DummyHeater
 from devices.dummy_motor import DummyMotor
 
-import project_const
+import util
 
 
 # TODO
@@ -38,7 +38,7 @@ import project_const
 # add compatibility with composite and utility commands (try to avoid coding speciific class dependencies)
 
 #================ Constants =============================
-named_devices = project_const.named_devices
+named_devices = util.named_devices
 command_directory = "commands/"
 load_directory = "recipes/user_recipes/"
 save_directory = "recipes/user_recipes/"

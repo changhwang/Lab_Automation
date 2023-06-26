@@ -33,13 +33,16 @@ from dash.dependencies import Input, Output, State
 import random
 import dash_bootstrap_components as dbc
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], use_pages=True)
+server = app.server
 
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("Edit Recipe", href="/edit-recipe")),
         dbc.NavItem(dbc.NavLink("Execute Recipe", href="/execute-recipe")),
+        dbc.NavItem(dbc.NavLink("Data", href="/data")),
     ],
     brand="AAMP",
     brand_href="/",
@@ -47,25 +50,7 @@ navbar = dbc.NavbarSimple(
     dark=True,
 )
 
-home_layout = html.Div(
-    [
-        html.H1("Home"),
-        dcc.Input(id="filename-input", type="text", placeholder="Enter filename name"),
-        dbc.Button("Load", id="filename-input-button", n_clicks=0),
-        html.Div(id="home-output"),
-        dbc.Button("Refresh List", id="home-refresh-list-button", n_clicks=0),
-        dash_table.DataTable(
-            id="home-recipes-list-table",
-            columns=[
-                {"name": "File Name", "id": "file_name"},
-                #  {'name':'YAML', 'id':'yaml_data'}
-            ],
-            data=[],
-            style_table={"width": "300px"},
-            style_cell={"textAlign": "left"},
-        ),
-    ]
-)
+
 
 
 @app.callback(
@@ -93,17 +78,32 @@ def fill_filename_input(active_cell, data):
     return ""
 
 
-execute_recipe_layout = html.Div(
-    [
-        html.H1("Execute Recipe"),
-        dbc.Button("Execute", id="execute-button", n_clicks=0),
-        html.Div(id="execute-recipe-output"),
-        dcc.Interval(id="update-interval", interval=1000, n_intervals=0),
-        dcc.Textarea(
-            id="console-output", readOnly=True, style={"width": "100%", "height": 200}
-        ),
-    ]
+
+
+@app.callback(
+        Output('data-output', 'value'),
+        Input('load-data-button', 'n_clicks'),
+        prevent_initial_call=True,
 )
+def load_data(n):
+    val = ""
+    docs = mongo.db['recipes'].find()
+    for doc in docs:
+        val += str(doc)
+
+    return val
+
+import sys
+
+@app.callback(
+        Output('console-output', 'readOnly'),
+        Input('stop-button', 'n_clicks'),
+        prevent_initial_call=True,
+)
+def stop_execution(n):
+    print('stop')
+    
+    return True
 
 
 @app.callback(
@@ -147,186 +147,28 @@ def get_document_from_db(n_clicks, filename):
     return "/"
 
 
-edit_recipe_layout = html.Div(
-    [
-        html.H1("Edit Recipe"),
-        html.Div(
-            [
-                html.Div(
-                    [
-                        html.H2("Devices"),
-                        dbc.Button("Refresh", id="refresh-button1", n_clicks=0),
-                        dbc.Button("Add device", id="add-device-button"),
-                        dbc.Button("Edit", id="edit-device-button"),
-                        dbc.Modal(
-                            [
-                                dbc.ModalHeader(
-                                    dbc.ModalTitle("Editor"), close_button=False
-                                ),
-                                dbc.ModalBody(
-                                    [
-                                        dcc.Textarea(
-                                            id="device-json-editor",
-                                            style={
-                                                "width": "100%",
-                                                "height": "200px",
-                                                "fontFamily": "monospace",
-                                                "backgroundColor": "#f5f5f5",
-                                                "border": "1px solid #ccc",
-                                                "padding": "10px",
-                                                "color": "#333",
-                                            },
-                                        ),
-                                        html.Div(
-                                            id="edit-device-error",
-                                            style={"color": "red"},
-                                        ),
-                                        html.Div(
-                                            id="edit-device-serial-ports-info",
-                                        ),
-                                    ]
-                                ),
-                                dbc.ModalFooter(
-                                    dbc.Button("Save", id="save-device-editor")
-                                ),
-                            ],
-                            id="device-editor-modal",
-                            keyboard=False,
-                            backdrop="static",
-                        ),
-                        dbc.Modal(
-                            [
-                                dbc.ModalHeader(dbc.ModalTitle("Add Device")),
-                                dbc.ModalBody(
-                                    [
-                                        dcc.Dropdown(
-                                            id="add-device-dropdown",
-                                            options=[],
-                                            value=None,
-                                        ),
-                                        dcc.Textarea(
-                                            id="add-device-json-editor",
-                                            style={
-                                                "width": "100%",
-                                                "height": "200px",
-                                                "fontFamily": "monospace",
-                                                "backgroundColor": "#f5f5f5",
-                                                "border": "1px solid #ccc",
-                                                "padding": "10px",
-                                                "color": "#333",
-                                            },
-                                        ),
-                                        html.Div(
-                                            id="add-device-error",
-                                            style={"color": "red"},
-                                        ),
-                                        html.Div(
-                                            id="add-device-serial-ports-info",
-                                        ),
-                                    ]
-                                ),
-                                dbc.ModalFooter(
-                                    dbc.Button("Add", id="add-device-editor")
-                                ),
-                            ],
-                            id="device-add-modal",
-                            keyboard=False,
-                            backdrop="static",
-                        ),
-                        html.Div(
-                            children=[dash_table.DataTable(id="devices-table")],
-                            id="devices-table-div",
-                        ),
-                    ],
-                    className="table-container",
-                ),
-                html.Div(
-                    [
-                        html.H2("Commands"),
-                        dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
-                        dbc.Button("Add command", id="add-command-button"),
-                        dbc.Button("Edit", id="edit-command-button"),
-                        dbc.Modal(
-                            [
-                                dbc.ModalHeader(
-                                    dbc.ModalTitle("Editor"), close_button=False
-                                ),
-                                dbc.ModalBody(
-                                    [
-                                        dcc.Textarea(
-                                            id="command-json-editor",
-                                            style={
-                                                "width": "100%",
-                                                "height": "200px",
-                                                "fontFamily": "monospace",
-                                                "backgroundColor": "#f5f5f5",
-                                                "border": "1px solid #ccc",
-                                                "padding": "10px",
-                                                "color": "#333",
-                                            },
-                                        ),
-                                        html.Div(
-                                            id="edit-command-error",
-                                            style={"color": "red"},
-                                        ),
-                                    ]
-                                ),
-                                dbc.ModalFooter(
-                                    dbc.Button("Save", id="save-command-editor")
-                                ),
-                            ],
-                            id="command-editor-modal",
-                            keyboard=False,
-                            backdrop="static",
-                        ),
-                        html.Div(
-                            children=[dash_table.DataTable(id="commands-table")],
-                            id="commands-table-div",
-                        ),
-                        dbc.Accordion(
-                            [
-                                dbc.AccordionItem(
-                                    "item1", title="Item 1", item_id="item1"
-                                )
-                            ],
-                            id="commands-accordion",
-                            # start_collapsed=True,
-                            style={"display": "none"},
-                        ),
-                    ],
-                    className="table-container",
-                ),
-                html.Div(
-                    [
-                        html.H2("Command Iterations"),
-                        html.Button("Refresh", id="refresh-button3", n_clicks=0),
-                        html.Div(id="table-container3"),
-                    ],
-                    className="table-container",
-                ),
-            ],
-            className="tables-container",
-        ),
-    ],
-    className="main-container",
-)
-
-app.layout = html.Div(
-    [dcc.Location(id="url", refresh=False), navbar, html.Div(id="page-content")]
-)
 
 
-@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
-def display_page(pathname):
-    print("\n\nrefreshing to " + pathname)
-    if pathname == "/":
-        return home_layout
-    elif pathname == "/edit-recipe":
-        return edit_recipe_layout
-    elif pathname == "/execute-recipe":
-        return execute_recipe_layout
-    else:
-        return html.Div("404")
+# app.layout = html.Div(
+#     [, , html.Div(id="page-content")]
+# )
+
+app.layout = html.Div([dcc.Location(id="url"), navbar, dash.page_container])
+
+
+# @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
+# def display_page(pathname):
+#     print("\n\nrefreshing to " + pathname)
+#     if pathname == "/":
+#         return home_layout
+#     elif pathname == "/edit-recipe":
+#         return edit_recipe_layout
+#     elif pathname == "/execute-recipe":
+#         return execute_recipe_layout
+#     elif pathname == "/data":
+#         return data_layout
+#     else:
+#         return html.Div("404")
 
 
 data_list4 = com.device_list
@@ -344,24 +186,7 @@ data_list4 = com.device_list
     [State("devices-table-div", "children")],
 )
 def update_table1(n_clicks, data, table):
-    # dl5 = dl5_og.copy()
-    # dl5_props_temp = {}
-    # count = 0
-    # for list in dl5:
-    #     dl5_props_temp.clear()
-    #     if len(list) > 1:
-    #         for prop in list:
-    #             if prop != "_name":
-    #                 dl5_props_temp[prop] = list[prop]
-    #                 # print(prop)
-    #         # print("h")
-    #         dl5_temp_list = list
-    #         dl5[count] = {}
-    #         dl5[count]["_name"] = dl5_temp_list["_name"]
-    #         # dl5[count]["_is_initialized"] = dl5_temp_list["_is_initialized"]
-    #         dl5[count]["props"] = str(dl5_props_temp)
-    #         # print(str(dl5_props_temp))
-    #     count += 1
+
 
     # table_data1 = dl5
     table_data1 = com.get_clean_device_list().copy()
@@ -389,12 +214,7 @@ def update_table1(n_clicks, data, table):
             # {"name": "Initialized", "id": "_is_initialized"},
             {"name": "Parameters", "id": "params"},
         ],
-        # style_data_conditional=[
-        #     {"if": {"column_id": "_name"}, "width": "250px", 'overflow': 'hidden', 'textOverflow': 'ellipsis'},
-        #     # {"if": {"column_id": "_is_initialized"}, "width": "20%"},
-        #     # {"if": {"column_id": "props"}, "width": "100px", 'overflow': 'hidden', 'textOverflow': 'ellipsis'},
-        # ],
-        # style_cell={"textAlign": "left", "padding": "5px"},
+   
         style_cell={
             "overflow": "hidden",
             "textOverflow": "ellipsis",
@@ -499,14 +319,6 @@ def save_device(n_clicks, active_cell, data, value):
     ):
         # data_row = data[active_cell["row"]]
         params = eval(value)
-        # print(com.device_by_name[params['name']])
-        # init_str = data_row['device_type'] + '('
-        # for key, value2 in params.items():
-        #     if isinstance(value2, str):
-        #         init_str += key + '=' + "'" + str(value2) + "'" + ','
-        #     else:
-        #         init_str += key + '=' + str(value2) + ','
-        # init_str = init_str[:-1] + ')'
         com.device_by_name[params["name"]].update_init_args(params)
         return None
     return data
@@ -529,7 +341,6 @@ def fill_command_json_editor(is_open, active_cell, data):
 
 @app.callback(
     [
-        # Output("add-device-json-editor", "value"),
         Output("add-device-dropdown", "options"),
     ],
     [Input("device-add-modal", "is_open")],

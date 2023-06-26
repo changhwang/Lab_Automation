@@ -1,6 +1,5 @@
 from command_sequence import CommandSequence
 from command_invoker import CommandInvoker
-import project_const
 import json
 from devices.device import Device
 from commands.command import Command, CompositeCommand
@@ -24,7 +23,7 @@ mongo = MongoDBHelper(
 )
 
 
-out = util.device_to_dict(com.device_list[0])
+# out = util.device_to_dict(com.device_list[0])
 
 import dash
 from dash import dcc
@@ -54,41 +53,43 @@ home_layout = html.Div(
         dcc.Input(id="filename-input", type="text", placeholder="Enter filename name"),
         dbc.Button("Load", id="filename-input-button", n_clicks=0),
         html.Div(id="home-output"),
-        dbc.Button("Refresh List", id='home-refresh-list-button', n_clicks=0),
+        dbc.Button("Refresh List", id="home-refresh-list-button", n_clicks=0),
         dash_table.DataTable(
-            id='home-recipes-list-table',
+            id="home-recipes-list-table",
             columns=[
-                {'name': 'File Name', 'id': 'file_name'},
-                    #  {'name':'YAML', 'id':'yaml_data'}
-                    ],
+                {"name": "File Name", "id": "file_name"},
+                #  {'name':'YAML', 'id':'yaml_data'}
+            ],
             data=[],
-            style_table={'width': '300px'},
-            style_cell={'textAlign': 'left'}
+            style_table={"width": "300px"},
+            style_cell={"textAlign": "left"},
         ),
     ]
 )
 
+
 @app.callback(
     Output("home-recipes-list-table", "data"),
-   [ Input("home-refresh-list-button", "n_clicks")],
+    [Input("home-refresh-list-button", "n_clicks")],
     # prevent_initial_call=True,
 )
 def fetch_recipe_list(n_clicks):
-    docs = mongo.find_documents('recipes', {})
-    docs = mongo.db['recipes'].find({}, {'_id': 0, 'file_name': 1})
+    docs = mongo.find_documents("recipes", {})
+    docs = mongo.db["recipes"].find({}, {"_id": 0, "file_name": 1})
     # print(pd.DataFrame(docs).to_dict('records'))
-    print('recipe list refresh done')
-    return pd.DataFrame(docs).to_dict('records')
+    print("recipe list refresh done")
+    return pd.DataFrame(docs).to_dict("records")
+
 
 @app.callback(
-    Output('filename-input', 'value'),
-    Input('home-recipes-list-table', 'active_cell'),
-    State('home-recipes-list-table', 'data'),
+    Output("filename-input", "value"),
+    Input("home-recipes-list-table", "active_cell"),
+    State("home-recipes-list-table", "data"),
     prevent_initial_call=True,
 )
 def fill_filename_input(active_cell, data):
     if active_cell is not None:
-        return data[active_cell['row']]['file_name']
+        return data[active_cell["row"]]["file_name"]
     return ""
 
 
@@ -97,7 +98,7 @@ execute_recipe_layout = html.Div(
         html.H1("Execute Recipe"),
         dbc.Button("Execute", id="execute-button", n_clicks=0),
         html.Div(id="execute-recipe-output"),
-        dcc.Interval(id='update-interval', interval=1000, n_intervals=0),
+        dcc.Interval(id="update-interval", interval=1000, n_intervals=0),
         dcc.Textarea(
             id="console-output", readOnly=True, style={"width": "100%", "height": 200}
         ),
@@ -113,6 +114,7 @@ execute_recipe_layout = html.Div(
 def execute_recipe(n_clicks):
     invoker = CommandInvoker(com, False, None, False)
     return html.Div(str(invoker.invoke_commands()))
+
 
 # import sys
 # from io import StringIO
@@ -180,7 +182,7 @@ edit_recipe_layout = html.Div(
                                             style={"color": "red"},
                                         ),
                                         html.Div(
-                                            id='edit-device-serial-ports-info',
+                                            id="edit-device-serial-ports-info",
                                         ),
                                     ]
                                 ),
@@ -194,15 +196,13 @@ edit_recipe_layout = html.Div(
                         ),
                         dbc.Modal(
                             [
-                                dbc.ModalHeader(
-                                    dbc.ModalTitle("Add Device")
-                                ),
+                                dbc.ModalHeader(dbc.ModalTitle("Add Device")),
                                 dbc.ModalBody(
                                     [
                                         dcc.Dropdown(
-                                            id='add-device-dropdown',
+                                            id="add-device-dropdown",
                                             options=[],
-                                            value = None,
+                                            value=None,
                                         ),
                                         dcc.Textarea(
                                             id="add-device-json-editor",
@@ -221,7 +221,7 @@ edit_recipe_layout = html.Div(
                                             style={"color": "red"},
                                         ),
                                         html.Div(
-                                            id='add-device-serial-ports-info',
+                                            id="add-device-serial-ports-info",
                                         ),
                                     ]
                                 ),
@@ -431,6 +431,7 @@ def toggle_device_editor_modal(n1, n2, is_open):
         return not is_open
     return is_open
 
+
 @app.callback(
     Output("device-add-modal", "is_open"),
     [Input("add-device-button", "n_clicks"), Input("add-device-editor", "n_clicks")],
@@ -525,14 +526,38 @@ def fill_command_json_editor(is_open, active_cell, data):
 
     return ""
 
+
 @app.callback(
-        [Output("add-device-json-editor", "value"),Output('add-device-dropdown', 'options')],
-        [Input("device-add-modal", "is_open")],
-        [State("devices-table", "active_cell"), State("devices-table", "data")],
-        prevent_initial_call=True,
+    [
+        # Output("add-device-json-editor", "value"),
+        Output("add-device-dropdown", "options"),
+    ],
+    [Input("device-add-modal", "is_open")],
+    [State("devices-table", "active_cell"), State("devices-table", "data")],
+    prevent_initial_call=True,
 )
 def fill_device_add_modal(is_open, active_cell, data):
-    return '',util.approved_devices
+    return [util.approved_devices]
+
+import inspect
+
+@app.callback(
+    [Output('add-device-json-editor', 'value')],
+    [Input('add-device-dropdown', 'value'), Input('device-add-modal', 'is_open')],
+    prevent_initial_call=True
+)
+def fill_device_add_json_editor(value, is_open):
+    if not is_open or value is None:
+        return [""]
+    args_list = inspect.getfullargspec(util.named_devices[value].__init__).args
+    args_dict = {}
+    for arg in args_list:
+        if arg != 'self' and arg != 'name':
+            args_dict[arg] = None
+        if arg == 'name':
+            args_dict[arg] = value
+    return [(json.dumps(args_dict, indent=4))]
+
 
 try:
     import serial.tools.list_ports
@@ -541,26 +566,38 @@ except ImportError:
 else:
     _has_serial = True
 
+
 @app.callback(
-    [Output("device-json-editor", "value"), Output('edit-device-serial-ports-info', 'children')],
+    [
+        Output("device-json-editor", "value"),
+        Output("edit-device-serial-ports-info", "children"),
+    ],
     [Input("device-editor-modal", "is_open")],
     [State("devices-table", "active_cell"), State("devices-table", "data")],
     prevent_initial_call=True,
 )
 def fill_device_json_editor(is_open, active_cell, data):
     if active_cell is not None and is_open:
-        if _has_serial and isinstance(com.device_by_name[eval(data[active_cell["row"]]["params"])["name"]], SerialDevice):
+        if _has_serial and isinstance(
+            com.device_by_name[eval(data[active_cell["row"]]["params"])["name"]],
+            SerialDevice,
+        ):
             ports = serial.tools.list_ports.comports()
             str_ports = ""
             for port, desc, hwid in sorted(ports):
                 str_ports += f"{port}: {desc} [{hwid}]\n"
             lines = str_ports.splitlines()
-            device_port_html = [html.Div(['COM Port Info:'], style={'font-weight': 'bold'})]
+            device_port_html = [
+                html.Div(["COM Port Info:"], style={"font-weight": "bold"})
+            ]
             device_port_html.append(html.Div([html.Div(line) for line in lines]))
         else:
             device_port_html = ""
-        return json.dumps(eval(data[active_cell["row"]]["params"]), indent=4), device_port_html
-    return "",""
+        return (
+            json.dumps(eval(data[active_cell["row"]]["params"]), indent=4),
+            device_port_html,
+        )
+    return "", ""
 
 
 @app.callback(
@@ -599,6 +636,39 @@ def enable_save_device_button(value, is_open):
         return False, ""
     try:
         parsed_json = json.loads(value)
+        return False, ""
+    except Exception as e:
+        if type(e) == json.decoder.JSONDecodeError:
+            return True, "Invalid JSON"
+        return True, str(type(e))
+
+import typing
+
+@app.callback(
+    [Output("add-device-editor", "disabled"), Output("add-device-error", "children")],
+   [ Input("add-device-json-editor", "value"), Input('add-device-dropdown', 'value')],
+    State("device-add-modal", "is_open"),
+    prevent_initial_call=True,
+)
+def enable_add_device_button(value, device_type, is_open):
+    if value == "":
+        return True, "No device selected"
+    if not is_open:
+        return False, ""
+    try:
+        sig = inspect.signature(util.named_devices[device_type].__init__)
+        args = {}
+        for param in sig.parameters.values():
+            arg_type = param.annotation
+            args[param.name] = typing.get_args(arg_type)[0] if typing.get_origin(arg_type) is typing.Union else arg_type
+        parsed_json = json.loads(value)
+        for key in parsed_json:
+            print('\n'+key)
+            print('input: '+str(type((parsed_json[key]))) + ', expected: '+ str(args[key]))
+            if type((parsed_json[key])) != args[key]:
+                return True, f"Invalid type for {key}. Expected {str(args[key])}"
+            # if not isinstance(parsed_json[key], args[key]):
+            #     return True, f"Invalid type for {key}. Expected {str(args[key])}"
         return False, ""
     except Exception as e:
         if type(e) == json.decoder.JSONDecodeError:

@@ -4,10 +4,10 @@ import json
 from devices.device import Device
 from commands.command import Command, CompositeCommand
 from devices.device import Device, SerialDevice
+import threading
 
-
+print('reset complete')
 com = CommandSequence()
-
 
 com.load_from_yaml("to_load.yaml")
 
@@ -42,6 +42,7 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("Edit Recipe", href="/edit-recipe")),
         dbc.NavItem(dbc.NavLink("Execute Recipe", href="/execute-recipe")),
+        dbc.NavItem(dbc.NavLink('Edit Recipe (PY)', href='/python-edit-recipe')),
         dbc.NavItem(dbc.NavLink("Data", href="/data")),
     ],
     brand="AAMP",
@@ -78,32 +79,41 @@ def fill_filename_input(active_cell, data):
     return ""
 
 
+from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
 
 
 @app.callback(
-        Output('data-output', 'value'),
+        Output('data-output-div', 'children'),
         Input('load-data-button', 'n_clicks'),
         prevent_initial_call=True,
 )
 def load_data(n):
-    val = ""
+    val = ''
     docs = mongo.db['recipes'].find()
     for doc in docs:
         val += str(doc)
+        val += '<br><br>'
+    # nval = val.
+    return DangerouslySetInnerHTML(val)
 
-    return val
+import os, signal
 
-import sys
+def kill_execution():
+    os.kill(os.getpid(), signal.SIGINT)
 
 @app.callback(
-        Output('console-output', 'readOnly'),
+        Output('hidden-div', 'children'),
         Input('stop-button', 'n_clicks'),
         prevent_initial_call=True,
 )
 def stop_execution(n):
-    print('stop')
-    
-    return True
+    print('stopping')
+    # kill_execution()
+    # print('stop done')
+    return []
+
+import logging
+from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
 
 
 @app.callback(
@@ -112,9 +122,41 @@ def stop_execution(n):
     prevent_initial_call=True,
 )
 def execute_recipe(n_clicks):
-    invoker = CommandInvoker(com, False, None, False)
-    return html.Div(str(invoker.invoke_commands()))
 
+    invoker = CommandInvoker(com, False, None, False)
+    invoker.invoke_commands()
+    return "done"
+
+class DashLoggerHandler(logging.StreamHandler):
+    def __init__(self):
+        logging.StreamHandler.__init__(self)
+        self.queue = []
+
+    def emit(self, record):
+        msg = self.format(record)
+        self.queue.append(msg)
+
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+dashLoggerHandler = DashLoggerHandler()
+logger.addHandler(dashLoggerHandler)
+
+@app.callback(
+    Output('console-out2', 'children') ,
+    Input('interval1', 'n_intervals')
+)
+def update_output(n):
+    return DangerouslySetInnerHTML(('\n'.join(dashLoggerHandler.queue)).replace('\n', '<br>'))
+
+@app.callback(
+        Output('console-out2', 'children', allow_duplicate=True),
+        Input('reset-button', 'n_clicks'),
+        prevent_initial_call=True,
+)
+def reset_console(n):
+    dashLoggerHandler.queue = []
+    return []
 
 # import sys
 # from io import StringIO
@@ -137,17 +179,50 @@ def get_document_from_db(n_clicks, filename):
     if filename is not None and filename != "":
         # Extract the YAML content from the document
         document = mongo.find_documents("recipes", {"file_name": filename})[0]
-        yaml_content = document.get("yaml_data", "")
-        # Update the YAML output
-        with open("to_load.yaml", "w") as file:
-            file.write(yaml_content)
-        com.load_from_yaml("to_load.yaml")
+        if document.get('dash_friendly', '') == False or document.get('python_code', '') == '':
+            yaml_content = document.get("yaml_data", "")
+            # Update the YAML output
+            with open("to_load.yaml", "w") as file:
+                file.write(yaml_content)
+            com.load_from_yaml("to_load.yaml")
+        else:
+            exec(document.get('python_code', ''))
+            com.load_from_yaml('to_save.yaml')
+        com.document = document
+        # com.python_code = document.get("python_code", "")
+
         return "/edit-recipe"
 
     return "/"
 
+@app.callback(
+    Output('ace-recipe-editor', 'value'),
+    [Input('refresh-button-ace', 'n_clicks'), Input('url', 'pathname')],
+    prevent_initial_call=True,
+)
+def fill_ace_editor(n, url):
+    if url == '/python-edit-recipe':
+        return com.document.get("python_code", "")
+    return ""
 
-
+@app.callback(
+    [Output('ace-recipe-editor', 'value', allow_duplicate=True), Output('ace-editor-alert', 'is_open'), Output('ace-editor-alert', 'children'), Output('ace-editor-alert', 'color'), Output('ace-editor-alert', 'duration')],
+    Input('execute-and-save-button', 'n_clicks'),
+    [State('ace-recipe-editor', 'value'), State('ace-editor-alert', 'is_open')],
+    prevent_initial_call=True,
+)
+def execute_and_save(n, value, is_open):
+    if value is not None and value != "":
+        try:
+            exec(value)
+            doc_id = com.document.get('_id', '')
+            (mongo.update_yaml_file('recipes', doc_id,{'python_code': value}))
+            com.load_from_yaml('to_save.yaml')
+            com.document = mongo.find_documents("recipes", {"_id": doc_id})[0]
+            return [value, True, "Saved!", 'success', 1500]
+        except Exception as e:
+            return [value, True, str(e), 'danger', 5000]
+    return [value, False, 'No code to execute', 'warning', 1000]
 
 # app.layout = html.Div(
 #     [, , html.Div(id="page-content")]

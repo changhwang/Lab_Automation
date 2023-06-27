@@ -23,6 +23,20 @@ device_dict = {
                 }
             }
         },
+        "etl": {
+            "material": {
+                "metadata": {
+                    "solvent": "string",
+                    "concentration": "float",
+                    "printing_speed": "float",
+                    "printing_temperature": "float",
+                    "additive": {
+                        "molecule": "string",
+                        "concentration": "float",
+                    },
+                }
+            }
+        },
         "active_layer": {
             "donor": {
                 "material": {
@@ -52,6 +66,20 @@ device_dict = {
                     }
                 }
             },
+        },
+        "htl": {
+            "material": {
+                "metadata": {
+                    "solvent": "string",
+                    "concentration": "float",
+                    "printing_speed": "float",
+                    "printing_temperature": "float",
+                    "additive": {
+                        "molecule": "string",
+                        "concentration": "float",
+                    },
+                }
+            }
         },
         "electrode_htl": {
             "material": {
@@ -97,7 +125,13 @@ device_dict_schema = {
                                 "metadata": {
                                     "bsonType": "object",
                                     "title": "Metadata Validation",
-                                    "required": ["solvent", "concentration", "printing_speed", "printing_temperature", "additive"],
+                                    "required": [
+                                        "solvent",
+                                        "concentration",
+                                        "printing_speed",
+                                        "printing_temperature",
+                                        "additive",
+                                    ],
                                     "properties": {
                                         "solvent": {
                                             "bsonType": "string",
@@ -154,7 +188,13 @@ device_dict_schema = {
                                         "metadata": {
                                             "bsonType": "object",
                                             "title": "Metadata Validation",
-                                            "required": ["solvent", "concentration", "printing_speed", "printing_temperature", "additive"],
+                                            "required": [
+                                                "solvent",
+                                                "concentration",
+                                                "printing_speed",
+                                                "printing_temperature",
+                                                "additive",
+                                            ],
                                             "properties": {
                                                 "solvent": {
                                                     "bsonType": "string",
@@ -175,7 +215,10 @@ device_dict_schema = {
                                                 "additive": {
                                                     "bsonType": "object",
                                                     "title": "Additive Validation",
-                                                    "required": ["molecule", "concentration"],
+                                                    "required": [
+                                                        "molecule",
+                                                        "concentration",
+                                                    ],
                                                     "properties": {
                                                         "molecule": {
                                                             "bsonType": "string",
@@ -206,7 +249,13 @@ device_dict_schema = {
                                         "metadata": {
                                             "bsonType": "object",
                                             "title": "Metadata Validation",
-                                            "required": ["solvent", "concentration", "printing_speed", "printing_temperature", "additive"],
+                                            "required": [
+                                                "solvent",
+                                                "concentration",
+                                                "printing_speed",
+                                                "printing_temperature",
+                                                "additive",
+                                            ],
                                             "properties": {
                                                 "solvent": {
                                                     "bsonType": "string",
@@ -227,7 +276,10 @@ device_dict_schema = {
                                                 "additive": {
                                                     "bsonType": "object",
                                                     "title": "Additive Validation",
-                                                    "required": ["molecule", "concentration"],
+                                                    "required": [
+                                                        "molecule",
+                                                        "concentration",
+                                                    ],
                                                     "properties": {
                                                         "molecule": {
                                                             "bsonType": "string",
@@ -260,7 +312,13 @@ device_dict_schema = {
                                 "metadata": {
                                     "bsonType": "object",
                                     "title": "Metadata Validation",
-                                    "required": ["solvent", "concentration", "printing_speed", "printing_temperature", "additive"],
+                                    "required": [
+                                        "solvent",
+                                        "concentration",
+                                        "printing_speed",
+                                        "printing_temperature",
+                                        "additive",
+                                    ],
                                     "properties": {
                                         "solvent": {
                                             "bsonType": "string",

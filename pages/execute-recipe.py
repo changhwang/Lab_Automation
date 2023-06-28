@@ -18,11 +18,10 @@ layout = html.Div(
         # dcc.Textarea(
         #     id="console-output", readOnly=True, style={"width": "100%", "height": 0}
         # ),
-        dcc.Interval(id='interval1', interval=500, n_intervals=0),
-        html.Div(id='hidden-div', style={'display':'none'}),
-    html.H4(id='div-out', children='Log'),
-    # html.Iframe(id='console-out',srcDoc='',style={'width': '100%','height':400}),
-    html.Div(id='console-out2'),
+        dcc.Interval(id="interval1", interval=500, n_intervals=0),
+        html.Div(id="hidden-div", style={"display": "none"}),
+        html.H4(id="div-out", children="Log"),
+        # html.Iframe(id='console-out',srcDoc='',style={'width': '100%','height':400}),
+        html.Div(id="console-out2"),
     ]
 )
-

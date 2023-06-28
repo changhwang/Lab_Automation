@@ -140,16 +140,16 @@ layout = html.Div(
                             children=[dash_table.DataTable(id="commands-table")],
                             id="commands-table-div",
                         ),
-                        dbc.Accordion(
-                            [
-                                dbc.AccordionItem(
-                                    "item1", title="Item 1", item_id="item1"
-                                )
-                            ],
-                            id="commands-accordion",
-                            # start_collapsed=True,
-                            style={"display": "none"},
-                        ),
+                        # dbc.Accordion(
+                        #     [
+                        #         dbc.AccordionItem(
+                        #             "item1", title="Item 1", item_id="item1"
+                        #         )
+                        #     ],
+                        #     id="commands-accordion",
+                        #     # start_collapsed=True,
+                        #     style={"display": "none"},
+                        # ),
                     ],
                     className="table-container",
                 ),
@@ -167,6 +167,3 @@ layout = html.Div(
     ],
     className="main-container",
 )
-
-
-

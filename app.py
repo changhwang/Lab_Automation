@@ -5,17 +5,35 @@ from devices.device import Device
 from commands.command import Command, CompositeCommand
 from devices.device import Device, SerialDevice
 import threading
+import util
+from mongodb_helper import MongoDBHelper
+import pandas as pd
+import dash
+from dash import dcc
+from dash import html
+from dash import dash_table
+from dash.dependencies import Input, Output, State
+import random
+import dash_bootstrap_components as dbc
+from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
+import os, signal
+import logging
+import inspect
 
-print('reset complete')
+try:
+    import serial.tools.list_ports
+except ImportError:
+    _has_serial = False
+else:
+    _has_serial = True
+import typing
+
+
+print("\nreset complete")
 com = CommandSequence()
 
 com.load_from_yaml("to_load.yaml")
 
-
-import util
-import ctypes
-from mongodb_helper import MongoDBHelper
-import pandas as pd
 
 mongo = MongoDBHelper(
     "mongodb+srv://ppahuja2:s5eMFr1js8iEcMt8@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
@@ -25,16 +43,13 @@ mongo = MongoDBHelper(
 
 # out = util.device_to_dict(com.device_list[0])
 
-import dash
-from dash import dcc
-from dash import html
-from dash import dash_table
-from dash.dependencies import Input, Output, State
-import random
-import dash_bootstrap_components as dbc
 
-
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], use_pages=True)
+app = dash.Dash(
+    __name__,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    use_pages=True,
+    prevent_initial_callbacks="initial_duplicate",
+)
 server = app.server
 
 navbar = dbc.NavbarSimple(
@@ -42,7 +57,7 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("Edit Recipe", href="/edit-recipe")),
         dbc.NavItem(dbc.NavLink("Execute Recipe", href="/execute-recipe")),
-        dbc.NavItem(dbc.NavLink('Edit Recipe (PY)', href='/python-edit-recipe')),
+        dbc.NavItem(dbc.NavLink("Edit Recipe (PY)", href="/python-edit-recipe")),
         dbc.NavItem(dbc.NavLink("Data", href="/data")),
     ],
     brand="AAMP",
@@ -50,8 +65,6 @@ navbar = dbc.NavbarSimple(
     color="primary",
     dark=True,
 )
-
-
 
 
 @app.callback(
@@ -71,49 +84,45 @@ def fetch_recipe_list(n_clicks):
     Output("filename-input", "value"),
     Input("home-recipes-list-table", "active_cell"),
     State("home-recipes-list-table", "data"),
-    prevent_initial_call=True,
+    # prevent_initial_call=True,
 )
 def fill_filename_input(active_cell, data):
     if active_cell is not None:
         return data[active_cell["row"]]["file_name"]
+    if hasattr(com, "document"):
+        return com.document["file_name"]
     return ""
 
 
-from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
-
-
 @app.callback(
-        Output('data-output-div', 'children'),
-        Input('load-data-button', 'n_clicks'),
-        prevent_initial_call=True,
+    Output("data-output-div", "children"),
+    Input("load-data-button", "n_clicks"),
+    prevent_initial_call=True,
 )
 def load_data(n):
-    val = ''
-    docs = mongo.db['recipes'].find()
+    val = ""
+    docs = mongo.db["recipes"].find()
     for doc in docs:
         val += str(doc)
-        val += '<br><br>'
+        val += "<br><br>"
     # nval = val.
     return DangerouslySetInnerHTML(val)
 
-import os, signal
 
 def kill_execution():
     os.kill(os.getpid(), signal.SIGINT)
 
+
 @app.callback(
-        Output('hidden-div', 'children'),
-        Input('stop-button', 'n_clicks'),
-        prevent_initial_call=True,
+    Output("hidden-div", "children"),
+    Input("stop-button", "n_clicks"),
+    prevent_initial_call=True,
 )
 def stop_execution(n):
-    print('stopping')
+    print("stopping")
     # kill_execution()
     # print('stop done')
     return []
-
-import logging
-from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
 
 
 @app.callback(
@@ -122,10 +131,10 @@ from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
     prevent_initial_call=True,
 )
 def execute_recipe(n_clicks):
-
     invoker = CommandInvoker(com, False, None, False)
     invoker.invoke_commands()
     return "done"
+
 
 class DashLoggerHandler(logging.StreamHandler):
     def __init__(self):
@@ -142,21 +151,23 @@ logger.setLevel(logging.DEBUG)
 dashLoggerHandler = DashLoggerHandler()
 logger.addHandler(dashLoggerHandler)
 
-@app.callback(
-    Output('console-out2', 'children') ,
-    Input('interval1', 'n_intervals')
-)
+
+@app.callback(Output("console-out2", "children"), Input("interval1", "n_intervals"))
 def update_output(n):
-    return DangerouslySetInnerHTML(('\n'.join(dashLoggerHandler.queue)).replace('\n', '<br>'))
+    return DangerouslySetInnerHTML(
+        ("\n".join(dashLoggerHandler.queue)).replace("\n", "<br>")
+    )
+
 
 @app.callback(
-        Output('console-out2', 'children', allow_duplicate=True),
-        Input('reset-button', 'n_clicks'),
-        prevent_initial_call=True,
+    Output("console-out2", "children", allow_duplicate=True),
+    Input("reset-button", "n_clicks"),
+    prevent_initial_call=True,
 )
 def reset_console(n):
     dashLoggerHandler.queue = []
     return []
+
 
 # import sys
 # from io import StringIO
@@ -179,50 +190,81 @@ def get_document_from_db(n_clicks, filename):
     if filename is not None and filename != "":
         # Extract the YAML content from the document
         document = mongo.find_documents("recipes", {"file_name": filename})[0]
-        if document.get('dash_friendly', '') == False or document.get('python_code', '') == '':
+        if (
+            document.get("dash_friendly", "") == False
+            or document.get("python_code", "") == ""
+        ):
             yaml_content = document.get("yaml_data", "")
             # Update the YAML output
             with open("to_load.yaml", "w") as file:
                 file.write(yaml_content)
             com.load_from_yaml("to_load.yaml")
+            com.document = document
+            return "/python-edit-recipe"
         else:
-            exec(document.get('python_code', ''))
-            com.load_from_yaml('to_save.yaml')
-        com.document = document
+            exec(document.get("python_code", ""))
+            com.load_from_yaml("to_save.yaml")
+            com.document = document
+
         # com.python_code = document.get("python_code", "")
 
         return "/edit-recipe"
 
     return "/"
 
-@app.callback(
-    Output('ace-recipe-editor', 'value'),
-    [Input('refresh-button-ace', 'n_clicks'), Input('url', 'pathname')],
-    prevent_initial_call=True,
-)
-def fill_ace_editor(n, url):
-    if url == '/python-edit-recipe':
-        return com.document.get("python_code", "")
-    return ""
 
 @app.callback(
-    [Output('ace-recipe-editor', 'value', allow_duplicate=True), Output('ace-editor-alert', 'is_open'), Output('ace-editor-alert', 'children'), Output('ace-editor-alert', 'color'), Output('ace-editor-alert', 'duration')],
-    Input('execute-and-save-button', 'n_clicks'),
-    [State('ace-recipe-editor', 'value'), State('ace-editor-alert', 'is_open')],
+    [
+        Output("ace-recipe-editor", "value", allow_duplicate=True),
+        Output("ace-editor-alert", "is_open"),
+        Output("ace-editor-alert", "children"),
+        Output("ace-editor-alert", "color"),
+        Output("ace-editor-alert", "duration"),
+    ],
+    [Input("url", "pathname"), Input("refresh-button-ace", "n_clicks")],
+)
+def fill_ace_editor(url, n):
+    if url == "/python-edit-recipe":
+        if hasattr(com, "document"):
+            python_code = com.document.get("python_code", "")
+            if python_code is not None and python_code != "":
+                return [python_code, True, "Loaded!", "success", 1500]
+            else:
+                return ["", True, "No code available", "warning", 1000]
+        else:
+            return ["", True, "No code available", "warning", 1000]
+    else:
+        return ["", False, "", "success", 0]
+
+
+@app.callback(
+    [
+        Output("ace-recipe-editor", "value", allow_duplicate=True),
+        Output("ace-editor-alert", "is_open", allow_duplicate=True),
+        Output("ace-editor-alert", "children", allow_duplicate=True),
+        Output("ace-editor-alert", "color", allow_duplicate=True),
+        Output("ace-editor-alert", "duration", allow_duplicate=True),
+    ],
+    Input("execute-and-save-button", "n_clicks"),
+    [State("ace-recipe-editor", "value"), State("ace-editor-alert", "is_open")],
     prevent_initial_call=True,
 )
 def execute_and_save(n, value, is_open):
     if value is not None and value != "":
         try:
             exec(value)
-            doc_id = com.document.get('_id', '')
-            (mongo.update_yaml_file('recipes', doc_id,{'python_code': value}))
-            com.load_from_yaml('to_save.yaml')
+            doc_id = com.document.get("_id", "")
+            (mongo.update_yaml_file("recipes", doc_id, {"python_code": value}))
+            com.load_from_yaml("to_save.yaml")
             com.document = mongo.find_documents("recipes", {"_id": doc_id})[0]
-            return [value, True, "Saved!", 'success', 1500]
+            return [value, True, "Saved!", "success", 1500]
         except Exception as e:
-            return [value, True, str(e), 'danger', 5000]
-    return [value, False, 'No code to execute', 'warning', 1000]
+            return [value, True, str(e), "danger", 5000]
+    elif n:
+        return ["", True, "No code to execute", "warning", 1000]
+
+    return ["", False, "", "success", 1500]
+
 
 # app.layout = html.Div(
 #     [, , html.Div(id="page-content")]
@@ -246,7 +288,7 @@ app.layout = html.Div([dcc.Location(id="url"), navbar, dash.page_container])
 #         return html.Div("404")
 
 
-data_list4 = com.device_list
+# data_list4 = com.device_list
 
 # dl5 = []
 # for list in data_list4:
@@ -261,8 +303,6 @@ data_list4 = com.device_list
     [State("devices-table-div", "children")],
 )
 def update_table1(n_clicks, data, table):
-
-
     # table_data1 = dl5
     table_data1 = com.get_clean_device_list().copy()
     # print(com.device_list[1].get_init_args())
@@ -289,7 +329,6 @@ def update_table1(n_clicks, data, table):
             # {"name": "Initialized", "id": "_is_initialized"},
             {"name": "Parameters", "id": "params"},
         ],
-   
         style_cell={
             "overflow": "hidden",
             "textOverflow": "ellipsis",
@@ -333,6 +372,20 @@ def toggle_device_editor_modal(n1, n2, is_open):
     [State("device-add-modal", "is_open")],
 )
 def toggle_device_add_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+
+
+@app.callback(
+    Output("device-add-modal-ace", "is_open"),
+    [
+        Input("add-device-button-ace", "n_clicks"),
+        Input("add-device-editor-ace", "n_clicks"),
+    ],
+    [State("device-add-modal-ace", "is_open")],
+)
+def toggle_device_add_modal_ace(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
@@ -425,12 +478,23 @@ def fill_command_json_editor(is_open, active_cell, data):
 def fill_device_add_modal(is_open, active_cell, data):
     return [util.approved_devices]
 
-import inspect
 
 @app.callback(
-    [Output('add-device-json-editor', 'value')],
-    [Input('add-device-dropdown', 'value'), Input('device-add-modal', 'is_open')],
-    prevent_initial_call=True
+    [
+        Output("add-device-dropdown-ace", "options"),
+        Output("add-device-dropdown-ace", "value"),
+    ],
+    [Input("device-add-modal-ace", "is_open")],
+    prevent_initial_call=True,
+)
+def fill_device_add_modal_ace(is_open):
+    return util.devices_ref_keys, ""
+
+
+@app.callback(
+    [Output("add-device-json-editor", "value")],
+    [Input("add-device-dropdown", "value"), Input("device-add-modal", "is_open")],
+    prevent_initial_call=True,
 )
 def fill_device_add_json_editor(value, is_open):
     if not is_open or value is None:
@@ -438,19 +502,11 @@ def fill_device_add_json_editor(value, is_open):
     args_list = inspect.getfullargspec(util.named_devices[value].__init__).args
     args_dict = {}
     for arg in args_list:
-        if arg != 'self' and arg != 'name':
+        if arg != "self" and arg != "name":
             args_dict[arg] = None
-        if arg == 'name':
+        if arg == "name":
             args_dict[arg] = value
     return [(json.dumps(args_dict, indent=4))]
-
-
-try:
-    import serial.tools.list_ports
-except ImportError:
-    _has_serial = False
-else:
-    _has_serial = True
 
 
 @app.callback(
@@ -528,11 +584,10 @@ def enable_save_device_button(value, is_open):
             return True, "Invalid JSON"
         return True, str(type(e))
 
-import typing
 
 @app.callback(
     [Output("add-device-editor", "disabled"), Output("add-device-error", "children")],
-   [ Input("add-device-json-editor", "value"), Input('add-device-dropdown', 'value')],
+    [Input("add-device-json-editor", "value"), Input("add-device-dropdown", "value")],
     State("device-add-modal", "is_open"),
     prevent_initial_call=True,
 )
@@ -546,11 +601,20 @@ def enable_add_device_button(value, device_type, is_open):
         args = {}
         for param in sig.parameters.values():
             arg_type = param.annotation
-            args[param.name] = typing.get_args(arg_type)[0] if typing.get_origin(arg_type) is typing.Union else arg_type
+            args[param.name] = (
+                typing.get_args(arg_type)[0]
+                if typing.get_origin(arg_type) is typing.Union
+                else arg_type
+            )
         parsed_json = json.loads(value)
         for key in parsed_json:
-            print('\n'+key)
-            print('input: '+str(type((parsed_json[key]))) + ', expected: '+ str(args[key]))
+            print("\n" + key)
+            print(
+                "input: "
+                + str(type((parsed_json[key])))
+                + ", expected: "
+                + str(args[key])
+            )
             if type((parsed_json[key])) != args[key]:
                 return True, f"Invalid type for {key}. Expected {str(args[key])}"
             # if not isinstance(parsed_json[key], args[key]):
@@ -560,6 +624,54 @@ def enable_add_device_button(value, device_type, is_open):
         if type(e) == json.decoder.JSONDecodeError:
             return True, "Invalid JSON"
         return True, str(type(e))
+
+
+@app.callback(
+    Output("add-device-editor-ace", "disabled"),
+    [
+        Input("add-device-dropdown-ace", "value"),
+        Input("device-add-modal-ace", "is_open"),
+    ],
+    State("device-add-modal-ace", "is_open"),
+    prevent_initial_call=True,
+)
+def enable_add_device_button_ace(value, is_openInp, is_open):
+    if value == "" or value is None:
+        return True
+    return False
+
+
+@app.callback(
+    [
+        Output("ace-recipe-editor", "value"),
+        Output("ace-editor-alert", "is_open", allow_duplicate=True),
+        Output("ace-editor-alert", "children", allow_duplicate=True),
+        Output("ace-editor-alert", "color", allow_duplicate=True),
+        Output("ace-editor-alert", "duration", allow_duplicate=True),
+    ],
+    Input("add-device-editor-ace", "n_clicks"),
+    [State("ace-recipe-editor", "value"), State("add-device-dropdown-ace", "value")],
+    prevent_initial_call=True,
+)
+def add_device_to_recipe_ace(n_clicks, value, device_type):
+    if value == "" or value is None:
+        return ["", True, "No code in editor", "warning", 3000]
+    try:
+        import_line = util.devices_ref[device_type]["import"]
+        init_line = util.devices_ref[device_type]["init"]
+        if import_line not in value:
+            value = import_line + "\n" + value
+        value.replace("seq", "")
+        value = value.replace(
+            "##################################################\n##### Add commands to the command sequence",
+            "seq.add_device("
+            + init_line
+            + ")\n\n##################################################\n##### Add commands to the command sequence",
+        )
+        return [value, True, "Device added successfully", "success", 3000]
+    except Exception as e:
+        print(e)
+        return [value, True, "Error adding device: " + str(e), "danger", 3000]
 
 
 # @app.callback(
@@ -578,56 +690,56 @@ def enable_add_device_button(value, device_type, is_open):
 #     return children
 
 
-@app.callback(
-    Output("commands-accordion", "children"),
-    Input("refresh-button2", "n_clicks"),
-    State("commands-accordion", "children"),
-    # allow_duplicate=True
-)
-def load_commands_accordion(n_clicks, children):
-    children = []
-    # print()
-    command_list = com.get_unlooped_command_list().copy()
-    # print(command_list)
-    # for command in command_list:
-    #     if isinstance(command, CompositeCommand):
-    #         for sub_command in command._command_list:
-    #             sub_command._receiver = sub_command._receiver._name
-    #             sub_command = sub_command.__dict__
-    #     else:
-    #         # print(command.__dict__)
-    #         command._receiver = command._receiver._name
-    command_params = []
-    for command in command_list:
-        # if isinstance(command, CompositeCommand):
-        # print(type(command).__name__)
-        temp_dict_command_params = {"command": type(command).__name__}
-        temp_dict_command_params.update({"params": command.get_init_args()})
-        command_params.append(temp_dict_command_params)
-        # print(command._params)
-        # else:
-        #     command_params.append(command._params)
-    # print(command_params)
-    # print(com.get_command_names())
-    for index, command in enumerate(command_params):
-        # print(command)
-        children.append(
-            dbc.AccordionItem(
-                dcc.Markdown(
-                    children=[
-                        "**Command Object:**",
-                        "```json",
-                        json.dumps(command, indent=4, cls=util.Encoder),
-                        # str(command.__dict__),
-                        "```",
-                    ],
-                ),
-                # str(command.__dict__),
-                title=command["command"],
-                item_id=command["command"] + str(index),
-            )
-        )
-    return children
+# @app.callback(
+#     Output("commands-accordion", "children"),
+#     Input("refresh-button2", "n_clicks"),
+#     State("commands-accordion", "children"),
+#     # allow_duplicate=True
+# )
+# def load_commands_accordion(n_clicks, children):
+#     children = []
+#     # print()
+#     command_list = com.get_unlooped_command_list().copy()
+#     # print(command_list)
+#     # for command in command_list:
+#     #     if isinstance(command, CompositeCommand):
+#     #         for sub_command in command._command_list:
+#     #             sub_command._receiver = sub_command._receiver._name
+#     #             sub_command = sub_command.__dict__
+#     #     else:
+#     #         # print(command.__dict__)
+#     #         command._receiver = command._receiver._name
+#     command_params = []
+#     for command in command_list:
+#         # if isinstance(command, CompositeCommand):
+#         # print(type(command).__name__)
+#         temp_dict_command_params = {"command": type(command).__name__}
+#         temp_dict_command_params.update({"params": command.get_init_args()})
+#         command_params.append(temp_dict_command_params)
+#         # print(command._params)
+#         # else:
+#         #     command_params.append(command._params)
+#     # print(command_params)
+#     # print(com.get_command_names())
+#     for index, command in enumerate(command_params):
+#         # print(command)
+#         children.append(
+#             dbc.AccordionItem(
+#                 dcc.Markdown(
+#                     children=[
+#                         "**Command Object:**",
+#                         "```json",
+#                         json.dumps(command, indent=4, cls=util.Encoder),
+#                         # str(command.__dict__),
+#                         "```",
+#                     ],
+#                 ),
+#                 # str(command.__dict__),
+#                 title=command["command"],
+#                 item_id=command["command"] + str(index),
+#             )
+#         )
+#     return children
 
 
 @app.callback(

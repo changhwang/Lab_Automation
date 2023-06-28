@@ -7,39 +7,51 @@ dash.register_page(__name__, "/python-edit-recipe")
 
 layout = html.Div(
     [
-        html.H1("Edit Recipe"),
+        html.H1("Edit Recipe in Python"),
         html.Div(
             [
                 html.Div(
                     [
-                        html.H2("Devices"),
-                        dbc.Alert("Alert", id="ace-editor-alert", is_open=False, duration=500),
+                        dbc.Alert(
+                            "Alert", id="ace-editor-alert", is_open=False, duration=500
+                        ),
                         dbc.Button("Fill editor", id="refresh-button-ace", n_clicks=0),
-                        dbc.Button("Add device", id="add-device-button"),
+                        dbc.Button("Add device", id="add-device-button-ace"),
                         dbc.Button("Add command", id="add-command-button"),
-                        dbc.Button('Execute and save yaml', id='execute-and-save-button', n_clicks=0),
+                        dbc.Button(
+                            "Execute and save yaml",
+                            id="execute-and-save-button",
+                            n_clicks=0,
+                        ),
                         dbc.Modal(
                             [
                                 dbc.ModalHeader(dbc.ModalTitle("Add Device")),
                                 dbc.ModalBody(
                                     [
                                         dcc.Dropdown(
-                                            id="add-device-dropdown",
+                                            id="add-device-dropdown-ace",
                                             options=[],
                                             value=None,
                                         ),
-          
                                     ]
                                 ),
                                 dbc.ModalFooter(
-                                    dbc.Button("Add", id="add-device-editor")
+                                    dbc.Button("Add", id="add-device-editor-ace")
                                 ),
                             ],
-                            id="device-add-modal",
+                            id="device-add-modal-ace",
                             keyboard=False,
                             backdrop="static",
                         ),
-                        dash_ace.DashAceEditor(id='ace-recipe-editor', mode = 'python', enableBasicAutocompletion=True, enableLiveAutocompletion=True, theme='github')
+                        dash_ace.DashAceEditor(
+                            id="ace-recipe-editor",
+                            mode="python",
+                            enableBasicAutocompletion=True,
+                            enableLiveAutocompletion=True,
+                            theme="github",
+                            wrapEnabled=True,
+                            style={"width": "100%", "height": "550px"},
+                        ),
                     ],
                     className="table-container",
                 ),
@@ -47,7 +59,6 @@ layout = html.Div(
                 #     [
                 #         html.H2("Commands"),
                 #         dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
-                        
                 #         dbc.Button("Edit", id="edit-command-button"),
                 #         dbc.Modal(
                 #             [
@@ -99,13 +110,9 @@ layout = html.Div(
                 #     ],
                 #     className="table-container",
                 # ),
-                
             ],
             className="tables-container",
         ),
     ],
     className="main-container",
 )
-
-
-

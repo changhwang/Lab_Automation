@@ -78,8 +78,19 @@ devices_ref = {
     # "SampleCamera": {"obj": XimeaCamera},
     "DummyHeater": {"obj": DummyHeater},
     "DummyMotor": {"obj": DummyMotor},
-    'LinearStage150': {'obj': LinearStage150, 
-                       'import': 'from devices.linear_stage_150 import LinearStage150',
-                         'init': 'LinearStage150(name=\'LinearStage150\', port=\'/dev/cu.URT0\', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)'},
+    "LinearStage150": {
+        "obj": LinearStage150,
+        "import_device": "from devices.linear_stage_150 import LinearStage150",
+        "import_commands": "from commands.linear_stage_150_commands import *",
+        "init": "LinearStage150(name='LinearStage150', port='/dev/cu.URT0', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
+        "commands": {
+            "LinearStage150Connect": "LinearStage150Connect(receiver= '')",
+            "LinearStage150Initialize": "LinearStage150Initialize(receiver= '')",
+            "LinearStage150Deinitialize": "LinearStage150Deinitialize(receiver= '')",
+            "LinearStage150EnableMotor": "LinearStage150EnableMotor(receiver= '')",
+            "LinearStage150DisableMotor": "LinearStage150DisableMotor(receiver= '')",
+            "LinearStage150MoveAbsolute": "LinearStage150MoveAbsolute(receiver= '', position= 0)",
+            "LinearStage150MoveRelative": "LinearStage150MoveRelative(receiver= '', distance= 0)",
+        },
+    },
 }
-devices_ref_keys = list(devices_ref.keys())

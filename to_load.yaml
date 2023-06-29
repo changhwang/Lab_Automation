@@ -1,12 +1,9 @@
-- - &id001 !!python/object:devices.linear_stage_150.LinearStage150
+- - !!python/object:devices.linear_stage_150.LinearStage150
     _name: LinearStage150
     _is_initialized: false
     _port: /dev/cu.URT0
     _baudrate: 115200
     _timeout: 0.1
-    _destination: 0x50
-    _source: 0x01
-    _channel: 1
     ser: !!python/object:serial.serialposix.Serial
       is_open: false
       portstr: null
@@ -27,22 +24,8 @@
       _dtr_state: true
       _break_state: false
       _exclusive: null
-- - - !!python/object:commands.linear_stage_150_commands.LinearStage150Connect
-      _receiver: *id001
-      _params:
-        receiver_name: LinearStage150
-        delay: 0.0
-      _result: !!python/object:commands.command.CommandResult
-        _was_successful: null
-        _message: null
-      _name: LinearStage150Connect receiver_name=LinearStage150
-  - - !!python/object:commands.linear_stage_150_commands.LinearStage150EnableMotor
-      _receiver: *id001
-      _params:
-        receiver_name: LinearStage150
-        delay: 0.0
-        state: true
-      _result: !!python/object:commands.command.CommandResult
-        _was_successful: null
-        _message: null
+    _destination: 80
+    _source: 1
+    _channel: 1
+- []
 - ALL

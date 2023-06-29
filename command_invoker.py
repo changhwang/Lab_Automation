@@ -1,4 +1,4 @@
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple, Union, List
 from datetime import datetime
 import logging
 import time
@@ -231,9 +231,33 @@ class CommandInvoker:
         self.log.info("(Number of iterations: " + str(self._command_seq.num_iterations) + ")")
         self.log.info("="*20 + "END OF COMMAND NAMES/DESCRIPTIONS" + "="*20)
 
+    def get_log_messages(self):
+        """Get all log messages as a list.
 
+        Returns
+        -------
+        list
+            List of log messages
+        """
+        log_messages = []
+        for handler in self.log.handlers:
+            if isinstance(handler, logging.FileHandler):
+                handler.flush()  # Ensure all messages are written to the log file
+                with open(handler.baseFilename, 'r') as log_file:
+                    log_messages.extend(log_file.readlines())
+        return log_messages
 
-
+    def clear_log_file(self):
+        """Clear the log file by truncating its content."""
+        if self._log_to_file:
+            if os.path.exists(self._log_filename):
+                with open(self._log_filename, 'w') as log_file:
+                    log_file.truncate(0)
+                self.log.info("Log file cleared.")
+            else:
+                self.log.warning("Log file does not exist.")
+        else:
+            self.log.warning("Log file is not being used.")
 
 
 

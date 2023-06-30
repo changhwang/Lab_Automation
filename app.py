@@ -105,13 +105,13 @@ def fill_filename_input(active_cell, data):
 )
 def load_data(n):
     print('load_data')
-    val = ""
-    docs = mongo.db["recipes"].find()
-    for doc in docs:
-        val += str(doc)
-        val += "<br><br>"
+    # val = ""
+    # docs = mongo.db["recipes"].find()
+    # for doc in docs:
+    #     val += str(doc)
+    #     val += "<br><br>"
     # nval = val.
-    return DangerouslySetInnerHTML(val)
+    return (json.dumps(str(com.document)))
 
 
 def kill_execution():
@@ -171,17 +171,17 @@ class DashLoggerHandler(logging.StreamHandler):
 
 @app.callback(Output("console-out2", "children"), 
               Input("interval1", "n_intervals"),
-              State('url', 'pathname'))
-def update_output(n, url):
+              [State('url', 'pathname'), State('show-log-switch', 'value')], prevent_initial_call=True)
+def update_output(n, url, switch_val):
     # print(invoker.invoking)
-    if url == '/execute-recipe':
+    if url == '/execute-recipe' and switch_val:
         log_string = ''
         log_list = invoker.get_log_messages()
         for msg in log_list:
             log_string += msg
             # log_string += '<br>'
         return html.Pre(log_string)
-    return []
+    return ""
 
 
 @app.callback(
@@ -225,6 +225,7 @@ def get_document_from_db(n_clicks, filename):
     if filename is not None and filename != "":
         # Extract the YAML content from the document
         document = mongo.find_documents("recipes", {"file_name": filename})[0]
+        invoker.clear_log_file()
         if os.name == 'posix':
             if 'posix_friendly' in document and not document['posix_friendly']:
                 return [True, "This recipe is not compatible with your system (POSIX compatability error)", "danger", 8000]
@@ -260,7 +261,8 @@ def get_document_from_db(n_clicks, filename):
         Output("ace-editor-alert", "duration"),
     ],
     [Input("refresh-button-ace", "n_clicks")],
-    State("url", "pathname")
+    State("url", "pathname"),
+    # prevent_initial_call=True,
 )
 def fill_ace_editor(n, url):
     if url == "/python-edit-recipe":
@@ -836,11 +838,11 @@ def add_commands_to_recipe_ace(n_clicks, value, command, device_type):
     Input("commands-table", "active_cell"),
 )
 def edit_command_button(table_div_children):
-    print('edit_command_button')
     active_cell = table_div_children
     # print(active_cell)
     # if active_cell is not None and active_cell["column_id"] == "params":
     if active_cell is not None:
+        print('edit_command_button')
         return False
     else:
         return True

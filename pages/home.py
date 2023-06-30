@@ -66,7 +66,7 @@ layout = html.Div(
                         id="home-refresh-list-button",
                         n_clicks=0,
                         color="secondary",
-                        className="btn btn-secondary",
+                        className="btn btn-secondary mb-3",
                     ),
                     width=2,
                 )

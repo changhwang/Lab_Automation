@@ -19,6 +19,16 @@ layout = html.Div(
             className="mb-2",
         ),
         html.Div(
+            [
+                dbc.Switch(
+                    id='show-log-switch',
+                    label='Show log',
+                    value = False,
+                )
+            ],
+            className="d-flex align-items-center mt-3",
+        ),
+        html.Div(
             id="execute-recipe-output", className="mt-3", style={"display": "none"}
         ),
         dcc.Interval(id="update-interval", interval=500, n_intervals=0),
@@ -39,9 +49,3 @@ layout = html.Div(
     className="container",
 )
 
-@callback(
-    Output("console-out2", "style"),
-    [Input("console-out2", "children"), Input("interval1", "n_intervals")],
-)
-def scroll_to_bottom(children, n):
-    return {"height": "500px", "overflowY": "scroll", "padding": "10px", "border": "2px solid", "scrollTop": "99999999"}

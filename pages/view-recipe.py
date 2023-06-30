@@ -12,9 +12,10 @@ layout = html.Div(
                 html.Div(
                     [
                         html.H2("Devices"),
-                        dbc.Button("Refresh", id="refresh-button1", n_clicks=0),
+                        dbc.ButtonGroup([dbc.Button("Refresh", id="refresh-button1", n_clicks=0),
                         dbc.Button("Add device", id="add-device-button"),
-                        dbc.Button("Edit", id="edit-device-button"),
+                        dbc.Button("Edit", id="edit-device-button"),], className="mb-3"),
+                        
                         dbc.Modal(
                             [
                                 dbc.ModalHeader(
@@ -100,9 +101,10 @@ layout = html.Div(
                 html.Div(
                     [
                         html.H2("Commands"),
-                        dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
+                        dbc.ButtonGroup([dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
                         dbc.Button("Add command", id="add-command-button"),
-                        dbc.Button("Edit", id="edit-command-button"),
+                        dbc.Button("Edit", id="edit-command-button"),], className="mb-3"),
+                        
                         dbc.Modal(
                             [
                                 dbc.ModalHeader(
@@ -153,19 +155,19 @@ layout = html.Div(
                     ],
                     className="table-container",
                 ),
-                html.Div(
-                    [
-                        html.H2("Command Iterations"),
-                        html.Button("Refresh", id="refresh-button3", n_clicks=0),
-                        html.Div(id="table-container3"),
-                    ],
-                    className="table-container",
-                ),
+                # html.Div(
+                #     [
+                #         html.H2("Command Iterations"),
+                #         html.Button("Refresh", id="refresh-button3", n_clicks=0),
+                #         html.Div(id="table-container3"),
+                #     ],
+                #     className="table-container",
+                # ),
             ],
             className="tables-container",
         ),
     ],
-    className="main-container",
+    className="container",
 )
 
 

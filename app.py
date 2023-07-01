@@ -954,4 +954,4 @@ def handle_exception(e):
     return "An error occurred. Please try again later."
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)

@@ -53,6 +53,25 @@ class KinovaArm(Device):
         self._transport = TCPTransport()
         self._router = RouterClient(self._transport, RouterClient.basicErrorCallback)
         
+    def get_init_args(self) -> dict:
+        args_dict = {
+            "name": self.name,
+            "ip": self._ip,
+            "username": self._username,
+            "password": self._password,
+            "action_timeout": self._action_timeout,
+            "proportional_gain": self._proportional_gain
+        }
+        return args_dict
+    
+    def update_init_args(self, args_dict: dict):
+        self.name = args_dict["name"]
+        self._ip = args_dict["ip"]
+        self._username = args_dict["username"]
+        self._password = args_dict["password"]
+        self._action_timeout = args_dict["action_timeout"]
+        self._proportional_gain = args_dict["proportional_gain"]
+
     def connect(self) -> Tuple[bool, str]:
         self._transport.connect(self._ip, self._port)
 

@@ -63,6 +63,31 @@ class PSD6SyringePump(SerialDevice):
         # self._min_position = 0
         # self._max_position = 6000
 
+    def get_init_args(self) -> dict:
+        args_dict = {
+            'name': self.name,
+            'port': self.port,
+            'baudrate': self.baudrate,
+            'timeout': self.timeout,
+            'stroke_volume': self._stroke_volume,
+            'stroke_steps': self._stroke_steps,
+            'default_flowrate': self._default_flowrate,
+            'port_dead_volumes': self._port_dead_volumes,
+            'poll_interval': self._poll_interval
+        }
+        return args_dict
+    
+    def update_init_args(self, args_dict: dict):
+        self.name = args_dict['name']
+        self.port = args_dict['port']
+        self.baudrate = args_dict['baudrate']
+        self.timeout = args_dict['timeout']
+        self._stroke_volume = args_dict['stroke_volume']
+        self._stroke_steps = args_dict['stroke_steps']
+        self._default_flowrate = args_dict['default_flowrate']
+        self._port_dead_volumes = args_dict['port_dead_volumes']
+        self._poll_interval = args_dict['poll_interval']
+
     @property
     def default_flowrate(self) -> float:
         return self._default_flowrate

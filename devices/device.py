@@ -95,7 +95,7 @@ class Device(ABC):
         """
         pass
 
-    # @abstractmethod TODO uncomment and implement method in all devices
+    @abstractmethod # uncomment and implement method in all devices
     def get_init_args(self) -> dict:
         """The get_args abstract method that all devices should implement. Method should return a dict with only the arguments needed to initialize the device.
 
@@ -106,7 +106,7 @@ class Device(ABC):
         """
         pass
 
-    # @abstractmethod # TODO uncomment and implement method in all devices
+    @abstractmethod # uncomment and implement method in all devices
     def update_init_args(self, args_dict: dict):
         """The update_init_args abstract method that all devices should implement. Method should update the arguments needed to initialize the device.
         

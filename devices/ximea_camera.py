@@ -27,6 +27,15 @@ class XimeaCamera(Device):
         self._default_wb_kb = 1.305
         # self.set_default_params() # done in initalize because cam is not yet open here
 
+    def get_init_args(self) -> dict:
+        args_dict = {
+            "name": self.name,
+        }
+        return args_dict
+    
+    def update_init_args(self, args_dict: dict):
+        self.name = args_dict["name"]
+
     # no setter for imgdataformat at the moment
     @property
     def default_imgdataformat(self) -> str:

@@ -38,6 +38,27 @@ class NewportESP301(SerialDevice):
         self._max_speed = 200.0 # make list
         # self._max_speed_list = max_speed_list
 
+    def get_init_args(self) -> dict:
+        args_dict = {
+            "name": self._name,
+            "port": self._port,
+            "baudrate": self._baudrate,
+            "timeout": self._timeout,
+            "axis_list": self._axis_list,
+            "default_speed": self._default_speed,
+            "poll_interval": self._poll_interval,
+        }
+        return args_dict
+
+    def update_init_args(self, args_dict: dict):
+        self._name = args_dict["name"]
+        self._port = args_dict["port"]
+        self._baudrate = args_dict["baudrate"]
+        self._timeout = args_dict["timeout"]
+        self._axis_list = args_dict["axis_list"]
+        self._default_speed = args_dict["default_speed"]
+        self._poll_interval = args_dict["poll_interval"]
+
     @property
     def default_speed(self) -> float:
         return self._default_speed

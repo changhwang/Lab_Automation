@@ -16,6 +16,23 @@ class HeatingStage(ArduinoSerialDevice):
         super().__init__(name, port, baudrate, timeout)
         self._heating_timeout = heating_timeout
 
+    def get_init_args(self) -> dict:
+        args_dict = {
+            "name": self.name,
+            "port": self._port,
+            "baudrate": self._baudrate,
+            "timeout": self._timeout,
+            "heating_timeout": self._heating_timeout,
+        }
+        return args_dict
+    
+    def update_init_args(self, args_dict: dict):
+        self.name = args_dict["name"]
+        self._port = args_dict["port"]
+        self._baudrate = args_dict["baudrate"]
+        self._timeout = args_dict["timeout"]
+        self._heating_timeout = args_dict["heating_timeout"]
+
     # no need to check serial as set_settemp and pid_on has these checks already
     def initialize(self) -> Tuple[bool, str]:
         self._is_initialized = True

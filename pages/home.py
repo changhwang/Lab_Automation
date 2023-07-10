@@ -1,4 +1,4 @@
-from dash import Dash, html, dcc, dash_table
+from dash import Dash, html, dcc, dash_table, Input, Output, callback
 import dash_bootstrap_components as dbc
 import dash
 
@@ -79,6 +79,9 @@ layout = html.Div(
                         id="home-recipes-list-table",
                         columns=[
                             {"name": "File Name", "id": "file_name"},
+                            {"name": "Posix Compatible", "id": "posix_friendly"},
+                            {"name": "Viewer Compatible", "id": "dash_friendly"},
+                            {"name": "Python Code", "id": "python_code"},
                         ],
                         data=[],
                         style_table={"width": "100%"},
@@ -86,8 +89,58 @@ layout = html.Div(
                         style_header={"fontWeight": "bold"},
                         page_current=0,
                         page_size=10,
+                        style_data_conditional=[
+                            {
+                                "if": {
+                                    "column_id": "posix_friendly",
+                                    "filter_query": "{posix_friendly} contains true",
+                                },
+                                "backgroundColor": "#b7e8c4",
+                                "color": "black",
+                            },
+                            {
+                                "if": {
+                                    "column_id": "posix_friendly",
+                                    "filter_query": "{posix_friendly} contains false",
+                                },
+                                "backgroundColor": "#e8b7b7",
+                                "color": "black",
+                            },
+                            {
+                                "if": {
+                                    "column_id": "dash_friendly",
+                                    "filter_query": "{dash_friendly} contains true",
+                                },
+                                "backgroundColor": "#b7e8c4",
+                                "color": "black",
+                            },
+                            {
+                                "if": {
+                                    "column_id": "dash_friendly",
+                                    "filter_query": "{dash_friendly} contains false",
+                                },
+                                "backgroundColor": "#e8b7b7",
+                                "color": "black",
+                            },
+                            {
+                                "if": {
+                                    "column_id": "python_code",
+                                    "filter_query": "{python_code} contains true",
+                                },
+                                "backgroundColor": "#b7e8c4",
+                                "color": "black",
+                            },
+                            {
+                                "if": {
+                                    "column_id": "python_code",
+                                    "filter_query": "{python_code} contains false",
+                                },
+                                "backgroundColor": "#e8b7b7",
+                                "color": "black",
+                            },
+                        ],
                     ),
-                    width=8,
+                    width=10,
                 )
             ]
         ),

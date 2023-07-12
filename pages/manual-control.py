@@ -8,6 +8,15 @@ dash.register_page(__name__, "/manual-control")
 layout = html.Div(
     [
         html.H1("Manual Control", className="mb-3"),
+        dcc.Interval(id="interval_5s", interval=500000, n_intervals=0),
+            dbc.ButtonGroup(
+            [
+                dbc.Button("Execute", id="manual-control-execute-button", n_clicks=0, disabled= True),
+                dbc.Button("Clear", id="manual-control-clear-button", n_clicks=0, disabled= True),
+            ],
+            className="mb-3",
+        ),
+    
         dbc.Row(
             [
                 dbc.Col(
@@ -16,7 +25,9 @@ layout = html.Div(
                             id="manual-control-device-dropdown",
                             options=[],
                             value=None,
-                        )
+                            className = "mb-3",
+                        ),
+                        dbc.Col([], id="manual-control-device-form"),
                     ]
                 ),
                 dbc.Col(
@@ -25,10 +36,13 @@ layout = html.Div(
                             id="manual-control-command-dropdown",
                             options=[],
                             value=None,
-                        )
+                            disabled=True,
+                            className = "mb-3",
+                        ),
+                        dbc.Col([], id="manual-control-command-form"),
                     ]
                 ),
-            ], 
+            ],
         ),
     ],
     className="container",

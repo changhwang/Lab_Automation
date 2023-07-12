@@ -31,7 +31,7 @@ com.load_from_yaml("blank.yaml")
 
 
 mongo = MongoDBHelper(
-    "mongodb+srv://ppahuja2:vDkNu2sKR1eDsOmY@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://ppahuja2:977d12GoQFtlCSOS@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
     "diaogroup",
 )
 
@@ -47,7 +47,7 @@ navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("View Recipe", href="/view-recipe")),
-        dbc.NavItem(dbc.NavLink("Edit Recipe (PY)", href="/python-edit-recipe")),
+        dbc.NavItem(dbc.NavLink("Edit Recipe", href="/python-edit-recipe")),
         dbc.NavItem(dbc.NavLink("Execute Recipe", href="/execute-recipe")),
         dbc.NavItem(dbc.NavLink("Data", href="/data")),
         dbc.NavItem(dbc.NavLink("Manual Control", href="/manual-control")),
@@ -855,6 +855,292 @@ def load_data_accordion(n):  # data page
 # ---------------------------------------------------
 # Manual Control Recipe Page
 # ---------------------------------------------------
+
+
+@app.callback(
+    Output("manual-control-device-dropdown", "options"),
+    Input("interval_5s", "n_intervals"),
+    State("url", "pathname"),
+)
+def fill_manual_control_device_dropdown(n, url):  # manual-control page
+    if str(url) == "/manual-control":
+        print("fill_manual_control_device_dropdown")
+        return list(util.devices_ref.keys())
+
+
+@app.callback(
+    [
+        Output("manual-control-command-dropdown", "disabled"),
+        Output("manual-control-command-dropdown", "options"),
+    ],
+    Input("manual-control-device-dropdown", "value"),
+    State("url", "pathname"),
+    prevent_initial_call=True,
+)
+def fill_manual_control_command_dropdown(val, url):  # manual-control page
+    if str(url) == "/manual-control":
+        print("fill_manual_control_command_dropdown")
+        if val is None or val == "":
+            return [True, []]
+        else:
+            if util.devices_ref_redundancy[val]["serial"] == False:
+                return [False, list(util.devices_ref[val]["commands"].keys())]
+            else:
+                toRet = list(util.devices_ref[val]["commands"].keys()).copy()
+                for command in util.devices_ref_redundancy[val]["serial_sequence"]:
+                    if command in toRet:
+                        toRet.remove(command)
+                return [False, toRet]
+
+
+@app.callback(
+    [Output("manual-control-device-form", "children")],
+    Input("manual-control-device-dropdown", "value"),
+    State("url", "pathname"),
+)
+def create_manual_control_device_form(value, url):
+    if str(url) == "/manual-control":
+        print("create_manual_control_device_form")
+        if value is None or value == "":
+            return [[]]
+        else:
+            args = util.devices_ref_redundancy[value]["init"]["args"]
+            toRet = []
+            for arg in args:
+                toRet.append(
+                    dbc.Row(
+                        [
+                            dbc.Label([arg], html_for=str(value + "+" + arg), width=2),
+                            dbc.Col(
+                                [
+                                    dbc.Input(
+                                        id=str(value + "+" + arg),
+                                        value=args[arg]["default"],
+                                        placeholder=args[arg]["notes"],
+                                    ),
+                                ],
+                                width=10,
+                            ),
+                        ],
+                        className="mb-2",
+                    )
+                )
+
+            return [toRet]
+
+
+@app.callback(
+    [Output("manual-control-command-form", "children")],
+    [
+        Input("manual-control-command-dropdown", "value"),
+        Input("manual-control-device-dropdown", "value"),
+    ],
+    [
+        State("url", "pathname"),
+        State("manual-control-device-form", "children"),
+    ],
+)
+def create_manual_control_command_form(command, device, url, device_form):
+    if str(url) == "/manual-control":
+        print("create_manual_control_command_form")
+        if command is None or command == "" or device is None or device == "":
+            return [[]]
+        else:
+            toRet = []
+            if util.devices_ref_redundancy[device]["serial"] == True:
+                seq_toRet = []
+                for seq_command in util.devices_ref_redundancy[device][
+                    "serial_sequence"
+                ]:
+                    seq_toRet.append(dbc.Row([dbc.Label([seq_command])]))
+                    args = util.devices_ref_redundancy[device]["commands"][seq_command][
+                        "args"
+                    ]
+                    for arg in args:
+                        seq_toRet.append(
+                            dbc.Row(
+                                [
+                                    dbc.Label(
+                                        [arg],
+                                        html_for=str(device+"+" + seq_command + "+" + arg),
+                                        width=2,
+                                    ),
+                                    dbc.Col(
+                                        [
+                                            dbc.Input(
+                                                id=str(device +"+"+ seq_command + "+" + arg),
+                                                value=args[arg]["default"],
+                                                placeholder=args[arg]["notes"],
+                                            ),
+                                        ],
+                                        width=10,
+                                    ),
+                                ],
+                                className="mb-2",
+                            )
+                        )
+                toRet.append(dbc.Row(seq_toRet, className="mb-3"))
+            toRet.append(dbc.Row([dbc.Label([command])]))
+            args = util.devices_ref_redundancy[device]["commands"][command]["args"]
+            com_toRet = []
+            for arg in args:
+                com_toRet.append(
+                    dbc.Row(
+                        [
+                            dbc.Label(
+                                [arg],
+                                html_for=str(device + command + "+" + arg),
+                                width=2,
+                            ),
+                            dbc.Col(
+                                [
+                                    dbc.Input(
+                                        id=str(device + command + "+" + arg),
+                                        value=args[arg]["default"],
+                                        placeholder=args[arg]["notes"],
+                                    ),
+                                ],
+                                width=10,
+                                
+                            ),
+                        ],
+                        className="mb-2",
+                    )
+                )
+            toRet.append(dbc.Row(com_toRet, className="mb-3"))
+            return [toRet]
+
+
+@app.callback(
+    Output("manual-control-device-dropdown", "value"),
+    Input("manual-control-clear-button", "n_clicks"),
+    State("url", "pathname"),
+    prevent_initial_call=True,
+)
+def manual_control_clear_form(n, url):
+    if str(url) == "/manual-control":
+        print("manual_control_clear_form")
+        return None
+
+
+@app.callback(
+    Output("manual-control-clear-button", "disabled"),
+    Input("manual-control-device-dropdown", "value"),
+    State("url", "pathname"),
+)
+def manual_control_clear_button(value, url):
+    if str(url) == "/manual-control":
+        print("manual_control_clear_button")
+        if value is None or value == "":
+            return True
+        else:
+            return False
+
+
+@app.callback(
+    Output("manual-control-execute-button", "disabled"),
+    Input("manual-control-command-dropdown", "value"),
+    State("url", "pathname"),
+)
+def manual_control_execute_button(value, url):
+    if str(url) == "/manual-control":
+        print("manual_control_execute_button")
+        if value is None or value == "":
+            return True
+        else:
+            return False
+
+
+@app.callback(
+    Output("manual-control-command-dropdown", "className"),
+    Input("manual-control-execute-button", "n_clicks"),
+    [
+        State('url', 'pathname'),
+        State("manual-control-command-dropdown", "className"),
+        State("manual-control-device-dropdown", "value"),
+        State("manual-control-command-dropdown", "value"),
+        State("manual-control-device-form", "children"),
+        State("manual-control-command-form", "children"),
+    ],
+    prevent_initial_call=True,
+)
+def manual_control_execute(n, url, opt, device, command, device_form, command_form):
+    if str(url) == "/manual-control":
+        print("manual_control_execute")
+        code = ""
+        code += util.devices_ref_redundancy[device]["import_device"]
+        code += "\n"
+        code += util.devices_ref_redundancy[device]["import_commands"]
+        code += "\n"
+        code += "from command_sequence import CommandSequence\nfrom command_invoker import CommandInvoker\n"
+
+        instantiate_code = ""
+        instantiate_code += util.devices_ref_redundancy[device]["init"]["obj_name"]
+        instantiate_code += "("
+        for i, arg in enumerate(util.devices_ref_redundancy[device]["init"]["args"]):
+            if i != 0:
+                instantiate_code += ", "
+            instantiate_code += arg + "="
+            if util.devices_ref_redundancy[device]["init"]["args"][arg]["type"] == str:
+                instantiate_code += "'"
+                instantiate_code += str(
+                    device_form[i]["props"]["children"][1]["props"]["children"][0][
+                        "props"
+                    ]["value"]
+                )
+                instantiate_code += "'"
+            else:
+                instantiate_code += str(
+                    device_form[i]["props"]["children"][1]["props"]["children"][0][
+                        "props"
+                    ]["value"]
+                )
+        instantiate_code += ")"
+        code_seq = str(device) + "_seq" 
+        code += code_seq + " = CommandSequence()"
+        code += "\n"
+        code += code_seq + ".add_device(" + instantiate_code + ")"
+        code += "\n"
+
+        
+        if util.devices_ref_redundancy[device]["serial"] == True:
+            for i, serial_seq_command in enumerate(util.devices_ref_redundancy[device]['serial_sequence']):
+                code += code_seq + ".add_command(" + str(serial_seq_command)+"("
+                for ii, serial_seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][serial_seq_command]['args']):
+                    if ii != 0:
+                        code += ", "
+                    if serial_seq_command_arg == "receiver":
+                        code += serial_seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[0]['props']['children'][(2*ii)+1]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
+                    elif util.devices_ref_redundancy[device]['commands'][serial_seq_command]['args'][serial_seq_command_arg]['type'] == str:
+                        code += serial_seq_command_arg + "="+"'"+str(command_form[0]['props']['children'][(2*ii)+1]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
+                    else:
+                        code += serial_seq_command_arg + "="+str(command_form[0]['props']['children'][(2*ii)+1]['props']['children'][1]['props']['children'][0]['props']['value'])
+                    
+                code += "))\n"
+        
+        code += code_seq + ".add_command(" + str(command)+"("
+        for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][command]['args']):
+            if ii != 0:
+                code += ", "
+            if seq_command_arg == "receiver":
+                code += seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
+            elif util.devices_ref_redundancy[device]['commands'][command]['args'][seq_command_arg]['type'] == str:
+                code += seq_command_arg + "="+"'"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
+            else:
+                code += seq_command_arg + "="+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])
+            
+        code += "))\n"
+        
+        code += str(device)+"_seq_invoker = CommandInvoker("+str(device)+"_seq, False, False, False)\n"
+        code += str(device)+"_seq_invoker.invoke_commands()\n"
+        
+        print("\n"+code + "\n")
+        try:
+            exec(code)
+        except Exception as e:
+            print(e)               
+    
+    return opt
 
 
 if __name__ == "__main__":

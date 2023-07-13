@@ -12,6 +12,7 @@ from devices.linear_stage_150 import LinearStage150
 from devices.device import Device, MiscDeviceClass
 import json
 import numpy as np
+from typing import Tuple, Union
 
 
 named_devices = {
@@ -211,10 +212,47 @@ devices_ref_redundancy = {
     "AnnealingStage": heating_stage_ref,
     "MultiStepper": {
         "obj": MultiStepper,
+        "serial": True,
+        "serial_sequence": ["MultiStepperConnect", "MultiStepperInitialize"],
         "import_device": "from devices.multi_stepper import MultiStepper",
         "import_commands": "from commands.multi_stepper_commands import *",
-        "init": "MultiStepper(name='MultiStepper', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
-        "commands": {
+        "init": {
+            "default_code": "MultiStepper(name='MultiStepper', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
+            "obj_name": "MultiStepper",
+            "args": {
+                "name": {
+                    "default": "MultiStepper",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "port": {
+                    "default": "COM",
+                    "type": str,
+                    "notes": "Port of the device",
+                },
+                "baudrate": {
+                    "default": 115200,
+                    "type": int,
+                    "notes": "Baudrate of the device",
+                },
+                "timeout": {
+                    "default": 1.0,
+                    "type": float,
+                    "notes": "Timeout of the device",
+                },
+                "stepper_list":{
+                    "default": (1,),
+                    "type": Tuple[int, ...],
+                    "notes": "List of stepper numbers",
+                },
+                "move_timeout": {
+                    "default": 30.0,
+                    "type": float,
+                    "notes": "Timeout for move commands",
+                },
+            }
+        },
+        "commands": { #TODO update these to match redundancy changes
             "MultiStepperConnect": "MultiStepperConnect(receiver= '')",
             "MultiStepperInitialize": "MultiStepperInitialize(receiver= '')",
             "MultiStepperDeinitialize": "MultiStepperDeinitialize(receiver= '')",

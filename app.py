@@ -12,6 +12,7 @@ from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import os, signal
 import inspect
+from pw import mongo_username, mongo_password
 
 try:
     import serial.tools.list_ports
@@ -31,7 +32,7 @@ com.load_from_yaml("blank.yaml")
 
 
 mongo = MongoDBHelper(
-    "mongodb+srv://ppahuja2:977d12GoQFtlCSOS@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://"+mongo_username+":"+mongo_password+"@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
     "diaogroup",
 )
 
@@ -49,8 +50,9 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("View Recipe", href="/view-recipe")),
         dbc.NavItem(dbc.NavLink("Edit Recipe", href="/python-edit-recipe")),
         dbc.NavItem(dbc.NavLink("Execute Recipe", href="/execute-recipe")),
-        dbc.NavItem(dbc.NavLink("Data", href="/data")),
         dbc.NavItem(dbc.NavLink("Manual Control", href="/manual-control")),
+        dbc.NavItem(dbc.NavLink("Document", href="/data")),
+        dbc.NavItem(dbc.NavLink("Database", href="/database")),
     ],
     brand="AAMP",
     brand_href="/",
@@ -859,7 +861,7 @@ def load_data_accordion(n):  # data page
 
 @app.callback(
     Output("manual-control-device-dropdown", "options"),
-    Input("interval_5s", "n_intervals"),
+    Input("interval-manual-control", "n_intervals"),
     State("url", "pathname"),
 )
 def fill_manual_control_device_dropdown(n, url):  # manual-control page
@@ -1151,6 +1153,40 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
             print(e)               
     
     return opt
+
+
+#---------------------------------------------------------------
+# Database page
+#---------------------------------------------------------------
+
+@app.callback(
+    Output("database-collection-dropdown", "options"),
+    Input("interval-database", "n_intervals"),
+    State("url", "pathname"),
+)
+def fill_database_collection_dropdown(n, url):  # database page
+    if str(url) == "/database":
+        print("fill_database_collection_dropdown")
+        return mongo.db.list_collection_names()
+
+
+@app.callback(
+    [Output('database-document-dropdown', 'disabled'),Output('database-document-dropdown', 'options')],
+    Input('database-collection-dropdown', 'value'),
+    State("url", "pathname"),
+    prevent_initial_call=True,
+)
+def fill_database_document_dropdown(collection, url):
+    if str(url) == "/database":
+        if collection is not None and collection != "":
+            print("fill_database_document_dropdown")
+            docs = list(mongo.db[collection].find({}))
+            toRet = []
+            for doc in docs:
+                toRet.append(str(doc['_id']))
+            return False, toRet
+        else:
+            return True, []
 
 
 if __name__ == "__main__":

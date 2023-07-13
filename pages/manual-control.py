@@ -3,12 +3,12 @@ import dash_bootstrap_components as dbc
 import dash
 
 
-dash.register_page(__name__, "/manual-control")
+dash.register_page(__name__, path="/manual-control", title="Manual Control", name="Manual Control")
 
 layout = html.Div(
     [
         html.H1("Manual Control", className="mb-3"),
-        dcc.Interval(id="interval_5s", interval=500000, n_intervals=0),
+        dcc.Interval(id="interval-manual-control", interval=500000, n_intervals=0),
             dbc.ButtonGroup(
             [
                 dbc.Button("Execute", id="manual-control-execute-button", n_clicks=0, disabled= True),

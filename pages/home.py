@@ -81,7 +81,7 @@ layout = html.Div(
                             {"name": "File Name", "id": "file_name"},
                             {"name": "Posix Compatible", "id": "posix_friendly"},
                             {"name": "Viewer Compatible", "id": "dash_friendly"},
-                            {"name": "Python Code", "id": "python_code"},
+                            {"name": "Python Code Available", "id": "python_code"},
                         ],
                         data=[],
                         style_table={"width": "100%"},

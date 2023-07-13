@@ -62,3 +62,6 @@ urllib3==2.0.3
 wcwidth==0.2.6
 Werkzeug==2.2.3
 yarl==1.9.2
+dash-ace
+ximea-py
+certifi

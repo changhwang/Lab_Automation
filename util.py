@@ -143,7 +143,116 @@ devices_ref_redundancy = {
     # "Spectrometer": {"obj": StellarNetSpectrometer},
     "XimeaCamera": {"obj": XimeaCamera},
     "DummyHeater": {"obj": DummyHeater},
-    "DummyMotor": {"obj": DummyMotor},
+    "DummyMotor": {
+        "obj": DummyMotor,
+        "serial": True,
+        "serial_sequence":["DummyMotorInitialize"],
+        "import_device": "from devices.dummy_motor import DummyMotor",
+        "import_commands": "from commands.dummy_motor_commands import *",
+        "init": {
+            "default_code": "DummyMotor(name='DummyMotor', speed=20.0)",
+            "obj_name": "DummyMotor",
+            "args": {
+                "name": {
+                    "default": "DummyMotor",
+                    "type": str,
+                    "notes": "Name of the device.",
+                },
+                "speed": {
+                    "default": 20.0,
+                    "type": float,
+                    "notes": "Speed of the motor.",
+                },
+            },
+        },
+        "commands": {
+            "DummyMotorInitialize": {
+                "default_code": "DummyMotorInitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    }
+                },
+            },
+            "DummyMotorDeinitialize": {
+                "default_code": "DummyMotorDeinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    }
+                },
+            },
+            "DummyMotorSetSpeed": {
+                "default_code": "DummyMotorSetSpeed(receiver= '', speed= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "speed": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Speed of the motor.",
+                    },
+                },
+            },
+            "DummyMotorMoveAbsolute": {
+                "default_code": "DummyMotorMoveAbsolute(receiver= '', position= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "position": {
+                        "default": 0,
+                        "type": float,
+                        "notes": "Position to move to.",
+                    },
+                },
+            },
+            "DummyMotorMoveRelative": {
+                "default_code": "DummyMotorMoveRelative(receiver= '', distance= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "distance": {
+                        "default": 0,
+                        "type": float,
+                        "notes": "Distance to move.",
+                    },
+                },
+            },
+            "DummyMotorMoveSpeedAbsolute": {
+                "default_code": "DummyMotorMoveSpeedAbsolute(receiver= '', position= 0.0, speed= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "position": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Position to move to.",
+                    },
+                    "speed": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Speed of the motor.",
+                    },
+                },
+            }
+        },
+    },
     "LinearStage150": {
         "obj": LinearStage150,
         "serial": True,

@@ -598,7 +598,7 @@ def execute_and_save(n, value):  # python-edit-recipe page
 def fill_device_add_modal_ace(is_open):  # python-edit-recipe page
     if is_open:
         print("fill_device_add_modal_ace")
-        return list(util.devices_ref.keys()), ""
+        return list(util.devices_ref_redundancy.keys()), ""
     return [], ""
 
 
@@ -613,7 +613,7 @@ def fill_device_add_modal_ace(is_open):  # python-edit-recipe page
 def fill_command_device_add_modal_ace(is_open):  # python-edit-recipe page
     if is_open:
         print("fill_command_device_add_modal_ace")
-        return list(util.devices_ref.keys()), ""
+        return list(util.devices_ref_redundancy.keys()), ""
     return [], ""
 
 
@@ -628,7 +628,7 @@ def fill_command_device_add_modal_ace(is_open):  # python-edit-recipe page
 def fill_command_add_modal_ace(device):  # python-edit-recipe page
     if device is not None and device != "":
         print("fill_command_add_modal_ace")
-        return list(util.devices_ref[device]["commands"].keys()), ""
+        return list(util.devices_ref_redundancy[device]["commands"].keys()), ""
     return [], ""
 
 
@@ -684,8 +684,8 @@ def add_device_to_recipe_ace(n_clicks, value, device_type):  # python-edit-recip
         return ["", True, "No code in editor", "warning", 3000]
     try:
         value = str(value)
-        import_line = util.devices_ref[device_type]["import_device"]
-        init_line = util.devices_ref[device_type]["init"]
+        import_line = util.devices_ref_redundancy[device_type]["import_device"]
+        init_line = util.devices_ref_redundancy[device_type]["init"]['default_code']
         if import_line not in value:
             value = import_line + "\n" + value
         value = value.replace(
@@ -725,9 +725,9 @@ def add_commands_to_recipe_ace(
         return ["", True, "No code in editor", "warning", 3000]
     try:
         value = str(value)
-        command_line = util.devices_ref[device_type]["commands"][command]
-        import_line = util.devices_ref[device_type]["import_commands"]
-        import_device_line = util.devices_ref[device_type]["import_device"]
+        command_line = util.devices_ref_redundancy[device_type]["commands"][command]['default_code']
+        import_line = util.devices_ref_redundancy[device_type]["import_commands"]
+        import_device_line = util.devices_ref_redundancy[device_type]["import_device"]
         if import_device_line not in value:
             raise Exception(
                 "Device (or its import '"
@@ -865,7 +865,7 @@ def load_data_accordion(n):  # data page
 def fill_manual_control_device_dropdown(n, url):  # manual-control page
     if str(url) == "/manual-control":
         print("fill_manual_control_device_dropdown")
-        return list(util.devices_ref.keys())
+        return list(util.devices_ref_redundancy.keys())
 
 
 @app.callback(
@@ -884,9 +884,9 @@ def fill_manual_control_command_dropdown(val, url):  # manual-control page
             return [True, []]
         else:
             if util.devices_ref_redundancy[val]["serial"] == False:
-                return [False, list(util.devices_ref[val]["commands"].keys())]
+                return [False, list(util.devices_ref_redundancy[val]["commands"].keys())]
             else:
-                toRet = list(util.devices_ref[val]["commands"].keys()).copy()
+                toRet = list(util.devices_ref_redundancy[val]["commands"].keys()).copy()
                 for command in util.devices_ref_redundancy[val]["serial_sequence"]:
                     if command in toRet:
                         toRet.remove(command)
@@ -1102,7 +1102,7 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
         code += code_seq + ".add_device(" + instantiate_code + ")"
         code += "\n"
 
-        
+
         if util.devices_ref_redundancy[device]["serial"] == True:
             for i, serial_seq_command in enumerate(util.devices_ref_redundancy[device]['serial_sequence']):
                 code += code_seq + ".add_command(" + str(serial_seq_command)+"("
@@ -1117,23 +1117,33 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
                         code += serial_seq_command_arg + "="+str(command_form[0]['props']['children'][(2*ii)+1]['props']['children'][1]['props']['children'][0]['props']['value'])
                     
                 code += "))\n"
-        
-        code += code_seq + ".add_command(" + str(command)+"("
-        for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][command]['args']):
-            if ii != 0:
-                code += ", "
-            if seq_command_arg == "receiver":
-                code += seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
-            elif util.devices_ref_redundancy[device]['commands'][command]['args'][seq_command_arg]['type'] == str:
-                code += seq_command_arg + "="+"'"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
-            else:
-                code += seq_command_arg + "="+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])
-            
-        code += "))\n"
-        
+            code += code_seq + ".add_command(" + str(command)+"("
+            for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][command]['args']):
+                if ii != 0:
+                    code += ", "
+                if seq_command_arg == "receiver":
+                    code += seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
+                elif util.devices_ref_redundancy[device]['commands'][command]['args'][seq_command_arg]['type'] == str:
+                    code += seq_command_arg + "="+"'"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
+                else:
+                    code += seq_command_arg + "="+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])
+                
+            code += "))\n"
+        else:
+            code += code_seq + ".add_command(" + str(command)+"("
+            for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][command]['args']):
+                if ii != 0:
+                    code += ", "
+                if seq_command_arg == "receiver":
+                    code += seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[1]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
+                elif util.devices_ref_redundancy[device]['commands'][command]['args'][seq_command_arg]['type'] == str:
+                    code += seq_command_arg + "="+"'"+str(command_form[1]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
+                else:
+                    code += seq_command_arg + "="+str(command_form[1]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])
+                
+            code += "))\n"
         code += str(device)+"_seq_invoker = CommandInvoker("+str(device)+"_seq, False, False, False)\n"
         code += str(device)+"_seq_invoker.invoke_commands()\n"
-        
         print("\n"+code + "\n")
         try:
             exec(code)

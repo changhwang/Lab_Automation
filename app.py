@@ -52,12 +52,20 @@ server = app.server
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Home", href="/")),
-        dbc.NavItem(dbc.NavLink("View Recipe", href="/view-recipe")),
-        dbc.NavItem(dbc.NavLink("Edit Recipe", href="/python-edit-recipe")),
-        dbc.NavItem(dbc.NavLink("Execute Recipe", href="/execute-recipe")),
+        dbc.DropdownMenu(
+            children=[
+                dbc.DropdownMenuItem("Load Recipe", href="/load-recipe"),
+                dbc.DropdownMenuItem("View Recipe", href="/view-recipe"),
+                dbc.DropdownMenuItem("Edit Recipe", href="/edit-recipe"),
+                dbc.DropdownMenuItem("Execute Recipe", href="/execute-recipe"),
+                dbc.DropdownMenuItem("Document", href="/data"),
+            ],
+            nav=True,
+            in_navbar=True,
+            label="Recipe",
+        ),
         dbc.NavItem(dbc.NavLink("Manual Control", href="/manual-control")),
-        dbc.NavItem(dbc.NavLink("Document", href="/data")),
-        dbc.NavItem(dbc.NavLink("Database", href="/database")),
+        dbc.NavItem(dbc.NavLink("Database Browser", href="/database")),
     ],
     brand="AAMP",
     brand_href="/",
@@ -549,7 +557,7 @@ def update_commands_table(n_clicks, data, table):  # view-recipe page
     # prevent_initial_call=True,
 )
 def fill_ace_editor(n, url):  # python-edit-recipe page
-    if url == "/python-edit-recipe":
+    if url == "/edit-recipe":
         if hasattr(com, "document"):
             python_code = com.document.get("python_code", "")
             if python_code is not None and python_code != "":
@@ -1071,7 +1079,13 @@ def manual_control_execute_button(value, url):
 
 
 @app.callback(
-    Output("manual-control-command-dropdown", "className"),
+    [
+        Output("manual-control-command-dropdown", "className"),
+        Output("manual-control-alert", "is_open", allow_duplicate=True),
+        Output("manual-control-alert", "children", allow_duplicate=True),
+        Output("manual-control-alert", "color", allow_duplicate=True),
+        Output("manual-control-alert", "duration", allow_duplicate=True),
+    ],
     Input("manual-control-execute-button", "n_clicks"),
     [
         State("url", "pathname"),
@@ -1086,6 +1100,8 @@ def manual_control_execute_button(value, url):
 def manual_control_execute(n, url, opt, device, command, device_form, command_form):
     if str(url) == "/manual-control":
         print("manual_control_execute")
+        if device is None or device == "" or command is None or command == "":
+            return opt, True, "Something went wrong. Check the fields below.", "danger", 3000
         code = ""
         code += util.devices_ref_redundancy[device]["import_device"]
         code += "\n"
@@ -1288,8 +1304,10 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
         print("\n" + code + "\n")
         try:
             exec(code)
+            return opt, True, "Execution complete.", "success", 2000
         except Exception as e:
             print(e)
+            return opt, True, "Something went wrong. Check console.", "danger", 3000
 
     return opt
 
@@ -1355,19 +1373,19 @@ def process_schema(schema):
             for key in list(schema.keys()):
                 schema[key] = process_schema(schema[key])
         elif "bsonType" in list(schema.keys()):
-            schema['Properties'] = {"Data Type": schema['bsonType']}
-            del schema['bsonType']
+            schema["Properties"] = {"Data Type": schema["bsonType"]}
+            del schema["bsonType"]
             if "description" in list(schema.keys()):
-                schema['Properties'].update({"Description": schema['description']})
-                del schema['description']
+                schema["Properties"].update({"Description": schema["description"]})
+                del schema["description"]
             if "required" in list(schema.keys()):
                 # schema['Properties'].update({"Required": schema['required']})
-                del schema['required']
+                del schema["required"]
             if "properties" in list(schema.keys()):
-                schema["Variables"] = process_schema(schema['properties'])
-                del schema['properties']
+                schema["Variables"] = process_schema(schema["properties"])
+                del schema["properties"]
             if "title" in list(schema.keys()):
-                del schema['title']
+                del schema["title"]
 
     return schema
 

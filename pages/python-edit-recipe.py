@@ -3,11 +3,11 @@ import dash_bootstrap_components as dbc
 import dash
 import dash_ace
 
-dash.register_page(__name__, path="/python-edit-recipe", title="Edit Recipe", name="Edit Recipe")
+dash.register_page(__name__, path="/edit-recipe", title="Edit Recipe", name="Edit Recipe")
 
 layout = html.Div(
     [
-        html.H1("Edit Recipe in Python"),
+        html.H1("Edit Recipe Code"),
         html.Div(
             [
                 html.Div(

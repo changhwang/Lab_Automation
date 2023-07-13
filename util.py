@@ -71,15 +71,98 @@ class Encoder(json.JSONEncoder):
 
 heating_stage_ref = {
     "obj": HeatingStage,
+    "serial": True,
+    "serial_sequence": ["HeatingStageConnect", "HeatingStageInitialize"],
     "import_device": "from devices.heating_stage import HeatingStage",
     "import_commands": "from commands.heating_stage_commands import *",
-    "init": "HeatingStage(name='PrintingStage', port='', baudrate=115200, timeout=0.1, heating_timeout=600.0)",
+    "init": {
+        "default_code": "HeatingStage(name='Stage', port='', baudrate=115200, timeout=0.1, heating_timeout=600.0)",
+        "obj_name": "HeatingStage",
+        "args": {
+            "name": {
+                "default": "Stage",
+                "type": "str",
+                "notes": "Name of the device",
+            },
+            "port": {"default": "COM", "type": str, "notes": "Port"},
+            "baudrate": {
+                "default": 115200,
+                "type": int,
+                "notes": "Baudrate",
+            },
+            "timeout": {
+                "default": 0.1,
+                "type": float,
+                "notes": "Timeout",
+            },
+            "heating_timeout": {
+                "default": 600.0,
+                "type": float,
+                "notes": "Heating timeout",
+            },
+        },
+    },
     "commands": {
-        "HeatingStageConnect": "HeatingStageConnect(receiver= '')",
-        "HeatingStageInitialize": "HeatingStageInitialize(receiver= '')",
-        "HeatingStageDeinitialize": "HeatingStageDeinitialize(receiver= '')",
-        "HeatingStageSetTemperature": "HeatingStageSetTemperature(receiver= '', temperature= 0.0)",
-        "HeatingStageSetSetPoint": "HeatingStageSetSetPoint(receiver= '', temperature= 0.0)",
+        "HeatingStageConnect": {
+            "default_code": "HeatingStageConnect(receiver= '')",
+            "args": {
+                "receiver": {
+                    "default": "Stage",
+                    "type": str,
+                    "notes": "Name of the device",
+                }
+            },
+        },
+        "HeatingStageInitialize": {
+            "default_code": "HeatingStageInitialize(receiver= '')",
+            "args": {
+                "receiver": {
+                    "default": "Stage",
+                    "type": str,
+                    "notes": "Name of the device",
+                }
+            },
+        },
+        "HeatingStageDeinitialize": {
+            "default_code": "HeatingStageDeinitialize(receiver= '')",
+            "args": {
+                "receiver": {
+                    "default": "Stage",
+                    "type": str,
+                    "notes": "Name of the device",
+                }
+            },
+        },
+        "HeatingStageSetTemperature": {
+            "default_code": "HeatingStageSetTemperature(receiver= '', temperature= 0.0)",
+            "args": {
+                "receiver": {
+                    "default": "Stage",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "temperature": {
+                    "default": 0.0,
+                    "type": float,
+                    "notes": "Temperature",
+                },
+            },
+        },
+        "HeatingStageSetSetPoint": {
+            "default_code": "HeatingStageSetSetPoint(receiver= '', temperature= 0.0)",
+            "args": {
+                "receiver": {
+                    "default": "Stage",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "temperature": {
+                    "default": 0.0,
+                    "type": float,
+                    "notes": "Temperature",
+                },
+            },
+        },
     },
 }
 
@@ -146,7 +229,7 @@ devices_ref_redundancy = {
     "DummyMotor": {
         "obj": DummyMotor,
         "serial": True,
-        "serial_sequence":["DummyMotorInitialize"],
+        "serial_sequence": ["DummyMotorInitialize"],
         "import_device": "from devices.dummy_motor import DummyMotor",
         "import_commands": "from commands.dummy_motor_commands import *",
         "init": {
@@ -250,7 +333,7 @@ devices_ref_redundancy = {
                         "notes": "Speed of the motor.",
                     },
                 },
-            }
+            },
         },
     },
     "LinearStage150": {

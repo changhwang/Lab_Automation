@@ -2,7 +2,9 @@ from dash import Dash, html, dcc, dash_table, callback, Input, Output, State
 import dash_bootstrap_components as dbc
 import dash
 
-dash.register_page(__name__, path="/database", title="Database Browser", name="Database Browser")
+dash.register_page(
+    __name__, path="/database", title="Database Browser", name="Database Browser"
+)
 
 layout = html.Div(
     [
@@ -13,11 +15,26 @@ layout = html.Div(
                 dbc.Col(
                     [
                         dcc.Dropdown(
+                            id="database-db-dropdown",
+                            options=[],
+                            value=None,
+                            className="mb-3",
+                            placeholder="Select a database",
+                        ),
+                        dbc.Col([], id="database-db-data"),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dcc.Dropdown(
                             id="database-collection-dropdown",
                             options=[],
                             value=None,
                             className="mb-3",
+                            disabled=True,
+                            placeholder="Select a collection",
                         ),
+                        dbc.Col([], id="database-collection-schema"),
                     ]
                 ),
                 dbc.Col(
@@ -28,9 +45,11 @@ layout = html.Div(
                             value=None,
                             className="mb-3",
                             disabled=True,
-                        )
+                            placeholder="Select a document",
+                        ),
+                        dbc.Col([], id="database-document-viewer"),
                     ]
-                )
+                ),
             ]
         ),
     ],

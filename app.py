@@ -13,6 +13,7 @@ import dash_bootstrap_components as dbc
 import os, signal
 import inspect
 from pw import mongo_username, mongo_password
+from bson.objectid import ObjectId
 
 try:
     import serial.tools.list_ports
@@ -32,7 +33,11 @@ com.load_from_yaml("blank.yaml")
 
 
 mongo = MongoDBHelper(
-    "mongodb+srv://"+mongo_username+":"+mongo_password+"@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://"
+    + mongo_username
+    + ":"
+    + mongo_password
+    + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
     "diaogroup",
 )
 
@@ -687,7 +692,7 @@ def add_device_to_recipe_ace(n_clicks, value, device_type):  # python-edit-recip
     try:
         value = str(value)
         import_line = util.devices_ref_redundancy[device_type]["import_device"]
-        init_line = util.devices_ref_redundancy[device_type]["init"]['default_code']
+        init_line = util.devices_ref_redundancy[device_type]["init"]["default_code"]
         if import_line not in value:
             value = import_line + "\n" + value
         value = value.replace(
@@ -727,7 +732,9 @@ def add_commands_to_recipe_ace(
         return ["", True, "No code in editor", "warning", 3000]
     try:
         value = str(value)
-        command_line = util.devices_ref_redundancy[device_type]["commands"][command]['default_code']
+        command_line = util.devices_ref_redundancy[device_type]["commands"][command][
+            "default_code"
+        ]
         import_line = util.devices_ref_redundancy[device_type]["import_commands"]
         import_device_line = util.devices_ref_redundancy[device_type]["import_device"]
         if import_device_line not in value:
@@ -819,7 +826,7 @@ def reset_console(n):  # execute-recipe page
 # ---------------------------------------------------
 
 
-def render_dict(data):  # data page
+def render_dict(data):  # data (and maybe database) page
     if isinstance(data, dict):
         return [
             dbc.Accordion(
@@ -886,7 +893,10 @@ def fill_manual_control_command_dropdown(val, url):  # manual-control page
             return [True, []]
         else:
             if util.devices_ref_redundancy[val]["serial"] == False:
-                return [False, list(util.devices_ref_redundancy[val]["commands"].keys())]
+                return [
+                    False,
+                    list(util.devices_ref_redundancy[val]["commands"].keys()),
+                ]
             else:
                 toRet = list(util.devices_ref_redundancy[val]["commands"].keys()).copy()
                 for command in util.devices_ref_redundancy[val]["serial_sequence"]:
@@ -964,13 +974,21 @@ def create_manual_control_command_form(command, device, url, device_form):
                                 [
                                     dbc.Label(
                                         [arg],
-                                        html_for=str(device+"+" + seq_command + "+" + arg),
+                                        html_for=str(
+                                            device + "+" + seq_command + "+" + arg
+                                        ),
                                         width=2,
                                     ),
                                     dbc.Col(
                                         [
                                             dbc.Input(
-                                                id=str(device +"+"+ seq_command + "+" + arg),
+                                                id=str(
+                                                    device
+                                                    + "+"
+                                                    + seq_command
+                                                    + "+"
+                                                    + arg
+                                                ),
                                                 value=args[arg]["default"],
                                                 placeholder=args[arg]["notes"],
                                             ),
@@ -1003,7 +1021,6 @@ def create_manual_control_command_form(command, device, url, device_form):
                                     ),
                                 ],
                                 width=10,
-                                
                             ),
                         ],
                         className="mb-2",
@@ -1057,7 +1074,7 @@ def manual_control_execute_button(value, url):
     Output("manual-control-command-dropdown", "className"),
     Input("manual-control-execute-button", "n_clicks"),
     [
-        State('url', 'pathname'),
+        State("url", "pathname"),
         State("manual-control-command-dropdown", "className"),
         State("manual-control-device-dropdown", "value"),
         State("manual-control-command-dropdown", "value"),
@@ -1098,95 +1115,282 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
                     ]["value"]
                 )
         instantiate_code += ")"
-        code_seq = str(device) + "_seq" 
+        code_seq = str(device) + "_seq"
         code += code_seq + " = CommandSequence()"
         code += "\n"
         code += code_seq + ".add_device(" + instantiate_code + ")"
         code += "\n"
 
-
         if util.devices_ref_redundancy[device]["serial"] == True:
-            for i, serial_seq_command in enumerate(util.devices_ref_redundancy[device]['serial_sequence']):
-                code += code_seq + ".add_command(" + str(serial_seq_command)+"("
-                for ii, serial_seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][serial_seq_command]['args']):
+            for i, serial_seq_command in enumerate(
+                util.devices_ref_redundancy[device]["serial_sequence"]
+            ):
+                code += code_seq + ".add_command(" + str(serial_seq_command) + "("
+                for ii, serial_seq_command_arg in enumerate(
+                    util.devices_ref_redundancy[device]["commands"][serial_seq_command][
+                        "args"
+                    ]
+                ):
                     if ii != 0:
                         code += ", "
                     if serial_seq_command_arg == "receiver":
-                        code += serial_seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[0]['props']['children'][(2*ii)+1]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
-                    elif util.devices_ref_redundancy[device]['commands'][serial_seq_command]['args'][serial_seq_command_arg]['type'] == str:
-                        code += serial_seq_command_arg + "="+"'"+str(command_form[0]['props']['children'][(2*ii)+1]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
+                        code += (
+                            serial_seq_command_arg
+                            + "="
+                            + str(device)
+                            + "_seq.device_by_name['"
+                            + str(
+                                command_form[0]["props"]["children"][(2 * ii) + 1][
+                                    "props"
+                                ]["children"][1]["props"]["children"][0]["props"][
+                                    "value"
+                                ]
+                            )
+                            + "']"
+                        )
+                    elif (
+                        util.devices_ref_redundancy[device]["commands"][
+                            serial_seq_command
+                        ]["args"][serial_seq_command_arg]["type"]
+                        == str
+                    ):
+                        code += (
+                            serial_seq_command_arg
+                            + "="
+                            + "'"
+                            + str(
+                                command_form[0]["props"]["children"][(2 * ii) + 1][
+                                    "props"
+                                ]["children"][1]["props"]["children"][0]["props"][
+                                    "value"
+                                ]
+                            )
+                            + "'"
+                        )
                     else:
-                        code += serial_seq_command_arg + "="+str(command_form[0]['props']['children'][(2*ii)+1]['props']['children'][1]['props']['children'][0]['props']['value'])
-                    
+                        code += (
+                            serial_seq_command_arg
+                            + "="
+                            + str(
+                                command_form[0]["props"]["children"][(2 * ii) + 1][
+                                    "props"
+                                ]["children"][1]["props"]["children"][0]["props"][
+                                    "value"
+                                ]
+                            )
+                        )
+
                 code += "))\n"
-            code += code_seq + ".add_command(" + str(command)+"("
-            for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][command]['args']):
+            code += code_seq + ".add_command(" + str(command) + "("
+            for ii, seq_command_arg in enumerate(
+                util.devices_ref_redundancy[device]["commands"][command]["args"]
+            ):
                 if ii != 0:
                     code += ", "
                 if seq_command_arg == "receiver":
-                    code += seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
-                elif util.devices_ref_redundancy[device]['commands'][command]['args'][seq_command_arg]['type'] == str:
-                    code += seq_command_arg + "="+"'"+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
+                    code += (
+                        seq_command_arg
+                        + "="
+                        + str(device)
+                        + "_seq.device_by_name['"
+                        + str(
+                            command_form[2]["props"]["children"][ii]["props"][
+                                "children"
+                            ][1]["props"]["children"][0]["props"]["value"]
+                        )
+                        + "']"
+                    )
+                elif (
+                    util.devices_ref_redundancy[device]["commands"][command]["args"][
+                        seq_command_arg
+                    ]["type"]
+                    == str
+                ):
+                    code += (
+                        seq_command_arg
+                        + "="
+                        + "'"
+                        + str(
+                            command_form[2]["props"]["children"][ii]["props"][
+                                "children"
+                            ][1]["props"]["children"][0]["props"]["value"]
+                        )
+                        + "'"
+                    )
                 else:
-                    code += seq_command_arg + "="+str(command_form[2]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])
-                
+                    code += (
+                        seq_command_arg
+                        + "="
+                        + str(
+                            command_form[2]["props"]["children"][ii]["props"][
+                                "children"
+                            ][1]["props"]["children"][0]["props"]["value"]
+                        )
+                    )
+
             code += "))\n"
         else:
-            code += code_seq + ".add_command(" + str(command)+"("
-            for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]['commands'][command]['args']):
+            code += code_seq + ".add_command(" + str(command) + "("
+            for ii, seq_command_arg in enumerate(
+                util.devices_ref_redundancy[device]["commands"][command]["args"]
+            ):
                 if ii != 0:
                     code += ", "
                 if seq_command_arg == "receiver":
-                    code += seq_command_arg + "="+str(device)+"_seq.device_by_name['"+str(command_form[1]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"']"
-                elif util.devices_ref_redundancy[device]['commands'][command]['args'][seq_command_arg]['type'] == str:
-                    code += seq_command_arg + "="+"'"+str(command_form[1]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])+"'"
+                    code += (
+                        seq_command_arg
+                        + "="
+                        + str(device)
+                        + "_seq.device_by_name['"
+                        + str(
+                            command_form[1]["props"]["children"][ii]["props"][
+                                "children"
+                            ][1]["props"]["children"][0]["props"]["value"]
+                        )
+                        + "']"
+                    )
+                elif (
+                    util.devices_ref_redundancy[device]["commands"][command]["args"][
+                        seq_command_arg
+                    ]["type"]
+                    == str
+                ):
+                    code += (
+                        seq_command_arg
+                        + "="
+                        + "'"
+                        + str(
+                            command_form[1]["props"]["children"][ii]["props"][
+                                "children"
+                            ][1]["props"]["children"][0]["props"]["value"]
+                        )
+                        + "'"
+                    )
                 else:
-                    code += seq_command_arg + "="+str(command_form[1]['props']['children'][ii]['props']['children'][1]['props']['children'][0]['props']['value'])
-                
+                    code += (
+                        seq_command_arg
+                        + "="
+                        + str(
+                            command_form[1]["props"]["children"][ii]["props"][
+                                "children"
+                            ][1]["props"]["children"][0]["props"]["value"]
+                        )
+                    )
+
             code += "))\n"
-        code += str(device)+"_seq_invoker = CommandInvoker("+str(device)+"_seq, False, False, False)\n"
-        code += str(device)+"_seq_invoker.invoke_commands()\n"
-        print("\n"+code + "\n")
+        code += (
+            str(device)
+            + "_seq_invoker = CommandInvoker("
+            + str(device)
+            + "_seq, False, False, False)\n"
+        )
+        code += str(device) + "_seq_invoker.invoke_commands()\n"
+        print("\n" + code + "\n")
         try:
             exec(code)
         except Exception as e:
-            print(e)               
-    
+            print(e)
+
     return opt
 
 
-#---------------------------------------------------------------
+# ---------------------------------------------------------------
 # Database page
-#---------------------------------------------------------------
+# ---------------------------------------------------------------
+
 
 @app.callback(
-    Output("database-collection-dropdown", "options"),
+    Output("database-db-dropdown", "options"),
     Input("interval-database", "n_intervals"),
     State("url", "pathname"),
 )
-def fill_database_collection_dropdown(n, url):  # database page
+def fill_database_db_dropdown(n, url):
     if str(url) == "/database":
-        print("fill_database_collection_dropdown")
-        return mongo.db.list_collection_names()
+        print("fill_database_db_dropdown")
+        return list(mongo.client.list_database_names())
 
 
 @app.callback(
-    [Output('database-document-dropdown', 'disabled'),Output('database-document-dropdown', 'options')],
-    Input('database-collection-dropdown', 'value'),
+    [
+        Output("database-collection-dropdown", "disabled"),
+        Output("database-collection-dropdown", "options"),
+    ],
+    [Input("database-db-dropdown", "value")],
     State("url", "pathname"),
     prevent_initial_call=True,
 )
-def fill_database_document_dropdown(collection, url):
+def fill_database_collection_dropdown(db, url):  # database page
+    if str(url) == "/database":
+        print("fill_database_collection_dropdown")
+        if db is not None and db != "":
+            return False, list(mongo.client[db].list_collection_names())
+    return True, []
+
+
+@app.callback(
+    [
+        Output("database-document-dropdown", "disabled"),
+        Output("database-document-dropdown", "options"),
+    ],
+    Input("database-collection-dropdown", "value"),
+    [State("url", "pathname"), State("database-db-dropdown", "value")],
+    prevent_initial_call=True,
+)
+def fill_database_document_dropdown(collection, url, db):
     if str(url) == "/database":
         if collection is not None and collection != "":
             print("fill_database_document_dropdown")
-            docs = list(mongo.db[collection].find({}))
+            docs = list(mongo.client[db][collection].find({}))
             toRet = []
             for doc in docs:
-                toRet.append(str(doc['_id']))
+                toRet.append(str(doc["_id"]))
             return False, toRet
         else:
             return True, []
+
+
+@app.callback(
+    Output("database-collection-schema", "children"),
+    [
+        Input("database-collection-dropdown", "value"),
+        Input("database-db-dropdown", "value"),
+    ],
+    [State("url", "pathname")],
+    prevent_initial_call=True,
+)
+def fill_database_collection_schema(collection, db, url):
+    if str(url) == "/database":
+        print("fill_database_collection_schema")
+        if collection is not None and collection != "" and db is not None and db != "":
+            try:
+                schema = (
+                    mongo.client[db].get_collection(collection).options()["validator"]
+                )
+                return render_dict(schema)
+            except Exception as e:
+                return ["Validation rules missing or something went wrong."]
+    return []
+
+
+@app.callback(
+    Output("database-document-viewer", "children"),
+    [
+        Input("database-document-dropdown", "value"),
+        Input("database-collection-dropdown", "value"),
+    ],
+    [State("url", "pathname"), State("database-db-dropdown", "value")],
+    prevent_initial_call=True,
+)
+def fill_database_document_viewer(document, collection, url, db):
+    if str(url) == "/database":
+        print("fill_database_document_viewer")
+        if document is not None and document != "" and db is not None and db != "":
+            # try:
+            doc = mongo.client[db][collection].find({"_id": ObjectId(document)})[0]
+            return render_dict(doc)
+            # except Exception as e:
+            #     return ["Document missing or something went wrong"]
+    return []
 
 
 if __name__ == "__main__":

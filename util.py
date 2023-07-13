@@ -208,172 +208,6 @@ devices_ref = {
 
 
 devices_ref_redundancy = {
-    "PrintingStage": heating_stage_ref,
-    "AnnealingStage": heating_stage_ref,
-    "MultiStepper": {
-        "obj": MultiStepper,
-        "serial": True,
-        "serial_sequence": ["MultiStepperConnect", "MultiStepperInitialize"],
-        "import_device": "from devices.multi_stepper import MultiStepper",
-        "import_commands": "from commands.multi_stepper_commands import *",
-        "init": {
-            "default_code": "MultiStepper(name='MultiStepper', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
-            "obj_name": "MultiStepper",
-            "args": {
-                "name": {
-                    "default": "MultiStepper",
-                    "type": str,
-                    "notes": "Name of the device",
-                },
-                "port": {
-                    "default": "COM",
-                    "type": str,
-                    "notes": "Port of the device",
-                },
-                "baudrate": {
-                    "default": 115200,
-                    "type": int,
-                    "notes": "Baudrate of the device",
-                },
-                "timeout": {
-                    "default": 1.0,
-                    "type": float,
-                    "notes": "Timeout of the device",
-                },
-                "stepper_list":{
-                    "default": (1,),
-                    "type": Tuple[int, ...],
-                    "notes": "List of stepper numbers",
-                },
-                "move_timeout": {
-                    "default": 30.0,
-                    "type": float,
-                    "notes": "Timeout for move commands",
-                },
-            }
-        },
-        "commands": { #TODO update these to match redundancy changes
-            "MultiStepperConnect": "MultiStepperConnect(receiver= '')",
-            "MultiStepperInitialize": "MultiStepperInitialize(receiver= '')",
-            "MultiStepperDeinitialize": "MultiStepperDeinitialize(receiver= '')",
-            "MultiStepperMoveAbsolute": "MultiStepperMoveAbsolute(receiver= '', stepper_number= 0, position= 0)",
-            "MultiStepperMoveRelative": "MultiStepperMoveRelative(receiver= '', stepper_number= 0, distance= 0)",
-        },
-    },
-    "PrinterMotorX": {"obj": NewportESP301},
-    # "Spectrometer": {"obj": StellarNetSpectrometer},
-    "XimeaCamera": {"obj": XimeaCamera},
-    "DummyHeater": {"obj": DummyHeater},
-    "DummyMotor": {
-        "obj": DummyMotor,
-        "serial": True,
-        "serial_sequence": ["DummyMotorInitialize"],
-        "import_device": "from devices.dummy_motor import DummyMotor",
-        "import_commands": "from commands.dummy_motor_commands import *",
-        "init": {
-            "default_code": "DummyMotor(name='DummyMotor', speed=20.0)",
-            "obj_name": "DummyMotor",
-            "args": {
-                "name": {
-                    "default": "DummyMotor",
-                    "type": str,
-                    "notes": "Name of the device.",
-                },
-                "speed": {
-                    "default": 20.0,
-                    "type": float,
-                    "notes": "Speed of the motor.",
-                },
-            },
-        },
-        "commands": {
-            "DummyMotorInitialize": {
-                "default_code": "DummyMotorInitialize(receiver= '')",
-                "args": {
-                    "receiver": {
-                        "default": "DummyMotor",
-                        "type": str,
-                        "notes": "Name of the device.",
-                    }
-                },
-            },
-            "DummyMotorDeinitialize": {
-                "default_code": "DummyMotorDeinitialize(receiver= '')",
-                "args": {
-                    "receiver": {
-                        "default": "DummyMotor",
-                        "type": str,
-                        "notes": "Name of the device.",
-                    }
-                },
-            },
-            "DummyMotorSetSpeed": {
-                "default_code": "DummyMotorSetSpeed(receiver= '', speed= 0.0)",
-                "args": {
-                    "receiver": {
-                        "default": "DummyMotor",
-                        "type": str,
-                        "notes": "Name of the device.",
-                    },
-                    "speed": {
-                        "default": 0.0,
-                        "type": float,
-                        "notes": "Speed of the motor.",
-                    },
-                },
-            },
-            "DummyMotorMoveAbsolute": {
-                "default_code": "DummyMotorMoveAbsolute(receiver= '', position= 0)",
-                "args": {
-                    "receiver": {
-                        "default": "DummyMotor",
-                        "type": str,
-                        "notes": "Name of the device.",
-                    },
-                    "position": {
-                        "default": 0,
-                        "type": float,
-                        "notes": "Position to move to.",
-                    },
-                },
-            },
-            "DummyMotorMoveRelative": {
-                "default_code": "DummyMotorMoveRelative(receiver= '', distance= 0)",
-                "args": {
-                    "receiver": {
-                        "default": "DummyMotor",
-                        "type": str,
-                        "notes": "Name of the device.",
-                    },
-                    "distance": {
-                        "default": 0,
-                        "type": float,
-                        "notes": "Distance to move.",
-                    },
-                },
-            },
-            "DummyMotorMoveSpeedAbsolute": {
-                "default_code": "DummyMotorMoveSpeedAbsolute(receiver= '', position= 0.0, speed= 0.0)",
-                "args": {
-                    "receiver": {
-                        "default": "DummyMotor",
-                        "type": str,
-                        "notes": "Name of the device.",
-                    },
-                    "position": {
-                        "default": 0.0,
-                        "type": float,
-                        "notes": "Position to move to.",
-                    },
-                    "speed": {
-                        "default": 0.0,
-                        "type": float,
-                        "notes": "Speed of the motor.",
-                    },
-                },
-            },
-        },
-    },
     "LinearStage150": {
         "obj": LinearStage150,
         "serial": True,
@@ -500,4 +334,364 @@ devices_ref_redundancy = {
             },
         },
     },
+    "PrintingStage": heating_stage_ref,
+    "AnnealingStage": heating_stage_ref,
+    "MultiStepper": {
+        "obj": MultiStepper,
+        "serial": True,
+        "serial_sequence": ["MultiStepperConnect", "MultiStepperInitialize"],
+        "import_device": "from devices.multi_stepper import MultiStepper",
+        "import_commands": "from commands.multi_stepper_commands import *",
+        "init": {
+            "default_code": "MultiStepper(name='MultiStepper', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
+            "obj_name": "MultiStepper",
+            "args": {
+                "name": {
+                    "default": "MultiStepper",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "port": {
+                    "default": "COM",
+                    "type": str,
+                    "notes": "Port of the device",
+                },
+                "baudrate": {
+                    "default": 115200,
+                    "type": int,
+                    "notes": "Baudrate of the device",
+                },
+                "timeout": {
+                    "default": 1.0,
+                    "type": float,
+                    "notes": "Timeout of the device",
+                },
+                "stepper_list": {
+                    "default": (1,),
+                    "type": Tuple[int, ...],
+                    "notes": "List of stepper numbers",
+                },
+                "move_timeout": {
+                    "default": 30.0,
+                    "type": float,
+                    "notes": "Timeout for move commands",
+                },
+            },
+        },
+        "commands": {
+            "MultiStepperConnect": {
+                "default_code": "MultiStepperConnect(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MultiStepper",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+            },
+            "MultiStepperInitialize": {
+                "default_code": "MultiStepperInitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MultiStepper",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+            },
+            "MultiStepperDeinitialize": {
+                "default_code": "MultiStepperDeinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MultiStepper",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+            },
+            "MultiStepperMoveAbsolute": {
+                "default_code": "MultiStepperMoveAbsolute(receiver= '', stepper_number= 0, position= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "MultiStepper",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "stepper_number": {
+                        "default": 0,
+                        "type": int,
+                        "notes": "Number of the stepper",
+                    },
+                    "position": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Position to move to",
+                    },
+                },
+            },
+            "MultiStepperMoveRelative": {
+                "default_code": "MultiStepperMoveRelative(receiver= '', stepper_number= 0, distance= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "MultiStepper",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "stepper_number": {
+                        "default": 0,
+                        "type": int,
+                        "notes": "Number of the stepper",
+                    },
+                    "distance": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Distance to move",
+                    },
+                },
+            },
+        },
+    },
+    "NewportESP301": {
+        "obj": NewportESP301,
+        "serial": True,
+        "serial_sequence": ["NewportESP301Connect", "NewportESP301Initialize"],
+        "import_device": "from devices.newport_esp301 import NewportESP301",
+        "import_commands": "from commands.newport_esp301_commands import *",
+        "init": {
+            "default_code": "NewportESP301(name='NewportESP301', port='', baudrate=921600, timeout=1.0, axis_list = (1,), default_speed=20.0, poll_interval=0.1)",
+            "obj_name": "NewportESP301",
+            "args": {
+                "name": {
+                    "default": "NewportESP301",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "port": {
+                    "default": "COM",
+                    "type": str,
+                    "notes": "Port of the device",
+                },
+                "baudrate": {
+                    "default": 921600,
+                    "type": int,
+                    "notes": "Baudrate of the device",
+                },
+                "timeout": {
+                    "default": 1.0,
+                    "type": float,
+                    "notes": "Timeout of the device",
+                },
+                "axis_list": {
+                    "default": (1,),
+                    "type": Tuple[int, ...],
+                    "notes": "List of axis numbers",
+                },
+                "default_speed": {
+                    "default": 20.0,
+                    "type": float,
+                    "notes": "Default speed of the device",
+                },
+                "poll_interval": {
+                    "default": 0.1,
+                    "type": float,
+                    "notes": "Poll interval of the device",
+                },
+            },
+        },
+        "commands": {
+            "NewportESP301Connect": {
+                "default_code": "NewportESP301Connect(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "NewportESP301",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+            },
+            "NewportESP301Initialize": {
+                "default_code": "NewportESP301Initialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "NewportESP301",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+            },
+            "NewportESP301Deinitialize": {
+                "default_code": "NewportESP301Deinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "NewportESP301",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+            },
+            "NewportESP301MoveSpeedAbsolute": {
+                "default_code": "NewportESP301MoveSpeedAbsolute(receiver= '', axis= 1, position= 0, speed= 20.0)",
+                "args": {
+                    "receiver": {
+                        "default": "NewportESP301",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "axis": {
+                        "default": 1,
+                        "type": int,
+                        "notes": "Axis number",
+                    },
+                    "position": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Position to move to",
+                    },
+                    "speed": {
+                        "default": 20.0,
+                        "type": float,
+                        "notes": "Speed to move at",
+                    },
+                },
+            },
+            "NewportESP301MoveSpeedRelative": {
+                "default_code": "NewportESP301MoveSpeedRelative(receiver= '', axis= 1, distance= 0, speed= 20.0)",
+                "args": {
+                    "receiver": {
+                        "default": "NewportESP301",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "axis": {
+                        "default": 1,
+                        "type": int,
+                        "notes": "Axis number",
+                    },
+                    "distance": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Distance to move",
+                    },
+                    "speed": {
+                        "default": 20.0,
+                        "type": float,
+                        "notes": "Speed to move at",
+                    },
+                },
+            },
+        },
+    },
+    "DummyMotor": {
+        "obj": DummyMotor,
+        "serial": True,
+        "serial_sequence": ["DummyMotorInitialize"],
+        "import_device": "from devices.dummy_motor import DummyMotor",
+        "import_commands": "from commands.dummy_motor_commands import *",
+        "init": {
+            "default_code": "DummyMotor(name='DummyMotor', speed=20.0)",
+            "obj_name": "DummyMotor",
+            "args": {
+                "name": {
+                    "default": "DummyMotor",
+                    "type": str,
+                    "notes": "Name of the device.",
+                },
+                "speed": {
+                    "default": 20.0,
+                    "type": float,
+                    "notes": "Speed of the motor.",
+                },
+            },
+        },
+        "commands": {
+            "DummyMotorInitialize": {
+                "default_code": "DummyMotorInitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    }
+                },
+            },
+            "DummyMotorDeinitialize": {
+                "default_code": "DummyMotorDeinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    }
+                },
+            },
+            "DummyMotorSetSpeed": {
+                "default_code": "DummyMotorSetSpeed(receiver= '', speed= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "speed": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Speed of the motor.",
+                    },
+                },
+            },
+            "DummyMotorMoveAbsolute": {
+                "default_code": "DummyMotorMoveAbsolute(receiver= '', position= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "position": {
+                        "default": 0,
+                        "type": float,
+                        "notes": "Position to move to.",
+                    },
+                },
+            },
+            "DummyMotorMoveRelative": {
+                "default_code": "DummyMotorMoveRelative(receiver= '', distance= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "distance": {
+                        "default": 0,
+                        "type": float,
+                        "notes": "Distance to move.",
+                    },
+                },
+            },
+            "DummyMotorMoveSpeedAbsolute": {
+                "default_code": "DummyMotorMoveSpeedAbsolute(receiver= '', position= 0.0, speed= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyMotor",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "position": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Position to move to.",
+                    },
+                    "speed": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Speed of the motor.",
+                    },
+                },
+            },
+        },
+    },
+    # "Spectrometer": {"obj": StellarNetSpectrometer},
+    # "XimeaCamera": {"obj": XimeaCamera},
+    # "DummyHeater": {"obj": DummyHeater},›
 }

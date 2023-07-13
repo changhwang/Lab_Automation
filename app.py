@@ -1349,6 +1349,29 @@ def fill_database_document_dropdown(collection, url, db):
             return True, []
 
 
+def process_schema(schema):
+    if isinstance(schema, dict):
+        if "bsonType" not in list(schema.keys()):
+            for key in list(schema.keys()):
+                schema[key] = process_schema(schema[key])
+        elif "bsonType" in list(schema.keys()):
+            schema['Properties'] = {"Data Type": schema['bsonType']}
+            del schema['bsonType']
+            if "description" in list(schema.keys()):
+                schema['Properties'].update({"Description": schema['description']})
+                del schema['description']
+            if "required" in list(schema.keys()):
+                # schema['Properties'].update({"Required": schema['required']})
+                del schema['required']
+            if "properties" in list(schema.keys()):
+                schema["Variables"] = process_schema(schema['properties'])
+                del schema['properties']
+            if "title" in list(schema.keys()):
+                del schema['title']
+
+    return schema
+
+
 @app.callback(
     Output("database-collection-schema", "children"),
     [
@@ -1366,6 +1389,7 @@ def fill_database_collection_schema(collection, db, url):
                 schema = (
                     mongo.client[db].get_collection(collection).options()["validator"]
                 )
+                schema = process_schema(schema)
                 return render_dict(schema)
             except Exception as e:
                 return ["Validation rules missing or something went wrong."]

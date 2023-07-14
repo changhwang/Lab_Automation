@@ -134,8 +134,8 @@ heating_stage_ref = {
                 }
             },
         },
-        "HeatingStageSetTemperature": {
-            "default_code": "HeatingStageSetTemperature(receiver= '', temperature= 0.0)",
+        "HeatingStageSetTemp": {
+            "default_code": "HeatingStageSetTemp(receiver= '', temperature= 0.0)",
             "args": {
                 "receiver": {
                     "default": "Stage",

@@ -9,6 +9,7 @@ from devices.ximea_camera import XimeaCamera
 from devices.dummy_heater import DummyHeater
 from devices.dummy_motor import DummyMotor
 from devices.linear_stage_150 import LinearStage150
+from devices.keithley_2450 import Keithley2450
 from devices.device import Device, MiscDeviceClass
 import json
 import numpy as np
@@ -328,6 +329,201 @@ devices_ref_redundancy = {
                     "distance": {
                         "default": 0,
                         "type": int,
+                        "notes": "",
+                    },
+                },
+            },
+        },
+    },
+    "Keithley2450": {  # TODO finish this
+        "obj": Keithley2450,
+        "serial": True,
+        "serial_sequence": ["Keithley2450Initialize"],
+        "import_device": "from devices.keithley_2450 import Keithley2450",
+        "import_commands": "from commands.keithley_2450_commands import *",
+        "init": {
+            "default_code": "Keithley2450(name='Keithley2450', ID='', query_delay=0)",
+            "obj_name": "Keithley2450",
+            "args": {
+                "name": {
+                    "default": "Keithley2450",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "ID": {
+                    "default": "",
+                    "type": str,
+                    "notes": "ID of the device",
+                },
+                "query_delay": {
+                    "default": 0,
+                    "type": int,
+                    "notes": "Delay between queries",
+                },
+            },
+        },
+        "commands": {
+            "Keithley2450Initialize": {
+                "default_code": "Keithley2450Initialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+            },
+            "Keithley2450Deinitialize": {
+                "default_code": "Keithley2450Deinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+            },
+            "KeithleyWait": {
+                "default_code": "KeithleyWait(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+            },
+            "KeithleyWriteCommand": {
+                "default_code": "KeithleyWriteCommand(receiver= '', command= '')",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "command": {
+                        "default": "",
+                        "type": str,
+                        "notes": "",
+                    },
+                },
+            },
+            "KeithleySetTerminal": {
+                "default_code": "KeithleySetTerminal(receiver= '', position= 'front')",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "position": {
+                        "default": "front",
+                        "type": str,
+                        "notes": "",
+                    },
+                },
+            },
+            "KeithleyErrorCheck": {
+                "default_code": "KeithleyErrorCheck(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+            },
+            "KeithleyClearBuffer": {
+                "default_code": "KeithleyClearBuffer(receiver= '', buffer='defbuffer1')",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "buffer": {
+                        "default": "defbuffer1",
+                        "type": str,
+                        "notes": "",
+                    },
+                },
+            },
+            "KeithleyIVCharacteristic": {
+                "default_code": "KeithleyIVCharacteristic(receiver= '', ilimit=0.0, vmin=0.0, vmax=0.0, delay=0.0, steps=60)",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "ilimit": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "",
+                    },
+                    "vmin": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "",
+                    },
+                    "vmax": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "",
+                    },
+                    "delay": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "",
+                    },
+                    "steps": {
+                        "default": 60,
+                        "type": int,
+                        "notes": "",
+                    },
+                },
+            },
+            "KeithleyFourPoint": {
+                "default_code": "KeithleyFourPoint(receiver= '', test_curr=0.0, vlimit=0.0, curr_reversal = False)",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "test_curr": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "",
+                    },
+                    "vlimit": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "",
+                    },
+                    "curr_reversal": {
+                        "default": False,
+                        "type": bool,
+                        "notes": "",
+                    },
+                },
+            },
+            "KeithleyGetData": {
+                "default_code": "KeithleyGetData(receiver= '', filename=None, four_point= False)",
+                "args": {
+                    "receiver": {
+                        "default": "Keithley2450",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "filename": {
+                        "default": None,
+                        "type": str,
+                        "notes": "",
+                    },
+                    "four_point": {
+                        "default": False,
+                        "type": bool,
                         "notes": "",
                     },
                 },

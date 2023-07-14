@@ -1358,7 +1358,7 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
 @app.callback(
         [Output('manual-control-port-modal', 'is_open'), Output('manual-control-serial-ports-info', 'children')],
         Input('manual-control-port-field', 'n_clicks'),
-        prevent_initial_call=True
+        prevent_initial_call=True, suppress_callback_exceptions=True
 )
 def open_fill_manual_control_serial(n):
     if _has_serial and n != 0:

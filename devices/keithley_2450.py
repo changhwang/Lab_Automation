@@ -19,6 +19,19 @@ class Keithley2450(Device):
         print(self.keithley.query('*IDN?'))
         sleep(self.query_delay)
 
+    def get_init_args(self) -> dict:
+        args_dict = {
+            "name": self.name,
+            "ID": self.ID,
+            "query_delay": self.query_delay,
+        }
+        return args_dict
+    
+    def update_init_args(self, args_dict: dict):
+        self.name = args_dict["name"]
+        self.ID = args_dict["ID"]
+        self.query_delay = args_dict["query_delay"]
+
     @property   #TODO: Check if necessary
     def terminal_pos(self) -> str:
         return self.position

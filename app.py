@@ -14,6 +14,7 @@ import os, signal
 import inspect
 from pw import mongo_username, mongo_password
 from bson.objectid import ObjectId
+from console_interceptor import ConsoleInterceptor
 
 try:
     import serial.tools.list_ports
@@ -927,24 +928,44 @@ def create_manual_control_device_form(value, url):
             args = util.devices_ref_redundancy[value]["init"]["args"]
             toRet = []
             for arg in args:
-                toRet.append(
-                    dbc.Row(
-                        [
-                            dbc.Label([arg], html_for=str(value + "+" + arg), width=2),
-                            dbc.Col(
-                                [
-                                    dbc.Input(
-                                        id=str(value + "+" + arg),
-                                        value=args[arg]["default"],
-                                        placeholder=args[arg]["notes"],
-                                    ),
-                                ],
-                                width=10,
-                            ),
-                        ],
-                        className="mb-2",
+                if arg == 'port':
+                    toRet.append(
+                        dbc.Row(
+                            [
+                                dbc.Label(dbc.NavLink(arg, n_clicks=0, id='manual-control-port-field', style={'cursor': 'pointer', 'color': 'blue', 'textDecoration': 'underline'}), html_for=str(value + "+" + arg), width=2),
+                                dbc.Col(
+                                    [
+                                        dbc.Input(
+                                            id=str(value + "+" + arg),
+                                            value=args[arg]["default"],
+                                            placeholder=args[arg]["notes"],
+                                        ),
+                                    ],
+                                    width=10,
+                                ),
+                            ],
+                            className="mb-2",
+                        )
                     )
-                )
+                else:
+                    toRet.append(
+                        dbc.Row(
+                            [
+                                dbc.Label([arg], html_for=str(value + "+" + arg), width=2),
+                                dbc.Col(
+                                    [
+                                        dbc.Input(
+                                            id=str(value + "+" + arg),
+                                            value=args[arg]["default"],
+                                            placeholder=args[arg]["notes"],
+                                        ),
+                                    ],
+                                    width=10,
+                                ),
+                            ],
+                            className="mb-2",
+                        )
+                    )
 
             return [toRet]
 
@@ -1085,6 +1106,9 @@ def manual_control_execute_button(value, url):
         Output("manual-control-alert", "children", allow_duplicate=True),
         Output("manual-control-alert", "color", allow_duplicate=True),
         Output("manual-control-alert", "duration", allow_duplicate=True),
+        Output('manual-control-execute-modal', 'is_open'),
+        Output('manual-control-execute-modal-body', 'children'),
+        Output('manual-control-execute-modal-body-code', 'children')
     ],
     Input("manual-control-execute-button", "n_clicks"),
     [
@@ -1301,15 +1325,50 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
             + "_seq, False, False, False)\n"
         )
         code += str(device) + "_seq_invoker.invoke_commands()\n"
-        print("\n" + code + "\n")
+        interceptor = ConsoleInterceptor()
+        print('\n')
+        interceptor.start_interception()
+        print(code)
+        interceptor.stop_interception()
+        code_output = interceptor.get_intercepted_messages()
+        code_log_string = ""
+        for msg in code_output:
+            code_log_string += msg
+        interceptor = ConsoleInterceptor()
+        interceptor.start_interception()
         try:
             exec(code)
-            return opt, True, "Execution complete.", "success", 2000
+            interceptor.stop_interception()
+            messages = interceptor.get_intercepted_messages()
+            log_string = ""
+            for msg in messages:
+                log_string += msg
+            return opt, True, "Execution complete.", "success", 0, True, html.Pre(log_string), html.Pre(code_log_string)
         except Exception as e:
             print(e)
-            return opt, True, "Something went wrong. Check console.", "danger", 3000
+            interceptor.stop_interception()
+            messages = interceptor.get_intercepted_messages()
+            log_string = ""
+            for msg in messages:
+                log_string += msg
+            return opt, True, "Something went wrong. Check logs.", "danger", 0, True, html.Pre(log_string), html.Pre(code_log_string)
 
     return opt
+
+@app.callback(
+        [Output('manual-control-port-modal', 'is_open'), Output('manual-control-serial-ports-info', 'children')],
+        Input('manual-control-port-field', 'n_clicks'),
+        prevent_initial_call=True
+)
+def open_fill_manual_control_serial(n):
+    if _has_serial and n != 0:
+        ports = serial.tools.list_ports.comports()
+        str_ports = ""
+        for port, desc, hwid in sorted(ports):
+            str_ports += f"{port}: {desc} [{hwid}]\n"
+        lines = str_ports.splitlines()
+        return True, [html.Div([html.Div(line) for line in lines])]
+    return False, []
 
 
 # ---------------------------------------------------------------

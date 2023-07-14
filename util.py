@@ -82,7 +82,7 @@ heating_stage_ref = {
         "args": {
             "name": {
                 "default": "Stage",
-                "type": "str",
+                "type": str,
                 "notes": "Name of the device",
             },
             "port": {"default": "COM", "type": str, "notes": "Port"},

@@ -25,7 +25,53 @@ layout = html.Div(
             ],
             className="mb-3",
         ),
-        dbc.Alert("Alert", id="manual-control-alert", is_open=False, duration=500),
+        dbc.Modal(
+            [
+                dbc.ModalHeader(dbc.ModalTitle("Execute")),
+                dbc.ModalBody(
+                    [
+                        dbc.Alert(
+                            "Alert",
+                            id="manual-control-alert",
+                            is_open=False,
+                            duration=500,
+                        ),
+                        html.Div(
+                            id="manual-control-execute-modal-body-code",
+                            className="log-container",
+                            style={
+                                "height": "160px",
+                                "overflow-y": "scroll",
+                                "padding": "10px",
+                                "border": "2px solid",
+                                "margin-bottom": "10px"
+                            },
+                        ),
+                        html.Div(
+                            id="manual-control-execute-modal-body",
+                            className="log-container",
+                            style={
+                                "height": "300px",
+                                "overflow-y": "scroll",
+                                "padding": "10px",
+                                "border": "2px solid",
+                            },
+                        ),
+                    ]
+                ),
+            ],
+            id="manual-control-execute-modal",
+            size="xl",
+        ),
+        dbc.Modal(
+            [
+                 dbc.ModalHeader(dbc.ModalTitle("COM Port Information")),
+                 dbc.ModalBody([
+                     html.Div(id='manual-control-serial-ports-info')
+                 ])
+            ],
+            id='manual-control-port-modal'
+        ),
         dbc.Row(
             [
                 dbc.Col(

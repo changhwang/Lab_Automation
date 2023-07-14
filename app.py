@@ -928,11 +928,24 @@ def create_manual_control_device_form(value, url):
             args = util.devices_ref_redundancy[value]["init"]["args"]
             toRet = []
             for arg in args:
-                if arg == 'port':
+                if arg == "port":
                     toRet.append(
                         dbc.Row(
                             [
-                                dbc.Label(dbc.NavLink(arg, n_clicks=0, id='manual-control-port-field', style={'cursor': 'pointer', 'color': 'blue', 'textDecoration': 'underline'}), html_for=str(value + "+" + arg), width=2),
+                                dbc.Label(
+                                    dbc.NavLink(
+                                        arg,
+                                        n_clicks=0,
+                                        id="manual-control-port-field",
+                                        style={
+                                            "cursor": "pointer",
+                                            "color": "blue",
+                                            "textDecoration": "underline",
+                                        },
+                                    ),
+                                    html_for=str(value + "+" + arg),
+                                    width=2,
+                                ),
                                 dbc.Col(
                                     [
                                         dbc.Input(
@@ -951,7 +964,9 @@ def create_manual_control_device_form(value, url):
                     toRet.append(
                         dbc.Row(
                             [
-                                dbc.Label([arg], html_for=str(value + "+" + arg), width=2),
+                                dbc.Label(
+                                    [arg], html_for=str(value + "+" + arg), width=2
+                                ),
                                 dbc.Col(
                                     [
                                         dbc.Input(
@@ -1086,7 +1101,7 @@ def manual_control_clear_button(value, url):
 
 
 @app.callback(
-    Output("manual-control-execute-button", "disabled"),
+    Output("manual-control-open-execute-modal-button", "disabled"),
     Input("manual-control-command-dropdown", "value"),
     State("url", "pathname"),
 )
@@ -1101,16 +1116,31 @@ def manual_control_execute_button(value, url):
 
 @app.callback(
     [
+        Output("manual-control-execute-modal", "is_open", allow_duplicate=True),
+        Output("manual-control-execute-modal-body", "children", allow_duplicate=True),
+    ],
+    Input("manual-control-open-execute-modal-button", "n_clicks"),
+    State("url", "pathname"),
+    prevent_initial_call=True,
+)
+def open_manual_control_execute_modal(n, url):
+    if str(url) == "/manual-control":
+        print("open_manual_control_execute_modal")
+        return True, []
+
+
+@app.callback(
+    [
         Output("manual-control-command-dropdown", "className"),
         Output("manual-control-alert", "is_open", allow_duplicate=True),
         Output("manual-control-alert", "children", allow_duplicate=True),
         Output("manual-control-alert", "color", allow_duplicate=True),
         Output("manual-control-alert", "duration", allow_duplicate=True),
-        Output('manual-control-execute-modal', 'is_open'),
-        Output('manual-control-execute-modal-body', 'children'),
-        Output('manual-control-execute-modal-body-code', 'children')
+        Output(
+            "manual-control-execute-modal-body-code", "children", allow_duplicate=True
+        ),
     ],
-    Input("manual-control-execute-button", "n_clicks"),
+    Input("manual-control-open-execute-modal-button", "n_clicks"),
     [
         State("url", "pathname"),
         State("manual-control-command-dropdown", "className"),
@@ -1121,11 +1151,19 @@ def manual_control_execute_button(value, url):
     ],
     prevent_initial_call=True,
 )
-def manual_control_execute(n, url, opt, device, command, device_form, command_form):
+def manual_control_execute_fill_code(
+    n, url, opt, device, command, device_form, command_form
+):
     if str(url) == "/manual-control":
-        print("manual_control_execute")
+        print("manual_control_execute_fill_code")
         if device is None or device == "" or command is None or command == "":
-            return opt, True, "Something went wrong. Check the fields below.", "danger", 3000
+            return (
+                opt,
+                True,
+                "Something went wrong. Check the fields below.",
+                "danger",
+                3000,
+            )
         code = ""
         code += util.devices_ref_redundancy[device]["import_device"]
         code += "\n"
@@ -1157,7 +1195,7 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
         instantiate_code += ")"
         code_seq = str(device) + "_seq"
         code += code_seq + " = CommandSequence()"
-        code += "\n"
+        code += "\n\n"
         code += code_seq + ".add_device(" + instantiate_code + ")"
         code += "\n"
 
@@ -1268,7 +1306,7 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
                         )
                     )
 
-            code += "))\n"
+            code += "))\n\n"
         else:
             code += code_seq + ".add_command(" + str(command) + "("
             for ii, seq_command_arg in enumerate(
@@ -1317,16 +1355,16 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
                         )
                     )
 
-            code += "))\n"
+            code += "))\n\n"
         code += (
             str(device)
             + "_seq_invoker = CommandInvoker("
             + str(device)
             + "_seq, False, False, False)\n"
         )
-        code += str(device) + "_seq_invoker.invoke_commands()\n"
+        code += str(device) + "_seq_invoker.invoke_commands()"
         interceptor = ConsoleInterceptor()
-        print('\n')
+        print("\n")
         interceptor.start_interception()
         print(code)
         interceptor.stop_interception()
@@ -1334,16 +1372,79 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
         code_log_string = ""
         for msg in code_output:
             code_log_string += msg
+        # interceptor = ConsoleInterceptor()
+        # interceptor.start_interception()
+        # try:
+        # exec(code)
+        # interceptor.stop_interception()
+        # messages = interceptor.get_intercepted_messages()
+        # log_string = ""
+        # for msg in messages:
+        #     if msg == '\r':
+        #         log_string += '\n'
+        #     else:
+        #         log_string += msg
+        # print(messages)
+        return (
+            opt,
+            True,
+            "Command(s) ready to execute.",
+            "warning",
+            0,
+            html.Pre(code_log_string),
+        )
+        # except Exception as e:
+        #     print(e)
+        #     # interceptor.stop_interception()
+        #     # messages = interceptor.get_intercepted_messages()
+        #     # log_string = ""
+        #     # for msg in messages:
+        #     #     log_string += msg
+        #     return opt, True, "Something went wrong. Check logs.", "Warning", 0, True, html.Pre(code_log_string)
+
+    return opt
+
+
+@app.callback(
+    [
+        Output("manual-control-alert", "is_open"),
+        Output("manual-control-alert", "children"),
+        Output("manual-control-alert", "color"),
+        Output("manual-control-alert", "duration"),
+        Output("manual-control-execute-modal-body", "children"),
+    ],
+    [Input("manual-control-execute-button", "n_clicks")],
+    [
+        State("url", "pathname"),
+        State("manual-control-execute-modal-body-code", "children"),
+    ],
+    prevent_initial_call=True,
+)
+def manual_control_execute_code(n, url, code):
+    if str(url) == "/manual-control":
+        print("manual_control_execute_code")
         interceptor = ConsoleInterceptor()
+        # print('\n')
+        # interceptor.start_interception()
+        # print(code)
+        # interceptor.stop_interception()
+        # code_output = interceptor.get_intercepted_messages()
+        # code_log_string = ""
+        # for msg in code_output:
+        #     code_log_string += msg
+        # interceptor = ConsoleInterceptor()
         interceptor.start_interception()
         try:
-            exec(code)
+            exec(code["props"]["children"])
             interceptor.stop_interception()
             messages = interceptor.get_intercepted_messages()
             log_string = ""
             for msg in messages:
-                log_string += msg
-            return opt, True, "Execution complete.", "success", 0, True, html.Pre(log_string), html.Pre(code_log_string)
+                if msg == "\r":
+                    log_string += "\n"
+                else:
+                    log_string += msg
+            return True, "Execution complete.", "success", 0, html.Pre(log_string)
         except Exception as e:
             print(e)
             interceptor.stop_interception()
@@ -1351,14 +1452,24 @@ def manual_control_execute(n, url, opt, device, command, device_form, command_fo
             log_string = ""
             for msg in messages:
                 log_string += msg
-            return opt, True, "Something went wrong. Check logs.", "danger", 0, True, html.Pre(log_string), html.Pre(code_log_string)
+            return (
+                True,
+                "Something went wrong. Check logs.",
+                "danger",
+                0,
+                html.Pre(log_string),
+            )
+    return False, "", "success", 0, html.Pre("")
 
-    return opt
 
 @app.callback(
-        [Output('manual-control-port-modal', 'is_open'), Output('manual-control-serial-ports-info', 'children')],
-        Input('manual-control-port-field', 'n_clicks'),
-        prevent_initial_call=True, suppress_callback_exceptions=True
+    [
+        Output("manual-control-port-modal", "is_open"),
+        Output("manual-control-serial-ports-info", "children"),
+    ],
+    Input("manual-control-port-field", "n_clicks"),
+    prevent_initial_call=True,
+    suppress_callback_exceptions=True,
 )
 def open_fill_manual_control_serial(n):
     if _has_serial and n != 0:

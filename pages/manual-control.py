@@ -14,8 +14,8 @@ layout = html.Div(
         dbc.ButtonGroup(
             [
                 dbc.Button(
-                    "Execute",
-                    id="manual-control-execute-button",
+                    "Open Execute Window",
+                    id="manual-control-open-execute-modal-button",
                     n_clicks=0,
                     disabled=True,
                 ),
@@ -30,11 +30,30 @@ layout = html.Div(
                 dbc.ModalHeader(dbc.ModalTitle("Execute")),
                 dbc.ModalBody(
                     [
-                        dbc.Alert(
-                            "Alert",
-                            id="manual-control-alert",
-                            is_open=False,
-                            duration=500,
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        dbc.Button(
+                                            "Execute",
+                                            id="manual-control-execute-button",
+                                            n_clicks=0,
+                                            style={"width": "100%"},
+                                        )
+                                    ],
+                                    width=2,
+                                ),
+                                dbc.Col(
+                                    [
+                                        dbc.Alert(
+                                            "Alert",
+                                            id="manual-control-alert",
+                                            is_open=False,
+                                            duration=500,
+                                        )
+                                    ]
+                                ),
+                            ]
                         ),
                         html.Div(
                             id="manual-control-execute-modal-body-code",
@@ -44,7 +63,7 @@ layout = html.Div(
                                 "overflow-y": "scroll",
                                 "padding": "10px",
                                 "border": "2px solid",
-                                "margin-bottom": "10px"
+                                "margin-bottom": "10px",
                             },
                         ),
                         html.Div(
@@ -65,12 +84,10 @@ layout = html.Div(
         ),
         dbc.Modal(
             [
-                 dbc.ModalHeader(dbc.ModalTitle("COM Port Information")),
-                 dbc.ModalBody([
-                     html.Div(id='manual-control-serial-ports-info')
-                 ])
+                dbc.ModalHeader(dbc.ModalTitle("COM Port Information")),
+                dbc.ModalBody([html.Div(id="manual-control-serial-ports-info")]),
             ],
-            id='manual-control-port-modal'
+            id="manual-control-port-modal",
         ),
         dbc.Row(
             [

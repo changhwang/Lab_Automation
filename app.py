@@ -52,12 +52,12 @@ server = app.server
 
 navbar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Home", href="/", external_link=True)),
+        dbc.NavItem(dbc.NavLink("Load", href="/load-recipe", external_link=True)),
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem(
-                    "Load Recipe", href="/load-recipe", external_link=True
-                ),
+                # dbc.DropdownMenuItem(
+                #     "Load Recipe", href="/load-recipe", external_link=True
+                # ),
                 dbc.DropdownMenuItem(
                     "View Recipe", href="/view-recipe", external_link=True
                 ),

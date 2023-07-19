@@ -116,6 +116,19 @@ def update_upstream_recipe_dict():
         return False
 
 
+def update_execution_upstream(execution):
+    if "document" in list(com.__dict__.keys()):
+        com.document["executions"].append(execution)
+        mongo.db["recipes"].update_one(
+            {"_id": com.document["_id"]}, {"$set": com.document}
+        )
+        print("successfully updated execution upstream")
+        return True
+    else:
+        print("com.document not found")
+        return False
+
+
 # ---------------------------------------------------
 # Home Page
 # ---------------------------------------------------
@@ -252,6 +265,7 @@ def create_new_recipe_doc(n, url, name):
                 "file_name": name,
                 "recipe_dict": {"devices": [], "commands": []},
                 "dash_friendly": True,
+                "executions": [],
             }
         )
 
@@ -629,6 +643,7 @@ def view_recipe_delete_device(n, url, active_cell, data):
         update_success = update_upstream_recipe_dict()
         return None
 
+
 @app.callback(
     Output("commands-table", "data", allow_duplicate=True),
     Input("delete-command-button", "n_clicks"),
@@ -644,6 +659,7 @@ def view_recipe_delete_command(n, url, active_cell, data):
         com.remove_command(data[active_cell["row"]]["index"])
         update_success = update_upstream_recipe_dict()
         return None
+
 
 @app.callback(
     Output("commands-table-div", "children"),
@@ -1121,6 +1137,39 @@ def execute_recipe_load_document_viewer(n, url):
             for command in recipe_ec[1]:
                 toRet += str(command) + "\n"
             return [toRet]
+
+
+@app.callback(
+    [Output("execute-recipe-upload-data-output", "children")],
+    Input("execute-recipe-upload-data-button", "n_clicks"),
+    [
+        State("url", "pathname"),
+        State("execute-recipe-upload-name", "value"),
+        State("execute-recipe-upload-document", "value"),
+        State("console-out2", "children"),
+        State("execute-recipe-upload-description", "value"),
+        State("execute-recipe-upload-files", "contents"),
+    ],
+    prevent_initial_call=True,
+)
+def execute_recipe_upload_data(
+    n_clicks, url, name, recipe_data, console_log, description, files
+):
+    if str(url) == "/execute-recipe":
+        print("execute_recipe_upload_data")
+        execution = {}
+        execution["name"] = name
+        if isinstance(recipe_data, list):
+            execution["recipe"] = recipe_data[0].split("\n")
+        else:
+            execution["recipe"] = recipe_data.split("\n")
+        execution["description"] = description
+        execution["log"] = str(console_log["props"]["children"]).split("\n")
+        exec_success = update_execution_upstream(execution)
+        if exec_success:
+            return [html.P("Data uploaded successfully")]
+        else:
+            return [html.P("Error uploading data")]
 
 
 # ---------------------------------------------------

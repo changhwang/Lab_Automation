@@ -43,15 +43,25 @@ layout = html.Div(
         dbc.Row(
             [
                 dbc.Col(
-                    dbc.Button(
+                    [dbc.Button(
                         "Refresh List",
                         id="home-refresh-list-button",
                         n_clicks=0,
                         color="secondary",
                         className="btn btn-secondary mb-3",
                     ),
+                    ],
                     width=2,
-                )
+                ),
+                dbc.Col([
+                    dbc.Button(
+                        "Create New Recipe",
+                        id="home-create-new-recipe-button",
+                        n_clicks=0,
+                        
+                    )
+                ],
+            )
             ]
         ),
         dbc.Row(

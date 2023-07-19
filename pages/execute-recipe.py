@@ -13,31 +13,49 @@ layout = html.Div(
         dbc.ButtonGroup(
             [
                 dbc.Button("Execute", id="execute-button", n_clicks=0),
-                dbc.Button("Stop", id="stop-button", n_clicks=0),
-                dbc.Button("Reset", id="reset-button", n_clicks=0),
+                dbc.Button("Clear Log", id="reset-button", n_clicks=0),
+                dbc.Button(
+                    "Emergency Stop", id="stop-button", n_clicks=0, color="danger"
+                ),
             ],
-            className="mb-2",
+            className="mb-3",
         ),
-        html.Div(
-            [
-                dbc.Switch(
-                    id='show-log-switch',
-                    label='Show log',
-                    value = False,
-                )
-            ],
-            className="d-flex align-items-center mt-3",
-        ),
+        # html.Div(
+        #     [
+        #         dbc.Switch(
+        #             id='show-log-switch',
+        #             label='Show log',
+        #             value = False,
+        #             style={'display': 'none'}
+        #         )
+        #     ],
+        #     className="d-flex align-items-center mt-3",
+        # ),
         html.Div(
             id="execute-recipe-output", className="mt-3", style={"display": "none"}
         ),
         dcc.Interval(id="update-interval", interval=500, n_intervals=0),
-        dcc.Interval(id="interval1", interval=500, n_intervals=0),
+        dcc.Interval(id="interval1", interval=50, n_intervals=0),
         html.Div(id="hidden-div", style={"display": "none"}),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.H4("Recipe Data"),
+                        dbc.Textarea(
+                            id="execute-recipe-upload-document",
+                            className="log-container mb-3",
+                            readOnly=True,
+                            style={"height": "200px"},
+                        ),
+                    ]
+                ),
+            ]
+        ),
         html.H4("Log"),
         html.Div(
             id="console-out2",
-            className="log-container",
+            className="log-container mb-3",
             style={
                 "height": "500px",
                 "overflow-y": "scroll",
@@ -45,7 +63,20 @@ layout = html.Div(
                 "border": "2px solid",
             },
         ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.H4("Description"),
+                        dbc.Textarea(
+                            id="execute-recipe-upload-description",
+                            className="log-container mb-3",
+                            style={"height": "200px"},
+                        ),
+                    ]
+                ),
+            ]
+        ),
     ],
     className="container",
 )
-

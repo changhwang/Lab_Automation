@@ -99,7 +99,15 @@ layout = html.Div(
                             value=None,
                             className="mb-3",
                         ),
-                        dbc.Col([], id="manual-control-device-form"),
+                        dbc.Col(
+                            [
+                                dbc.NavLink(
+                                    id="manual-control-port-field",
+                                    style={"display": "none"},
+                                ),
+                            ],
+                            id="manual-control-device-form",
+                        ),
                     ]
                 ),
                 dbc.Col(

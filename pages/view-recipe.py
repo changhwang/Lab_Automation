@@ -9,13 +9,25 @@ layout = html.Div(
         html.H1("View Recipe"),
         html.Div(
             [
+                dbc.Alert(
+                    id="view-recipe-alert",
+                    color="success",
+                    is_open=False,
+                    fade=True,
+                    className="mb-3",
+                ),
                 html.Div(
                     [
                         html.H2("Devices"),
-                        dbc.ButtonGroup([dbc.Button("Refresh", id="refresh-button1", n_clicks=0),
-                        dbc.Button("Add device", id="add-device-button"),
-                        dbc.Button("Edit", id="edit-device-button"),], className="mb-3"),
-                        
+                        dbc.ButtonGroup(
+                            [
+                                dbc.Button("Refresh", id="refresh-button1", n_clicks=0),
+                                dbc.Button("Add device", id="add-device-button"),
+                                dbc.Button("Edit", id="edit-device-button"),
+                                dbc.Button('Delete', id='delete-device-button'),
+                            ],
+                            className="mb-3",
+                        ),
                         dbc.Modal(
                             [
                                 dbc.ModalHeader(
@@ -61,6 +73,7 @@ layout = html.Div(
                                             id="add-device-dropdown",
                                             options=[],
                                             value=None,
+                                            className="mb-2",
                                         ),
                                         dcc.Textarea(
                                             id="add-device-json-editor",
@@ -76,7 +89,7 @@ layout = html.Div(
                                         ),
                                         html.Div(
                                             id="add-device-error",
-                                            style={"color": "red"},
+                                            style={"color": "red", "display": "none"},
                                         ),
                                         html.Div(
                                             id="add-device-serial-ports-info",
@@ -96,15 +109,22 @@ layout = html.Div(
                             id="devices-table-div",
                         ),
                     ],
-                    className="table-container",
+                    className="table-container mb-3",
                 ),
                 html.Div(
                     [
                         html.H2("Commands"),
-                        dbc.ButtonGroup([dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
-                        dbc.Button("Add command", id="add-command-button"),
-                        dbc.Button("Edit", id="edit-command-button"),], className="mb-3"),
-                        
+                        dbc.ButtonGroup(
+                            [
+                                dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
+                                dbc.Button(
+                                    "Add command", id="add-command-open-modal-button"
+                                ),
+                                dbc.Button("Edit", id="edit-command-button"),
+                                dbc.Button('Delete', id='delete-command-button'),
+                            ],
+                            className="mb-3",
+                        ),
                         dbc.Modal(
                             [
                                 dbc.ModalHeader(
@@ -135,6 +155,50 @@ layout = html.Div(
                                 ),
                             ],
                             id="command-editor-modal",
+                            keyboard=False,
+                            backdrop="static",
+                        ),
+                        dbc.Modal(
+                            [
+                                dbc.ModalHeader(dbc.ModalTitle("Add Command")),
+                                dbc.ModalBody(
+                                    [
+                                        dcc.Dropdown(
+                                            id="view-recipe-add-command-device-dropdown",
+                                            options=[],
+                                            value=None,
+                                        ),
+                                        dcc.Dropdown(
+                                            id="view-recipe-add-command-command-dropdown",
+                                            options=[],
+                                            value=None,
+                                            className="mb-2",
+                                        ),
+                                        dcc.Textarea(
+                                            id="view-recipe-add-command-json-editor",
+                                            style={
+                                                "width": "100%",
+                                                "height": "200px",
+                                                "fontFamily": "monospace",
+                                                "backgroundColor": "#f5f5f5",
+                                                "border": "1px solid #ccc",
+                                                "padding": "10px",
+                                                "color": "#333",
+                                            },
+                                        ),
+                                        html.Div(
+                                            id="add-command-error",
+                                            style={"color": "red"},
+                                        ),
+                                    ]
+                                ),
+                                dbc.ModalFooter(
+                                    dbc.Button(
+                                        "Add", id="view-recipe-add-command-editor"
+                                    )
+                                ),
+                            ],
+                            id="view-recipe-command-add-modal",
                             keyboard=False,
                             backdrop="static",
                         ),

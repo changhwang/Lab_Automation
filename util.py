@@ -11,6 +11,18 @@ from devices.dummy_motor import DummyMotor
 from devices.linear_stage_150 import LinearStage150
 from devices.keithley_2450 import Keithley2450
 from devices.device import Device, MiscDeviceClass
+
+from commands.linear_stage_150_commands import *
+from commands.dummy_heater_commands import *
+from commands.dummy_motor_commands import *
+from commands.dummy_meter_commands import *
+from commands.keithley_2450_commands import *
+from commands.ximea_camera_commands import *
+from commands.utility_commands import *
+from commands.heating_stage_commands import *
+from commands.multi_stepper_commands import *
+from commands.newport_esp301_commands import *
+
 import json
 import numpy as np
 from typing import Tuple, Union
@@ -56,6 +68,10 @@ def str_to_device(device_str: str):
 
 def device_to_dict(device: Device):
     return device.get_init_args()
+
+
+def evaluate(eval_str):
+    return eval(eval_str)
 
 
 class Encoder(json.JSONEncoder):
@@ -114,6 +130,7 @@ heating_stage_ref = {
                     "notes": "Name of the device",
                 }
             },
+            "obj": HeatingStageConnect,
         },
         "HeatingStageInitialize": {
             "default_code": "HeatingStageInitialize(receiver= '')",
@@ -124,6 +141,7 @@ heating_stage_ref = {
                     "notes": "Name of the device",
                 }
             },
+            "obj": HeatingStageInitialize,
         },
         "HeatingStageDeinitialize": {
             "default_code": "HeatingStageDeinitialize(receiver= '')",
@@ -134,6 +152,7 @@ heating_stage_ref = {
                     "notes": "Name of the device",
                 }
             },
+            "obj": HeatingStageDeinitialize,
         },
         "HeatingStageSetTemp": {
             "default_code": "HeatingStageSetTemp(receiver= '', temperature= 0.0)",
@@ -149,6 +168,7 @@ heating_stage_ref = {
                     "notes": "Temperature",
                 },
             },
+            "obj": HeatingStageSetTemp,
         },
         "HeatingStageSetSetPoint": {
             "default_code": "HeatingStageSetSetPoint(receiver= '', temperature= 0.0)",
@@ -164,48 +184,12 @@ heating_stage_ref = {
                     "notes": "Temperature",
                 },
             },
+            "obj": HeatingStageSetSetPoint,
         },
     },
 }
 
 
-devices_ref = {
-    "PrintingStage": heating_stage_ref,
-    "AnnealingStage": heating_stage_ref,
-    "MultiStepper": {
-        "obj": MultiStepper,
-        "import_device": "from devices.multi_stepper import MultiStepper",
-        "import_commands": "from commands.multi_stepper_commands import *",
-        "init": "MultiStepper(name='MultiStepper', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
-        "commands": {
-            "MultiStepperConnect": "MultiStepperConnect(receiver= '')",
-            "MultiStepperInitialize": "MultiStepperInitialize(receiver= '')",
-            "MultiStepperDeinitialize": "MultiStepperDeinitialize(receiver= '')",
-            "MultiStepperMoveAbsolute": "MultiStepperMoveAbsolute(receiver= '', stepper_number= 0, position= 0)",
-            "MultiStepperMoveRelative": "MultiStepperMoveRelative(receiver= '', stepper_number= 0, distance= 0)",
-        },
-    },
-    "PrinterMotorX": {"obj": NewportESP301},
-    # "Spectrometer": {"obj": StellarNetSpectrometer},
-    "XimeaCamera": {"obj": XimeaCamera},
-    "DummyHeater": {"obj": DummyHeater},
-    "DummyMotor": {"obj": DummyMotor},
-    "LinearStage150": {
-        "obj": LinearStage150,
-        "import_device": "from devices.linear_stage_150 import LinearStage150",
-        "import_commands": "from commands.linear_stage_150_commands import *",
-        "init": "LinearStage150(name='LinearStage150', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
-        "commands": {
-            "LinearStage150Connect": "LinearStage150Connect(receiver= '')",
-            "LinearStage150Initialize": "LinearStage150Initialize(receiver= '')",
-            "LinearStage150Deinitialize": "LinearStage150Deinitialize(receiver= '')",
-            "LinearStage150EnableMotor": "LinearStage150EnableMotor(receiver= '')",
-            "LinearStage150DisableMotor": "LinearStage150DisableMotor(receiver= '')",
-            "LinearStage150MoveAbsolute": "LinearStage150MoveAbsolute(receiver= '', position= 0)",
-            "LinearStage150MoveRelative": "LinearStage150MoveRelative(receiver= '', distance= 0)",
-        },
-    },
-}
 
 
 devices_ref_redundancy = {
@@ -262,6 +246,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": LinearStage150Connect,
             },
             "LinearStage150Initialize": {
                 "default_code": "LinearStage150Initialize(receiver= '')",
@@ -272,6 +257,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": LinearStage150Initialize,
             },
             "LinearStage150Deinitialize": {
                 "default_code": "LinearStage150Deinitialize(receiver= '')",
@@ -282,6 +268,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": LinearStage150Deinitialize,
             },
             "LinearStage150EnableMotor": {
                 "default_code": "LinearStage150EnableMotor(receiver= '')",
@@ -292,6 +279,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": LinearStage150EnableMotor,
             },
             "LinearStage150DisableMotor": {
                 "default_code": "LinearStage150DisableMotor(receiver= '')",
@@ -302,6 +290,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": LinearStage150DisableMotor,
             },
             "LinearStage150MoveAbsolute": {
                 "default_code": "LinearStage150MoveAbsolute(receiver= '', position= 0)",
@@ -317,6 +306,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": LinearStage150MoveAbsolute,
             },
             "LinearStage150MoveRelative": {
                 "default_code": "LinearStage150MoveRelative(receiver= '', distance= 0)",
@@ -332,10 +322,11 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": LinearStage150MoveRelative,
             },
         },
     },
-    "Keithley2450": {  # TODO finish this
+    "Keithley2450": {
         "obj": Keithley2450,
         "serial": True,
         "serial_sequence": ["Keithley2450Initialize"],
@@ -372,6 +363,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": Keithley2450Initialize,
             },
             "Keithley2450Deinitialize": {
                 "default_code": "Keithley2450Deinitialize(receiver= '')",
@@ -382,6 +374,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": Keithley2450Deinitialize,
             },
             "KeithleyWait": {
                 "default_code": "KeithleyWait(receiver= '')",
@@ -392,6 +385,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": KeithleyWait,
             },
             "KeithleyWriteCommand": {
                 "default_code": "KeithleyWriteCommand(receiver= '', command= '')",
@@ -407,6 +401,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": KeithleyWriteCommand,
             },
             "KeithleySetTerminal": {
                 "default_code": "KeithleySetTerminal(receiver= '', position= 'front')",
@@ -422,6 +417,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": KeithleySetTerminal,
             },
             "KeithleyErrorCheck": {
                 "default_code": "KeithleyErrorCheck(receiver= '')",
@@ -432,6 +428,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     }
                 },
+                "obj": KeithleyErrorCheck,
             },
             "KeithleyClearBuffer": {
                 "default_code": "KeithleyClearBuffer(receiver= '', buffer='defbuffer1')",
@@ -447,6 +444,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": KeithleyClearBuffer,
             },
             "KeithleyIVCharacteristic": {
                 "default_code": "KeithleyIVCharacteristic(receiver= '', ilimit=0.0, vmin=0.0, vmax=0.0, delay=0.0, steps=60)",
@@ -482,6 +480,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": KeithleyIVCharacteristic,
             },
             "KeithleyFourPoint": {
                 "default_code": "KeithleyFourPoint(receiver= '', test_curr=0.0, vlimit=0.0, curr_reversal = False)",
@@ -507,6 +506,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": KeithleyFourPoint,
             },
             "KeithleyGetData": {
                 "default_code": "KeithleyGetData(receiver= '', filename=None, four_point= False)",
@@ -527,6 +527,7 @@ devices_ref_redundancy = {
                         "notes": "",
                     },
                 },
+                "obj": KeithleyGetData,
             },
         },
     },
@@ -809,6 +810,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device.",
                     }
                 },
+                "obj": DummyMotorInitialize,
             },
             "DummyMotorDeinitialize": {
                 "default_code": "DummyMotorDeinitialize(receiver= '')",
@@ -819,6 +821,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device.",
                     }
                 },
+                "obj": DummyMotorDeinitialize,
             },
             "DummyMotorSetSpeed": {
                 "default_code": "DummyMotorSetSpeed(receiver= '', speed= 0.0)",
@@ -834,6 +837,7 @@ devices_ref_redundancy = {
                         "notes": "Speed of the motor.",
                     },
                 },
+                "obj": DummyMotorSetSpeed,
             },
             "DummyMotorMoveAbsolute": {
                 "default_code": "DummyMotorMoveAbsolute(receiver= '', position= 0)",
@@ -849,6 +853,7 @@ devices_ref_redundancy = {
                         "notes": "Position to move to.",
                     },
                 },
+                "obj": DummyMotorMoveAbsolute,
             },
             "DummyMotorMoveRelative": {
                 "default_code": "DummyMotorMoveRelative(receiver= '', distance= 0)",
@@ -864,6 +869,7 @@ devices_ref_redundancy = {
                         "notes": "Distance to move.",
                     },
                 },
+                "obj": DummyMotorMoveRelative,
             },
             "DummyMotorMoveSpeedAbsolute": {
                 "default_code": "DummyMotorMoveSpeedAbsolute(receiver= '', position= 0.0, speed= 0.0)",
@@ -884,10 +890,131 @@ devices_ref_redundancy = {
                         "notes": "Speed of the motor.",
                     },
                 },
+                "obj": DummyMotorMoveSpeedAbsolute,
             },
         },
     },
     # "Spectrometer": {"obj": StellarNetSpectrometer},
     # "XimeaCamera": {"obj": XimeaCamera},
-    # "DummyHeater": {"obj": DummyHeater},›
+    "DummyHeater": {
+        "obj": DummyHeater,
+        "serial": True,
+        "serial_sequence": ["DummyHeaterInitialize"],
+        "import_device": "from devices.dummy_heater import DummyHeater",
+        "import_commands": "from commands.dummy_heater_commands import *",
+        "init": {
+            "default_code": "DummyHeater(name='DummyHeater', heat_rate=20.0)",
+            "obj_name": "DummyHeater",
+            "args": {
+                "name": {
+                    "default": "DummyHeater",
+                    "type": str,
+                    "notes": "Name of the device.",
+                },
+                "heat_rate": {
+                    "default": 20.0,
+                    "type": float,
+                    "notes": "Heat rate of the heater.",
+                },
+            },
+        },
+        "commands": {
+            "DummyHeaterInitialize": {
+                "default_code": "DummyHeaterInitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "DummyHeater",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    }
+                },
+                "obj": DummyHeaterInitialize,
+            },
+            "DummyHeaterDeinitialize": {
+                "default_code": "DummyHeaterDeinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "DummyHeater",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    }
+                },
+                "obj": DummyHeaterDeinitialize,
+            },
+            "DummyHeaterSetHeatRate": {
+                "default_code": "DummyHeaterSetHeatRate(receiver= '', heat_rate= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyHeater",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "heat_rate": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Heat rate of the heater.",
+                    },
+                },
+                "obj": DummyHeaterSetHeatRate,
+            },
+            "DummyHeaterSetTemp": {
+                "default_code": "DummyHeaterSetTemp(receiver= '', temperature= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "DummyHeater",
+                        "type": str,
+                        "notes": "Name of the device.",
+                    },
+                    "temperature": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Temperature to set the heater to.",
+                    },
+                },
+                "obj": DummyHeaterSetTemp,
+            },
+        },
+    },
 }
+
+
+
+
+
+# devices_ref = {
+#     "PrintingStage": heating_stage_ref,
+#     "AnnealingStage": heating_stage_ref,
+#     "MultiStepper": {
+#         "obj": MultiStepper,
+#         "import_device": "from devices.multi_stepper import MultiStepper",
+#         "import_commands": "from commands.multi_stepper_commands import *",
+#         "init": "MultiStepper(name='MultiStepper', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
+#         "commands": {
+#             "MultiStepperConnect": "MultiStepperConnect(receiver= '')",
+#             "MultiStepperInitialize": "MultiStepperInitialize(receiver= '')",
+#             "MultiStepperDeinitialize": "MultiStepperDeinitialize(receiver= '')",
+#             "MultiStepperMoveAbsolute": "MultiStepperMoveAbsolute(receiver= '', stepper_number= 0, position= 0)",
+#             "MultiStepperMoveRelative": "MultiStepperMoveRelative(receiver= '', stepper_number= 0, distance= 0)",
+#         },
+#     },
+#     "PrinterMotorX": {"obj": NewportESP301},
+#     # "Spectrometer": {"obj": StellarNetSpectrometer},
+#     "XimeaCamera": {"obj": XimeaCamera},
+#     "DummyHeater": {"obj": DummyHeater},
+#     "DummyMotor": {"obj": DummyMotor},
+#     "LinearStage150": {
+#         "obj": LinearStage150,
+#         "import_device": "from devices.linear_stage_150 import LinearStage150",
+#         "import_commands": "from commands.linear_stage_150_commands import *",
+#         "init": "LinearStage150(name='LinearStage150', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
+#         "commands": {
+#             "LinearStage150Connect": "LinearStage150Connect(receiver= '')",
+#             "LinearStage150Initialize": "LinearStage150Initialize(receiver= '')",
+#             "LinearStage150Deinitialize": "LinearStage150Deinitialize(receiver= '')",
+#             "LinearStage150EnableMotor": "LinearStage150EnableMotor(receiver= '')",
+#             "LinearStage150DisableMotor": "LinearStage150DisableMotor(receiver= '')",
+#             "LinearStage150MoveAbsolute": "LinearStage150MoveAbsolute(receiver= '', position= 0)",
+#             "LinearStage150MoveRelative": "LinearStage150MoveRelative(receiver= '', distance= 0)",
+#         },
+#     },
+# }

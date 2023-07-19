@@ -52,21 +52,33 @@ server = app.server
 
 navbar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Home", href="/")),
+        dbc.NavItem(dbc.NavLink("Home", href="/", external_link=True)),
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("Load Recipe", href="/load-recipe"),
-                dbc.DropdownMenuItem("View Recipe", href="/view-recipe"),
-                dbc.DropdownMenuItem("Edit Recipe", href="/edit-recipe"),
-                dbc.DropdownMenuItem("Execute Recipe", href="/execute-recipe"),
-                dbc.DropdownMenuItem("Document", href="/data"),
+                dbc.DropdownMenuItem(
+                    "Load Recipe", href="/load-recipe", external_link=True
+                ),
+                dbc.DropdownMenuItem(
+                    "View Recipe", href="/view-recipe", external_link=True
+                ),
+                dbc.DropdownMenuItem(
+                    "Edit Code", href="/edit-recipe", external_link=True
+                ),
+                dbc.DropdownMenuItem(
+                    "Execute Recipe", href="/execute-recipe", external_link=True
+                ),
+                dbc.DropdownMenuItem("Document", href="/data", external_link=True),
             ],
             nav=True,
             in_navbar=True,
             label="Recipe",
         ),
-        dbc.NavItem(dbc.NavLink("Manual Control", href="/manual-control")),
-        dbc.NavItem(dbc.NavLink("Database Browser", href="/database")),
+        dbc.NavItem(
+            dbc.NavLink("Manual Control", href="/manual-control", external_link=True)
+        ),
+        dbc.NavItem(
+            dbc.NavLink("Database Browser", href="/database", external_link=True)
+        ),
     ],
     brand="AAMP",
     brand_href="/",
@@ -84,6 +96,24 @@ app.layout = html.Div([dcc.Location(id="url"), navbar, dash.page_container])
 def print_pagename(url):  # all pages
     print("loading: " + url + "\n")
     return "AAMP"
+
+
+def update_upstream_recipe_dict():
+    print("update_upstream_recipe_dict")
+    if "document" in list(com.__dict__.keys()):
+        recipe_dict = com.get_recipe()
+        com.document["recipe_dict"] = {
+            "devices": recipe_dict[0],
+            "commands": recipe_dict[1],
+        }
+        mongo.db["recipes"].update_one(
+            {"_id": com.document["_id"]}, {"$set": com.document}
+        )
+        print("successfully updated recipe_dict upstream")
+        return True
+    else:
+        print("com.document not found")
+        return False
 
 
 # ---------------------------------------------------
@@ -132,17 +162,18 @@ def fetch_recipe_list(n_clicks):  # homepage
 @app.callback(
     Output("filename-input", "value"),
     Input("home-recipes-list-table", "active_cell"),
-    State("home-recipes-list-table", "data"),
+    [State("url", "pathname"), State("home-recipes-list-table", "data")],
     # prevent_initial_call=True,
 )
-def fill_filename_input(active_cell, data):  # homepage
-    if active_cell is not None:
-        print("fill_filename_input")
-        return data[active_cell["row"]]["file_name"]
-    if hasattr(com, "document"):
-        print("fill_filename_input")
-        return com.document["file_name"]
-    return ""
+def fill_filename_input(active_cell, url, data):  # homepage
+    if str(url) == "/load-recipe":
+        if active_cell is not None:
+            print("fill_filename_input")
+            return data[active_cell["row"]]["file_name"]
+        if "document" in list(com.__dict__.keys()):
+            print("fill_filename_input")
+            return com.document["file_name"]
+        return ""
 
 
 @app.callback(
@@ -162,6 +193,15 @@ def get_document_from_db(n_clicks, filename):  # homepage
         # Extract the YAML content from the document
         document = mongo.find_documents("recipes", {"file_name": filename})[0]
         invoker.clear_log_file()
+        try:
+            com.clear_recipe()
+            com.load_from_dict(document["recipe_dict"])
+            com.document = document
+            print("loaded from dict")
+            return [True, "Recipe loaded", "success", 10000]
+
+        except Exception as e:
+            print("Failed load from dict: " + str(e))
         if os.name == "posix":
             if "posix_friendly" in document and not document["posix_friendly"]:
                 return [
@@ -191,6 +231,31 @@ def get_document_from_db(n_clicks, filename):  # homepage
         return [True, "Recipe loaded", "success", 10000]
 
     return [True, "No recipe selected", "warning", 3000]
+
+
+@app.callback(
+    [
+        Output("home-load-file-alert", "is_open", allow_duplicate=True),
+        Output("home-load-file-alert", "children", allow_duplicate=True),
+        Output("home-load-file-alert", "color", allow_duplicate=True),
+        Output("home-load-file-alert", "duration", allow_duplicate=True),
+    ],
+    Input("home-create-new-recipe-button", "n_clicks"),
+    [State("url", "pathname"), State("filename-input", "value")],
+    prevent_initial_call=True,
+)
+def create_new_recipe_doc(n, url, name):
+    if str(url) == "/load-recipe":
+        print("create_new_recipe_doc")
+        mongo.db["recipes"].insert_one(
+            {
+                "file_name": name,
+                "recipe_dict": {"devices": [], "commands": []},
+                "dash_friendly": True,
+            }
+        )
+
+        return [True, "Recipe created", "success", 10000]
 
 
 # ---------------------------------------------------
@@ -271,12 +336,19 @@ def save_command(n_clicks, active_cell, data, value):  # view-recipe page
         json.loads(value)
     ):
         com.command_list[data[active_cell["row"]]["index"]][0]._params = eval(value)
+        update_upstream_recipe_dict()
         return None
     return data
 
 
 @app.callback(
-    Output("devices-table", "data"),
+    [
+        Output("devices-table", "data"),
+        Output("view-recipe-alert", "is_open", allow_duplicate=True),
+        Output("view-recipe-alert", "children", allow_duplicate=True),
+        Output("view-recipe-alert", "color", allow_duplicate=True),
+        Output("view-recipe-alert", "duration", allow_duplicate=True),
+    ],
     Input("save-device-editor", "n_clicks"),
     [
         State("devices-table", "active_cell"),
@@ -293,8 +365,9 @@ def save_device(n_clicks, active_cell, data, value):  # view-recipe page
         # data_row = data[active_cell["row"]]
         params = eval(value)
         com.device_by_name[params["name"]].update_init_args(params)
-        return None
-    return data
+        update_success = update_upstream_recipe_dict()
+        return None, True, "Device updated.", "success", 3000
+    return data, False, "Something went wrong. Device not updated.", "danger", 3000
 
 
 @app.callback(
@@ -319,7 +392,7 @@ def fill_command_json_editor(is_open, active_cell, data):  # view-recipe page
 )
 def fill_device_add_modal(is_open, active_cell, data):  # view-recipe page
     print("fill_device_add_modal")
-    return util.approved_devices
+    return list(util.devices_ref_redundancy.keys())
 
 
 @app.callback(
@@ -331,13 +404,18 @@ def fill_device_add_json_editor(value, is_open):  # view-recipe page
     print("fill_device_add_json_editor")
     if not is_open or value is None:
         return [""]
-    args_list = inspect.getfullargspec(util.named_devices[value].__init__).args
+    # args_list = inspect.getfullargspec(util.devices_ref_redundancy[value]['obj'].__init__).args
     args_dict = {}
+    # for arg in args_list:
+    #     if arg != "self" and arg != "name":
+    #         args_dict[arg] = None
+    #     if arg == "name":
+    #         args_dict[arg] = value
+    args_list = list(util.devices_ref_redundancy[value]["init"]["args"].keys())
     for arg in args_list:
-        if arg != "self" and arg != "name":
-            args_dict[arg] = None
-        if arg == "name":
-            args_dict[arg] = value
+        args_dict[arg] = util.devices_ref_redundancy[value]["init"]["args"][arg][
+            "default"
+        ]
     return [(json.dumps(args_dict, indent=4))]
 
 
@@ -363,7 +441,7 @@ def fill_device_json_editor(is_open, active_cell, data):  # view-recipe page
                 str_ports += f"{port}: {desc} [{hwid}]\n"
             lines = str_ports.splitlines()
             device_port_html = [
-                html.Div(["COM Port Info:"], style={"font-weight": "bold"})
+                html.Div(["COM Port Info:"], style={"fontWeight": "bold"})
             ]
             device_port_html.append(html.Div([html.Div(line) for line in lines]))
         else:
@@ -449,7 +527,7 @@ def enable_add_device_button(value, device_type, is_open):  # view-recipe page
                 + str(args[key])
             )
             if type((parsed_json[key])) != args[key]:
-                return True, f"Invalid type for {key}. Expected {str(args[key])}"
+                return False, f"Invalid type for {key}. Expected {str(args[key])}"
             # if not isinstance(parsed_json[key], args[key]):
             #     return True, f"Invalid type for {key}. Expected {str(args[key])}"
         print("enable_add_device_button")
@@ -457,7 +535,34 @@ def enable_add_device_button(value, device_type, is_open):  # view-recipe page
     except Exception as e:
         if type(e) == json.decoder.JSONDecodeError:
             return True, "Invalid JSON"
-        return True, str(type(e))
+        return False, str(type(e))
+
+
+@app.callback(
+    [
+        Output("view-recipe-alert", "is_open"),
+        Output("view-recipe-alert", "children"),
+        Output("view-recipe-alert", "color"),
+        Output("view-recipe-alert", "duration"),
+    ],
+    [Input("add-device-editor", "n_clicks")],
+    [
+        State("add-device-dropdown", "value"),
+        State("url", "pathname"),
+        State("add-device-json-editor", "value"),
+    ],
+    prevent_initial_call=True,
+)
+def view_recipe_add_device(n, device_type, url, device_dict):
+    if str(url) == "/view-recipe":
+        com.add_device_from_dict(device_type, json.loads(device_dict))
+        update_success = update_upstream_recipe_dict()
+        return (
+            True,
+            f"Added {device_type}. Database updated: {update_success}",
+            "success",
+            3000,
+        )
 
 
 @app.callback(
@@ -478,13 +583,67 @@ def edit_command_button(table_div_children):  # view-recipe page
     Input("devices-table", "active_cell"),
 )
 def edit_device_button(table_div_children):  # view-recipe page
-    print("edit_device_button")
     active_cell = table_div_children
     if active_cell is not None:
         return False
     else:
         return True
 
+
+@app.callback(
+    Output("delete-device-button", "disabled"),
+    Input("devices-table", "active_cell"),
+)
+def view_recipe_enable_delete_device_button(table_div_children):
+    active_cell = table_div_children
+    if active_cell is not None:
+        return False
+    else:
+        return True
+
+
+@app.callback(
+    Output("delete-command-button", "disabled"), Input("commands-table", "active_cell")
+)
+def view_recipe_enable_delete_command_button(table_div_children):
+    active_cell = table_div_children
+    if active_cell is not None:
+        return False
+    else:
+        return True
+
+
+@app.callback(
+    Output("devices-table", "data", allow_duplicate=True),
+    Input("delete-device-button", "n_clicks"),
+    [
+        State("url", "pathname"),
+        State("devices-table", "active_cell"),
+        State("devices-table", "data"),
+    ],
+    prevent_initial_call=True,
+)
+def view_recipe_delete_device(n, url, active_cell, data):
+    if str(url) == "/view-recipe":
+        com.remove_device_by_index(data[active_cell["row"]]["index"])
+        update_success = update_upstream_recipe_dict()
+        return None
+
+@app.callback(
+    Output("commands-table", "data", allow_duplicate=True),
+    Input("delete-command-button", "n_clicks"),
+    [
+        State("url", "pathname"),
+        State("commands-table", "active_cell"),
+        State("commands-table", "data"),
+    ],
+    prevent_initial_call=True,
+)
+def view_recipe_delete_command(n, url, active_cell, data):
+    if str(url) == "/view-recipe":
+        com.remove_command(data[active_cell["row"]]["index"])
+        update_success = update_upstream_recipe_dict()
+        return None
 
 @app.callback(
     Output("commands-table-div", "children"),
@@ -538,6 +697,122 @@ def update_commands_table(n_clicks, data, table):  # view-recipe page
         # editable = True,
     )
     return table
+
+
+@app.callback(
+    Output("view-recipe-command-add-modal", "is_open"),
+    Input("add-command-open-modal-button", "n_clicks"),
+    [State("url", "pathname")],
+    prevent_initial_call=True,
+)
+def view_recipe_open_add_command_modal(n, url):
+    if url == "/view-recipe":
+        return True
+
+
+@app.callback(
+    Output("view-recipe-add-command-device-dropdown", "options"),
+    Input("view-recipe-command-add-modal", "is_open"),
+    State("url", "pathname"),
+    prevent_initial_call=True,
+)
+def view_recipe_fill_add_command_device_dropdown(is_open, url):
+    if url == "/view-recipe":
+        print("view_recipe_fill_add_command_device_dropdown")
+        return list(util.devices_ref_redundancy.keys())
+
+
+@app.callback(
+    Output("view-recipe-add-command-command-dropdown", "options"),
+    Input("view-recipe-add-command-device-dropdown", "value"),
+    State("url", "pathname"),
+    prevent_initial_call=True,
+)
+def view_recipe_fill_add_command_command_dropdown(device_type, url):
+    if url == "/view-recipe":
+        if device_type is None or device_type == "":
+            return []
+        return list(util.devices_ref_redundancy[device_type]["commands"].keys())
+
+
+@app.callback(
+    Output("view-recipe-add-command-json-editor", "value"),
+    Input("view-recipe-add-command-command-dropdown", "value"),
+    [
+        State("url", "pathname"),
+        State("view-recipe-add-command-device-dropdown", "value"),
+    ],
+    prevent_initial_call=True,
+)
+def view_recipe_fill_add_command_json_editor(command_type, url, device_type):
+    if url == "/view-recipe":
+        if command_type is None or command_type == "":
+            return ""
+        args_dict = {}
+        args_list = util.devices_ref_redundancy[device_type]["commands"][command_type][
+            "args"
+        ]
+        for arg in args_list:
+            args_dict[arg] = args_list[arg]["default"]
+        args_dict["delay"] = 0.0
+        return json.dumps(args_dict, indent=4)
+
+
+@app.callback(
+    [
+        Output("view-recipe-add-command-editor", "disabled"),
+        Output("add-command-error", "children"),
+    ],
+    Input("view-recipe-add-command-json-editor", "value"),
+    State("url", "pathname"),
+)
+def view_recipe_check_add_command_json(value, url):
+    if str(url) == "/view-recipe":
+        if value == "" or value is None:
+            return True, []
+        try:
+            json.loads(value)
+            return False, []
+        except Exception as e:
+            return True, ["Invalid JSON: " + str(e)]
+
+
+@app.callback(
+    [
+        Output("view-recipe-command-add-modal", "is_open", allow_duplicate=True),
+        Output("view-recipe-alert", "is_open", allow_duplicate=True),
+        Output("view-recipe-alert", "children", allow_duplicate=True),
+        Output("view-recipe-alert", "color", allow_duplicate=True),
+        Output("view-recipe-alert", "duration", allow_duplicate=True),
+        Output("commands-table", "data", allow_duplicate=True),
+    ],
+    Input("view-recipe-add-command-editor", "n_clicks"),
+    [
+        State("url", "pathname"),
+        State("view-recipe-add-command-device-dropdown", "value"),
+        State("view-recipe-add-command-command-dropdown", "value"),
+        State("view-recipe-add-command-json-editor", "value"),
+    ],
+    prevent_initial_call=True,
+)
+def view_recipe_add_command(n, url, device_type, command_type, json_value):
+    if str(url) == "/view-recipe":
+        if json_value == "" or json_value is None:
+            return [False, True, ["Something went wrong"], "danger", 3000]
+        try:
+            com.add_command_from_dict(device_type, command_type, json.loads(json_value))
+            update_upstream_recipe_dict()
+            return [False, True, ["Command added"], "success", 3000, None]
+        except Exception as e:
+            print(str(e))
+            return [
+                False,
+                True,
+                ["Something went wrong: " + str(e)],
+                "danger",
+                3000,
+                None,
+            ]
 
 
 # ---------------------------------------------------
@@ -784,7 +1059,7 @@ def kill_execution():  # execute-recipe page
 )
 def stop_execution(n):  # execute-recipe page
     print("stop_execution")
-    # kill_execution()
+    kill_execution()
     return []
 
 
@@ -804,11 +1079,11 @@ def execute_recipe(n_clicks):  # execute-recipe page
 @app.callback(
     Output("console-out2", "children"),
     Input("interval1", "n_intervals"),
-    [State("url", "pathname"), State("show-log-switch", "value")],
+    [State("url", "pathname")],
     prevent_initial_call=True,
 )
-def update_output(n, url, switch_val):  # execute-recipe page
-    if url == "/execute-recipe" and switch_val:
+def update_output(n, url):  # execute-recipe page
+    if url == "/execute-recipe":
         log_string = ""
         log_list = invoker.get_log_messages()
         for msg in log_list:
@@ -828,6 +1103,24 @@ def reset_console(n):  # execute-recipe page
     invoker.clear_log_file()
     # dashLoggerHandler.queue = []
     return []
+
+
+@app.callback(
+    Output("execute-recipe-upload-document", "value"),
+    Input("reset-button", "n_clicks"),
+    State("url", "pathname"),
+)
+def execute_recipe_load_document_viewer(n, url):
+    if str(url) == "/execute-recipe":
+        if com.device_list != []:
+            toRet = ""
+            recipe_ec = com.get_recipe()
+            for device in recipe_ec[0]:
+                toRet += str(device) + "\n"
+            toRet += "\n"
+            for command in recipe_ec[1]:
+                toRet += str(command) + "\n"
+            return [toRet]
 
 
 # ---------------------------------------------------
@@ -1469,7 +1762,6 @@ def manual_control_execute_code(n, url, code):
     ],
     Input("manual-control-port-field", "n_clicks"),
     prevent_initial_call=True,
-    suppress_callback_exceptions=True,
 )
 def open_fill_manual_control_serial(n):
     if _has_serial and n != 0:

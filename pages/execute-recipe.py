@@ -81,9 +81,9 @@ layout = html.Div(
             [
                 dbc.Col(
                     [
-                        html.H4("Description"),
+                        html.H4("Notes"),
                         dbc.Textarea(
-                            id="execute-recipe-upload-description",
+                            id="execute-recipe-upload-notes",
                             className="log-container mb-3",
                             style={"height": "200px"},
                         ),

@@ -70,7 +70,7 @@ layout = html.Div(
                     dash_table.DataTable(
                         id="home-recipes-list-table",
                         columns=[
-                            {"name": "File Name", "id": "file_name"},
+                            {"name": "Recipe Name", "id": "file_name"},
                             {"name": "Posix Compatible", "id": "posix_friendly"},
                             {"name": "Viewer Compatible", "id": "dash_friendly"},
                             {"name": "Python Code Available", "id": "python_code"},

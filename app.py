@@ -1147,13 +1147,13 @@ def execute_recipe_load_document_viewer(n, url):
         State("execute-recipe-upload-name", "value"),
         State("execute-recipe-upload-document", "value"),
         State("console-out2", "children"),
-        State("execute-recipe-upload-description", "value"),
+        State("execute-recipe-upload-notes", "value"),
         State("execute-recipe-upload-files", "contents"),
     ],
     prevent_initial_call=True,
 )
 def execute_recipe_upload_data(
-    n_clicks, url, name, recipe_data, console_log, description, files
+    n_clicks, url, name, recipe_data, console_log, notes, files
 ):
     if str(url) == "/execute-recipe":
         print("execute_recipe_upload_data")
@@ -1163,7 +1163,7 @@ def execute_recipe_upload_data(
             execution["recipe"] = recipe_data[0].split("\n")
         else:
             execution["recipe"] = recipe_data.split("\n")
-        execution["description"] = description
+        execution["notes"] = notes
         execution["log"] = str(console_log["props"]["children"]).split("\n")
         exec_success = update_execution_upstream(execution)
         if exec_success:
@@ -1711,6 +1711,7 @@ def manual_control_execute_fill_code(
         print(code)
         interceptor.stop_interception()
         code_output = interceptor.get_intercepted_messages()
+        del interceptor
         code_log_string = ""
         for msg in code_output:
             code_log_string += msg
@@ -1780,6 +1781,7 @@ def manual_control_execute_code(n, url, code):
             exec(code["props"]["children"])
             interceptor.stop_interception()
             messages = interceptor.get_intercepted_messages()
+            del interceptor
             log_string = ""
             for msg in messages:
                 if msg == "\r":
@@ -1791,6 +1793,7 @@ def manual_control_execute_code(n, url, code):
             print(e)
             interceptor.stop_interception()
             messages = interceptor.get_intercepted_messages()
+            del interceptor
             log_string = ""
             for msg in messages:
                 log_string += msg

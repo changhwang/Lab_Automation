@@ -196,7 +196,7 @@ devices_ref_redundancy = {
     "LinearStage150": {
         "obj": LinearStage150,
         "serial": True,
-        "serial_sequence": ["LinearStage150Connect"],
+        "serial_sequence": ["LinearStage150Connect", "LinearStage150EnableMotor"],
         "import_device": "from devices.linear_stage_150 import LinearStage150",
         "import_commands": "from commands.linear_stage_150_commands import *",
         "init": {

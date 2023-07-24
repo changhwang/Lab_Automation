@@ -2,7 +2,6 @@ from dash import Dash, html, dcc, dash_table, Input, Output, callback, State
 import dash_bootstrap_components as dbc
 import dash
 import logging
-from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
 
 
 dash.register_page(__name__, path="/execute-recipe", name="Execute Recipe", title="Execute Recipe")

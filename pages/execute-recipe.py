@@ -5,7 +5,7 @@ import logging
 from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
 
 
-dash.register_page(__name__, "/execute-recipe")
+dash.register_page(__name__, path="/execute-recipe", name="Execute Recipe", title="Execute Recipe")
 
 layout = html.Div(
     [

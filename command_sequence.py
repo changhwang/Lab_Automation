@@ -659,6 +659,9 @@ class CommandSequence:
         self.update_device_by_name()
 
     def add_command_from_dict(self, device_type, command_type, command_dict):
+        if device_type == "UtilityCommands":
+            self.add_command(util.devices_ref_redundancy[device_type]['commands'][command_type]['obj'](**command_dict))
+            return
         command_dict_receiver = command_dict["receiver"]
         command_dict_delay = command_dict['delay']
         del command_dict["receiver"]

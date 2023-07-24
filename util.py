@@ -11,6 +11,7 @@ from devices.dummy_motor import DummyMotor
 from devices.linear_stage_150 import LinearStage150
 from devices.keithley_2450 import Keithley2450
 from devices.device import Device, MiscDeviceClass
+from devices.utility_device import UtilityCommands
 
 from commands.linear_stage_150_commands import *
 from commands.dummy_heater_commands import *
@@ -22,6 +23,7 @@ from commands.utility_commands import *
 from commands.heating_stage_commands import *
 from commands.multi_stepper_commands import *
 from commands.newport_esp301_commands import *
+from commands.utility_commands import *
 
 import json
 import numpy as np
@@ -193,6 +195,64 @@ heating_stage_ref = {
 
 
 devices_ref_redundancy = {
+    "UtilityCommands":{
+        "obj": UtilityCommands,
+        "serial": False,
+        "import_device": "from devices.utility_commands import UtilityCommands",
+        "import_commands": "from commands.utility_commands import *",
+        "init":{
+            "default_code": "# Utility Commands used",
+            "obj_name": "UtilityCommands",
+            "args": {}
+        },
+        "commands":{
+            "LoopStartCommand":{
+                "default_code": "LoopStartCommand()",
+                "args": {},
+                "obj": LoopStartCommand,
+            },
+            "LoopEndCommand":{
+                "default_code": "LoopEndCommand()",
+                "args": {},
+                "obj": LoopEndCommand,
+            },
+            "DelayPauseCommand":{
+                "default_code": "DelayPauseCommand(delay=0.0)",\
+                "args": {
+                    "delay": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Delay in seconds",
+                    }
+                },
+                "obj": DelayPauseCommand,
+            },
+            "NotifySlackCommand":{
+                "default_code": "NotifySlackCommand(message='Hello World')",
+                "args": {
+                    "message": {
+                        "default": "Hello World",
+                        "type": str,
+                        "notes": "Message to send to slack",
+                    }
+                },
+                "obj": NotifySlackCommand,
+            },
+            "LogUserMessageCommand":{
+                "default_code": "LogUserMessageCommand(message='Hello World')",
+                "args": {
+                    "message": {
+                        "default": "Hello World",
+                        "type": str,
+                        "notes": "Message to log",
+                    }
+                },
+                "obj": LogUserMessageCommand,
+            }
+
+        }
+    }
+    ,
     "LinearStage150": {
         "obj": LinearStage150,
         "serial": True,
@@ -585,6 +645,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device",
                     }
                 },
+                "obj": MultiStepperConnect,
             },
             "MultiStepperInitialize": {
                 "default_code": "MultiStepperInitialize(receiver= '')",
@@ -595,6 +656,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device",
                     }
                 },
+                "obj": MultiStepperInitialize,
             },
             "MultiStepperDeinitialize": {
                 "default_code": "MultiStepperDeinitialize(receiver= '')",
@@ -605,6 +667,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device",
                     }
                 },
+                "obj": MultiStepperDeinitialize,
             },
             "MultiStepperMoveAbsolute": {
                 "default_code": "MultiStepperMoveAbsolute(receiver= '', stepper_number= 0, position= 0)",
@@ -625,6 +688,7 @@ devices_ref_redundancy = {
                         "notes": "Position to move to",
                     },
                 },
+                "obj": MultiStepperMoveAbsolute,
             },
             "MultiStepperMoveRelative": {
                 "default_code": "MultiStepperMoveRelative(receiver= '', stepper_number= 0, distance= 0)",
@@ -645,6 +709,7 @@ devices_ref_redundancy = {
                         "notes": "Distance to move",
                     },
                 },
+                "obj": MultiStepperMoveRelative,
             },
         },
     },
@@ -705,6 +770,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device",
                     }
                 },
+                "obj": NewportESP301Connect,
             },
             "NewportESP301Initialize": {
                 "default_code": "NewportESP301Initialize(receiver= '')",
@@ -715,6 +781,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device",
                     }
                 },
+                "obj": NewportESP301Initialize,
             },
             "NewportESP301Deinitialize": {
                 "default_code": "NewportESP301Deinitialize(receiver= '')",
@@ -725,6 +792,7 @@ devices_ref_redundancy = {
                         "notes": "Name of the device",
                     }
                 },
+                "obj": NewportESP301Deinitialize,
             },
             "NewportESP301MoveSpeedAbsolute": {
                 "default_code": "NewportESP301MoveSpeedAbsolute(receiver= '', axis= 1, position= 0, speed= 20.0)",
@@ -750,6 +818,7 @@ devices_ref_redundancy = {
                         "notes": "Speed to move at",
                     },
                 },
+                "obj": NewportESP301MoveSpeedAbsolute,
             },
             "NewportESP301MoveSpeedRelative": {
                 "default_code": "NewportESP301MoveSpeedRelative(receiver= '', axis= 1, distance= 0, speed= 20.0)",
@@ -775,6 +844,7 @@ devices_ref_redundancy = {
                         "notes": "Speed to move at",
                     },
                 },
+                "obj": NewportESP301MoveSpeedRelative,
             },
         },
     },

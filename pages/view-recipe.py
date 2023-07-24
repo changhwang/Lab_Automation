@@ -2,7 +2,7 @@ from dash import Dash, html, dcc, dash_table, callback, Input, Output, State
 import dash_bootstrap_components as dbc
 import dash
 
-dash.register_page(__name__, "/view-recipe")
+dash.register_page(__name__, path="/view-recipe", name="View Recipe", title="View Recipe")
 
 layout = html.Div(
     [

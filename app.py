@@ -533,13 +533,13 @@ def enable_add_device_button(value, device_type, is_open):  # view-recipe page
             )
         parsed_json = json.loads(value)
         for key in parsed_json:
-            print("\n" + key)
-            print(
-                "input: "
-                + str(type((parsed_json[key])))
-                + ", expected: "
-                + str(args[key])
-            )
+            # print("\n" + key)
+            # print(
+            #     "input: "
+            #     + str(type((parsed_json[key])))
+            #     + ", expected: "
+            #     + str(args[key])
+            # )
             if type((parsed_json[key])) != args[key]:
                 return False, f"Invalid type for {key}. Expected {str(args[key])}"
             # if not isinstance(parsed_json[key], args[key]):

@@ -217,8 +217,15 @@ layout = html.Div(
                         #     style={"display": "none"},
                         # ),
                     ],
-                    className="table-container",
+                    className="table-container mb-3",
                 ),
+
+                html.Div(
+                    [
+                        html.H2("Execution Options"),
+                    ],
+                    className="table-container mb-3",
+                )
                 # html.Div(
                 #     [
                 #         html.H2("Command Iterations"),

@@ -163,3 +163,4 @@ e4.yaml
 e4mongo.yaml
 project_const.py
 pw.py
+.DS_Store

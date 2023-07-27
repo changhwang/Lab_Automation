@@ -214,15 +214,6 @@ layout = html.Div(
                                     [
                                         dbc.Col(
                                             [
-                                                html.H5("Output Files"),
-                                                dbc.Textarea(
-                                                    id="view-recipe-execution-options-output-files",
-                                                    placeholder="Enter one filename with extension per line",
-                                                ),
-                                            ]
-                                        ),
-                                        dbc.Col(
-                                            [
                                                 html.H5("Default Execution Record Name"),
                                                 dbc.Col(
                                                     [
@@ -230,6 +221,15 @@ layout = html.Div(
                                                             id="view-recipe-execution-options-default-execution-record-name",
                                                         )
                                                     ]
+                                                ),
+                                            ]
+                                        ),
+                                        dbc.Col(
+                                            [
+                                                html.H5("Output Files"),
+                                                dbc.Textarea(
+                                                    id="view-recipe-execution-options-output-files",
+                                                    placeholder="Enter one filename with extension per line",
                                                 ),
                                             ]
                                         ),

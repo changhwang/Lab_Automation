@@ -29,6 +29,7 @@ class CommandSequence:
         self.db_device_list = []
         self.command_list = []
         self.db_command_list = []
+        self.execution_options = {}
         self.num_iterations = "ALL"
         # self.processed_devices = []
         # self.processed_commands = []
@@ -605,6 +606,7 @@ class CommandSequence:
         """Returns a list for use with the dashboard."""
         devices = []
         commands = []
+        execution_options = self.execution_options
         for i, device in enumerate(self.device_list):
             devices.append(
                 {str(device.__class__.__name__): {"args": device.get_init_args()}}
@@ -628,7 +630,7 @@ class CommandSequence:
                     }
                 }
             )
-        return [devices, commands]
+        return [devices, commands, execution_options]
 
     def load_from_dict(self, recipe_dict):
         """Loads a recipe from a dictionary."""
@@ -653,6 +655,7 @@ class CommandSequence:
                         receiver=self.device_by_name[rec_name], **command_params["args"]
                     )
                 )
+        self.execution_options = recipe_dict["execution_options"]
 
     def add_device_from_dict(self, device_type, device_dict):
         self.add_device(util.devices_ref_redundancy[device_type]["obj"](**device_dict))

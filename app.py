@@ -34,11 +34,7 @@ com.load_from_yaml("blank.yaml")
 
 
 mongo = MongoDBHelper(
-    "mongodb+srv://"
-    + mongo_username
-    + ":"
-    + mongo_password
-    + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://" + mongo_username + ":" + mongo_password + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
     "diaogroup",
 )
 
@@ -53,31 +49,21 @@ server = app.server
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Load", href="/load-recipe", external_link=True)),
+        dbc.NavItem(dbc.NavLink("View", href="/view-recipe", external_link=True)),
+        dbc.NavItem(dbc.NavLink("Execute", href="/execute-recipe", external_link=True)),
+        dbc.NavItem(dbc.NavLink("Manual Control", href="/manual-control", external_link=True)),
+        dbc.NavItem(dbc.NavLink("Database Browser", href="/database", external_link=True)),
         dbc.DropdownMenu(
             children=[
                 # dbc.DropdownMenuItem(
                 #     "Load Recipe", href="/load-recipe", external_link=True
                 # ),
-                dbc.DropdownMenuItem(
-                    "View Recipe", href="/view-recipe", external_link=True
-                ),
-                dbc.DropdownMenuItem(
-                    "Edit Code", href="/edit-recipe", external_link=True
-                ),
-                dbc.DropdownMenuItem(
-                    "Execute Recipe", href="/execute-recipe", external_link=True
-                ),
+                dbc.DropdownMenuItem("Edit Code", href="/edit-recipe", external_link=True),
                 dbc.DropdownMenuItem("Document", href="/data", external_link=True),
             ],
             nav=True,
             in_navbar=True,
-            label="Recipe",
-        ),
-        dbc.NavItem(
-            dbc.NavLink("Manual Control", href="/manual-control", external_link=True)
-        ),
-        dbc.NavItem(
-            dbc.NavLink("Database Browser", href="/database", external_link=True)
+            label="Tools",
         ),
     ],
     brand="AAMP",
@@ -105,10 +91,9 @@ def update_upstream_recipe_dict():
         com.document["recipe_dict"] = {
             "devices": recipe_dict[0],
             "commands": recipe_dict[1],
+            "execution_options": recipe_dict[2]
         }
-        mongo.db["recipes"].update_one(
-            {"_id": com.document["_id"]}, {"$set": com.document}
-        )
+        mongo.db["recipes"].update_one({"_id": com.document["_id"]}, {"$set": com.document})
         print("successfully updated recipe_dict upstream")
         return True
     else:
@@ -119,9 +104,7 @@ def update_upstream_recipe_dict():
 def update_execution_upstream(execution):
     if "document" in list(com.__dict__.keys()):
         com.document["executions"].append(execution)
-        mongo.db["recipes"].update_one(
-            {"_id": com.document["_id"]}, {"$set": com.document}
-        )
+        mongo.db["recipes"].update_one({"_id": com.document["_id"]}, {"$set": com.document})
         print("successfully updated execution upstream")
         return True
     else:
@@ -223,10 +206,7 @@ def get_document_from_db(n_clicks, filename):  # homepage
                     "danger",
                     8000,
                 ]
-        if (
-            document.get("dash_friendly", "") == False
-            or document.get("python_code", "") == ""
-        ):
+        if document.get("dash_friendly", "") == False or document.get("python_code", "") == "":
             yaml_content = document.get("yaml_data", "")
             # Update the YAML output
             with open("to_load.yaml", "w") as file:
@@ -263,7 +243,11 @@ def create_new_recipe_doc(n, url, name):
         mongo.db["recipes"].insert_one(
             {
                 "file_name": name,
-                "recipe_dict": {"devices": [], "commands": []},
+                "recipe_dict": {
+                    "devices": [],
+                    "commands": [],
+                    "execution_options": {"output_files": [], "default_execution_record_name": "Execution - " + str(name)},
+                },
                 "dash_friendly": True,
                 "executions": [],
             }
@@ -346,9 +330,7 @@ def update_device_table(n_clicks, data, table):  # view-recipe page
 )
 def save_command(n_clicks, active_cell, data, value):  # view-recipe page
     print("save_command")
-    if active_cell is not None and data[active_cell["row"]]["params"] != str(
-        json.loads(value)
-    ):
+    if active_cell is not None and data[active_cell["row"]]["params"] != str(json.loads(value)):
         com.command_list[data[active_cell["row"]]["index"]][0]._params = eval(value)
         update_upstream_recipe_dict()
         return None
@@ -373,9 +355,7 @@ def save_command(n_clicks, active_cell, data, value):  # view-recipe page
 )
 def save_device(n_clicks, active_cell, data, value):  # view-recipe page
     print("save_device")
-    if active_cell is not None and data[active_cell["row"]]["params"] != str(
-        json.loads(value)
-    ):
+    if active_cell is not None and data[active_cell["row"]]["params"] != str(json.loads(value)):
         # data_row = data[active_cell["row"]]
         params = eval(value)
         com.device_by_name[params["name"]].update_init_args(params)
@@ -427,9 +407,7 @@ def fill_device_add_json_editor(value, is_open):  # view-recipe page
     #         args_dict[arg] = value
     args_list = list(util.devices_ref_redundancy[value]["init"]["args"].keys())
     for arg in args_list:
-        args_dict[arg] = util.devices_ref_redundancy[value]["init"]["args"][arg][
-            "default"
-        ]
+        args_dict[arg] = util.devices_ref_redundancy[value]["init"]["args"][arg]["default"]
     return [(json.dumps(args_dict, indent=4))]
 
 
@@ -454,9 +432,7 @@ def fill_device_json_editor(is_open, active_cell, data):  # view-recipe page
             for port, desc, hwid in sorted(ports):
                 str_ports += f"{port}: {desc} [{hwid}]\n"
             lines = str_ports.splitlines()
-            device_port_html = [
-                html.Div(["COM Port Info:"], style={"fontWeight": "bold"})
-            ]
+            device_port_html = [html.Div(["COM Port Info:"], style={"fontWeight": "bold"})]
             device_port_html.append(html.Div([html.Div(line) for line in lines]))
         else:
             device_port_html = ""
@@ -526,11 +502,7 @@ def enable_add_device_button(value, device_type, is_open):  # view-recipe page
         args = {}
         for param in sig.parameters.values():
             arg_type = param.annotation
-            args[param.name] = (
-                typing.get_args(arg_type)[0]
-                if typing.get_origin(arg_type) is typing.Union
-                else arg_type
-            )
+            args[param.name] = typing.get_args(arg_type)[0] if typing.get_origin(arg_type) is typing.Union else arg_type
         parsed_json = json.loads(value)
         for key in parsed_json:
             # print("\n" + key)
@@ -616,9 +588,7 @@ def view_recipe_enable_delete_device_button(table_div_children):
         return True
 
 
-@app.callback(
-    Output("delete-command-button", "disabled"), Input("commands-table", "active_cell")
-)
+@app.callback(Output("delete-command-button", "disabled"), Input("commands-table", "active_cell"))
 def view_recipe_enable_delete_command_button(table_div_children):
     active_cell = table_div_children
     if active_cell is not None:
@@ -672,9 +642,7 @@ def update_commands_table(n_clicks, data, table):  # view-recipe page
     command_params = []
     for index, command in enumerate(command_list):
         temp_dict_command_params = {"command": type(command[0]).__name__}
-        temp_dict_command_params.update(
-            {"params": str(command[0].get_init_args()), "index": index}
-        )
+        temp_dict_command_params.update({"params": str(command[0].get_init_args()), "index": index})
         command_params.append((temp_dict_command_params))
         # else:
         #     command_params.append(command._params)
@@ -765,9 +733,7 @@ def view_recipe_fill_add_command_json_editor(command_type, url, device_type):
         if command_type is None or command_type == "":
             return ""
         args_dict = {}
-        args_list = util.devices_ref_redundancy[device_type]["commands"][command_type][
-            "args"
-        ]
+        args_list = util.devices_ref_redundancy[device_type]["commands"][command_type]["args"]
         for arg in args_list:
             args_dict[arg] = args_list[arg]["default"]
         args_dict["delay"] = 0.0
@@ -831,6 +797,37 @@ def view_recipe_add_command(n, url, device_type, command_type, json_value):
             ]
 
 
+@app.callback(
+    [Output("view-recipe-execution-options-output-files", "value"), Output("view-recipe-execution-options-default-execution-record-name", "value")],
+    Input("url", "pathname"),
+)
+def view_recipe_fill_execution_options(url):
+    if str(url) == "/view-recipe":
+        if "document" in com.__dict__.keys():
+            ls = com.document["recipe_dict"]["execution_options"]["output_files"]
+            filesToRet = ""
+            for item in ls:
+                filesToRet += item + "\n"
+            return [filesToRet, com.document["recipe_dict"]["execution_options"]["default_execution_record_name"]]
+        return ["", ""]
+
+
+@app.callback(
+        [Output('view-recipe-execution-options-saved-label', "children"), Output('view-recipe-execution-options-saved-label', 'style')],
+        Input('view-recipe-execution-options-save-button', "n_clicks"),
+        [State('view-recipe-execution-options-output-files', "value"), State('view-recipe-execution-options-default-execution-record-name', "value"), State("url", "pathname")],
+        prevent_initial_call=True,
+)
+def view_recipe_save_execution_options(n, filenames, default_execution_record_name, url):
+    if str(url) == '/view-recipe':
+        com.execution_options["output_files"] = filenames.splitlines()
+        com.execution_options["default_execution_record_name"] = default_execution_record_name
+        success = update_upstream_recipe_dict()
+        if success:
+            return ["Saved!", {"display": "block"}]
+        else:
+            return ['Something went wrong', {"display": "block"}]
+    return ["", {"display": "none"}]
 # ---------------------------------------------------
 # Python Edit Recipe Page
 # ---------------------------------------------------
@@ -964,9 +961,7 @@ def enable_add_device_button_ace(value, is_openInp, is_open):  # python-edit-rec
     State("command-add-modal-ace", "is_open"),
     prevent_initial_call=True,
 )
-def enable_add_command_button_ace(
-    value, is_openInp, is_open
-):  # python-edit-recipe page
+def enable_add_command_button_ace(value, is_openInp, is_open):  # python-edit-recipe page
     if value == "" or value is None:
         return True
     print("enable_add_command_button_ace")
@@ -997,9 +992,7 @@ def add_device_to_recipe_ace(n_clicks, value, device_type):  # python-edit-recip
             value = import_line + "\n" + value
         value = value.replace(
             "##################################################\n##### Add commands to the command sequence",
-            "seq.add_device("
-            + init_line
-            + ")\n\n##################################################\n##### Add commands to the command sequence",
+            "seq.add_device(" + init_line + ")\n\n##################################################\n##### Add commands to the command sequence",
         )
         return [str(value), True, "Device added successfully", "success", 3000]
     except Exception as e:
@@ -1023,35 +1016,25 @@ def add_device_to_recipe_ace(n_clicks, value, device_type):  # python-edit-recip
     ],
     prevent_initial_call=True,
 )
-def add_commands_to_recipe_ace(
-    n_clicks, value, command, device_type
-):  # python-edit-recipe page
+def add_commands_to_recipe_ace(n_clicks, value, command, device_type):  # python-edit-recipe page
     print("add_commands_to_recipe_ace")
     og_value = str(value)
     if value == "" or value is None:
         return ["", True, "No code in editor", "warning", 3000]
     try:
         value = str(value)
-        command_line = util.devices_ref_redundancy[device_type]["commands"][command][
-            "default_code"
-        ]
+        command_line = util.devices_ref_redundancy[device_type]["commands"][command]["default_code"]
         import_line = util.devices_ref_redundancy[device_type]["import_commands"]
         import_device_line = util.devices_ref_redundancy[device_type]["import_device"]
         if import_device_line not in value:
-            raise Exception(
-                "Device (or its import '"
-                + import_device_line
-                + "') not found in recipe"
-            )
+            raise Exception("Device (or its import '" + import_device_line + "') not found in recipe")
         if import_line not in value:
             value = import_line + "\n" + value
         if "\nrecipe_file = 'to_save.yaml'\nseq.save_to_yaml(recipe_file)" not in value:
             raise Exception("Code is not in valid format")
         value = value.replace(
             "\nrecipe_file = 'to_save.yaml'\nseq.save_to_yaml(recipe_file)",
-            "\nseq.add_command("
-            + command_line
-            + ")\n\n\nrecipe_file = 'to_save.yaml'\nseq.save_to_yaml(recipe_file)",
+            "\nseq.add_command(" + command_line + ")\n\n\nrecipe_file = 'to_save.yaml'\nseq.save_to_yaml(recipe_file)",
         )
         return [str(value), True, "Command added successfully", "success", 3000]
     except Exception as e:
@@ -1152,9 +1135,7 @@ def execute_recipe_load_document_viewer(n, url):
     ],
     prevent_initial_call=True,
 )
-def execute_recipe_upload_data(
-    n_clicks, url, name, recipe_data, console_log, notes, files
-):
+def execute_recipe_upload_data(n_clicks, url, name, recipe_data, console_log, notes, files):
     if str(url) == "/execute-recipe":
         print("execute_recipe_upload_data")
         execution = {}
@@ -1306,9 +1287,7 @@ def create_manual_control_device_form(value, url):
                     toRet.append(
                         dbc.Row(
                             [
-                                dbc.Label(
-                                    [arg], html_for=str(value + "+" + arg), width=2
-                                ),
+                                dbc.Label([arg], html_for=str(value + "+" + arg), width=2),
                                 dbc.Col(
                                     [
                                         dbc.Input(
@@ -1347,34 +1326,22 @@ def create_manual_control_command_form(command, device, url, device_form):
             toRet = []
             if util.devices_ref_redundancy[device]["serial"] == True:
                 seq_toRet = []
-                for seq_command in util.devices_ref_redundancy[device][
-                    "serial_sequence"
-                ]:
+                for seq_command in util.devices_ref_redundancy[device]["serial_sequence"]:
                     seq_toRet.append(dbc.Row([dbc.Label([seq_command])]))
-                    args = util.devices_ref_redundancy[device]["commands"][seq_command][
-                        "args"
-                    ]
+                    args = util.devices_ref_redundancy[device]["commands"][seq_command]["args"]
                     for arg in args:
                         seq_toRet.append(
                             dbc.Row(
                                 [
                                     dbc.Label(
                                         [arg],
-                                        html_for=str(
-                                            device + "+" + seq_command + "+" + arg
-                                        ),
+                                        html_for=str(device + "+" + seq_command + "+" + arg),
                                         width=2,
                                     ),
                                     dbc.Col(
                                         [
                                             dbc.Input(
-                                                id=str(
-                                                    device
-                                                    + "+"
-                                                    + seq_command
-                                                    + "+"
-                                                    + arg
-                                                ),
+                                                id=str(device + "+" + seq_command + "+" + arg),
                                                 value=args[arg]["default"],
                                                 placeholder=args[arg]["notes"],
                                             ),
@@ -1478,9 +1445,7 @@ def open_manual_control_execute_modal(n, url):
         Output("manual-control-alert", "children", allow_duplicate=True),
         Output("manual-control-alert", "color", allow_duplicate=True),
         Output("manual-control-alert", "duration", allow_duplicate=True),
-        Output(
-            "manual-control-execute-modal-body-code", "children", allow_duplicate=True
-        ),
+        Output("manual-control-execute-modal-body-code", "children", allow_duplicate=True),
     ],
     Input("manual-control-open-execute-modal-button", "n_clicks"),
     [
@@ -1493,9 +1458,7 @@ def open_manual_control_execute_modal(n, url):
     ],
     prevent_initial_call=True,
 )
-def manual_control_execute_fill_code(
-    n, url, opt, device, command, device_form, command_form
-):
+def manual_control_execute_fill_code(n, url, opt, device, command, device_form, command_form):
     if str(url) == "/manual-control":
         print("manual_control_execute_fill_code")
         if device is None or device == "" or command is None or command == "":
@@ -1522,18 +1485,10 @@ def manual_control_execute_fill_code(
             instantiate_code += arg + "="
             if util.devices_ref_redundancy[device]["init"]["args"][arg]["type"] == str:
                 instantiate_code += "'"
-                instantiate_code += str(
-                    device_form[i]["props"]["children"][1]["props"]["children"][0][
-                        "props"
-                    ]["value"]
-                )
+                instantiate_code += str(device_form[i]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
                 instantiate_code += "'"
             else:
-                instantiate_code += str(
-                    device_form[i]["props"]["children"][1]["props"]["children"][0][
-                        "props"
-                    ]["value"]
-                )
+                instantiate_code += str(device_form[i]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
         instantiate_code += ")"
         code_seq = str(device) + "_seq"
         code += code_seq + " = CommandSequence()"
@@ -1542,15 +1497,9 @@ def manual_control_execute_fill_code(
         code += "\n"
 
         if util.devices_ref_redundancy[device]["serial"] == True:
-            for i, serial_seq_command in enumerate(
-                util.devices_ref_redundancy[device]["serial_sequence"]
-            ):
+            for i, serial_seq_command in enumerate(util.devices_ref_redundancy[device]["serial_sequence"]):
                 code += code_seq + ".add_command(" + str(serial_seq_command) + "("
-                for ii, serial_seq_command_arg in enumerate(
-                    util.devices_ref_redundancy[device]["commands"][serial_seq_command][
-                        "args"
-                    ]
-                ):
+                for ii, serial_seq_command_arg in enumerate(util.devices_ref_redundancy[device]["commands"][serial_seq_command]["args"]):
                     if ii != 0:
                         code += ", "
                     if serial_seq_command_arg == "receiver":
@@ -1560,30 +1509,17 @@ def manual_control_execute_fill_code(
                             + str(device)
                             + "_seq.device_by_name['"
                             + str(
-                                command_form[0]["props"]["children"][(2 * ii) + 1][
-                                    "props"
-                                ]["children"][1]["props"]["children"][0]["props"][
-                                    "value"
-                                ]
+                                command_form[0]["props"]["children"][(2 * ii) + 1]["props"]["children"][1]["props"]["children"][0]["props"]["value"]
                             )
                             + "']"
                         )
-                    elif (
-                        util.devices_ref_redundancy[device]["commands"][
-                            serial_seq_command
-                        ]["args"][serial_seq_command_arg]["type"]
-                        == str
-                    ):
+                    elif util.devices_ref_redundancy[device]["commands"][serial_seq_command]["args"][serial_seq_command_arg]["type"] == str:
                         code += (
                             serial_seq_command_arg
                             + "="
                             + "'"
                             + str(
-                                command_form[0]["props"]["children"][(2 * ii) + 1][
-                                    "props"
-                                ]["children"][1]["props"]["children"][0]["props"][
-                                    "value"
-                                ]
+                                command_form[0]["props"]["children"][(2 * ii) + 1]["props"]["children"][1]["props"]["children"][0]["props"]["value"]
                             )
                             + "'"
                         )
@@ -1592,19 +1528,13 @@ def manual_control_execute_fill_code(
                             serial_seq_command_arg
                             + "="
                             + str(
-                                command_form[0]["props"]["children"][(2 * ii) + 1][
-                                    "props"
-                                ]["children"][1]["props"]["children"][0]["props"][
-                                    "value"
-                                ]
+                                command_form[0]["props"]["children"][(2 * ii) + 1]["props"]["children"][1]["props"]["children"][0]["props"]["value"]
                             )
                         )
 
                 code += "))\n"
             code += code_seq + ".add_command(" + str(command) + "("
-            for ii, seq_command_arg in enumerate(
-                util.devices_ref_redundancy[device]["commands"][command]["args"]
-            ):
+            for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]["commands"][command]["args"]):
                 if ii != 0:
                     code += ", "
                 if seq_command_arg == "receiver":
@@ -1613,47 +1543,28 @@ def manual_control_execute_fill_code(
                         + "="
                         + str(device)
                         + "_seq.device_by_name['"
-                        + str(
-                            command_form[2]["props"]["children"][ii]["props"][
-                                "children"
-                            ][1]["props"]["children"][0]["props"]["value"]
-                        )
+                        + str(command_form[2]["props"]["children"][ii]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
                         + "']"
                     )
-                elif (
-                    util.devices_ref_redundancy[device]["commands"][command]["args"][
-                        seq_command_arg
-                    ]["type"]
-                    == str
-                ):
+                elif util.devices_ref_redundancy[device]["commands"][command]["args"][seq_command_arg]["type"] == str:
                     code += (
                         seq_command_arg
                         + "="
                         + "'"
-                        + str(
-                            command_form[2]["props"]["children"][ii]["props"][
-                                "children"
-                            ][1]["props"]["children"][0]["props"]["value"]
-                        )
+                        + str(command_form[2]["props"]["children"][ii]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
                         + "'"
                     )
                 else:
                     code += (
                         seq_command_arg
                         + "="
-                        + str(
-                            command_form[2]["props"]["children"][ii]["props"][
-                                "children"
-                            ][1]["props"]["children"][0]["props"]["value"]
-                        )
+                        + str(command_form[2]["props"]["children"][ii]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
                     )
 
             code += "))\n\n"
         else:
             code += code_seq + ".add_command(" + str(command) + "("
-            for ii, seq_command_arg in enumerate(
-                util.devices_ref_redundancy[device]["commands"][command]["args"]
-            ):
+            for ii, seq_command_arg in enumerate(util.devices_ref_redundancy[device]["commands"][command]["args"]):
                 if ii != 0:
                     code += ", "
                 if seq_command_arg == "receiver":
@@ -1662,48 +1573,26 @@ def manual_control_execute_fill_code(
                         + "="
                         + str(device)
                         + "_seq.device_by_name['"
-                        + str(
-                            command_form[1]["props"]["children"][ii]["props"][
-                                "children"
-                            ][1]["props"]["children"][0]["props"]["value"]
-                        )
+                        + str(command_form[1]["props"]["children"][ii]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
                         + "']"
                     )
-                elif (
-                    util.devices_ref_redundancy[device]["commands"][command]["args"][
-                        seq_command_arg
-                    ]["type"]
-                    == str
-                ):
+                elif util.devices_ref_redundancy[device]["commands"][command]["args"][seq_command_arg]["type"] == str:
                     code += (
                         seq_command_arg
                         + "="
                         + "'"
-                        + str(
-                            command_form[1]["props"]["children"][ii]["props"][
-                                "children"
-                            ][1]["props"]["children"][0]["props"]["value"]
-                        )
+                        + str(command_form[1]["props"]["children"][ii]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
                         + "'"
                     )
                 else:
                     code += (
                         seq_command_arg
                         + "="
-                        + str(
-                            command_form[1]["props"]["children"][ii]["props"][
-                                "children"
-                            ][1]["props"]["children"][0]["props"]["value"]
-                        )
+                        + str(command_form[1]["props"]["children"][ii]["props"]["children"][1]["props"]["children"][0]["props"]["value"])
                     )
 
             code += "))\n\n"
-        code += (
-            str(device)
-            + "_seq_invoker = CommandInvoker("
-            + str(device)
-            + "_seq, False, False, False)\n"
-        )
+        code += str(device) + "_seq_invoker = CommandInvoker(" + str(device) + "_seq, False, False, False)\n"
         code += str(device) + "_seq_invoker.invoke_commands()"
         interceptor = ConsoleInterceptor()
         print("\n")
@@ -1918,9 +1807,7 @@ def fill_database_collection_schema(collection, db, url):
         print("fill_database_collection_schema")
         if collection is not None and collection != "" and db is not None and db != "":
             try:
-                schema = (
-                    mongo.client[db].get_collection(collection).options()["validator"]
-                )
+                schema = mongo.client[db].get_collection(collection).options()["validator"]
                 schema = process_schema(schema)
                 return render_dict(schema)
             except Exception as e:

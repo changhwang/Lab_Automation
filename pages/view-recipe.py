@@ -24,15 +24,13 @@ layout = html.Div(
                                 dbc.Button("Refresh", id="refresh-button1", n_clicks=0),
                                 dbc.Button("Add device", id="add-device-button"),
                                 dbc.Button("Edit", id="edit-device-button"),
-                                dbc.Button('Delete', id='delete-device-button'),
+                                dbc.Button("Delete", id="delete-device-button"),
                             ],
                             className="mb-3",
                         ),
                         dbc.Modal(
                             [
-                                dbc.ModalHeader(
-                                    dbc.ModalTitle("Editor"), close_button=False
-                                ),
+                                dbc.ModalHeader(dbc.ModalTitle("Editor"), close_button=False),
                                 dbc.ModalBody(
                                     [
                                         dcc.Textarea(
@@ -56,9 +54,7 @@ layout = html.Div(
                                         ),
                                     ]
                                 ),
-                                dbc.ModalFooter(
-                                    dbc.Button("Save", id="save-device-editor")
-                                ),
+                                dbc.ModalFooter(dbc.Button("Save", id="save-device-editor")),
                             ],
                             id="device-editor-modal",
                             keyboard=False,
@@ -96,9 +92,7 @@ layout = html.Div(
                                         ),
                                     ]
                                 ),
-                                dbc.ModalFooter(
-                                    dbc.Button("Add", id="add-device-editor")
-                                ),
+                                dbc.ModalFooter(dbc.Button("Add", id="add-device-editor")),
                             ],
                             id="device-add-modal",
                             keyboard=False,
@@ -117,19 +111,15 @@ layout = html.Div(
                         dbc.ButtonGroup(
                             [
                                 dbc.Button("Refresh", id="refresh-button2", n_clicks=0),
-                                dbc.Button(
-                                    "Add command", id="add-command-open-modal-button"
-                                ),
+                                dbc.Button("Add command", id="add-command-open-modal-button"),
                                 dbc.Button("Edit", id="edit-command-button"),
-                                dbc.Button('Delete', id='delete-command-button'),
+                                dbc.Button("Delete", id="delete-command-button"),
                             ],
                             className="mb-3",
                         ),
                         dbc.Modal(
                             [
-                                dbc.ModalHeader(
-                                    dbc.ModalTitle("Editor"), close_button=False
-                                ),
+                                dbc.ModalHeader(dbc.ModalTitle("Editor"), close_button=False),
                                 dbc.ModalBody(
                                     [
                                         dcc.Textarea(
@@ -150,9 +140,7 @@ layout = html.Div(
                                         ),
                                     ]
                                 ),
-                                dbc.ModalFooter(
-                                    dbc.Button("Save", id="save-command-editor")
-                                ),
+                                dbc.ModalFooter(dbc.Button("Save", id="save-command-editor")),
                             ],
                             id="command-editor-modal",
                             keyboard=False,
@@ -192,11 +180,7 @@ layout = html.Div(
                                         ),
                                     ]
                                 ),
-                                dbc.ModalFooter(
-                                    dbc.Button(
-                                        "Add", id="view-recipe-add-command-editor"
-                                    )
-                                ),
+                                dbc.ModalFooter(dbc.Button("Add", id="view-recipe-add-command-editor")),
                             ],
                             id="view-recipe-command-add-modal",
                             keyboard=False,
@@ -219,12 +203,43 @@ layout = html.Div(
                     ],
                     className="table-container mb-3",
                 ),
-
                 html.Div(
                     [
                         html.H2("Execution Options"),
+                        dbc.Row(
+                            [
+                                dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            [
+                                                html.H5("Output Files"),
+                                                dbc.Textarea(
+                                                    id="view-recipe-execution-options-output-files",
+                                                    placeholder="Enter one filename with extension per line",
+                                                ),
+                                            ]
+                                        ),
+                                        dbc.Col(
+                                            [
+                                                html.H5("Default Execution Record Name"),
+                                                dbc.Col(
+                                                    [
+                                                        dbc.Input(
+                                                            id="view-recipe-execution-options-default-execution-record-name",
+                                                        )
+                                                    ]
+                                                ),
+                                            ]
+                                        ),
+                                    ],
+                                    className="mb-3",
+                                ),
+                            ]
+                        ),
+                        dbc.Button("Save Options", id="view-recipe-execution-options-save-button", n_clicks=0, className="mb-3"),
+                        dbc.Label("Execution Options Saved", id="view-recipe-execution-options-saved-label", style={"display": "none"}),
                     ],
-                    className="table-container mb-3",
+                    className="table-container mb-5",
                 )
                 # html.Div(
                 #     [

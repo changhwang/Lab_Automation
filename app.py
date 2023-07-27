@@ -15,6 +15,9 @@ import inspect
 from pw import mongo_username, mongo_password
 from bson.objectid import ObjectId
 from console_interceptor import ConsoleInterceptor
+from gridfs import GridFS
+import base64
+import io
 
 try:
     import serial.tools.list_ports
@@ -41,6 +44,7 @@ mongo = MongoDBHelper(
     + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
     "diaogroup",
 )
+mongo_gridfs = GridFS(mongo.db, collection="recipes")
 
 app = dash.Dash(
     __name__,
@@ -1137,21 +1141,28 @@ def reset_console(n):  # execute-recipe page
 
 
 @app.callback(
-    Output("execute-recipe-upload-document", "value"),
+    [
+        Output("execute-recipe-upload-document", "value"),
+        Output("execute-recipe-upload-name", "value"),
+    ],
     Input("reset-button", "n_clicks"),
     State("url", "pathname"),
 )
 def execute_recipe_load_document_viewer(n, url):
     if str(url) == "/execute-recipe":
-        if com.device_list != []:
-            toRet = ""
-            recipe_ec = com.get_recipe()
-            for device in recipe_ec[0]:
-                toRet += str(device) + "\n"
-            toRet += "\n"
-            for command in recipe_ec[1]:
-                toRet += str(command) + "\n"
-            return [toRet]
+        if "document" in list(com.__dict__.keys()):
+            if com.device_list != []:
+                toRet = ""
+                recipe_ec = com.get_recipe()
+                for device in recipe_ec[0]:
+                    toRet += str(device) + "\n"
+                toRet += "\n"
+                for command in recipe_ec[1]:
+                    toRet += str(command) + "\n"
+                if "default_execution_record_name" in list(com.execution_options.keys()):
+                    return [toRet, com.execution_options["default_execution_record_name"]]
+                return [toRet, "Execution"]
+        return ["", "No Recipe Loaded"]
 
 
 @app.callback(
@@ -1164,21 +1175,31 @@ def execute_recipe_load_document_viewer(n, url):
         State("console-out2", "children"),
         State("execute-recipe-upload-notes", "value"),
         State("execute-recipe-upload-files", "contents"),
+        State("execute-recipe-upload-files", "filename"),
     ],
     prevent_initial_call=True,
 )
-def execute_recipe_upload_data(n_clicks, url, name, recipe_data, console_log, notes, files):
+def execute_recipe_upload_data(
+    n_clicks, url, name, recipe_data, console_log, notes, files, filenames
+):
     if str(url) == "/execute-recipe":
         print("execute_recipe_upload_data")
         execution = {}
         execution["name"] = name
-        if isinstance(recipe_data, list):
+        if isinstance(recipe_data, list) and recipe_data is not None and recipe_data != []:
             execution["recipe"] = recipe_data[0].split("\n")
-        else:
+        elif recipe_data is not None and recipe_data != "":
             execution["recipe"] = recipe_data.split("\n")
         execution["notes"] = notes
         execution["log"] = str(console_log["props"]["children"]).split("\n")
+        execution["files"] = []
+        if isinstance(files, list):
+            for i, file in enumerate(files):
+                # print(file)
+                file_bytes = base64.b64decode(file + "==")
+                execution["files"].append(mongo_gridfs.put(file_bytes, filename=filenames[i]))
         exec_success = update_execution_upstream(execution)
+        # exec_success = False
         if exec_success:
             return [html.P("Data uploaded successfully")]
         else:

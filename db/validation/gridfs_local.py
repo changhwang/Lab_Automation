@@ -1,10 +1,11 @@
 from mongodb_helper import MongoDBHelper
 from gridfs import GridFS
 from bson import ObjectId
+from pw import mongo_password, mongo_username, mongo_uri
 
 
 mongo = MongoDBHelper(
-    "mongodb+srv://ppahuja2:s5eMFr1js8iEcMt8@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+    mongo_uri,
     "diaogroup",
 )
 
@@ -18,10 +19,11 @@ with open("data.csv", "rb") as file:
     # create ObjectId(file_id) in document to point to csv
 
 # Retrieve the CSV file from GridFS
-gridfs_file = fs.find_one({"filename": "data.csv"})
+gridfs_file = fs.find_one({"_id": ObjectId("64c2d215255f257ee66d30e9")})
 
 # Read the CSV data from the file
 csv_data = gridfs_file.read()
 
 # Print the CSV data
-print(csv_data.decode())
+print(csv_data)
+# print(csv_data.decode())

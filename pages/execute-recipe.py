@@ -13,9 +13,7 @@ layout = html.Div(
             [
                 dbc.Button("Execute", id="execute-button", n_clicks=0),
                 dbc.Button("Clear Log", id="reset-button", n_clicks=0),
-                dbc.Button(
-                    "Emergency Stop", id="stop-button", n_clicks=0, color="danger"
-                ),
+                dbc.Button("Emergency Stop", id="stop-button", n_clicks=0, color="danger"),
             ],
             className="mb-3",
         ),
@@ -44,9 +42,7 @@ layout = html.Div(
         #     ],
         #     className="d-flex align-items-center mt-3",
         # ),
-        html.Div(
-            id="execute-recipe-output", className="mt-3", style={"display": "none"}
-        ),
+        html.Div(id="execute-recipe-output", className="mt-3", style={"display": "none"}),
         dcc.Interval(id="update-interval", interval=500, n_intervals=0),
         dcc.Interval(id="interval1", interval=50, n_intervals=0),
         html.Div(id="hidden-div", style={"display": "none"}),

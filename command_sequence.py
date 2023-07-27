@@ -85,9 +85,7 @@ class CommandSequence:
         del self.device_list[index]
         self.update_device_by_name()
 
-    def add_command(
-        self, command: Union[Command, List[Command]], index: Optional[int] = None
-    ):
+    def add_command(self, command: Union[Command, List[Command]], index: Optional[int] = None):
         """Add a command to the command list.
 
         Parameters
@@ -223,9 +221,7 @@ class CommandSequence:
             and new_iter <= len(self.command_list[index]) - 1
         ):
             if old_iter != new_iter:
-                self.command_list[index].insert(
-                    new_iter, self.command_list[index].pop(old_iter)
-                )
+                self.command_list[index].insert(new_iter, self.command_list[index].pop(old_iter))
         else:
             print("Invalid indices")
 
@@ -478,9 +474,7 @@ class CommandSequence:
                     if iter_ndx == 0:
                         name_list.append(iter_command.name)
                     else:
-                        name_list.append(
-                            "    IterIndex" + str(iter_ndx) + ": " + iter_command.name
-                        )
+                        name_list.append("    IterIndex" + str(iter_ndx) + ": " + iter_command.name)
         return name_list
 
     def get_command_names_descriptions(self, unloop: bool = False) -> List[List[str]]:
@@ -561,9 +555,7 @@ class CommandSequence:
         loop_marker_count = 0
         for index, command_iters in enumerate(self.command_list):
             for iter_index, command in enumerate(command_iters):
-                if isinstance(command, LoopStartCommand) or isinstance(
-                    command, LoopEndCommand
-                ):
+                if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
                     loop_marker_count += 1
         return loop_marker_count
 
@@ -574,9 +566,7 @@ class CommandSequence:
         while self.count_loop_commands() != 0:
             for index, command_iters in enumerate(self.command_list):
                 for iter_index, command in enumerate(command_iters):
-                    if isinstance(command, LoopStartCommand) or isinstance(
-                        command, LoopEndCommand
-                    ):
+                    if isinstance(command, LoopStartCommand) or isinstance(command, LoopEndCommand):
                         # delete the command
                         del self.command_list[index][iter_index]
                         if len(self.command_list[index]) == 0:
@@ -608,9 +598,7 @@ class CommandSequence:
         commands = []
         execution_options = self.execution_options
         for i, device in enumerate(self.device_list):
-            devices.append(
-                {str(device.__class__.__name__): {"args": device.get_init_args()}}
-            )
+            devices.append({str(device.__class__.__name__): {"args": device.get_init_args()}})
         for i, command in enumerate(self.command_list):
             arg_params = {}
             util_arg_params = util.devices_ref_redundancy[
@@ -639,9 +627,7 @@ class CommandSequence:
         for device in recipe_dict["devices"]:
             for device_type, device_params in device.items():
                 self.add_device(
-                    util.devices_ref_redundancy[device_type]["obj"](
-                        **device_params["args"]
-                    )
+                    util.devices_ref_redundancy[device_type]["obj"](**device_params["args"])
                 )
         self.update_device_by_name()
         for command in recipe_dict["commands"]:
@@ -649,11 +635,9 @@ class CommandSequence:
                 rec_name = command_params["args"]["receiver_name"]
                 del command_params["args"]["receiver_name"]
                 self.add_command(
-                    util.devices_ref_redundancy[command_params["device"]]["commands"][
-                        command_type
-                    ]["obj"](
-                        receiver=self.device_by_name[rec_name], **command_params["args"]
-                    )
+                    util.devices_ref_redundancy[command_params["device"]]["commands"][command_type][
+                        "obj"
+                    ](receiver=self.device_by_name[rec_name], **command_params["args"])
                 )
         self.execution_options = recipe_dict["execution_options"]
 
@@ -663,13 +647,23 @@ class CommandSequence:
 
     def add_command_from_dict(self, device_type, command_type, command_dict):
         if device_type == "UtilityCommands":
-            self.add_command(util.devices_ref_redundancy[device_type]['commands'][command_type]['obj'](**command_dict))
+            self.add_command(
+                util.devices_ref_redundancy[device_type]["commands"][command_type]["obj"](
+                    **command_dict
+                )
+            )
             return
         command_dict_receiver = command_dict["receiver"]
-        command_dict_delay = command_dict['delay']
+        command_dict_delay = command_dict["delay"]
         del command_dict["receiver"]
         del command_dict["delay"]
-        self.add_command(util.devices_ref_redundancy[device_type]['commands'][command_type]['obj'](receiver=self.device_by_name[command_dict_receiver], delay = command_dict_delay, **command_dict))
+        self.add_command(
+            util.devices_ref_redundancy[device_type]["commands"][command_type]["obj"](
+                receiver=self.device_by_name[command_dict_receiver],
+                delay=command_dict_delay,
+                **command_dict
+            )
+        )
 
     def clear_recipe(self):
         """Clears the recipe."""

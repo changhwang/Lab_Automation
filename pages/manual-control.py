@@ -3,9 +3,7 @@ import dash_bootstrap_components as dbc
 import dash
 
 
-dash.register_page(
-    __name__, path="/manual-control", title="Manual Control", name="Manual Control"
-)
+dash.register_page(__name__, path="/manual-control", title="Manual Control", name="Manual Control")
 
 layout = html.Div(
     [
@@ -19,9 +17,7 @@ layout = html.Div(
                     n_clicks=0,
                     disabled=True,
                 ),
-                dbc.Button(
-                    "Clear", id="manual-control-clear-button", n_clicks=0, disabled=True
-                ),
+                dbc.Button("Clear", id="manual-control-clear-button", n_clicks=0, disabled=True),
             ],
             className="mb-3",
         ),

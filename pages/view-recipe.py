@@ -180,7 +180,9 @@ layout = html.Div(
                                         ),
                                     ]
                                 ),
-                                dbc.ModalFooter(dbc.Button("Add", id="view-recipe-add-command-editor")),
+                                dbc.ModalFooter(
+                                    dbc.Button("Add", id="view-recipe-add-command-editor")
+                                ),
                             ],
                             id="view-recipe-command-add-modal",
                             keyboard=False,
@@ -236,8 +238,17 @@ layout = html.Div(
                                 ),
                             ]
                         ),
-                        dbc.Button("Save Options", id="view-recipe-execution-options-save-button", n_clicks=0, className="mb-3"),
-                        dbc.Label("Execution Options Saved", id="view-recipe-execution-options-saved-label", style={"display": "none"}),
+                        dbc.Button(
+                            "Save Options",
+                            id="view-recipe-execution-options-save-button",
+                            n_clicks=0,
+                            className="mb-3",
+                        ),
+                        dbc.Label(
+                            "Execution Options Saved",
+                            id="view-recipe-execution-options-saved-label",
+                            style={"display": "none"},
+                        ),
                     ],
                     className="table-container mb-5",
                 )

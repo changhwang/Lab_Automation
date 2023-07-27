@@ -78,11 +78,7 @@ def evaluate(eval_str):
 
 class Encoder(json.JSONEncoder):
     def default(self, obj):
-        if (
-            isinstance(obj, Device)
-            or isinstance(obj, Command)
-            or isinstance(obj, MiscDeviceClass)
-        ):
+        if isinstance(obj, Device) or isinstance(obj, Command) or isinstance(obj, MiscDeviceClass):
             return obj.__dict__
         elif isinstance(obj, np.ndarray):
             return obj.tolist()
@@ -192,32 +188,30 @@ heating_stage_ref = {
 }
 
 
-
-
 devices_ref_redundancy = {
-    "UtilityCommands":{
+    "UtilityCommands": {
         "obj": UtilityCommands,
         "serial": False,
         "import_device": "from devices.utility_commands import UtilityCommands",
         "import_commands": "from commands.utility_commands import *",
-        "init":{
+        "init": {
             "default_code": "# Utility Commands used",
             "obj_name": "UtilityCommands",
-            "args": {}
+            "args": {},
         },
-        "commands":{
-            "LoopStartCommand":{
+        "commands": {
+            "LoopStartCommand": {
                 "default_code": "LoopStartCommand()",
                 "args": {},
                 "obj": LoopStartCommand,
             },
-            "LoopEndCommand":{
+            "LoopEndCommand": {
                 "default_code": "LoopEndCommand()",
                 "args": {},
                 "obj": LoopEndCommand,
             },
-            "DelayPauseCommand":{
-                "default_code": "DelayPauseCommand(delay=0.0)",\
+            "DelayPauseCommand": {
+                "default_code": "DelayPauseCommand(delay=0.0)",
                 "args": {
                     "delay": {
                         "default": 0.0,
@@ -227,7 +221,7 @@ devices_ref_redundancy = {
                 },
                 "obj": DelayPauseCommand,
             },
-            "NotifySlackCommand":{
+            "NotifySlackCommand": {
                 "default_code": "NotifySlackCommand(message='Hello World')",
                 "args": {
                     "message": {
@@ -238,7 +232,7 @@ devices_ref_redundancy = {
                 },
                 "obj": NotifySlackCommand,
             },
-            "LogUserMessageCommand":{
+            "LogUserMessageCommand": {
                 "default_code": "LogUserMessageCommand(message='Hello World')",
                 "args": {
                     "message": {
@@ -248,11 +242,9 @@ devices_ref_redundancy = {
                     }
                 },
                 "obj": LogUserMessageCommand,
-            }
-
-        }
-    }
-    ,
+            },
+        },
+    },
     "LinearStage150": {
         "obj": LinearStage150,
         "serial": True,
@@ -1046,9 +1038,6 @@ devices_ref_redundancy = {
         },
     },
 }
-
-
-
 
 
 # devices_ref = {

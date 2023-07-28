@@ -57,4 +57,12 @@ class FestoValveClosed(FestoParentCommand):
     def execute(self) -> None:
         self._result = CommandResult(*self._receiver.valve_closed(self._params['valve_num']))
 
+class FestoCloseAll(FestoParentCommand):
+    """Close all solenoid valves"""
+
+    def __init__(self, receiver: FestoSolenoidValve, **kwargs):
+        super().__init__(receiver, **kwargs)
+
+    def execute(self) -> None:
+        self._result = CommandResult(*self._receiver.valve)
 

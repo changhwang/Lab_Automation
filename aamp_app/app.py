@@ -17,7 +17,6 @@ from bson.objectid import ObjectId
 from console_interceptor import ConsoleInterceptor
 from gridfs import GridFS
 import base64
-import io
 
 try:
     import serial.tools.list_ports
@@ -30,10 +29,10 @@ import typing
 
 print("\nreset complete")
 com = CommandSequence()
-invoker = CommandInvoker(com, log_to_file=True, log_filename="mylog.log")
+invoker = CommandInvoker(com, log_to_file=True, log_filename="./aamp_app/mylog.log")
 invoker.clear_log_file()
 invoker.invoking = False
-com.load_from_yaml("blank.yaml")
+com.load_from_yaml("./aamp_app/blank.yaml")
 
 
 mongo = MongoDBHelper(
@@ -113,6 +112,7 @@ def update_execution_upstream(execution):
     if "document" in list(com.__dict__.keys()):
         com.document["executions"].append(execution)
         mongo.db["recipes"].update_one({"_id": com.document["_id"]}, {"$set": com.document})
+        update_upstream_recipe_dict()
         print("successfully updated execution upstream")
         return True
     else:
@@ -217,14 +217,14 @@ def get_document_from_db(n_clicks, filename):  # homepage
         if document.get("dash_friendly", "") == False or document.get("python_code", "") == "":
             yaml_content = document.get("yaml_data", "")
             # Update the YAML output
-            with open("to_load.yaml", "w") as file:
+            with open("./aamp_app/to_load.yaml", "w") as file:
                 file.write(yaml_content)
-            com.load_from_yaml("to_load.yaml")
+            com.load_from_yaml("./aamp_app/to_load.yaml")
             com.document = document
             return [True, "Recipe loaded", "success", 10000]
         else:
             exec(document.get("python_code", ""))
-            com.load_from_yaml("to_save.yaml")
+            com.load_from_yaml("./aamp_app/to_save.yaml")
             com.document = document
 
         # com.python_code = document.get("python_code", "")
@@ -910,7 +910,7 @@ def execute_and_save(n, value):  # python-edit-recipe page
             exec(value)
             doc_id = com.document.get("_id", "")
             (mongo.update_yaml_file("recipes", doc_id, {"python_code": value}))
-            com.load_from_yaml("to_save.yaml")
+            com.load_from_yaml("./aamp_app/to_save.yaml")
             com.document = mongo.find_documents("recipes", {"_id": doc_id})[0]
             return [str(value), True, "Saved!", "success", 1500]
         except Exception as e:

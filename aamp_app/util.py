@@ -3,8 +3,7 @@ from commands.utility_commands import LoopStartCommand, LoopEndCommand
 from devices.heating_stage import HeatingStage
 from devices.multi_stepper import MultiStepper
 from devices.newport_esp301 import NewportESP301
-
-# from devices.stellarnet_spectrometer import StellarNetSpectrometer
+from devices.festo_solenoid_valve import FestoSolenoidValve
 from devices.ximea_camera import XimeaCamera
 from devices.dummy_heater import DummyHeater
 from devices.dummy_motor import DummyMotor
@@ -18,6 +17,7 @@ from commands.dummy_heater_commands import *
 from commands.dummy_motor_commands import *
 from commands.dummy_meter_commands import *
 from commands.keithley_2450_commands import *
+from commands.festo_solenoid_valve_commands import *
 from commands.ximea_camera_commands import *
 from commands.utility_commands import *
 from commands.heating_stage_commands import *
@@ -242,6 +242,106 @@ devices_ref_redundancy = {
                     }
                 },
                 "obj": LogUserMessageCommand,
+            },
+        },
+    },
+    "FestoSolenoidValve": {
+        "obj": FestoSolenoidValve,
+        "serial": True,
+        "serial_sequence": ["FestoInitialize"],
+        "import_device": "from devices.festo_solenoid_valve import FestoSolenoidValve",
+        "import_commands": "from commands.festo_solenoid_valve_commands import *",
+        "init": {
+            "default_code": "FestoSolenoidValve(name='FestoSolenoidValve', numchannel=, port='COM5', baudrate=9600, timeout=0.1)",
+            "obj_name": "FestoSolenoidValve",
+            "args": {
+                "name": {
+                    "default": "FestoSolenoidValve",
+                    "type": str,
+                    "notes": "Name of the device.",
+                },
+                "numchannel": {
+                    "default": 1,
+                    "type": int,
+                    "notes": "",
+                },
+                "port": {
+                    "default": "COM5",
+                    "type": str,
+                    "notes": "Port",
+                },
+                "baudrate": {
+                    "default": 9600,
+                    "type": int,
+                    "notes": "Baudrate",
+                },
+                "timeout": {
+                    "default": 0.1,
+                    "type": float,
+                    "notes": "Timeout",
+                },
+            },
+        },
+        "commands": {
+            "FestoInitialize": {
+                "default_code": "FestoInitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "FestoSolenoidValve",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": FestoInitialize,
+            },
+            "FestoDeinitialize": {
+                "default_code": "FestoDeinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "FestoSolenoidValve",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": FestoDeinitialize,
+            },
+            "FestoValveOpen": {
+                "default_code": "FestoValveOpen(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "FestoSolenoidValve",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": FestoValveOpen,
+            },
+            "FestoValveClosed": {
+                "default_code": "FestoValveClosed(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "FestoSolenoidValve",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": FestoValveClosed,
+            },
+            "FestoOpenTimed": {
+                "default_code": "FestoOpenTimed(receiver= '', time=0)",
+                "args": {
+                    "receiver": {
+                        "default": "FestoSolenoidValve",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "time": {
+                        "default": 0,
+                        "type": int,
+                        "notes": "Time to keep the valve open",
+                    },
+                },
+                "obj": FestoOpenTimed,
             },
         },
     },

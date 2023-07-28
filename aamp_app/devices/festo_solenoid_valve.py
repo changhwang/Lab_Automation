@@ -1,3 +1,5 @@
+# modules for device as of commit 4123ed0
+
 """Requires 'StandardFirmata' basic example uploaded on Arduino Uno"""
 from typing import Tuple, Optional
 import time
@@ -17,7 +19,26 @@ class FestoSolenoidValve(ArduinoSerialDevice):
     ):
         super().__init__(name, port, baudrate, timeout)
         self.board = pyfirmata.Arduino(self.port)
+        self.numchannel = numchannel
         self.pin = self.board.get_pin(f"d:{numchannel}:o")
+
+    def get_init_args(self) -> dict:
+        args_dict = {
+            "name": self.name,
+            "numchannel": self.numchannel,
+            "port": self.port,
+            "baudrate": self.baudrate,
+            "timeout": self.timeout,
+        }
+        return args_dict
+
+    def update_init_args(self, args_dict: dict):
+        self.name = args_dict["name"]
+        self.numchannel = args_dict["numchannel"]
+        self.port = args_dict["port"]
+        self.pin = self.board.get_pin(f"d:{self.port}:o")  # TODO: Check if this is necessary
+        self.baudrate = args_dict["baudrate"]
+        self.timeout = args_dict["timeout"]
 
     def initialize(self) -> Tuple[bool, str]:
         self._is_initialized = True

@@ -8,11 +8,13 @@ from devices.ximea_camera import XimeaCamera
 from devices.dummy_heater import DummyHeater
 from devices.dummy_motor import DummyMotor
 from devices.linear_stage_150 import LinearStage150
+from devices.mts50_z8 import MTS50_Z8
 from devices.keithley_2450 import Keithley2450
 from devices.device import Device, MiscDeviceClass
 from devices.utility_device import UtilityCommands
 
 from commands.linear_stage_150_commands import *
+from commands.mts50_z8_commands import *
 from commands.dummy_heater_commands import *
 from commands.dummy_motor_commands import *
 from commands.dummy_meter_commands import *
@@ -475,6 +477,139 @@ devices_ref_redundancy = {
                     },
                 },
                 "obj": LinearStage150MoveRelative,
+            },
+        },
+    },
+    "MTS50_Z8": {
+        "obj": MTS50_Z8,
+        "serial": True,
+        "serial_sequence": ["MTS50_Z8Connect", "MTS50_Z8EnableMotor"],
+        "import_device": "from devices.mts50_z8 import MTS50_Z8",
+        "import_commands": "from commands.mts50_z8_commands import *",
+        "init": {
+            "default_code": "MTS50_Z8(name='MTS50_Z8', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
+            "obj_name": "MTS50_Z8",
+            "args": {
+                "name": {
+                    "default": "MTS50_Z8",
+                    "type": str,
+                    "notes": "Name of the device.",
+                },
+                "port": {"default": "COM", "type": str, "notes": "Port"},
+                "baudrate": {
+                    "default": 115200,
+                    "type": int,
+                    "notes": "Baudrate",
+                },
+                "timeout": {
+                    "default": 0.1,
+                    "type": float,
+                    "notes": "Timeout",
+                },
+                "destination": {
+                    "default": 0x50,
+                    "type": int,
+                    "notes": "",
+                },
+                "source": {
+                    "default": 0x01,
+                    "type": int,
+                    "notes": "",
+                },
+                "channel": {
+                    "default": 1,
+                    "type": int,
+                    "notes": "",
+                },
+            },
+        },
+        "commands": {
+            "MTS50_Z8Connect": {
+                "default_code": "MTS50_Z8Connect(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MTS50_Z8",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+                "obj": MTS50_Z8Connect,
+            },
+            "MTS50_Z8Initialize": {
+                "default_code": "MTS50_Z8Initialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MTS50_Z8",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+                "obj": MTS50_Z8Initialize,
+            },
+            "MTS50_Z8Deinitialize": {
+                "default_code": "MTS50_Z8Deinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MTS50_Z8",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+                "obj": MTS50_Z8Deinitialize,
+            },
+            "MTS50_Z8EnableMotor": {
+                "default_code": "MTS50_Z8EnableMotor(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MTS50_Z8",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+                "obj": MTS50_Z8EnableMotor,
+            },
+            "MTS50_Z8DisableMotor": {
+                "default_code": "MTS50_Z8DisableMotor(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MTS50_Z8",
+                        "type": str,
+                        "notes": "",
+                    }
+                },
+                "obj": MTS50_Z8DisableMotor,
+            },
+            "MTS50_Z8MoveAbsolute": {
+                "default_code": "MTS50_Z8MoveAbsolute(receiver= '', position= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "MTS50_Z8",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "position": {
+                        "default": 0,
+                        "type": int,
+                        "notes": "",
+                    },
+                },
+                "obj": MTS50_Z8MoveAbsolute,
+            },
+            "MTS50_Z8MoveRelative": {
+                "default_code": "MTS50_Z8MoveRelative(receiver= '', distance= 0)",
+                "args": {
+                    "receiver": {
+                        "default": "MTS50_Z8",
+                        "type": str,
+                        "notes": "",
+                    },
+                    "distance": {
+                        "default": 0,
+                        "type": int,
+                        "notes": "",
+                    },
+                },
+                "obj": MTS50_Z8MoveRelative,
             },
         },
     },

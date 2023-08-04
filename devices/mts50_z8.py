@@ -4,6 +4,7 @@ from .device import SerialDevice, check_serial, check_initialized
 import time
 
 
+# uses the kdc101 motor controller
 class MTS50_Z8(SerialDevice):
     def __init__(
         self,

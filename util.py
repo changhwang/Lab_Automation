@@ -353,6 +353,18 @@ devices_ref_redundancy = {
         "serial_sequence": ["LinearStage150Connect", "LinearStage150EnableMotor"],
         "import_device": "from devices.linear_stage_150 import LinearStage150",
         "import_commands": "from commands.linear_stage_150_commands import *",
+        "telemetry": {
+            "parameters": [
+                {
+                    "position": {
+                        "function_name": "get_position()",
+                        "data_type": "float",
+                        "units": "mm",
+                    }
+                }
+            ],
+            "options": {"custom_init_args": ["port"]},
+        },
         "init": {
             "default_code": "LinearStage150(name='LinearStage150', port='', baudrate=115200, timeout=0.1, destination=0x50, source=0x01, channel=1)",
             "obj_name": "LinearStage150",

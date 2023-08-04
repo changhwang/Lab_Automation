@@ -66,6 +66,9 @@ navbar = dbc.NavbarSimple(
                 # dbc.DropdownMenuItem(
                 #     "Load Recipe", href="/load-recipe", external_link=True
                 # ),
+                dbc.DropdownMenuItem(
+                    "Real Time Telemetry", href="/real-time-telemetry", external_link=True
+                ),
                 dbc.DropdownMenuItem("Edit Code", href="/edit-recipe", external_link=True),
                 dbc.DropdownMenuItem("Document", href="/data", external_link=True),
             ],

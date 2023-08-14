@@ -143,3 +143,27 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+.vscode/
+
+temp.py
+temp2.py
+to_save.yaml
+to_load.yaml
+out.json
+dashapp.py
+dashapp-tut.py
+data.csv
+e1.json
+e1.yaml
+e1mongo.yaml
+e2.yaml
+e3.yaml
+e4.yaml
+e4mongo.yaml
+project_const.py
+pw.py
+.DS_Store
+.pypirc
+pw.txt
+blank.yaml

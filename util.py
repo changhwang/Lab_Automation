@@ -80,7 +80,11 @@ def evaluate(eval_str):
 
 class Encoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, Device) or isinstance(obj, Command) or isinstance(obj, MiscDeviceClass):
+        if (
+            isinstance(obj, Device)
+            or isinstance(obj, Command)
+            or isinstance(obj, MiscDeviceClass)
+        ):
             return obj.__dict__
         elif isinstance(obj, np.ndarray):
             return obj.tolist()
@@ -250,7 +254,7 @@ devices_ref_redundancy = {
     "FestoSolenoidValve": {
         "obj": FestoSolenoidValve,
         "serial": True,
-        "serial_sequence": ["FestoInitialize"],
+        "serial_sequence": ["FestoConnect", "FestoInitialize"],
         "import_device": "from devices.festo_solenoid_valve import FestoSolenoidValve",
         "import_commands": "from commands.festo_solenoid_valve_commands import *",
         "init": {
@@ -285,6 +289,17 @@ devices_ref_redundancy = {
             },
         },
         "commands": {
+            "FestoConnect": {
+                "default_code": "FestoConnect(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "FestoSolenoidValve",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": FestoConnect,
+            },
             "FestoInitialize": {
                 "default_code": "FestoInitialize(receiver= '')",
                 "args": {
@@ -329,22 +344,33 @@ devices_ref_redundancy = {
                 },
                 "obj": FestoValveClosed,
             },
-            "FestoOpenTimed": {
-                "default_code": "FestoOpenTimed(receiver= '', time=0)",
+            "FestoCloseAll": {
+                "default_code": "FestoCloseAll(receiver= '')",
                 "args": {
                     "receiver": {
                         "default": "FestoSolenoidValve",
                         "type": str,
                         "notes": "Name of the device",
                     },
-                    "time": {
-                        "default": 0,
-                        "type": int,
-                        "notes": "Time to keep the valve open",
-                    },
                 },
-                "obj": FestoOpenTimed,
-            },
+                "obj": FestoCloseAll,
+            }
+            # "FestoOpenTimed": {
+            #     "default_code": "FestoOpenTimed(receiver= '', time=0)",
+            #     "args": {
+            #         "receiver": {
+            #             "default": "FestoSolenoidValve",
+            #             "type": str,
+            #             "notes": "Name of the device",
+            #         },
+            #         "time": {
+            #             "default": 0,
+            #             "type": int,
+            #             "notes": "Time to keep the valve open",
+            #         },
+            #     },
+            #     "obj": FestoOpenTimed,
+            # },
         },
     },
     "LinearStage150": {

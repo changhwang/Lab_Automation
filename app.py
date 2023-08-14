@@ -1550,17 +1550,16 @@ def manual_control_execute_fill_code(n, url, opt, device, command, device_form, 
                     device_form[i]["props"]["children"][1]["props"]["children"][0]["props"]["value"]
                 )
         instantiate_code += ")"
-        code_seq = str(device) + "_seq"
-        code += code_seq + " = CommandSequence()"
+        code += str(device) + "_seq" + " = CommandSequence()"
         code += "\n\n"
-        code += code_seq + ".add_device(" + instantiate_code + ")"
+        code += str(device) + "_seq" + ".add_device(" + instantiate_code + ")"
         code += "\n"
 
         if util.devices_ref_redundancy[device]["serial"] == True:
             for i, serial_seq_command in enumerate(
                 util.devices_ref_redundancy[device]["serial_sequence"]
             ):
-                code += code_seq + ".add_command(" + str(serial_seq_command) + "("
+                code += str(device) + "_seq" + ".add_command(" + str(serial_seq_command) + "("
                 for ii, serial_seq_command_arg in enumerate(
                     util.devices_ref_redundancy[device]["commands"][serial_seq_command]["args"]
                 ):
@@ -1608,7 +1607,7 @@ def manual_control_execute_fill_code(n, url, opt, device, command, device_form, 
                         )
 
                 code += "))\n"
-            code += code_seq + ".add_command(" + str(command) + "("
+            code += str(device) + "_seq" + ".add_command(" + str(command) + "("
             for ii, seq_command_arg in enumerate(
                 util.devices_ref_redundancy[device]["commands"][command]["args"]
             ):
@@ -1657,7 +1656,7 @@ def manual_control_execute_fill_code(n, url, opt, device, command, device_form, 
 
             code += "))\n\n"
         else:
-            code += code_seq + ".add_command(" + str(command) + "("
+            code += str(device) + "_seq" + ".add_command(" + str(command) + "("
             for ii, seq_command_arg in enumerate(
                 util.devices_ref_redundancy[device]["commands"][command]["args"]
             ):
@@ -1952,6 +1951,32 @@ def fill_database_document_viewer(document, collection, url, db):
             # except Exception as e:
             #     return ["Document missing or something went wrong"]
     return []
+
+
+# ---------------------------------------------------------------
+# Real Time Telemetry page
+# ---------------------------------------------------------------
+
+
+@app.callback(
+    [Output("real-time-telemetry-div", "children")],
+    [Input("interval-real-time-telemetry", "n_intervals")],
+    [Input("real-time-telemetry-device-dropdown", "value"), State("url", "pathname")],
+    prevent_initial_call=True,
+)
+def fill_real_time_telemetry(n, device, url):
+    if str(url) == "/real-time-telemetry" and device is not None and device != "":
+        print("fill_real_time_telemetry")
+        if "telemetry" in list(util.devices_ref_redundancy[device].keys()):
+            device_parameter_options = util.devices_ref_redundancy[device]["telemetry"]["options"]
+            for parameter in util.devices_ref_redundancy[device]["telemetry"]:
+                print(parameter)
+                parameter_options = util.devices_ref_redundancy[device]["telemetry"]["parameters"][
+                    parameter
+                ]
+
+        return [""]
+    return [""]
 
 
 if __name__ == "__main__":

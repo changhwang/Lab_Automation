@@ -10,6 +10,9 @@ from .devices.dummy_motor import DummyMotor
 from .devices.linear_stage_150 import LinearStage150
 from .devices.mts50_z8 import MTS50_Z8
 from .devices.keithley_2450 import Keithley2450
+from .devices.mfc import MassFlowController
+from .devices.oxygen_sensor import OxygenSensor
+from .devices.sht85_sensor import SHT85HumidityTempSensor
 from .devices.device import Device, MiscDeviceClass
 from .devices.utility_device import UtilityCommands
 
@@ -25,6 +28,9 @@ from .commands.utility_commands import *
 from .commands.heating_stage_commands import *
 from .commands.multi_stepper_commands import *
 from .commands.newport_esp301_commands import *
+from .commands.mfc_commands import *
+from .commands.oxygen_sensor_commands import *
+from .commands.sht85_sensor_commands import *
 from .commands.utility_commands import *
 
 import json

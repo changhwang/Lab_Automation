@@ -10,6 +10,9 @@ from devices.dummy_motor import DummyMotor
 from devices.linear_stage_150 import LinearStage150
 from devices.mts50_z8 import MTS50_Z8
 from devices.keithley_2450 import Keithley2450
+from devices.mfc import MassFlowController
+from devices.oxygen_sensor import OxygenSensor
+from devices.sht85_sensor import SHT85HumidityTempSensor
 from devices.device import Device, MiscDeviceClass
 from devices.utility_device import UtilityCommands
 
@@ -24,6 +27,7 @@ from commands.ximea_camera_commands import *
 from commands.utility_commands import *
 from commands.heating_stage_commands import *
 from commands.multi_stepper_commands import *
+from commands.mfc_commands import *
 from commands.newport_esp301_commands import *
 from commands.utility_commands import *
 
@@ -975,6 +979,107 @@ devices_ref_redundancy = {
                     },
                 },
                 "obj": MultiStepperMoveRelative,
+            },
+        },
+    },
+    "MassFlowController": {
+        "obj": MassFlowController,
+        "serial": True,
+        "serial_sequence": ["MassFlowControllerInitialize"],
+        "import_device": "from devices.mfc import MassFlowController",
+        "import_commands": "from commands.mfc_commands import *",
+        "init": {
+            "default_code": "MassFlowController(name='MassFlowController', ip='192.168.2.155')",
+            "obj_name": "MassFlowController",
+            "args": {
+                "name": {
+                    "default": "MassFlowController",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "ip": {
+                    "default": "192.168.2.155",
+                    "type": str,
+                    "notes": "IP of the device",
+                },
+            },
+        },
+        "commands": {
+            "MFCInitialize": {
+                "default_code": "MFCInitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+                "obj": MFCInitialize,
+            },
+            "MFCDeinitialize": {
+                "default_code": "MFCDeinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "obj": MFCDeinitialize,
+                },
+            },
+            "MFCGetData": {
+                "default_code": "MFCGetData(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": MFCGetData,
+            },
+            "MFCSetGas": {
+                "default_code": "MFCSetGas(receiver= '', gas= 'N2')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "gas": {
+                        "default": "N2",
+                        "type": str,
+                        "notes": "Gas to set",
+                    },
+                },
+                "obj": MFCSetGas,
+            },
+            "MFCSet": {
+                "default_code": "MFCSet(receiver= '', setpoint= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "setpoint": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Setpoint to set",
+                    },
+                },
+                "obj": MFCSet,
+            },
+            "MFCOpen": {
+                "default_code": "MFCOpen(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": MFCOpen,
             },
         },
     },

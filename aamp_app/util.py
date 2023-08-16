@@ -28,6 +28,7 @@ from commands.utility_commands import *
 from commands.heating_stage_commands import *
 from commands.multi_stepper_commands import *
 from commands.mfc_commands import *
+from commands.sht85_sensor_commands import *
 from commands.newport_esp301_commands import *
 from commands.utility_commands import *
 
@@ -979,6 +980,96 @@ devices_ref_redundancy = {
                     },
                 },
                 "obj": MultiStepperMoveRelative,
+            },
+        },
+    },
+    "SHT85HumidityTempSensor": {
+        "obj": SHT85HumidityTempSensor,
+        "serial": True,
+        "serial_sequence": ["SHT85Connect", "SHT85Initialize"],
+        "import_device": "from devices.sht85_sensor import SHT85HumidityTempSensor",
+        "import_commands": "from commands.sht85_sensor_commands import *",
+        "init": {
+            "default_code": "SHT85HumidityTempSensor(name='SHT85HumidityTempSensor', port='', baudrate=9600, timeout=1.0)",
+            "obj_name": "SHT85HumidityTempSensor",
+            "args": {
+                "name": {
+                    "default": "SHT85HumidityTempSensor",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "port": {
+                    "default": "COM",
+                    "type": str,
+                    "notes": "Port of the device",
+                },
+                "baudrate": {
+                    "default": 9600,
+                    "type": int,
+                    "notes": "Baudrate of the device",
+                },
+                "timeout": {
+                    "default": 1.0,
+                    "type": float,
+                    "notes": "Timeout of the device",
+                },
+            },
+        },
+        "commands": {
+            "SHT85Connect": {
+                "default_code": "SHT85Connect(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85Connect,
+            },
+            "SHT85Initialize": {
+                "default_code": "SHT85Initialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85Initialize,
+            },
+            "SHT85Deinitialize": {
+                "default_code": "SHT85Deinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85Deinitialize,
+            },
+            "SHT85GetHumidity": {
+                "default_code": "SHT85GetHumidity(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85GetHumidity,
+            },
+            "SHT85GetTemp": {
+                "default_code": "SHT85GetTemp(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85GetTemp,
             },
         },
     },

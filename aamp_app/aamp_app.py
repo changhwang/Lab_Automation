@@ -29,13 +29,35 @@ import typing
 if os.path.isfile("pw.txt"):
     with open("pw.txt", "r") as f:
         mongo_username, mongo_password = f.read().split("\n")
+    mongo = MongoDBHelper(
+        "mongodb+srv://"
+        + mongo_username
+        + ":"
+        + mongo_password
+        + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+        "diaogroup",
+    )
 else:
     mongo_username = input("Enter MongoDB username: ")
     mongo_password = input("Enter MongoDB password: ")
+
+    mongo = MongoDBHelper(
+        "mongodb+srv://"
+        + mongo_username
+        + ":"
+        + mongo_password
+        + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+        "diaogroup",
+    )
+    try:
+        db_list = mongo.client.list_database_names()
+    except Exception:
+        print("Connection Failed. Try Again.")
+        os.kill(os.getpid(), signal.SIGINT)
     with open("pw.txt", "w") as f:
         f.write(mongo_username + "\n" + mongo_password)
 
-print("\nreset complete")
+# print("\nreset complete")
 com = CommandSequence()
 invoker = CommandInvoker(com, log_to_file=True, log_filename="mylog.log")
 invoker.clear_log_file()
@@ -119,12 +141,12 @@ app.layout = html.Div([dcc.Location(id="url"), navbar, dash.page_container])
 
 @app.callback(Output("navbar", "brand"), Input("url", "pathname"))
 def print_pagename(url):  # all pages
-    print("loading: " + url + "\n")
+    # print("loading: " + url + "\n")
     return "AAMP"
 
 
 def update_upstream_recipe_dict():
-    print("update_upstream_recipe_dict")
+    # print("update_upstream_recipe_dict")
     if "document" in list(com.__dict__.keys()):
         recipe_dict = com.get_recipe()
         com.document["recipe_dict"] = {
@@ -177,7 +199,7 @@ def fetch_recipe_list(n_clicks):  # homepage
             "python_code": 1,
         },
     )
-    print("fetch_recipe_list")
+    # print("fetch_recipe_list")
     data = []
     for doc in docs:
         file_name = doc.get("file_name", "")
@@ -207,10 +229,10 @@ def fetch_recipe_list(n_clicks):  # homepage
 def fill_filename_input(active_cell, url, data):  # homepage
     if str(url) == "/load-recipe":
         if active_cell is not None:
-            print("fill_filename_input")
+            # print("fill_filename_input")
             return data[active_cell["row"]]["file_name"]
         if "document" in list(com.__dict__.keys()):
-            print("fill_filename_input")
+            # print("fill_filename_input")
             return com.document["file_name"]
         return ""
 
@@ -227,7 +249,7 @@ def fill_filename_input(active_cell, url, data):  # homepage
     prevent_initial_call=True,
 )
 def get_document_from_db(n_clicks, filename):  # homepage
-    print("get_document_from_db")
+    # print("get_document_from_db")
     if filename is not None and filename != "":
         # Extract the YAML content from the document
         document = mongo.find_documents("recipes", {"file_name": filename})[0]
@@ -285,7 +307,7 @@ def get_document_from_db(n_clicks, filename):  # homepage
 )
 def create_new_recipe_doc(n, url, name):
     if str(url) == "/load-recipe":
-        print("create_new_recipe_doc")
+        # print("create_new_recipe_doc")
         mongo.db["recipes"].insert_one(
             {
                 "file_name": name,
@@ -316,7 +338,7 @@ def create_new_recipe_doc(n, url, name):
     [State("devices-table-div", "children")],
 )
 def update_device_table(n_clicks, data, table):  # view-recipe page
-    print("update_device_table")
+    # print("update_device_table")
     # table_data1 = dl5
     table_data1 = com.get_clean_device_list().copy()
     # print(com.device_list[1].get_init_args())
@@ -378,7 +400,7 @@ def update_device_table(n_clicks, data, table):  # view-recipe page
     prevent_initial_call=True,
 )
 def save_command(n_clicks, active_cell, data, value):  # view-recipe page
-    print("save_command")
+    # print("save_command")
     if active_cell is not None and data[active_cell["row"]]["params"] != str(
         json.loads(value)
     ):
@@ -405,7 +427,7 @@ def save_command(n_clicks, active_cell, data, value):  # view-recipe page
     prevent_initial_call=True,
 )
 def save_device(n_clicks, active_cell, data, value):  # view-recipe page
-    print("save_device")
+    # print("save_device")
     if active_cell is not None and data[active_cell["row"]]["params"] != str(
         json.loads(value)
     ):
@@ -425,7 +447,7 @@ def save_device(n_clicks, active_cell, data, value):  # view-recipe page
 )
 def fill_command_json_editor(is_open, active_cell, data):  # view-recipe page
     if active_cell is not None and is_open:
-        print("fill_command_json_editor")
+        # print("fill_command_json_editor")
         return json.dumps(eval(data[active_cell["row"]]["params"]), indent=4)
 
     return ""
@@ -438,7 +460,7 @@ def fill_command_json_editor(is_open, active_cell, data):  # view-recipe page
     prevent_initial_call=True,
 )
 def fill_device_add_modal(is_open, active_cell, data):  # view-recipe page
-    print("fill_device_add_modal")
+    # print("fill_device_add_modal")
     return list(util.devices_ref_redundancy.keys())
 
 
@@ -448,7 +470,7 @@ def fill_device_add_modal(is_open, active_cell, data):  # view-recipe page
     prevent_initial_call=True,
 )
 def fill_device_add_json_editor(value, is_open):  # view-recipe page
-    print("fill_device_add_json_editor")
+    # print("fill_device_add_json_editor")
     if not is_open or value is None:
         return [""]
     # args_list = inspect.getfullargspec(util.devices_ref_redundancy[value]['obj'].__init__).args
@@ -476,7 +498,7 @@ def fill_device_add_json_editor(value, is_open):  # view-recipe page
     prevent_initial_call=True,
 )
 def fill_device_json_editor(is_open, active_cell, data):  # view-recipe page
-    print("fill_device_json_editor")
+    # print("fill_device_json_editor")
     if active_cell is not None and is_open:
         if _has_serial and isinstance(
             com.device_by_name[eval(data[active_cell["row"]]["params"])["name"]],
@@ -516,7 +538,7 @@ def enable_save_command_button(value, is_open):  # view-recipe page
         parsed_json = json.loads(value)
         if parsed_json["delay"] < 0:
             return True, "Delay must be greater than or equal to 0"
-        print("enable_save_command_button")
+        # print("enable_save_command_button")
         return False, ""
     except Exception as e:
         if type(e) == json.decoder.JSONDecodeError:
@@ -535,7 +557,7 @@ def enable_save_device_button(value, is_open):  # view-recipe page
         return False, ""
     try:
         parsed_json = json.loads(value)
-        print("enable_save_device_button")
+        # print("enable_save_device_button")
         return False, ""
     except Exception as e:
         if type(e) == json.decoder.JSONDecodeError:
@@ -577,7 +599,7 @@ def enable_add_device_button(value, device_type, is_open):  # view-recipe page
                 return False, f"Invalid type for {key}. Expected {str(args[key])}"
             # if not isinstance(parsed_json[key], args[key]):
             #     return True, f"Invalid type for {key}. Expected {str(args[key])}"
-        print("enable_add_device_button")
+        # print("enable_add_device_button")
         return False, ""
     except Exception as e:
         if type(e) == json.decoder.JSONDecodeError:
@@ -619,7 +641,7 @@ def view_recipe_add_device(n, device_type, url, device_dict):
 def edit_command_button(table_div_children):  # view-recipe page
     active_cell = table_div_children
     if active_cell is not None:
-        print("edit_command_button")
+        # print("edit_command_button")
         return False
     else:
         return True
@@ -700,7 +722,7 @@ def view_recipe_delete_command(n, url, active_cell, data):
     [State("commands-table-div", "children")],
 )
 def update_commands_table(n_clicks, data, table):  # view-recipe page
-    print("update_commands_table")
+    # print("update_commands_table")
     command_list = com.command_list.copy()
     command_params = []
     for index, command in enumerate(command_list):
@@ -767,7 +789,7 @@ def view_recipe_open_add_command_modal(n, url):
 )
 def view_recipe_fill_add_command_device_dropdown(is_open, url):
     if url == "/view-recipe":
-        print("view_recipe_fill_add_command_device_dropdown")
+        # print("view_recipe_fill_add_command_device_dropdown")
         return list(util.devices_ref_redundancy.keys())
 
 
@@ -938,10 +960,10 @@ def fill_ace_editor(n, url):  # python-edit-recipe page
         if hasattr(com, "document"):
             python_code = com.document.get("python_code", "")
             if python_code is not None and python_code != "":
-                print("fill_ace_editor")
+                # print("fill_ace_editor")
                 return [str(python_code), True, "Loaded!", "success", 1500]
             else:
-                print("fill_ace_editor")
+                # print("fill_ace_editor")
                 return ["", True, "No code available", "warning", 1000]
         else:
             return ["", True, "No code available", "warning", 1000]
@@ -962,7 +984,7 @@ def fill_ace_editor(n, url):  # python-edit-recipe page
     prevent_initial_call=True,
 )
 def execute_and_save(n, value):  # python-edit-recipe page
-    print("execute_and_save")
+    # print("execute_and_save")
     if value is not None and value != "":
         try:
             exec(value)
@@ -989,7 +1011,7 @@ def execute_and_save(n, value):  # python-edit-recipe page
 )
 def fill_device_add_modal_ace(is_open):  # python-edit-recipe page
     if is_open:
-        print("fill_device_add_modal_ace")
+        # print("fill_device_add_modal_ace")
         return list(util.devices_ref_redundancy.keys()), ""
     return [], ""
 
@@ -1004,7 +1026,7 @@ def fill_device_add_modal_ace(is_open):  # python-edit-recipe page
 )
 def fill_command_device_add_modal_ace(is_open):  # python-edit-recipe page
     if is_open:
-        print("fill_command_device_add_modal_ace")
+        # print("fill_command_device_add_modal_ace")
         return list(util.devices_ref_redundancy.keys()), ""
     return [], ""
 
@@ -1019,7 +1041,7 @@ def fill_command_device_add_modal_ace(is_open):  # python-edit-recipe page
 )
 def fill_command_add_modal_ace(device):  # python-edit-recipe page
     if device is not None and device != "":
-        print("fill_command_add_modal_ace")
+        # print("fill_command_add_modal_ace")
         return list(util.devices_ref_redundancy[device]["commands"].keys()), ""
     return [], ""
 
@@ -1036,7 +1058,7 @@ def fill_command_add_modal_ace(device):  # python-edit-recipe page
 def enable_add_device_button_ace(value, is_openInp, is_open):  # python-edit-recipe page
     if value == "" or value is None:
         return True
-    print("enable_add_device_button_ace")
+    # print("enable_add_device_button_ace")
     return False
 
 
@@ -1054,7 +1076,7 @@ def enable_add_command_button_ace(
 ):  # python-edit-recipe page
     if value == "" or value is None:
         return True
-    print("enable_add_command_button_ace")
+    # print("enable_add_command_button_ace")
     return False
 
 
@@ -1071,7 +1093,7 @@ def enable_add_command_button_ace(
     prevent_initial_call=True,
 )
 def add_device_to_recipe_ace(n_clicks, value, device_type):  # python-edit-recipe page
-    print("add_device_to_recipe_ace")
+    # print("add_device_to_recipe_ace")
     if value == "" or value is None:
         return ["", True, "No code in editor", "warning", 3000]
     try:
@@ -1111,7 +1133,7 @@ def add_device_to_recipe_ace(n_clicks, value, device_type):  # python-edit-recip
 def add_commands_to_recipe_ace(
     n_clicks, value, command, device_type
 ):  # python-edit-recipe page
-    print("add_commands_to_recipe_ace")
+    # print("add_commands_to_recipe_ace")
     og_value = str(value)
     if value == "" or value is None:
         return ["", True, "No code in editor", "warning", 3000]
@@ -1159,7 +1181,7 @@ def kill_execution():  # execute-recipe page
     prevent_initial_call=True,
 )
 def stop_execution(n):  # execute-recipe page
-    print("stop_execution")
+    print("Killing Execution")
     kill_execution()
     return []
 
@@ -1170,7 +1192,7 @@ def stop_execution(n):  # execute-recipe page
     prevent_initial_call=True,
 )
 def execute_recipe(n_clicks):  # execute-recipe page
-    print("execute_recipe")
+    # print("execute_recipe")
     invoker.invoking = True
     invoker.invoke_commands()
     invoker.invoking = False
@@ -1200,7 +1222,7 @@ def update_output(n, url):  # execute-recipe page
     prevent_initial_call=True,
 )
 def reset_console(n):  # execute-recipe page
-    print("reset_console")
+    # print("reset_console")
     invoker.clear_log_file()
     # dashLoggerHandler.queue = []
     return []
@@ -1254,7 +1276,7 @@ def execute_recipe_upload_data(
     n_clicks, url, name, recipe_data, console_log, notes, files, filenames
 ):
     if str(url) == "/execute-recipe":
-        print("execute_recipe_upload_data")
+        # print("execute_recipe_upload_data")
         execution = {}
         execution["name"] = name
         if (
@@ -1319,7 +1341,7 @@ def load_data_accordion(n):  # data page
     if not hasattr(com, "document"):
         print("load_data_accordion - no document")
         return []
-    print("load_data_accordion")
+    # print("load_data_accordion")
     return render_dict(com.document)
 
 
@@ -1335,7 +1357,7 @@ def load_data_accordion(n):  # data page
 )
 def fill_manual_control_device_dropdown(n, url):  # manual-control page
     if str(url) == "/manual-control":
-        print("fill_manual_control_device_dropdown")
+        # print("fill_manual_control_device_dropdown")
         return list(util.devices_ref_redundancy.keys())
 
 
@@ -1350,7 +1372,7 @@ def fill_manual_control_device_dropdown(n, url):  # manual-control page
 )
 def fill_manual_control_command_dropdown(val, url):  # manual-control page
     if str(url) == "/manual-control":
-        print("fill_manual_control_command_dropdown")
+        # print("fill_manual_control_command_dropdown")
         if val is None or val == "":
             return [True, []]
         else:
@@ -1374,7 +1396,7 @@ def fill_manual_control_command_dropdown(val, url):  # manual-control page
 )
 def create_manual_control_device_form(value, url):
     if str(url) == "/manual-control":
-        print("create_manual_control_device_form")
+        # print("create_manual_control_device_form")
         if value is None or value == "":
             return [[]]
         else:
@@ -1451,7 +1473,7 @@ def create_manual_control_device_form(value, url):
 )
 def create_manual_control_command_form(command, device, url, device_form):
     if str(url) == "/manual-control":
-        print("create_manual_control_command_form")
+        # print("create_manual_control_command_form")
         if command is None or command == "" or device is None or device == "":
             return [[]]
         else:
@@ -1535,7 +1557,7 @@ def create_manual_control_command_form(command, device, url, device_form):
 )
 def manual_control_clear_form(n, url):
     if str(url) == "/manual-control":
-        print("manual_control_clear_form")
+        # print("manual_control_clear_form")
         return None
 
 
@@ -1546,7 +1568,7 @@ def manual_control_clear_form(n, url):
 )
 def manual_control_clear_button(value, url):
     if str(url) == "/manual-control":
-        print("manual_control_clear_button")
+        # print("manual_control_clear_button")
         if value is None or value == "":
             return True
         else:
@@ -1560,7 +1582,7 @@ def manual_control_clear_button(value, url):
 )
 def manual_control_execute_button(value, url):
     if str(url) == "/manual-control":
-        print("manual_control_execute_button")
+        # print("manual_control_execute_button")
         if value is None or value == "":
             return True
         else:
@@ -1578,7 +1600,7 @@ def manual_control_execute_button(value, url):
 )
 def open_manual_control_execute_modal(n, url):
     if str(url) == "/manual-control":
-        print("open_manual_control_execute_modal")
+        # print("open_manual_control_execute_modal")
         return True, []
 
 
@@ -1608,7 +1630,7 @@ def manual_control_execute_fill_code(
     n, url, opt, device, command, device_form, command_form
 ):
     if str(url) == "/manual-control":
-        print("manual_control_execute_fill_code")
+        # print("manual_control_execute_fill_code")
         if device is None or device == "" or command is None or command == "":
             return (
                 opt,
@@ -1881,7 +1903,7 @@ def manual_control_execute_fill_code(
 )
 def manual_control_execute_code(n, url, code):
     if str(url) == "/manual-control":
-        print("manual_control_execute_code")
+        # print("manual_control_execute_code")
         interceptor = ConsoleInterceptor()
         # print('\n')
         # interceptor.start_interception()
@@ -1954,7 +1976,7 @@ def open_fill_manual_control_serial(n):
 )
 def fill_database_db_dropdown(n, url):
     if str(url) == "/database":
-        print("fill_database_db_dropdown")
+        # print("fill_database_db_dropdown")
         return list(mongo.client.list_database_names())
 
 
@@ -1969,7 +1991,7 @@ def fill_database_db_dropdown(n, url):
 )
 def fill_database_collection_dropdown(db, url):  # database page
     if str(url) == "/database":
-        print("fill_database_collection_dropdown")
+        # print("fill_database_collection_dropdown")
         if db is not None and db != "":
             return False, list(mongo.client[db].list_collection_names())
     return True, []
@@ -1987,7 +2009,7 @@ def fill_database_collection_dropdown(db, url):  # database page
 def fill_database_document_dropdown(collection, url, db):
     if str(url) == "/database":
         if collection is not None and collection != "":
-            print("fill_database_document_dropdown")
+            # print("fill_database_document_dropdown")
             docs = list(mongo.client[db][collection].find({}))
             toRet = []
             for doc in docs:
@@ -2031,7 +2053,7 @@ def process_schema(schema):
 )
 def fill_database_collection_schema(collection, db, url):
     if str(url) == "/database":
-        print("fill_database_collection_schema")
+        # print("fill_database_collection_schema")
         if collection is not None and collection != "" and db is not None and db != "":
             try:
                 schema = (
@@ -2055,7 +2077,7 @@ def fill_database_collection_schema(collection, db, url):
 )
 def fill_database_document_viewer(document, collection, url, db):
     if str(url) == "/database":
-        print("fill_database_document_viewer")
+        # print("fill_database_document_viewer")
         if document is not None and document != "" and db is not None and db != "":
             # try:
             doc = mongo.client[db][collection].find({"_id": ObjectId(document)})[0]
@@ -2082,7 +2104,7 @@ import random
 )
 def fill_real_time_telemetry(device, n, url):
     if str(url) == "/real-time-telemetry" and device is not None and device != "":
-        print("fill_real_time_telemetry")
+        # print("fill_real_time_telemetry")
         if "telemetry" in list(util.devices_ref_redundancy[device].keys()):
             device_parameter_options = util.devices_ref_redundancy[device]["telemetry"][
                 "options"

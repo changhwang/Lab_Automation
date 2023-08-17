@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="aamp_app",  # This is the name of the package
-    version="0.0.1.24",  # The initial release version
+    version="0.0.1.27",  # The initial release version
     author="Piyush Pahuja",  # Full name of the author
     description="AAMP App",
     long_description=long_description,  # Long description read from the the readme file

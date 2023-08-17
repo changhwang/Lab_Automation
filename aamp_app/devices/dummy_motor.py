@@ -18,7 +18,7 @@ class DummyMotor(Device):
             "speed": self.motor._speed,
         }
         return args_dict
-    
+
     def update_init_args(self, args_dict: dict):
         self.motor._speed = args_dict["speed"]
         self._name = args_dict["name"]
@@ -26,17 +26,29 @@ class DummyMotor(Device):
     @property
     def position(self) -> float:
         return self.motor.position
-    
+
+    def get_position(self) -> float:
+        return self.motor.position
+
     @property
     def speed(self) -> float:
+        return self.motor.speed
+
+    def get_speed(self) -> float:
         return self.motor.speed
 
     def initialize(self) -> Tuple[bool, str]:
         self.motor.home_motor()
         while self.motor._position != 0.0:
-            print("DummyMotor " + self.name + " position: " + str(self.motor._position), end='\r')
+            print(
+                "DummyMotor " + self.name + " position: " + str(self.motor._position),
+                end="\r",
+            )
             time.sleep(0.1)
-        print("DummyMotor " + self.name + " position: " + str(self.motor._position), end='\r')
+        print(
+            "DummyMotor " + self.name + " position: " + str(self.motor._position),
+            end="\r",
+        )
         self._is_initialized = True
         return (True, "Initialized DummyMotor by homing and setting position to zero")
 
@@ -50,9 +62,16 @@ class DummyMotor(Device):
         self.motor.speed = speed
         # if out of range, then the setter did nothing
         if self.motor.speed == speed:
-            return (True, "DummyMotor speed was successfully set to " + str(self.motor.speed))
+            return (
+                True,
+                "DummyMotor speed was successfully set to " + str(self.motor.speed),
+            )
         else:
-            return (False, "DummyMotor speed was not set. Speed is currently " + str(self.motor.speed))
+            return (
+                False,
+                "DummyMotor speed was not set. Speed is currently "
+                + str(self.motor.speed),
+            )
 
     @check_initialized
     def move_absolute(self, position: float) -> Tuple[bool, str]:
@@ -64,9 +83,15 @@ class DummyMotor(Device):
         self.motor.move_absolute(position)
 
         while self.motor.position != position:
-            print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
-            time.sleep(.1)
-        print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
+            print(
+                "DummyMotor " + self.name + " position: " + str(self.motor.position),
+                end="\r",
+            )
+            time.sleep(0.1)
+        print(
+            "DummyMotor " + self.name + " position: " + str(self.motor.position),
+            end="\r",
+        )
 
         return (True, "DummyMotor has reached position " + str(position))
 
@@ -82,16 +107,26 @@ class DummyMotor(Device):
         self.motor.move_relative(distance)
 
         while self.motor.position != position:
-            print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
-            time.sleep(.1)
-        print("DummyMotor " + self.name + " position: " + str(self.motor.position), end='\r')
+            print(
+                "DummyMotor " + self.name + " position: " + str(self.motor.position),
+                end="\r",
+            )
+            time.sleep(0.1)
+        print(
+            "DummyMotor " + self.name + " position: " + str(self.motor.position),
+            end="\r",
+        )
 
-        return (True, "DummyMotor has moved by " + str(distance) + " and reached position " + str(position))
+        return (
+            True,
+            "DummyMotor has moved by "
+            + str(distance)
+            + " and reached position "
+            + str(position),
+        )
 
     def is_valid_position(self, position) -> bool:
         if position >= self.motor.min_position and position <= self.motor.max_position:
             return True
         else:
             return False
-
-    

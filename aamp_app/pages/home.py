@@ -24,9 +24,58 @@ dash.register_page(__name__, "/")
 #     ]
 # )
 
+links = {
+    "Load Recipe": "/load-recipe",
+    "View/Edit Recipe": "/view-recipe",
+    "Edit Recipe Code": "/edit-recipe",
+    "Recipe Document": "/data",
+    "Execute Recipe": "/execute-recipe",
+    "Manual Control": "/manual-control",
+    "Database Browser": "/database-browser",
+    "Real Time Telemetry": "/real-time-telemetry",
+    # "Options": "/options",
+}
+
 layout = html.Div(
     [
-        html.H1("Home"),
+        html.H1("Home", className="mb-3"),
+        # dbc.Row(
+        #     dbc.Col(
+        #         dbc.Card(
+        #             [
+        #                 dbc.ListGroup(
+        #                     [
+        #                         dbc.ListGroupItem(
+        #                             dbc.NavLink(
+        #                                 link_name, href=link_path, external_link=True
+        #                             )
+        #                         )
+        #                         for link_name, link_path in links.items()
+        #                     ],
+        #                     flush=True,
+        #                 ),
+        #             ]
+        #         ),
+        #         width=6,
+        #         className="mx-auto mt-5",
+        #     )
+        # ),
+        dbc.Row(
+            [
+                html.A(
+                    dbc.Card(
+                        dbc.CardBody(
+                            dbc.NavLink(link_name, href=link_path, external_link=True)
+                        ),
+                        className="mb-3",
+                    ),
+                    href=link_path,
+                    style={"width": "30%"},
+                )
+                for link_name, link_path in links.items()
+            ],
+            style={"justifyContent": "space-around"},
+        )
         # dbc.Row(
         #     [
         #         dbc.Col(

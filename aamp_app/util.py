@@ -260,7 +260,7 @@ devices_ref_redundancy = {
     "FestoSolenoidValve": {
         "obj": FestoSolenoidValve,
         "serial": True,
-        "serial_sequence": ["FestoInitialize"],
+        "serial_sequence": ["FestoConnect", "FestoInitialize"],
         "import_device": "from devices.festo_solenoid_valve import FestoSolenoidValve",
         "import_commands": "from commands.festo_solenoid_valve_commands import *",
         "init": {
@@ -295,6 +295,17 @@ devices_ref_redundancy = {
             },
         },
         "commands": {
+            "FestoConnect": {
+                "default_code": "FestoConnect(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "FestoSolenoidValve",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": FestoConnect,
+            },
             "FestoInitialize": {
                 "default_code": "FestoInitialize(receiver= '')",
                 "args": {
@@ -339,22 +350,33 @@ devices_ref_redundancy = {
                 },
                 "obj": FestoValveClosed,
             },
-            "FestoOpenTimed": {
-                "default_code": "FestoOpenTimed(receiver= '', time=0)",
+            "FestoCloseAll": {
+                "default_code": "FestoCloseAll(receiver= '')",
                 "args": {
                     "receiver": {
                         "default": "FestoSolenoidValve",
                         "type": str,
                         "notes": "Name of the device",
                     },
-                    "time": {
-                        "default": 0,
-                        "type": int,
-                        "notes": "Time to keep the valve open",
-                    },
                 },
-                "obj": FestoOpenTimed,
-            },
+                "obj": FestoCloseAll,
+            }
+            # "FestoOpenTimed": {
+            #     "default_code": "FestoOpenTimed(receiver= '', time=0)",
+            #     "args": {
+            #         "receiver": {
+            #             "default": "FestoSolenoidValve",
+            #             "type": str,
+            #             "notes": "Name of the device",
+            #         },
+            #         "time": {
+            #             "default": 0,
+            #             "type": int,
+            #             "notes": "Time to keep the valve open",
+            #         },
+            #     },
+            #     "obj": FestoOpenTimed,
+            # },
         },
     },
     "LinearStage150": {
@@ -959,6 +981,197 @@ devices_ref_redundancy = {
                     },
                 },
                 "obj": MultiStepperMoveRelative,
+            },
+        },
+    },
+    "SHT85HumidityTempSensor": {
+        "obj": SHT85HumidityTempSensor,
+        "serial": True,
+        "serial_sequence": ["SHT85Connect", "SHT85Initialize"],
+        "import_device": "from devices.sht85_sensor import SHT85HumidityTempSensor",
+        "import_commands": "from commands.sht85_sensor_commands import *",
+        "init": {
+            "default_code": "SHT85HumidityTempSensor(name='SHT85HumidityTempSensor', port='', baudrate=9600, timeout=1.0)",
+            "obj_name": "SHT85HumidityTempSensor",
+            "args": {
+                "name": {
+                    "default": "SHT85HumidityTempSensor",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "port": {
+                    "default": "COM",
+                    "type": str,
+                    "notes": "Port of the device",
+                },
+                "baudrate": {
+                    "default": 9600,
+                    "type": int,
+                    "notes": "Baudrate of the device",
+                },
+                "timeout": {
+                    "default": 1.0,
+                    "type": float,
+                    "notes": "Timeout of the device",
+                },
+            },
+        },
+        "commands": {
+            "SHT85Connect": {
+                "default_code": "SHT85Connect(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85Connect,
+            },
+            "SHT85Initialize": {
+                "default_code": "SHT85Initialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85Initialize,
+            },
+            "SHT85Deinitialize": {
+                "default_code": "SHT85Deinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85Deinitialize,
+            },
+            "SHT85GetHumidity": {
+                "default_code": "SHT85GetHumidity(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85GetHumidity,
+            },
+            "SHT85GetTemp": {
+                "default_code": "SHT85GetTemp(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "SHT85HumidityTempSensor",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": SHT85GetTemp,
+            },
+        },
+    },
+    "MassFlowController": {
+        "obj": MassFlowController,
+        "serial": True,
+        "serial_sequence": ["MassFlowControllerInitialize"],
+        "import_device": "from devices.mfc import MassFlowController",
+        "import_commands": "from commands.mfc_commands import *",
+        "init": {
+            "default_code": "MassFlowController(name='MassFlowController', ip='192.168.2.155')",
+            "obj_name": "MassFlowController",
+            "args": {
+                "name": {
+                    "default": "MassFlowController",
+                    "type": str,
+                    "notes": "Name of the device",
+                },
+                "ip": {
+                    "default": "192.168.2.155",
+                    "type": str,
+                    "notes": "IP of the device",
+                },
+            },
+        },
+        "commands": {
+            "MFCInitialize": {
+                "default_code": "MFCInitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    }
+                },
+                "obj": MFCInitialize,
+            },
+            "MFCDeinitialize": {
+                "default_code": "MFCDeinitialize(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "obj": MFCDeinitialize,
+                },
+            },
+            "MFCGetData": {
+                "default_code": "MFCGetData(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": MFCGetData,
+            },
+            "MFCSetGas": {
+                "default_code": "MFCSetGas(receiver= '', gas= 'N2')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "gas": {
+                        "default": "N2",
+                        "type": str,
+                        "notes": "Gas to set",
+                    },
+                },
+                "obj": MFCSetGas,
+            },
+            "MFCSet": {
+                "default_code": "MFCSet(receiver= '', setpoint= 0.0)",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                    "setpoint": {
+                        "default": 0.0,
+                        "type": float,
+                        "notes": "Setpoint to set",
+                    },
+                },
+                "obj": MFCSet,
+            },
+            "MFCOpen": {
+                "default_code": "MFCOpen(receiver= '')",
+                "args": {
+                    "receiver": {
+                        "default": "MassFlowController",
+                        "type": str,
+                        "notes": "Name of the device",
+                    },
+                },
+                "obj": MFCOpen,
             },
         },
     },

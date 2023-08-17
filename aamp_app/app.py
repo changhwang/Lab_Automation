@@ -73,32 +73,37 @@ navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Load", href="/load-recipe", external_link=True)),
         dbc.NavItem(dbc.NavLink("View", href="/view-recipe", external_link=True)),
+        dbc.NavItem(dbc.NavLink("Code", href="/edit-recipe", external_link=True)),
+        dbc.NavItem(dbc.NavLink("Doc", href="/data", external_link=True)),
         dbc.NavItem(dbc.NavLink("Execute", href="/execute-recipe", external_link=True)),
         dbc.NavItem(
             dbc.NavLink("Manual Control", href="/manual-control", external_link=True)
         ),
+        dbc.NavItem(dbc.NavLink("DB Browser", href="/database", external_link=True)),
+        # dbc.NavItem(dbc.NavLink("Options", href="/options", external_link=True)),
         dbc.NavItem(
-            dbc.NavLink("Database Browser", href="/database", external_link=True)
+            dbc.NavLink("Real Time", href="/real-time-telemetry", external_link=True)
         ),
-        dbc.DropdownMenu(
-            children=[
-                # dbc.DropdownMenuItem(
-                #     "Load Recipe", href="/load-recipe", external_link=True
-                # ),
-                dbc.DropdownMenuItem(
-                    "Real Time Telemetry",
-                    href="/real-time-telemetry",
-                    external_link=True,
-                ),
-                dbc.DropdownMenuItem(
-                    "Edit Code", href="/edit-recipe", external_link=True
-                ),
-                dbc.DropdownMenuItem("Document", href="/data", external_link=True),
-            ],
-            nav=True,
-            in_navbar=True,
-            label="Tools",
-        ),
+        # dbc.DropdownMenu(
+        #     children=[
+        #         # dbc.DropdownMenuItem(
+        #         #     "Load Recipe", href="/load-recipe", external_link=True
+        #         # ),
+        #         dbc.DropdownMenuItem(
+        #             "Real Time Telemetry",
+        #             href="/real-time-telemetry",
+        #             external_link=True,
+        #         ),
+        #         dbc.DropdownMenuItem(
+        #             "Edit Code", href="/edit-recipe", external_link=True
+        #         ),
+        #         dbc.DropdownMenuItem("Document", href="/data", external_link=True),
+        #         # dbc.DropdownMenuItem("Options", href="/options", external_link=True),
+        #     ],
+        #     nav=True,
+        #     in_navbar=True,
+        #     label="Tools",
+        # ),
     ],
     brand="AAMP",
     brand_href="/",
@@ -2063,27 +2068,66 @@ def fill_database_document_viewer(document, collection, url, db):
 # ---------------------------------------------------------------
 # Real Time Telemetry page
 # ---------------------------------------------------------------
+import random
 
 
 @app.callback(
     [Output("real-time-telemetry-div", "children")],
-    [Input("interval-real-time-telemetry", "n_intervals")],
-    [Input("real-time-telemetry-device-dropdown", "value"), State("url", "pathname")],
+    [
+        Input("real-time-telemetry-device-dropdown", "value"),
+        Input("interval-real-time-telemetry", "n_intervals"),
+    ],
+    [State("url", "pathname")],
     prevent_initial_call=True,
 )
-def fill_real_time_telemetry(n, device, url):
+def fill_real_time_telemetry(device, n, url):
     if str(url) == "/real-time-telemetry" and device is not None and device != "":
         print("fill_real_time_telemetry")
         if "telemetry" in list(util.devices_ref_redundancy[device].keys()):
             device_parameter_options = util.devices_ref_redundancy[device]["telemetry"][
                 "options"
             ]
-            for parameter in util.devices_ref_redundancy[device]["telemetry"]:
-                print(parameter)
+            telemetry_data = {}
+            for parameter in util.devices_ref_redundancy[device]["telemetry"][
+                "parameters"
+            ]:
                 parameter_options = util.devices_ref_redundancy[device]["telemetry"][
                     "parameters"
                 ][parameter]
+                telemetry_data[parameter] = getattr(
+                    util.devices_ref_redundancy[device]["default_obj"],
+                    parameter_options["function_name"],
+                )()
+            telemetry_data["rand"] = random.randint(1, 10)
 
+            metrics_data = telemetry_data
+
+            metrics_cards = []
+            for metric_name, metric_value in metrics_data.items():
+                card = dbc.Card(
+                    dbc.CardBody(
+                        [
+                            html.H5(metric_name, className="card-title"),
+                            html.P(
+                                f"{metric_value}",
+                                className="card-text",
+                                style={"fontSize": "1.25rem"},
+                            ),
+                        ]
+                    ),
+                    className="mb-3",
+                    style={"width": "30%"},
+                )
+                metrics_cards.append(card)
+
+            return [
+                dbc.Row(
+                    children=metrics_cards,
+                    id="metrics-row",
+                    style={"justifyContent": "space-around"},
+                )
+            ]
+            return [str(telemetry_data)]
         return [""]
     return [""]
 

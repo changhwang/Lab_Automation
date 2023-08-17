@@ -380,20 +380,27 @@ devices_ref_redundancy = {
     },
     "LinearStage150": {
         "obj": LinearStage150,
+        "default_obj": LinearStage150(
+            name="LinearStage150",
+            port="COM5",
+            baudrate=115200,
+            timeout=0.1,
+            destination=0x50,
+            source=0x01,
+            channel=1,
+        ),
         "serial": True,
         "serial_sequence": ["LinearStage150Connect", "LinearStage150EnableMotor"],
         "import_device": "from devices.linear_stage_150 import LinearStage150",
         "import_commands": "from commands.linear_stage_150_commands import *",
         "telemetry": {
-            "parameters": [
-                {
-                    "position": {
-                        "function_name": "get_position()",
-                        "data_type": "float",
-                        "units": "mm",
-                    }
+            "parameters": {
+                "position": {
+                    "function_name": "get_position",
+                    "data_type": "float",
+                    "units": "mm",
                 }
-            ],
+            },
             "options": {"custom_init_args": ["port"]},
         },
         "init": {
@@ -1311,10 +1318,26 @@ devices_ref_redundancy = {
     },
     "DummyMotor": {
         "obj": DummyMotor,
+        "default_obj": DummyMotor(name="DummyMotor", speed=20.0),
         "serial": True,
         "serial_sequence": ["DummyMotorInitialize"],
         "import_device": "from devices.dummy_motor import DummyMotor",
         "import_commands": "from commands.dummy_motor_commands import *",
+        "telemetry": {
+            "parameters": {
+                "position": {
+                    "function_name": "get_position",
+                    "data_type": "float",
+                    "units": "mm",
+                },
+                "speed": {
+                    "function_name": "get_speed",
+                    "data_type": "float",
+                    "units": "mm/s",
+                },
+            },
+            "options": {"custom_init_args": []},
+        },
         "init": {
             "default_code": "DummyMotor(name='DummyMotor', speed=20.0)",
             "obj_name": "DummyMotor",

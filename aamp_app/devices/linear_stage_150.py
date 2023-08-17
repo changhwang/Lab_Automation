@@ -49,7 +49,9 @@ class LinearStage150(SerialDevice):
         # lts150: initialize, home it (if needed)
 
         # Home Stage; MGMSG_MOT_MOVE_HOME
-        self.ser.write(pack("<HBBBB", 0x0443, self._channel, 0x00, self._destination, self._source))
+        self.ser.write(
+            pack("<HBBBB", 0x0443, self._channel, 0x00, self._destination, self._source)
+        )
         print("Homing stage...")
 
         # Confirm stage homed before advancing; MGMSG_MOT_MOVE_HOMED
@@ -84,7 +86,9 @@ class LinearStage150(SerialDevice):
 
     def set_enabled_state(self, state: bool) -> Tuple[bool, str]:
         if state:
-            self.ser.write(pack("<HBBBB", 0x0210, 1, 0x01, self._destination, self._source))
+            self.ser.write(
+                pack("<HBBBB", 0x0210, 1, 0x01, self._destination, self._source)
+            )
         else:
             self.ser.write(pack("<HBBBB", 0x0210, 1, 0x02, 0x50, 0x01))
         time.sleep(0.1)
@@ -95,10 +99,14 @@ class LinearStage150(SerialDevice):
 
     @check_serial
     def get_position(self) -> float:
+        if not self.ser.is_open:
+            self.start_serial()
         self._position = 0.0
         Device_Unit_SF = 409600
         # MGMSG_MOT_GET_POSCOUNTER
-        self.ser.write(pack("<HBBBB", 0x0411, self._channel, 0x00, self._destination, self._source))
+        self.ser.write(
+            pack("<HBBBB", 0x0411, self._channel, 0x00, self._destination, self._source)
+        )
 
         # Read back position returns by the cube; Rx message MGMSG_MOT_GET_POSCOUNTER
         header, chan_dent, position_dUnits = unpack("<6sHI", self.ser.read(12))

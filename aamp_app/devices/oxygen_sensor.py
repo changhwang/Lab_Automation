@@ -1,4 +1,4 @@
-from device import ArduinoSerialDevice, check_initialized, check_serial
+from .device import ArduinoSerialDevice, check_initialized, check_serial
 import serial
 from time import sleep
 from typing import Optional, Tuple

@@ -5,28 +5,28 @@ import time
 from devices.device import Device
 
 
-
 # TODO
 # logging from within the composite command execution?
 # The adding of args into params dict can be done with locals()
 
+
 class Command(ABC):
     """The Command abstract base class which acts as an interface for other objects that use commands."""
 
-    receiver_cls = None # or Device?
+    receiver_cls = None  # or Device?
 
     @abstractmethod
     def __init__(self, receiver: Device, delay: float = 0.0):
         # Child classes will still have 'receiver' in their signature (separate from **kwargs) because I want the IDE to hint at the specific receiver class
-        # delay will be passed up through **kwargs as it is an secondary parameter for all commands 
+        # delay will be passed up through **kwargs as it is an secondary parameter for all commands
         self._receiver = receiver
         self._params = {}
-        self._params['receiver_name'] = receiver.name
-        self._params['delay'] = delay
+        self._params["receiver_name"] = receiver.name
+        self._params["delay"] = delay
         # self._was_successful = None
-        # self._result_message = None  
+        # self._result_message = None
 
-        # this could also just be None, instead of a CommandResult with None attributes  
+        # this could also just be None, instead of a CommandResult with None attributes
         # is there ever a time where the result would be accessed before the command is executed?
         # it might be better to just have it as a CommandResult with None's since whatever accessing it
         # is expecting _result to be a CommandResult object anyways
@@ -51,14 +51,14 @@ class Command(ABC):
         """
         self._name = type(self).__name__
         for key, value in self._params.items():
-            if not key == 'delay':
+            if not key == "delay":
                 self._name += " " + key + "=" + str(value)
         # I want delay to always be last when displayed and only if its not zero
-        if isinstance(self._params['delay'], str):
-            self._name += " " + 'delay=' + str(self._params['delay'])
+        if isinstance(self._params["delay"], str):
+            self._name += " " + "delay=" + str(self._params["delay"])
         else:
-            if self._params['delay'] > 0.0:
-                self._name += " " + 'delay=' + str(self._params['delay'])
+            if self._params["delay"] > 0.0:
+                self._name += " " + "delay=" + str(self._params["delay"])
         return self._name
 
     @property
@@ -111,22 +111,25 @@ class Command(ABC):
         """
         return self._params
 
-# store info like name and description in here too? or leave separate? Leave separate, semantically i think it makes sense 
+
+# store info like name and description in here too? or leave separate? Leave separate, semantically i think it makes sense
 # to retrive non-result info from the command instead of the commandresult object, potentially avoid conflicting info too
 # Mainly adding to future proof in case more info needs to be retrieved after execution
-class CommandResult():
+class CommandResult:
     """Object which stores whether a command's execution was successful and other relevant information"""
 
-    def __init__(self, was_successful: Optional[bool] = None, message: Optional[str] = None):
+    def __init__(
+        self, was_successful: Optional[bool] = None, message: Optional[str] = None
+    ):
         # I considered whether to have a reset/update function instead and have init call it, this function could be used outside to reset/update the result attributes
         # The alternative is to just use the contructor to create a new reset object. I decided just using the constructor is better.
-        # Although it creates a new object in memory, it ensures that whenever a command executes if it uses the constructor then the results 
-        # will be fully reset and not hold any old info if it is executed multiples times. In other cases, it may hold old info like for 
+        # Although it creates a new object in memory, it ensures that whenever a command executes if it uses the constructor then the results
+        # will be fully reset and not hold any old info if it is executed multiples times. In other cases, it may hold old info like for
         # 1) explicitly tuple unpacking in the result attributes (old version) or 2) using an update function (which may not update all attrs)
-        
+
         self._was_successful = was_successful
         self._message = message
-    
+
     @property
     def was_successful(self) -> Optional[bool]:
         """Whether the command's execution was successful or not.
@@ -147,20 +150,20 @@ class CommandResult():
         Optional[str]
             Returns a string describing the result of the command's execution with details if it failed.
         """
-        return self._message        
-    
+        return self._message
+
 
 # A composite command contains a command list but it behaves like a regular command to any other object using it.
 # This means a composite command can contain a composite command and it can have many levels arbitrarily deep
 # This also means it can potentially be recursive causing an infinite loop
 # This also means that the contents of a composite command (and all potential levels of composite commands it has) should ideally be checked
 # To make sure it does not cause problems for the overall recipe
-# For now, CompositeCommands do not implement checks against adding other composite commands to itself as it can be useful to have at least 1-2 levels 
+# For now, CompositeCommands do not implement checks against adding other composite commands to itself as it can be useful to have at least 1-2 levels
 class CompositeCommand(Command):
     """A composite command which contains multiple commands but can act like a single command that executes all contained commands sequentially."""
 
     # receiver_cls = None
-    
+
     def __init__(self, delay: float = 0.0):
         # super().__init__(**kwargs)
         # self._name = "CompositeCommand"
@@ -169,9 +172,9 @@ class CompositeCommand(Command):
         # self._receiver = None
         self._params = {}
         # self._params['receiver_name'] = 'None'
-        self._params['delay'] = delay
+        self._params["delay"] = delay
         # self._was_successful = None
-        # self._result_message = None  
+        # self._result_message = None
         self._result = CommandResult()
 
     @property
@@ -211,7 +214,7 @@ class CompositeCommand(Command):
         """
         if index is None:
             self._command_list.append(command)
-        else: 
+        else:
             self._command_list.insert(index, command)
 
     def remove_command(self, index: Optional[int] = None):
@@ -228,10 +231,9 @@ class CompositeCommand(Command):
 
     def execute(self) -> None:
         """Executes each command in the command list sequentially and returns early if a command's execution was not successful."""
-        # LOGGING? 
+        # LOGGING?
         for command in self._command_list:
-            
-            delay = command._params['delay']
+            delay = command._params["delay"]
             if isinstance(delay, float) or isinstance(delay, int):
                 if delay > 0.0:
                     time.sleep(delay)
@@ -243,19 +245,19 @@ class CompositeCommand(Command):
             # self._result._message = command.result_message
             self._result = command.result
             if not command.was_successful:
-                return 
+                return
 
-        # store the success of the last command 
+        # store the success of the last command
         # or write a new message specific to the composite command
         # self._result_message = "Successfully executed composite command " + type(self).__name__
 
 
-# for the receiver and concretecommand classes, I figured there were two ways of writing the code. Keep the receiver methods low level and employ logic 
-# in the commands, or put all low level methods, logic, and subsequent high level methods in the receiver and have the command simply call the 
+# for the receiver and concretecommand classes, I figured there were two ways of writing the code. Keep the receiver methods low level and employ logic
+# in the commands, or put all low level methods, logic, and subsequent high level methods in the receiver and have the command simply call the
 # high level methods with minimal logic if at all. I decided the latter mainly because some devices/receivers will have many different commands
 # and I want to keep all the command classes streamlined and minimal. I also felt that having the logic and higher level methods separate from the lower level methods
 # would make it more difficult to write and maintain due to switching back and forth between the modules.
-# If there is a need to separate low level and high level methods, then in my opinion it should take place between the receiver class and another class it extends/inherits 
+# If there is a need to separate low level and high level methods, then in my opinion it should take place between the receiver class and another class it extends/inherits
 # from or the actual device firmware.
 
 # nearly all attributes in Command and its child classes are protected because the parameters are not meant to be changed after construction.

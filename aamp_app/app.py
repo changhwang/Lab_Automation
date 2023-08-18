@@ -16,7 +16,6 @@ from bson.objectid import ObjectId
 from console_interceptor import ConsoleInterceptor
 from gridfs import GridFS
 import base64
-import io
 
 try:
     import serial.tools.list_ports
@@ -29,9 +28,31 @@ import typing
 if os.path.isfile("pw.txt"):
     with open("pw.txt", "r") as f:
         mongo_username, mongo_password = f.read().split("\n")
+    mongo = MongoDBHelper(
+        "mongodb+srv://"
+        + mongo_username
+        + ":"
+        + mongo_password
+        + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+        "diaogroup",
+    )
 else:
     mongo_username = input("Enter MongoDB username: ")
     mongo_password = input("Enter MongoDB password: ")
+
+    mongo = MongoDBHelper(
+        "mongodb+srv://"
+        + mongo_username
+        + ":"
+        + mongo_password
+        + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+        "diaogroup",
+    )
+    try:
+        db_list = mongo.client.list_database_names()
+    except Exception:
+        print("Connection Failed. Try Again.")
+        os.kill(os.getpid(), signal.SIGINT)
     with open("pw.txt", "w") as f:
         f.write(mongo_username + "\n" + mongo_password)
 
@@ -51,14 +72,14 @@ else:
         )
 
 
-mongo = MongoDBHelper(
-    "mongodb+srv://"
-    + mongo_username
-    + ":"
-    + mongo_password
-    + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
-    "diaogroup",
-)
+# mongo = MongoDBHelper(
+#     "mongodb+srv://"
+#     + mongo_username
+#     + ":"
+#     + mongo_password
+#     + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+#     "diaogroup",
+# )
 mongo_gridfs = GridFS(mongo.db, collection="recipes")
 
 app = dash.Dash(

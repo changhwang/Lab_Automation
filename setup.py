@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="aamp_app",  # This is the name of the package
-    version="0.0.1.28",  # The initial release version
+    version="0.0.1.29",  # The initial release version
     author="Piyush Pahuja",  # Full name of the author
     description="AAMP App",
     long_description=long_description,  # Long description read from the the readme file
@@ -24,7 +24,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],  # Information to filter the project on PyPi website
-    python_requires=">=3.6",  # Minimum version requirement of the package
+    python_requires=">=3.10",  # Minimum version requirement of the package
     # py_modules=[
     #     # "aamp_app",
     #     # "command_invoker",

@@ -22,7 +22,7 @@ To start the app, run `aamp_app`. Enter the database user credentials for MongoD
 
 Most devices should be able to connect to the app without any problems. However, certain devices require some drivers/software to create a connection. Due to the nature of the specific drivers/software, they must be installed separately.
 
--   [Thorlabs Devices](https://www.thorlabs.com/software_pages/viewsoftwarepage.cfm?code=Motion_Control)
+-   [Thorlabs Devices (APT or Kinesis)](https://www.thorlabs.com/software_pages/viewsoftwarepage.cfm?code=Motion_Control)
 
 #### Miscellaneous Commands (for dev)
 

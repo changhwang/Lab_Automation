@@ -72,14 +72,14 @@ else:
         )
 
 
-mongo = MongoDBHelper(
-    "mongodb+srv://"
-    + mongo_username
-    + ":"
-    + mongo_password
-    + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
-    "diaogroup",
-)
+# mongo = MongoDBHelper(
+#     "mongodb+srv://"
+#     + mongo_username
+#     + ":"
+#     + mongo_password
+#     + "@diaogroup.nrcgqsq.mongodb.net/?retryWrites=true&w=majority",
+#     "diaogroup",
+# )
 mongo_gridfs = GridFS(mongo.db, collection="recipes")
 
 app = dash.Dash(

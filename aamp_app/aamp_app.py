@@ -16,7 +16,6 @@ from bson.objectid import ObjectId
 from .console_interceptor import ConsoleInterceptor
 from gridfs import GridFS
 import base64
-import io
 
 try:
     import serial.tools.list_ports

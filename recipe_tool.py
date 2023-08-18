@@ -17,20 +17,20 @@ from colorama import Fore, Back, Style
 
 init()
 
-from command_sequence import CommandSequence
-from command_invoker import CommandInvoker
-from commands.command import Command
-from commands.utility_commands import LoopStartCommand, LoopEndCommand
-from devices.heating_stage import HeatingStage
-from devices.multi_stepper import MultiStepper
-from devices.newport_esp301 import NewportESP301
+from aamp_app.command_sequence import CommandSequence
+from aamp_app.command_invoker import CommandInvoker
+from aamp_app.commands.command import Command
+from aamp_app.commands.utility_commands import LoopStartCommand, LoopEndCommand
+from aamp_app.devices.heating_stage import HeatingStage
+from aamp_app.devices.multi_stepper import MultiStepper
+from aamp_app.devices.newport_esp301 import NewportESP301
 
 # from devices.stellarnet_spectrometer import StellarNetSpectrometer
 # from devices.ximea_camera import XimeaCamera
-from devices.dummy_heater import DummyHeater
-from devices.dummy_motor import DummyMotor
+from aamp_app.devices.dummy_heater import DummyHeater
+from aamp_app.devices.dummy_motor import DummyMotor
 
-import util
+import aamp_app.util as util
 
 
 # TODO
@@ -184,7 +184,9 @@ def display_menu():
             "Back to Main Menu": main_menu,
         }
         prompt = questionary.select(
-            display_menu_prompt, choices=list(display_menu_options.keys()), style=custom_style
+            display_menu_prompt,
+            choices=list(display_menu_options.keys()),
+            style=custom_style,
         )
         response = prompt.ask()
         response_function = display_menu_options[response]
@@ -206,12 +208,19 @@ def display_device_menu():
 
 
 def print_devices():
-    device_names_classes = seq.get_device_names_classes()  # [name, class name] of every device
+    device_names_classes = (
+        seq.get_device_names_classes()
+    )  # [name, class name] of every device
     print("")
     print(Fore.WHITE + "List of Devices:")
     print(Fore.GREEN + " {:20.20s}".format("Name") + Fore.YELLOW + "Class")
     for name_class in device_names_classes:
-        print(Fore.GREEN + " {:20.20s}".format(name_class[0]) + Fore.YELLOW + name_class[1])
+        print(
+            Fore.GREEN
+            + " {:20.20s}".format(name_class[0])
+            + Fore.YELLOW
+            + name_class[1]
+        )
     print("")
 
 
@@ -265,7 +274,9 @@ def display_commands():
             for param in name_parts:
                 param_name = param.split("=")[0]
                 param_value = param.split("=")[1]
-                print(Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" ")
+                print(
+                    Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" "
+                )
             print("")
     print("")
 
@@ -300,7 +311,13 @@ def display_commands_hide_iterations():
         print(Fore.RED + "{:7s}".format(str(index)), end="")
         index += 1
         if "*" in name_parts[0]:
-            print(Fore.WHITE + "*" + Fore.CYAN + "{:39.39s}".format(name_parts.pop(0)[1:]), end="")
+            print(
+                Fore.WHITE
+                + "*"
+                + Fore.CYAN
+                + "{:39.39s}".format(name_parts.pop(0)[1:]),
+                end="",
+            )
         else:
             print(Fore.CYAN + "{:40.40s}".format(name_parts.pop(0)), end="")
         if len(name_parts) == 0:
@@ -309,7 +326,9 @@ def display_commands_hide_iterations():
             for param in name_parts:
                 param_name = param.split("=")[0]
                 param_value = param.split("=")[1]
-                print(Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" ")
+                print(
+                    Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" "
+                )
             print("")
     print("")
 
@@ -321,7 +340,10 @@ def display_commands_unlooped():
 
     command_list = seq.get_unlooped_command_list()
     if len(command_list) == 0:
-        print(Fore.RED + "The command sequence and/or num_iterations is not valid, cannot unloop.")
+        print(
+            Fore.RED
+            + "The command sequence and/or num_iterations is not valid, cannot unloop."
+        )
         return
 
     command_names = []
@@ -351,7 +373,9 @@ def display_commands_unlooped():
             for param in name_parts:
                 param_name = param.split("=")[0]
                 param_value = param.split("=")[1]
-                print(Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" ")
+                print(
+                    Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" "
+                )
             print("")
     print("")
 
@@ -391,7 +415,9 @@ def display_command_iterations():
             for param in name_parts:
                 param_name = param.split("=")[0]
                 param_value = param.split("=")[1]
-                print(Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" ")
+                print(
+                    Fore.WHITE + param_name + "=" + Fore.YELLOW + param_value, end=" "
+                )
             print("")
     print("")
 
@@ -410,7 +436,9 @@ def device_menu():
             "Back to Main Menu": main_menu,
         }
         prompt = questionary.select(
-            device_menu_prompt, choices=list(device_menu_options.keys()), style=custom_style
+            device_menu_prompt,
+            choices=list(device_menu_options.keys()),
+            style=custom_style,
         )
         response = prompt.ask()
         response_function = device_menu_options[response]
@@ -421,13 +449,18 @@ def add_device():
     approved_devices = list(named_devices.keys())
     approved_devices.append("Go back")
     response = questionary.select(
-        "Which approved device would you like to add?", choices=approved_devices, style=custom_style
+        "Which approved device would you like to add?",
+        choices=approved_devices,
+        style=custom_style,
     ).ask()
 
     if response == "Go back":
         return
     if response in seq.device_by_name:
-        print(Fore.RED + "Device is already added. To edit it, you must remove it and re-add it.")
+        print(
+            Fore.RED
+            + "Device is already added. To edit it, you must remove it and re-add it."
+        )
         return
     device_cls = named_devices[response]
     arg_dict = prompt_signature_args(device_cls.__init__, ignored_args=["name"])
@@ -487,7 +520,9 @@ def command_menu():
             "Back to Main Menu": main_menu,
         }
         prompt = questionary.select(
-            command_menu_prompt, choices=list(command_menu_options.keys()), style=custom_style
+            command_menu_prompt,
+            choices=list(command_menu_options.keys()),
+            style=custom_style,
         )
         response = prompt.ask()
         response_function = command_menu_options[response]
@@ -496,7 +531,10 @@ def command_menu():
 
 def add_command():
     if len(seq.device_list) == 0:
-        print(Fore.RED + "There are currently no devices. Add a device to create commands for it.")
+        print(
+            Fore.RED
+            + "There are currently no devices. Add a device to create commands for it."
+        )
         return
 
     device_index = select_device("Choose a device to create a command for:")
@@ -504,14 +542,18 @@ def add_command():
         return
     device = seq.device_list[device_index]
 
-    valid_command_dict = get_all_commands_classes_for_receiver(command_directory, device.__class__)
+    valid_command_dict = get_all_commands_classes_for_receiver(
+        command_directory, device.__class__
+    )
     valid_command_names_desc = []
     for name, cls in valid_command_dict.items():
         valid_command_names_desc.append("{:30.30s}".format(name) + "- " + cls.__doc__)
     valid_command_names_desc.append("Go back")
 
     response = questionary.select(
-        "Choose the command to add:", choices=valid_command_names_desc, style=custom_style
+        "Choose the command to add:",
+        choices=valid_command_names_desc,
+        style=custom_style,
     ).ask()
     if response == "Go back":
         return
@@ -541,7 +583,9 @@ def remove_commands():
         print(Fore.RED + "There are currently no commands.")
         return
 
-    del_indices = select_multiple_commands("Select the command(s) you would like to remove:")
+    del_indices = select_multiple_commands(
+        "Select the command(s) you would like to remove:"
+    )
     if len(del_indices) == 0:
         print(Fore.RED + "No commands were deleted (Select commands with Space Bar)")
         return
@@ -579,14 +623,17 @@ def move_command():
 
 def add_loop():
     if seq.count_loop_commands() > 0:
-        print(Fore.RED + "Recipe already has loop commands. Remove them and re-add them.")
+        print(
+            Fore.RED + "Recipe already has loop commands. Remove them and re-add them."
+        )
         return
     if len(seq.command_list) == 0:
         print(Fore.RED + "There are currently no commands.")
         return
 
     loop_indices = select_multiple_commands(
-        "Select the FIRST and LAST commands of the loop section:", validator_func=valid_loop_count
+        "Select the FIRST and LAST commands of the loop section:",
+        validator_func=valid_loop_count,
     )
 
     if len(loop_indices) == 0:
@@ -629,7 +676,11 @@ def get_all_command_classes(command_dir: str):
     # check if each file is a "regular file" with extension ".py" and neglecting the "__init__.py" file
     # then add to module_names str list
     for file in listdir(command_dir):
-        if isfile(join(command_dir, file)) and file != "__init__.py" and file.split(".")[1] == "py":
+        if (
+            isfile(join(command_dir, file))
+            and file != "__init__.py"
+            and file.split(".")[1] == "py"
+        ):
             # get rid of the file extension and replace / with .
             module_name = join(command_dir, file).split(".")[0].replace("/", ".")
             module_names.append(module_name)
@@ -674,11 +725,15 @@ def iteration_menu():
             "Add Command Iteration": add_command_iteration,
             "Remove Command Iteration(s)": remove_command_iterations,
             "Move Command Iteration": move_command_iteration,
-            "Set Number of Loop Iterations (currently=" + num_iter_str + ")": set_num_iterations,
+            "Set Number of Loop Iterations (currently="
+            + num_iter_str
+            + ")": set_num_iterations,
             "Back to Main Menu": main_menu,
         }
         prompt = questionary.select(
-            command_menu_prompt, choices=list(command_menu_options.keys()), style=custom_style
+            command_menu_prompt,
+            choices=list(command_menu_options.keys()),
+            style=custom_style,
         )
         response = prompt.ask()
         response_function = command_menu_options[response]
@@ -695,7 +750,9 @@ def add_command_iteration():
         return
 
     for iteration in seq.command_list[command_index]:
-        if isinstance(iteration, LoopStartCommand) or isinstance(iteration, LoopEndCommand):
+        if isinstance(iteration, LoopStartCommand) or isinstance(
+            iteration, LoopEndCommand
+        ):
             print(Fore.RED + "Cannot add iteration to a Loop Start/End Command")
             return
 
@@ -845,7 +902,10 @@ def execute_recipe():
         "No logging",
     ]
     response = questionary.select(
-        "Select logging option:", choices=log_options, default=log_options[0], style=custom_style
+        "Select logging option:",
+        choices=log_options,
+        default=log_options[0],
+        style=custom_style,
     ).ask()
 
     if response == log_options[0]:
@@ -875,7 +935,10 @@ def execute_recipe():
         invocation_successful = invoker.invoke_commands()
         if invocation_successful:
             print(
-                Fore.CYAN + "Recipe execution complete." + Fore.GREEN + " Execution was successful."
+                Fore.CYAN
+                + "Recipe execution complete."
+                + Fore.GREEN
+                + " Execution was successful."
             )
         else:
             print(
@@ -893,7 +956,10 @@ def execute_recipe():
 def execute_manual():
     global seq
     if len(seq.device_list) == 0:
-        print(Fore.RED + "There are currently no devices. Add a device to execute commands for it.")
+        print(
+            Fore.RED
+            + "There are currently no devices. Add a device to execute commands for it."
+        )
         return
 
     # Warning! Manual command execution can alter the state of your devices which may or may not be desired!
@@ -952,13 +1018,17 @@ def execute_manual():
         )
         valid_command_names_desc = []
         for name, cls in valid_command_dict.items():
-            valid_command_names_desc.append("{:30.30s}".format(name) + "- " + cls.__doc__)
+            valid_command_names_desc.append(
+                "{:30.30s}".format(name) + "- " + cls.__doc__
+            )
         valid_command_names_desc.append("Go back")
 
         # Choose command loop
         while True:
             response = questionary.select(
-                "Choose the command to add:", choices=valid_command_names_desc, style=custom_style
+                "Choose the command to add:",
+                choices=valid_command_names_desc,
+                style=custom_style,
             ).ask()
             if response == "Go back":
                 break
@@ -1060,7 +1130,9 @@ def quit_program():
 # Useful Functions
 ##################################################
 def select_device(prompt_message, allow_backout=True):
-    device_names_classes = seq.get_device_names_classes()  # [name, class name] of every device
+    device_names_classes = (
+        seq.get_device_names_classes()
+    )  # [name, class name] of every device
     display_device_menu_options = []
     for name_class in device_names_classes:
         display_device_menu_options.append(
@@ -1092,13 +1164,17 @@ def select_command(prompt_message, allow_backout=True):
     # Format the string with spaces
     for ndx, name in enumerate(command_names):
         name_parts = name.strip().split(" ")
-        command_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(name_parts.pop(0))
+        command_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(
+            name_parts.pop(0)
+        )
         if len(name_parts) > 0:
             for param in name_parts:
                 command_names[ndx] += " " + param
     if allow_backout:
         command_names.append("Go back")
-    prompt = questionary.select(prompt_message, choices=command_names, style=custom_style)
+    prompt = questionary.select(
+        prompt_message, choices=command_names, style=custom_style
+    )
     response = prompt.ask()
     if response == "Go back":
         response = None
@@ -1120,12 +1196,16 @@ def select_multiple_commands(prompt_message, validator_func=None):
     # Format the string with spaces
     for ndx, name in enumerate(command_names):
         name_parts = name.strip().split(" ")
-        command_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(name_parts.pop(0))
+        command_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(
+            name_parts.pop(0)
+        )
         if len(name_parts) > 0:
             for param in name_parts:
                 command_names[ndx] += " " + param
     if validator_func is None:
-        prompt = questionary.checkbox(prompt_message, choices=command_names, style=custom_style)
+        prompt = questionary.checkbox(
+            prompt_message, choices=command_names, style=custom_style
+        )
     else:
         prompt = questionary.checkbox(
             prompt_message,
@@ -1147,14 +1227,18 @@ def select_command_iteration(command_index, prompt_message, allow_backout=True):
 
     for ndx, name in enumerate(iteration_names):
         name_parts = name.strip().split(" ")
-        iteration_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(name_parts.pop(0))
+        iteration_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(
+            name_parts.pop(0)
+        )
         if len(name_parts) > 0:
             for param in name_parts:
                 iteration_names[ndx] += " " + param
 
     if allow_backout:
         iteration_names.append("Go back")
-    prompt = questionary.select(prompt_message, choices=iteration_names, style=custom_style)
+    prompt = questionary.select(
+        prompt_message, choices=iteration_names, style=custom_style
+    )
     response = prompt.ask()
     if response == "Go back":
         response = None
@@ -1170,12 +1254,16 @@ def select_multiple_command_iterations(command_index, prompt_message):
 
     for ndx, name in enumerate(iteration_names):
         name_parts = name.strip().split(" ")
-        iteration_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(name_parts.pop(0))
+        iteration_names[ndx] = "{:4s}".format(str(ndx)) + "{:30s}".format(
+            name_parts.pop(0)
+        )
         if len(name_parts) > 0:
             for param in name_parts:
                 iteration_names[ndx] += " " + param
 
-    prompt = questionary.checkbox(prompt_message, choices=iteration_names, style=custom_style)
+    prompt = questionary.checkbox(
+        prompt_message, choices=iteration_names, style=custom_style
+    )
     response_list = prompt.ask()
     index_list = []
     for response in response_list:
@@ -1215,7 +1303,9 @@ def prompt_signature_args(func, ignored_args):
             if default == "N/A":
                 response = questionary.text("Enter value for the parameter").ask()
             else:
-                response = questionary.text("Enter value for the parameter", default=default).ask()
+                response = questionary.text(
+                    "Enter value for the parameter", default=default
+                ).ask()
 
             arg_dict[param.name] = eval(response)
     return arg_dict
@@ -1309,7 +1399,9 @@ def rainbow_bg():
 def valid_yml(file):
     if file.lower() == "quit":
         return True
-    if not isfile(file) or (file.split(".")[-1] != "yml" and file.split(".")[-1] != "yaml"):
+    if not isfile(file) or (
+        file.split(".")[-1] != "yml" and file.split(".")[-1] != "yaml"
+    ):
         return "Enter a valid yml/yaml file"
     else:
         return True

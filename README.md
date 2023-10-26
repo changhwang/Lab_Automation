@@ -46,6 +46,10 @@ Most devices should be able to connect to the app without any problems. However,
 
 `aamp/util.py` - Helper functions and device definitions. All devices and their commands need to be defined in the `devices_ref_redundancy` dictionary.
 
+Refer to [this readme](https://github.com/changhwang/Lab_Automation/blob/master/README.md) and [this branch](https://github.com/changhwang/Lab_Automation/tree/lts150) for more information on how `command_invoker.py` and `command_sequence.py`.
+
+![Program scheme](docs/Scheme.png)
+
 ### Miscellaneous Commands (for dev)
 
 Package app:

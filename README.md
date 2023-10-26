@@ -24,7 +24,29 @@ Most devices should be able to connect to the app without any problems. However,
 
 -   [Thorlabs Devices (APT or Kinesis)](https://www.thorlabs.com/software_pages/viewsoftwarepage.cfm?code=Motion_Control)
 
-#### Miscellaneous Commands (for dev)
+### Project Structure
+
+`aamp/` - Dash app entry
+
+`aamp/devices/` - Device modules. All device modules inherit the `Device` class from `device.py`. If the device is a serial device, the module would inherit the `SerialDevice` class. Similarly, Arduino-based serial devices inherit the `ArduinoSerialClass` class.
+
+`aamp/commands/` - Command modules. All command modules inherit the `Command` class from `command.py`. Examples for both commands and devices are given for dummy devices.
+
+`aamp/pages/` - Pages for the dashboard. Developed using [Dash by Plotly](https://dash.plotly.com/).
+
+`aamp/aamp_app.py` - Home page. Contains code to check for database credentials stored locally.
+
+`aamp/mongodb_helper.py` - MongoDB helper functions.
+
+`aamp/command_invoker.py` - Used to invoke recipes.
+
+`aamp/command_sequence.py` - Used to manage recipes. Class contains functions to modify recipes.
+
+`aamp/console_interceptor.py` - Used to get console messages to pass to dashboard components.
+
+`aamp/util.py` - Helper functions and device definitions. All devices and their commands need to be defined in the `devices_ref_redundancy` dictionary.
+
+### Miscellaneous Commands (for dev)
 
 Package app:
 
